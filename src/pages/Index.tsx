@@ -182,7 +182,9 @@ const Index = () => {
               }`}>
                 Describe who you want to hire
               </h1>
-              <form onSubmit={handleSearch} className="relative max-w-[750px] mx-auto">
+              <form onSubmit={handleSearch} className={`relative max-w-[750px] mx-auto transition-all duration-[2000ms] ease-in-out ${
+                isChatMode ? 'translate-y-[50vh]' : 'translate-y-0'
+              }`}>
                 <textarea
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
