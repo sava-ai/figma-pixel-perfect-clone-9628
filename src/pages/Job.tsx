@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronDown, MoreVertical } from 'lucide-react';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import userAvatarImage from '@/assets/user-avatar.png';
 
 const Job = () => {
@@ -48,9 +49,9 @@ Qualifications`);
         <div className="flex items-center gap-3">
           <button 
             onClick={() => navigate('/')}
-            className="w-10 h-10 rounded-lg flex items-center justify-center hover:bg-accent transition-colors"
+            className="w-10 h-10 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
           </button>
@@ -59,11 +60,11 @@ Qualifications`);
           <div className="relative">
             <button
               onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-accent transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
             >
               <span className="text-lg">🎨</span>
-              <span className="font-medium text-foreground">Senior product designer</span>
-              <ChevronDown className="w-4 h-4" />
+              <span className="font-medium text-gray-700">Senior product designer</span>
+              <ChevronDown className="w-4 h-4 text-gray-700" />
             </button>
             
             {jobsDropdownOpen && (
@@ -84,13 +85,13 @@ Qualifications`);
         </div>
 
         {/* Center - Tabs */}
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-4">
           <button
             onClick={() => setActiveTab('job')}
-            className={`flex items-center gap-2 pb-1 border-b-2 transition-colors ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
               activeTab === 'job' 
-                ? 'border-foreground text-foreground font-medium' 
-                : 'border-transparent text-muted-foreground hover:text-foreground'
+                ? 'bg-gradient-to-b from-white to-gray-100 shadow-md border border-gray-200 text-gray-700 font-medium' 
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,10 +101,10 @@ Qualifications`);
           </button>
           <button
             onClick={() => setActiveTab('people')}
-            className={`flex items-center gap-2 pb-1 border-b-2 transition-colors ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
               activeTab === 'people' 
-                ? 'border-foreground text-foreground font-medium' 
-                : 'border-transparent text-muted-foreground hover:text-foreground'
+                ? 'bg-gradient-to-b from-white to-gray-100 shadow-md border border-gray-200 text-gray-700 font-medium' 
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,10 +114,10 @@ Qualifications`);
           </button>
           <button
             onClick={() => setActiveTab('shortlist')}
-            className={`flex items-center gap-2 pb-1 border-b-2 transition-colors ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
               activeTab === 'shortlist' 
-                ? 'border-foreground text-foreground font-medium' 
-                : 'border-transparent text-muted-foreground hover:text-foreground'
+                ? 'bg-gradient-to-b from-white to-gray-100 shadow-md border border-gray-200 text-gray-700 font-medium' 
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,93 +132,99 @@ Qualifications`);
           <img 
             src={userAvatarImage} 
             alt="Profile" 
-            className="w-9 h-9 rounded-full object-cover"
+            className="w-9 h-9 rounded-full object-cover shadow-md border-2 border-gray-200"
           />
-          <button className="px-4 py-2 bg-foreground text-background rounded-lg font-medium hover:opacity-90 transition-opacity">
+          <button className="px-4 py-2 rounded-lg font-medium transition-all bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-md hover:shadow-lg border border-gray-700">
             Invite
           </button>
-          <button className="w-10 h-10 rounded-lg flex items-center justify-center hover:bg-accent transition-colors">
-            <MoreVertical className="w-5 h-5" />
+          <button className="w-10 h-10 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200">
+            <MoreVertical className="w-5 h-5 text-gray-700" />
           </button>
         </div>
       </header>
 
-      {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden">
+      {/* Main Content with Resizable Panels */}
+      <ResizablePanelGroup direction="horizontal" className="flex-1">
         {/* Left side - Job Description Editor */}
-        <div className="w-1/2 border-r bg-background overflow-y-auto">
-          <div className="p-12">
-            <textarea
-              value={jobDescription}
-              onChange={(e) => setJobDescription(e.target.value)}
-              className="w-full h-full min-h-[calc(100vh-12rem)] text-foreground focus:outline-none resize-none font-sans bg-transparent"
-              style={{ whiteSpace: 'pre-wrap' }}
-            />
+        <ResizablePanel defaultSize={50} minSize={30}>
+          <div className="h-full border-r bg-background overflow-y-auto">
+            <div className="p-12">
+              <textarea
+                value={jobDescription}
+                onChange={(e) => setJobDescription(e.target.value)}
+                className="w-full h-full min-h-[calc(100vh-12rem)] text-foreground focus:outline-none resize-none font-sans bg-transparent"
+                style={{ whiteSpace: 'pre-wrap' }}
+              />
+            </div>
           </div>
-        </div>
+        </ResizablePanel>
+
+        <ResizableHandle withHandle />
 
         {/* Right side - Chat Interface */}
-        <div className="w-1/2 bg-background flex flex-col">
-          <div className="flex-1 flex flex-col p-8">
-            {/* Chat Header */}
-            <div className="flex gap-6 mb-6 border-b pb-4">
-              <button className="text-foreground font-medium border-b-2 border-[rgba(21,52,61,1)] pb-2">
-                AI chat
-              </button>
-              <button className="text-muted-foreground font-medium pb-2 hover:text-foreground transition-colors">
-                Team chat
-              </button>
-            </div>
+        <ResizablePanel defaultSize={50} minSize={30}>
+          <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
+            <div className="flex-1 flex flex-col p-8">
+              {/* Chat Header */}
+              <div className="flex gap-6 mb-6 border-b pb-4">
+                <button className="text-foreground font-medium border-b-2 border-[rgba(21,52,61,1)] pb-2">
+                  AI chat
+                </button>
+                <button className="text-muted-foreground font-medium pb-2 hover:text-foreground transition-colors">
+                  Team chat
+                </button>
+              </div>
 
-            {/* Chat Messages */}
-            <div className="flex-1 overflow-y-auto mb-6 space-y-4">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-                >
+              {/* Chat Messages */}
+              <div className="flex-1 overflow-y-auto mb-6 space-y-4">
+                {messages.map((message, index) => (
                   <div
-                    className={`max-w-[80%] px-6 py-4 rounded-2xl shadow-sm ${
-                      message.isUser
-                        ? 'bg-muted text-foreground'
-                        : 'bg-[rgba(21,52,61,1)] text-white'
-                    }`}
+                    key={index}
+                    className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                   >
-                    {message.text}
+                    <div
+                      className={`max-w-[80%] px-6 py-4 rounded-2xl ${
+                        message.isUser
+                          ? 'bg-white shadow-sm text-foreground'
+                          : 'text-foreground'
+                      }`}
+                    >
+                      {message.text}
+                    </div>
+                  </div>
+                ))}
+                
+                {/* Thinking indicator */}
+                <div className="flex justify-start">
+                  <div className="flex items-center gap-2 px-6 py-4">
+                    <svg className="w-5 h-5 text-yellow-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <span className="text-muted-foreground">Thinking...</span>
                   </div>
                 </div>
-              ))}
-              
-              {/* Thinking indicator */}
-              <div className="flex justify-start">
-                <div className="flex items-center gap-2 px-6 py-4">
-                  <svg className="w-5 h-5 text-yellow-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  <span className="text-muted-foreground">Thinking...</span>
-                </div>
               </div>
-            </div>
 
-            {/* Chat Input */}
-            <form className="relative">
-              <textarea
-                placeholder="Ask anything about this job description..."
-                rows={3}
-                className="w-full bg-muted rounded-2xl px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none min-h-[80px]"
-              />
-              <button
-                type="submit"
-                className="absolute right-4 bottom-4 w-12 h-12 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors"
-              >
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </button>
-            </form>
+              {/* Chat Input */}
+              <form className="relative">
+                <textarea
+                  placeholder="Ask anything about this job description..."
+                  rows={3}
+                  className="w-full bg-white rounded-2xl px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none min-h-[80px] shadow-sm"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-4 bottom-4 w-12 h-12 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors shadow-md"
+                >
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
-      </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </div>
   );
 };
