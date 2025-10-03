@@ -59,7 +59,7 @@ const Index = () => {
         <div className="w-full max-w-[1200px]">
           {/* Search section */}
           <div className="text-center mb-8">
-            <h1 className="font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto leading-tight text-5xl">
+            <h1 className="font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px]">
               Describe who you want to hire
             </h1>
             <form onSubmit={handleSearch} className="relative max-w-[750px] mx-auto">
