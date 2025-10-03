@@ -44,7 +44,7 @@ Qualifications`);
   return (
     <div className="h-screen w-full flex flex-col bg-background overflow-hidden">
       {/* Header */}
-      <header className="h-16 border-b bg-background flex items-center justify-between px-6 flex-shrink-0">
+      <header className="h-16 border-b flex items-center justify-between px-6 flex-shrink-0" style={{ backgroundColor: '#FAF8F4' }}>
         {/* Left side - Back button and Jobs dropdown */}
         <div className="flex items-center gap-3">
           <button 
@@ -147,8 +147,8 @@ Qualifications`);
       <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden">
         {/* Left side - Job Description Editor */}
         <ResizablePanel defaultSize={50} minSize={30}>
-          <div className="h-full bg-background flex flex-col">
-            <div className="flex-1 overflow-y-auto p-12">
+          <div className="h-full flex flex-col p-6" style={{ backgroundColor: '#FAF8F4' }}>
+            <div className="flex-1 overflow-y-auto bg-background rounded-[15px] p-12">
               <textarea
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
