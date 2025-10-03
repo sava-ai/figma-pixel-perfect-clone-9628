@@ -33,9 +33,9 @@ const Index = () => {
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      <div className="relative z-10 flex flex-col items-center pt-20 pb-20 px-8">
+      <div className="relative z-10 flex flex-col items-center pt-20 pb-20 px-4">
         {/* Right sidebar */}
-        <aside className="fixed right-8 top-8 flex flex-col gap-4">
+        <aside className="fixed right-4 top-8 flex flex-col gap-4">
           <UserAvatar initials="TW" />
           <button className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,7 +55,7 @@ const Index = () => {
         </aside>
 
         {/* Main content */}
-        <div className="w-full max-w-[900px]">
+        <div className="w-full max-w-[1200px]">
           {/* Logo */}
           <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-20">
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -68,19 +68,19 @@ const Index = () => {
             <h1 className="text-[42px] font-serif italic text-[rgba(21,52,61,1)] mb-6">
               Describe who you want to hire
             </h1>
-            <form onSubmit={handleSearch} className="relative max-w-[600px] mx-auto">
-              <input
-                type="text"
+            <form onSubmit={handleSearch} className="relative max-w-[750px] mx-auto">
+              <textarea
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="For example: find a user experience designer in Warsaw"
-                className="w-full bg-white rounded-2xl shadow-lg px-6 py-4 pr-14 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)]"
+                rows={4}
+                className="w-full bg-white rounded-2xl shadow-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none"
               />
               <button
                 type="submit"
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors"
+                className="absolute right-4 bottom-4 w-12 h-12 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors"
               >
-                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </button>
