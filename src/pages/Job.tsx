@@ -91,7 +91,7 @@ Qualifications`);
             className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
               activeTab === 'job' 
                 ? 'bg-gradient-to-b from-white to-gray-100 shadow-md border border-gray-200 text-gray-700 font-medium' 
-                : 'text-muted-foreground hover:text-foreground'
+                : 'text-foreground hover:text-foreground'
             }`}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,7 +104,7 @@ Qualifications`);
             className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
               activeTab === 'people' 
                 ? 'bg-gradient-to-b from-white to-gray-100 shadow-md border border-gray-200 text-gray-700 font-medium' 
-                : 'text-muted-foreground hover:text-foreground'
+                : 'text-foreground hover:text-foreground'
             }`}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,7 +117,7 @@ Qualifications`);
             className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
               activeTab === 'shortlist' 
                 ? 'bg-gradient-to-b from-white to-gray-100 shadow-md border border-gray-200 text-gray-700 font-medium' 
-                : 'text-muted-foreground hover:text-foreground'
+                : 'text-foreground hover:text-foreground'
             }`}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
