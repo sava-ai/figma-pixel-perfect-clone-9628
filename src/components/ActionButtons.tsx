@@ -23,19 +23,19 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
   };
 
   return (
-    <div className="flex items-stretch gap-[9px] text-[rgba(95,95,101,1)]">
+    <div className="flex items-center gap-2">
       <button
         onClick={handleMenuClick}
-        className="bg-[rgba(233,233,233,1)] flex flex-col text-[31px] font-bold whitespace-nowrap tracking-[-0.85px] justify-center px-[11px] py-4 rounded-lg hover:bg-gray-300 transition-colors"
+        className="bg-muted hover:bg-accent flex items-center justify-center w-12 h-12 rounded-lg transition-colors text-xl font-bold text-muted-foreground"
         aria-label="Open menu"
       >
-        <div>...</div>
+        ...
       </button>
       <button
         onClick={handleActionClick}
-        className="bg-[rgba(233,233,233,1)] flex flex-col items-stretch text-xs font-medium text-center justify-center px-[67px] py-3.5 rounded-lg hover:bg-gray-300 transition-colors max-md:px-5"
+        className="bg-muted hover:bg-accent flex-1 flex items-center justify-center h-12 px-6 rounded-lg transition-colors text-xs font-medium text-muted-foreground"
       >
-        <div>{actionsNeeded} actions needed</div>
+        {actionsNeeded} actions needed
       </button>
     </div>
   );
