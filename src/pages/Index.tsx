@@ -184,7 +184,7 @@ const Index = () => {
               }`}>
                 Describe who you want to hire
               </h1>
-              <form onSubmit={handleSearch} className={`relative max-w-[750px] mx-auto transition-all duration-[3000ms] ease-in-out ${
+              <form onSubmit={handleSearch} className={`relative max-w-[750px] mx-auto transition-all duration-[4500ms] ease-in-out ${
                 isChatMode ? 'translate-y-[55vh] opacity-0' : 'translate-y-0 opacity-100'
               }`}>
                 <textarea
