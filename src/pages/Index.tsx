@@ -71,16 +71,23 @@ const Index = () => {
         </aside>
 
         {/* Main content */}
-        <div className="w-full max-w-[1200px]">
+        <div className={`w-full max-w-[1200px] transition-all duration-700 ease-in-out ${
+          isChatMode ? 'mt-0' : ''
+        }`}>
           {/* Chat Mode */}
-          {isChatMode ? (
-            <div className="flex flex-col h-[calc(100vh-8rem)] animate-fade-in">
+          <div className={`transition-all duration-700 ease-in-out ${
+            isChatMode 
+              ? 'opacity-100 translate-y-0 h-[calc(100vh-8rem)]' 
+              : 'opacity-0 -translate-y-20 h-0 overflow-hidden pointer-events-none'
+          }`}>
+            <div className="flex flex-col h-full">
               {/* Chat Messages */}
               <div className="flex-1 overflow-y-auto mb-6 space-y-4">
                 {messages.map((message, index) => (
                   <div
                     key={index}
                     className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} animate-slide-in-right`}
+                    style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div
                       className={`max-w-[600px] px-6 py-4 rounded-2xl shadow-lg ${
@@ -107,7 +114,7 @@ const Index = () => {
               </div>
 
               {/* Input at Bottom */}
-              <form onSubmit={handleSearch} className="relative animate-slide-in-right">
+              <form onSubmit={handleSearch} className="relative">
                 <textarea
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
@@ -131,34 +138,40 @@ const Index = () => {
                 </button>
               </form>
             </div>
-          ) : (
-            <>
-              {/* Search section */}
-              <div className="text-center mb-8">
-                <h1 className="font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px]">
-                  Describe who you want to hire
-                </h1>
-                <form onSubmit={handleSearch} className="relative max-w-[750px] mx-auto">
-                  <textarea
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                    placeholder="For example: find a user experience designer in Warsaw"
-                    rows={4}
-                    className="w-full bg-white rounded-2xl shadow-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none"
-                  />
-                  <button
-                    type="submit"
-                    className="absolute right-4 bottom-4 w-12 h-12 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors"
-                  >
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </button>
-                </form>
-              </div>
+          </div>
 
-              {/* Jobs section */}
-              <section className="bg-white rounded-3xl shadow-xl p-8 mt-12">
+          {/* Search Mode */}
+          <div className={`transition-all duration-700 ease-in-out ${
+            !isChatMode 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-20 h-0 overflow-hidden pointer-events-none absolute'
+          }`}>
+            {/* Search section */}
+            <div className="text-center mb-8">
+              <h1 className="font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px] transition-all duration-700">
+                Describe who you want to hire
+              </h1>
+              <form onSubmit={handleSearch} className="relative max-w-[750px] mx-auto transition-all duration-700">
+                <textarea
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  placeholder="For example: find a user experience designer in Warsaw"
+                  rows={4}
+                  className="w-full bg-white rounded-2xl shadow-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none transition-all duration-700"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-4 bottom-4 w-12 h-12 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors"
+                >
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </form>
+            </div>
+
+            {/* Jobs section */}
+            <section className="bg-white rounded-3xl shadow-xl p-8 mt-12 transition-all duration-700">
             <h2 className="text-[45px] font-hedvig font-normal text-[rgba(21,52,61,1)] tracking-tight mb-8">
               Jobs
             </h2>
@@ -193,10 +206,9 @@ const Index = () => {
                   {jobs.map((job, index) => <JobCard key={index} {...job} onMenuClick={() => console.log('Menu clicked', index)} onActionClick={() => console.log('Action clicked', index)} />)}
                 </div>
               </section>
-            </>
-          )}
+            </div>
+          </div>
         </div>
-      </div>
-    </main>;
+      </main>;
 };
 export default Index;
