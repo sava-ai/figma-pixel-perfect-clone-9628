@@ -31,7 +31,7 @@ const Index = () => {
         {/* Logo - left sidebar */}
         <aside className="fixed left-4 top-8">
           <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
-            <img src={logoIcon} alt="Logo" className="w-5 h-5" />
+            <img src={logoIcon} alt="Logo" className="w-6 h-6" />
           </div>
         </aside>
 
