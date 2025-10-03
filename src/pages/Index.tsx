@@ -33,13 +33,13 @@ const Index = () => {
     const userMessage = { text: searchQuery, isUser: true };
     setMessages(prev => [...prev, userMessage]);
     
+    const currentStep = conversationStep;
+    
     if (!isChatMode) {
       setIsChatMode(true);
-      setConversationStep(1);
-    } else {
-      setConversationStep(prev => prev + 1);
     }
     
+    setConversationStep(prev => prev + 1);
     setIsThinking(true);
     setSearchQuery('');
     
@@ -47,11 +47,11 @@ const Index = () => {
     setTimeout(() => {
       setIsThinking(false);
       
-      if (conversationStep === 1) {
+      if (currentStep === 0) {
         setMessages(prev => [...prev, { text: 'Okay! How much experience should the candidates have?', isUser: false }]);
-      } else if (conversationStep === 2) {
+      } else if (currentStep === 1) {
         setMessages(prev => [...prev, { text: 'For sure! Is there anything else I should keep in mind?', isUser: false }]);
-      } else if (conversationStep === 3) {
+      } else if (currentStep === 2) {
         setMessages(prev => [...prev, { text: 'Got it! Let me create a job description for you...', isUser: false }]);
         setIsThinking(true);
         setTimeout(() => {
