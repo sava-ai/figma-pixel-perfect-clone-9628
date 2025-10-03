@@ -106,7 +106,7 @@ All colors MUST be HSL.
 
 @keyframes slideFromCenter {
   0% {
-    transform: translateY(300px);
+    transform: translateY(400px);
     opacity: 0;
   }
   100% {

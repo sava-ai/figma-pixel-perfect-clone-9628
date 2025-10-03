@@ -45,10 +45,10 @@ const Index = () => {
     setIsThinking(false);
   };
   const jobs = Array(9).fill(jobData);
-  return <main className="min-h-screen w-full relative">
+  return <main className="min-h-screen w-full relative overflow-hidden">
       <img src={backgroundImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
 
-      <div className="relative z-10 flex flex-col items-center pt-8 pb-20 px-4">
+      <div className="relative z-10 flex flex-col items-center pt-8 pb-20 px-4 overflow-hidden">
         {/* Logo - left sidebar */}
         <aside className="fixed left-4 top-8">
           <button 
@@ -102,27 +102,27 @@ const Index = () => {
         {/* Main content */}
         <div className="w-full max-w-[1200px]">
           {/* Chat Mode */}
-          <div className={`transition-all duration-[1500ms] ease-in-out ${
+          <div className={`transition-all duration-[2000ms] ease-in-out ${
             isChatMode 
               ? 'opacity-100 h-[calc(100vh-8rem)]' 
               : 'opacity-0 h-0 overflow-hidden pointer-events-none'
           }`}>
-            <div className="flex flex-col h-full pt-[30px]">
+            <div className="flex flex-col h-full pt-[30px] pl-[40%]">
               {/* Chat Messages */}
-              <div className="flex-1 overflow-y-auto mb-6 space-y-4">
+              <div className="flex-1 overflow-y-auto mb-6 space-y-4 pr-4">
                 {messages.map((message, index) => (
                   <div
                     key={index}
                     className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-[600px] px-6 py-4 rounded-2xl shadow-lg transition-all duration-[1500ms] ease-out ${
+                      className={`max-w-[600px] px-6 py-4 rounded-2xl shadow-lg transition-all duration-[2000ms] ease-out ${
                         message.isUser
                           ? 'bg-white text-foreground'
                           : 'bg-[rgba(21,52,61,1)] text-white'
                       }`}
                       style={{
-                        animation: message.isUser ? 'slideFromCenter 1.5s ease-out' : 'none'
+                        animation: message.isUser ? 'slideFromCenter 2s ease-out' : 'none'
                       }}
                     >
                       {message.text}
@@ -143,7 +143,7 @@ const Index = () => {
               </div>
 
               {/* Input at Bottom */}
-              <form onSubmit={handleSearch} className="relative">
+              <form onSubmit={handleSearch} className={`relative transition-all duration-[2000ms] ease-in-out delay-500`}>
                 <textarea
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
@@ -170,23 +170,27 @@ const Index = () => {
           </div>
 
           {/* Search Mode */}
-          <div className={`transition-all duration-[1500ms] ease-in-out ${
+          <div className={`transition-all duration-[2000ms] ease-in-out ${
             !isChatMode 
               ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-full pointer-events-none absolute w-full'
+              : 'opacity-0 translate-y-full pointer-events-none absolute w-full max-w-[1200px]'
           }`}>
             {/* Search section */}
             <div className="text-center mb-8">
-              <h1 className="font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px] transition-all duration-[1500ms]">
+              <h1 className={`font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px] transition-all duration-[2000ms] ${
+                isChatMode ? 'opacity-0' : 'opacity-100'
+              }`}>
                 Describe who you want to hire
               </h1>
-              <form onSubmit={handleSearch} className="relative max-w-[750px] mx-auto transition-all duration-[1500ms]">
+              <form onSubmit={handleSearch} className={`relative max-w-[750px] mx-auto transition-all duration-[2000ms] ease-in-out ${
+                isChatMode ? 'translate-y-[60vh]' : 'translate-y-0'
+              }`}>
                 <textarea
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   placeholder="For example: find a user experience designer in Warsaw"
                   rows={4}
-                  className="w-full bg-white rounded-2xl shadow-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none transition-all duration-[1500ms]"
+                  className="w-full bg-white rounded-2xl shadow-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none"
                 />
                 <button
                   type="submit"
@@ -200,8 +204,8 @@ const Index = () => {
             </div>
 
             {/* Jobs section */}
-            <section className={`bg-white rounded-3xl shadow-xl p-8 mt-12 transition-all duration-[1500ms] ${
-              isChatMode ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'
+            <section className={`bg-white rounded-3xl shadow-xl p-8 mt-12 transition-all duration-[2000ms] ease-in-out ${
+              isChatMode ? 'translate-y-[100vh] opacity-0' : 'translate-y-0 opacity-100'
             }`}>
             <h2 className="text-[45px] font-hedvig font-normal text-[rgba(21,52,61,1)] tracking-tight mb-8">
               Jobs
