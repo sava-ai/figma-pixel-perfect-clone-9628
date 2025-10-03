@@ -143,7 +143,9 @@ const Index = () => {
               </div>
 
               {/* Input at Bottom */}
-              <form onSubmit={handleSearch} className="relative">
+              <form onSubmit={handleSearch} className={`relative transition-all duration-[2000ms] ease-in-out ${
+                isChatMode ? 'opacity-100 translate-y-0 delay-[1500ms]' : 'opacity-0 translate-y-20'
+              }`}>
                 <textarea
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
