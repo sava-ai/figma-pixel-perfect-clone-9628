@@ -7,6 +7,9 @@ import logoIcon from '@/assets/logo-icon.svg';
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showMyPositions, setShowMyPositions] = useState(false);
+  const [isChatMode, setIsChatMode] = useState(false);
+  const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean }>>([]);
+  const [isThinking, setIsThinking] = useState(false);
   const jobData = {
     title: "Chief Operations Officer",
     userName: "Mateusz Budka",
@@ -21,7 +24,19 @@ const Index = () => {
   };
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Searching for:', searchQuery);
+    if (!searchQuery.trim()) return;
+    
+    // Add user message
+    setMessages([{ text: searchQuery, isUser: true }]);
+    setIsChatMode(true);
+    setIsThinking(true);
+    
+    // Simulate AI response
+    setTimeout(() => {
+      setIsThinking(false);
+    }, 2000);
+    
+    setSearchQuery('');
   };
   const jobs = Array(9).fill(jobData);
   return <main className="min-h-screen w-full relative">
@@ -57,23 +72,93 @@ const Index = () => {
 
         {/* Main content */}
         <div className="w-full max-w-[1200px]">
-          {/* Search section */}
-          <div className="text-center mb-8">
-            <h1 className="font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px]">
-              Describe who you want to hire
-            </h1>
-            <form onSubmit={handleSearch} className="relative max-w-[750px] mx-auto">
-              <textarea value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="For example: find a user experience designer in Warsaw" rows={4} className="w-full bg-white rounded-2xl shadow-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none" />
-              <button type="submit" className="absolute right-4 bottom-4 w-12 h-12 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </button>
-            </form>
-          </div>
+          {/* Chat Mode */}
+          {isChatMode ? (
+            <div className="flex flex-col h-[calc(100vh-8rem)] animate-fade-in">
+              {/* Chat Messages */}
+              <div className="flex-1 overflow-y-auto mb-6 space-y-4">
+                {messages.map((message, index) => (
+                  <div
+                    key={index}
+                    className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} animate-slide-in-right`}
+                  >
+                    <div
+                      className={`max-w-[600px] px-6 py-4 rounded-2xl shadow-lg ${
+                        message.isUser
+                          ? 'bg-white text-foreground'
+                          : 'bg-[rgba(21,52,61,1)] text-white'
+                      }`}
+                    >
+                      {message.text}
+                    </div>
+                  </div>
+                ))}
+                
+                {isThinking && (
+                  <div className="flex justify-start animate-fade-in">
+                    <div className="flex items-center gap-2 px-6 py-4">
+                      <svg className="w-5 h-5 text-yellow-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                      <span className="text-muted-foreground">Thinking...</span>
+                    </div>
+                  </div>
+                )}
+              </div>
 
-          {/* Jobs section */}
-          <section className="bg-white rounded-3xl shadow-xl p-8 mt-12">
+              {/* Input at Bottom */}
+              <form onSubmit={handleSearch} className="relative animate-slide-in-right">
+                <textarea
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  placeholder="Ask me anything"
+                  rows={1}
+                  className="w-full bg-white rounded-2xl shadow-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSearch(e);
+                    }
+                  }}
+                />
+                <button
+                  type="submit"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors"
+                >
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </form>
+            </div>
+          ) : (
+            <>
+              {/* Search section */}
+              <div className="text-center mb-8">
+                <h1 className="font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px]">
+                  Describe who you want to hire
+                </h1>
+                <form onSubmit={handleSearch} className="relative max-w-[750px] mx-auto">
+                  <textarea
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    placeholder="For example: find a user experience designer in Warsaw"
+                    rows={4}
+                    className="w-full bg-white rounded-2xl shadow-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none"
+                  />
+                  <button
+                    type="submit"
+                    className="absolute right-4 bottom-4 w-12 h-12 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors"
+                  >
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </button>
+                </form>
+              </div>
+
+              {/* Jobs section */}
+              <section className="bg-white rounded-3xl shadow-xl p-8 mt-12">
             <h2 className="text-[45px] font-hedvig font-normal text-[rgba(21,52,61,1)] tracking-tight mb-8">
               Jobs
             </h2>
@@ -103,11 +188,13 @@ const Index = () => {
               </button>
             </div>
 
-            {/* Job cards grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {jobs.map((job, index) => <JobCard key={index} {...job} onMenuClick={() => console.log('Menu clicked', index)} onActionClick={() => console.log('Action clicked', index)} />)}
-            </div>
-          </section>
+                {/* Job cards grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {jobs.map((job, index) => <JobCard key={index} {...job} onMenuClick={() => console.log('Menu clicked', index)} onActionClick={() => console.log('Action clicked', index)} />)}
+                </div>
+              </section>
+            </>
+          )}
         </div>
       </div>
     </main>;
