@@ -2,6 +2,11 @@ import React from 'react';
 import { UserAvatar } from './UserAvatar';
 import { JobStatsExtended } from './JobStats';
 import { ActionButtons } from './ActionButtons';
+import jobIcon from '@/assets/job-icon.svg';
+import starIcon from '@/assets/star-icon.svg';
+import savedIcon from '@/assets/saved-icon.svg';
+import contactedIcon from '@/assets/contacted-icon.svg';
+import interviewedIcon from '@/assets/interviewed-icon.svg';
 
 interface JobCardProps {
   title: string;
@@ -33,11 +38,7 @@ export const JobCard: React.FC<JobCardProps> = ({
   return (
     <article className="bg-white rounded-xl p-6 shadow-sm border border-border flex flex-col h-full">
       <header className="flex items-center justify-between mb-6">
-        <div className="bg-[rgba(21,52,61,1)] rounded-lg w-10 h-10 flex items-center justify-center">
-          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 2a8 8 0 100 16 8 8 0 000-16z" />
-          </svg>
-        </div>
+        <img src={jobIcon} alt="Job" className="w-9 h-9" />
         <div className="flex items-center gap-1.5 text-[10px] text-foreground">
           <div className="w-2 h-2 rounded-full bg-[rgba(21,52,61,1)]" />
           <span>{isPublished ? 'Published' : 'Draft'}</span>
@@ -55,30 +56,22 @@ export const JobCard: React.FC<JobCardProps> = ({
 
       <div className="grid grid-cols-4 gap-4 mb-6">
         <div className="flex flex-col items-center">
-          <svg className="w-4 h-4 mb-1 text-[rgba(21,52,61,1)]" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 2l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z" />
-          </svg>
+          <img src={starIcon} alt="Found" className="w-5 h-5 mb-1" />
           <div className="text-base font-medium text-[rgba(21,52,61,1)]">{stats.found}</div>
           <div className="text-[10px] text-muted-foreground">Found</div>
         </div>
         <div className="flex flex-col items-center">
-          <svg className="w-4 h-4 mb-1 text-[rgba(21,52,61,1)]" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5z" />
-          </svg>
+          <img src={savedIcon} alt="Saved" className="w-5 h-5 mb-1" />
           <div className="text-base font-medium text-[rgba(21,52,61,1)]">{stats.saved}</div>
           <div className="text-[10px] text-muted-foreground">Saved</div>
         </div>
         <div className="flex flex-col items-center">
-          <svg className="w-4 h-4 mb-1 text-[rgba(21,52,61,1)]" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5z" />
-          </svg>
+          <img src={contactedIcon} alt="Contacted" className="w-5 h-5 mb-1" />
           <div className="text-base font-medium text-[rgba(21,52,61,1)]">{stats.contacted}</div>
           <div className="text-[10px] text-muted-foreground">Contacted</div>
         </div>
         <div className="flex flex-col items-center">
-          <svg className="w-4 h-4 mb-1 text-[rgba(21,52,61,1)]" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 2a8 8 0 100 16 8 8 0 000-16z" />
-          </svg>
+          <img src={interviewedIcon} alt="Interviewed" className="w-5 h-5 mb-1" />
           <div className="text-base font-medium text-[rgba(21,52,61,1)]">{stats.interviewed}</div>
           <div className="text-[10px] text-muted-foreground">Interviewed</div>
         </div>

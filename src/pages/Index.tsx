@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { UserAvatar } from '@/components/UserAvatar';
 import { JobCard } from '@/components/JobCard';
+import backgroundImage from '@/assets/background.png';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -28,7 +29,7 @@ const Index = () => {
   return (
     <main className="min-h-screen w-full relative">
       <img
-        src="https://api.builder.io/api/v1/image/assets/0677352841954e63b83e06744bf122f2/f3f0c4b87a4b2eb2916329b323625bed615637f8?placeholderIfAbsent=true"
+        src={backgroundImage}
         alt=""
         className="absolute inset-0 w-full h-full object-cover"
       />
