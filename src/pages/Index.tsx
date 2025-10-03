@@ -58,7 +58,7 @@ const Index = () => {
 
           {/* Search section */}
           <div className="text-center mb-8">
-            <h1 className="font-serif italic text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto text-5xl">
+            <h1 className="font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto text-[56px] leading-tight">
               Describe who you want to hire
             </h1>
             <form onSubmit={handleSearch} className="relative max-w-[750px] mx-auto">
@@ -73,7 +73,7 @@ const Index = () => {
 
           {/* Jobs section */}
           <section className="bg-white rounded-3xl shadow-xl p-8 mt-12">
-            <h2 className="text-[45px] font-normal text-[rgba(21,52,61,1)] tracking-tight mb-8">
+            <h2 className="text-[45px] font-hedvig font-normal text-[rgba(21,52,61,1)] tracking-tight mb-8">
               Jobs
             </h2>
 
