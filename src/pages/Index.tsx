@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserAvatar } from '@/components/UserAvatar';
 import { JobCard } from '@/components/JobCard';
 import backgroundImage from '@/assets/background.png';
 import userAvatarImage from '@/assets/user-avatar.png';
 import logoIcon from '@/assets/logo-icon.svg';
 const Index = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [showMyPositions, setShowMyPositions] = useState(false);
   const [isChatMode, setIsChatMode] = useState(false);
   const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean }>>([]);
   const [isThinking, setIsThinking] = useState(false);
+  const [conversationStep, setConversationStep] = useState(0);
   const jobData = {
     title: "Chief Operations Officer",
     userName: "Mateusz Budka",
@@ -27,22 +30,42 @@ const Index = () => {
     if (!searchQuery.trim()) return;
     
     // Add user message
-    setMessages([{ text: searchQuery, isUser: true }]);
-    setIsChatMode(true);
-    setIsThinking(true);
+    const userMessage = { text: searchQuery, isUser: true };
+    setMessages(prev => [...prev, userMessage]);
     
-    // Simulate AI response
+    if (!isChatMode) {
+      setIsChatMode(true);
+      setConversationStep(1);
+    } else {
+      setConversationStep(prev => prev + 1);
+    }
+    
+    setIsThinking(true);
+    setSearchQuery('');
+    
+    // Simulate AI response based on conversation step
     setTimeout(() => {
       setIsThinking(false);
-    }, 2000);
-    
-    setSearchQuery('');
+      
+      if (conversationStep === 1) {
+        setMessages(prev => [...prev, { text: 'Okay! How much experience should the candidates have?', isUser: false }]);
+      } else if (conversationStep === 2) {
+        setMessages(prev => [...prev, { text: 'For sure! Is there anything else I should keep in mind?', isUser: false }]);
+      } else if (conversationStep === 3) {
+        setMessages(prev => [...prev, { text: 'Got it! Let me create a job description for you...', isUser: false }]);
+        setIsThinking(true);
+        setTimeout(() => {
+          navigate('/job');
+        }, 3000);
+      }
+    }, 3000);
   };
 
   const handleBackToSearch = () => {
     setIsChatMode(false);
     setMessages([]);
     setIsThinking(false);
+    setConversationStep(0);
   };
   const jobs = Array(9).fill(jobData);
   return <main className="min-h-screen w-full relative overflow-hidden">
@@ -136,7 +159,7 @@ const Index = () => {
                       <svg className="w-5 h-5 text-yellow-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
-                      <span className="text-muted-foreground">Thinking...</span>
+                      <span className="text-white">Thinking...</span>
                     </div>
                   </div>
                 )}
