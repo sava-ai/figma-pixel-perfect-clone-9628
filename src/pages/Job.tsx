@@ -42,9 +42,9 @@ Qualifications`);
   ];
 
   return (
-    <div className="min-h-screen w-full flex flex-col bg-background">
+    <div className="h-screen w-full flex flex-col bg-background overflow-hidden">
       {/* Header */}
-      <header className="h-16 border-b bg-background flex items-center justify-between px-6">
+      <header className="h-16 border-b bg-background flex items-center justify-between px-6 flex-shrink-0">
         {/* Left side - Back button and Jobs dropdown */}
         <div className="flex items-center gap-3">
           <button 
@@ -144,29 +144,29 @@ Qualifications`);
       </header>
 
       {/* Main Content with Resizable Panels */}
-      <ResizablePanelGroup direction="horizontal" className="flex-1">
+      <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden">
         {/* Left side - Job Description Editor */}
         <ResizablePanel defaultSize={50} minSize={30}>
-          <div className="h-full border-r bg-background overflow-y-auto">
-            <div className="p-12">
+          <div className="h-full bg-background flex flex-col">
+            <div className="flex-1 overflow-y-auto p-12">
               <textarea
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
-                className="w-full h-full min-h-[calc(100vh-12rem)] text-foreground focus:outline-none resize-none font-sans bg-transparent"
+                className="w-full h-full min-h-[800px] text-foreground focus:outline-none resize-none font-sans bg-transparent"
                 style={{ whiteSpace: 'pre-wrap' }}
               />
             </div>
           </div>
         </ResizablePanel>
 
-        <ResizableHandle withHandle />
+        <ResizableHandle />
 
         {/* Right side - Chat Interface */}
         <ResizablePanel defaultSize={50} minSize={30}>
           <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
-            <div className="flex-1 flex flex-col p-8">
+            <div className="flex flex-col h-full p-8">
               {/* Chat Header */}
-              <div className="flex gap-6 mb-6 border-b pb-4">
+              <div className="flex gap-6 mb-6 border-b pb-4 flex-shrink-0">
                 <button className="text-foreground font-medium border-b-2 border-[rgba(21,52,61,1)] pb-2">
                   AI chat
                 </button>
@@ -175,7 +175,7 @@ Qualifications`);
                 </button>
               </div>
 
-              {/* Chat Messages */}
+              {/* Chat Messages - Scrollable */}
               <div className="flex-1 overflow-y-auto mb-6 space-y-4">
                 {messages.map((message, index) => (
                   <div
@@ -205,8 +205,8 @@ Qualifications`);
                 </div>
               </div>
 
-              {/* Chat Input */}
-              <form className="relative">
+              {/* Chat Input - Fixed at bottom */}
+              <form className="relative flex-shrink-0">
                 <textarea
                   placeholder="Ask anything about this job description..."
                   rows={3}
