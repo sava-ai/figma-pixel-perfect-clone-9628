@@ -143,8 +143,8 @@ const Index = () => {
               </div>
 
               {/* Input at Bottom */}
-              <form onSubmit={handleSearch} className={`relative transition-all duration-[2000ms] ease-in-out ${
-                isChatMode ? 'opacity-100 translate-y-0 delay-[1500ms]' : 'opacity-0 translate-y-20'
+              <form onSubmit={handleSearch} className={`relative transition-all duration-[3000ms] ease-in-out ${
+                isChatMode ? 'opacity-100 translate-y-0 delay-[2000ms]' : 'opacity-0 translate-y-20'
               }`}>
                 <textarea
                   value={searchQuery}
@@ -184,8 +184,8 @@ const Index = () => {
               }`}>
                 Describe who you want to hire
               </h1>
-              <form onSubmit={handleSearch} className={`relative max-w-[750px] mx-auto transition-all duration-[2000ms] ease-in-out ${
-                isChatMode ? 'translate-y-[50vh]' : 'translate-y-0'
+              <form onSubmit={handleSearch} className={`relative max-w-[750px] mx-auto transition-all duration-[3000ms] ease-in-out ${
+                isChatMode ? 'translate-y-[55vh] opacity-0' : 'translate-y-0 opacity-100'
               }`}>
                 <textarea
                   value={searchQuery}
