@@ -44,7 +44,7 @@ Qualifications`);
   return (
     <div className="h-screen w-full flex flex-col bg-background overflow-hidden">
       {/* Header */}
-      <header className="h-16 bg-background flex items-center justify-between px-6 flex-shrink-0">
+      <header className="h-[68px] bg-background flex items-center justify-between px-6 flex-shrink-0">
         {/* Left side - Back button and Jobs dropdown */}
         <div className="flex items-center gap-3">
           <button 
