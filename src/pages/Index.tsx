@@ -107,7 +107,7 @@ const Index = () => {
               ? 'opacity-100 h-[calc(100vh-8rem)]' 
               : 'opacity-0 h-0 overflow-hidden pointer-events-none'
           }`}>
-            <div className="flex flex-col h-full pt-[30px] pl-[40%]">
+            <div className="flex flex-col h-full pt-[30px] max-w-[60%] mx-auto">
               {/* Chat Messages */}
               <div className="flex-1 overflow-y-auto mb-6 space-y-4 pr-4">
                 {messages.map((message, index) => (
@@ -116,13 +116,13 @@ const Index = () => {
                     className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-[600px] px-6 py-4 rounded-2xl shadow-lg transition-all duration-[2000ms] ease-out ${
+                      className={`max-w-[600px] px-6 py-4 rounded-2xl shadow-lg ${
                         message.isUser
                           ? 'bg-white text-foreground'
                           : 'bg-[rgba(21,52,61,1)] text-white'
                       }`}
                       style={{
-                        animation: message.isUser ? 'slideFromCenter 2s ease-out' : 'none'
+                        animation: message.isUser ? 'slideFromCenter 0.8s ease-out' : 'none'
                       }}
                     >
                       {message.text}
@@ -143,7 +143,7 @@ const Index = () => {
               </div>
 
               {/* Input at Bottom */}
-              <form onSubmit={handleSearch} className={`relative transition-all duration-[2000ms] ease-in-out delay-500`}>
+              <form onSubmit={handleSearch} className="relative">
                 <textarea
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
@@ -177,14 +177,12 @@ const Index = () => {
           }`}>
             {/* Search section */}
             <div className="text-center mb-8">
-              <h1 className={`font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px] transition-all duration-[2000ms] ${
+              <h1 className={`font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px] transition-all duration-[1500ms] ${
                 isChatMode ? 'opacity-0' : 'opacity-100'
               }`}>
                 Describe who you want to hire
               </h1>
-              <form onSubmit={handleSearch} className={`relative max-w-[750px] mx-auto transition-all duration-[2000ms] ease-in-out ${
-                isChatMode ? 'translate-y-[60vh]' : 'translate-y-0'
-              }`}>
+              <form onSubmit={handleSearch} className="relative max-w-[750px] mx-auto">
                 <textarea
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
@@ -204,8 +202,8 @@ const Index = () => {
             </div>
 
             {/* Jobs section */}
-            <section className={`bg-white rounded-3xl shadow-xl p-8 mt-12 transition-all duration-[2000ms] ease-in-out ${
-              isChatMode ? 'translate-y-[100vh] opacity-0' : 'translate-y-0 opacity-100'
+            <section className={`bg-white rounded-3xl shadow-xl p-8 mt-12 transition-all duration-[2500ms] ease-in-out ${
+              isChatMode ? 'translate-y-[150vh] opacity-0' : 'translate-y-0 opacity-100'
             }`}>
             <h2 className="text-[45px] font-hedvig font-normal text-[rgba(21,52,61,1)] tracking-tight mb-8">
               Jobs
