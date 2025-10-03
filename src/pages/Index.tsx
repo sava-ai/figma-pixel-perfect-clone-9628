@@ -38,6 +38,12 @@ const Index = () => {
     
     setSearchQuery('');
   };
+
+  const handleBackToSearch = () => {
+    setIsChatMode(false);
+    setMessages([]);
+    setIsThinking(false);
+  };
   const jobs = Array(9).fill(jobData);
   return <main className="min-h-screen w-full relative">
       <img src={backgroundImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
@@ -45,9 +51,32 @@ const Index = () => {
       <div className="relative z-10 flex flex-col items-center pt-8 pb-20 px-4">
         {/* Logo - left sidebar */}
         <aside className="fixed left-4 top-8">
-          <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
-            <img src={logoIcon} alt="Logo" className="w-6 h-6" />
-          </div>
+          <button 
+            onClick={isChatMode ? handleBackToSearch : undefined}
+            className={`w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm transition-all duration-1000 ${
+              isChatMode ? 'hover:bg-accent cursor-pointer' : ''
+            }`}
+          >
+            <div className="relative w-6 h-6">
+              <img 
+                src={logoIcon} 
+                alt="Logo" 
+                className={`absolute inset-0 w-6 h-6 transition-all duration-1000 ${
+                  isChatMode ? 'opacity-0 scale-50 rotate-180' : 'opacity-100 scale-100 rotate-0'
+                }`}
+              />
+              <svg 
+                className={`absolute inset-0 w-6 h-6 transition-all duration-1000 ${
+                  isChatMode ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-50 -rotate-180'
+                }`}
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+            </div>
+          </button>
         </aside>
 
         {/* Right sidebar */}
@@ -71,30 +100,30 @@ const Index = () => {
         </aside>
 
         {/* Main content */}
-        <div className={`w-full max-w-[1200px] transition-all duration-700 ease-in-out ${
-          isChatMode ? 'mt-0' : ''
-        }`}>
+        <div className="w-full max-w-[1200px]">
           {/* Chat Mode */}
-          <div className={`transition-all duration-700 ease-in-out ${
+          <div className={`transition-all duration-[1500ms] ease-in-out ${
             isChatMode 
-              ? 'opacity-100 translate-y-0 h-[calc(100vh-8rem)]' 
-              : 'opacity-0 -translate-y-20 h-0 overflow-hidden pointer-events-none'
+              ? 'opacity-100 h-[calc(100vh-8rem)]' 
+              : 'opacity-0 h-0 overflow-hidden pointer-events-none'
           }`}>
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col h-full pt-[30px]">
               {/* Chat Messages */}
               <div className="flex-1 overflow-y-auto mb-6 space-y-4">
                 {messages.map((message, index) => (
                   <div
                     key={index}
-                    className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} animate-slide-in-right`}
-                    style={{ animationDelay: `${index * 100}ms` }}
+                    className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-[600px] px-6 py-4 rounded-2xl shadow-lg ${
+                      className={`max-w-[600px] px-6 py-4 rounded-2xl shadow-lg transition-all duration-[1500ms] ease-out ${
                         message.isUser
                           ? 'bg-white text-foreground'
                           : 'bg-[rgba(21,52,61,1)] text-white'
                       }`}
+                      style={{
+                        animation: message.isUser ? 'slideFromCenter 1.5s ease-out' : 'none'
+                      }}
                     >
                       {message.text}
                     </div>
@@ -141,23 +170,23 @@ const Index = () => {
           </div>
 
           {/* Search Mode */}
-          <div className={`transition-all duration-700 ease-in-out ${
+          <div className={`transition-all duration-[1500ms] ease-in-out ${
             !isChatMode 
               ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-20 h-0 overflow-hidden pointer-events-none absolute'
+              : 'opacity-0 translate-y-full pointer-events-none absolute w-full'
           }`}>
             {/* Search section */}
             <div className="text-center mb-8">
-              <h1 className="font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px] transition-all duration-700">
+              <h1 className="font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px] transition-all duration-[1500ms]">
                 Describe who you want to hire
               </h1>
-              <form onSubmit={handleSearch} className="relative max-w-[750px] mx-auto transition-all duration-700">
+              <form onSubmit={handleSearch} className="relative max-w-[750px] mx-auto transition-all duration-[1500ms]">
                 <textarea
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   placeholder="For example: find a user experience designer in Warsaw"
                   rows={4}
-                  className="w-full bg-white rounded-2xl shadow-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none transition-all duration-700"
+                  className="w-full bg-white rounded-2xl shadow-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none transition-all duration-[1500ms]"
                 />
                 <button
                   type="submit"
@@ -171,7 +200,9 @@ const Index = () => {
             </div>
 
             {/* Jobs section */}
-            <section className="bg-white rounded-3xl shadow-xl p-8 mt-12 transition-all duration-700">
+            <section className={`bg-white rounded-3xl shadow-xl p-8 mt-12 transition-all duration-[1500ms] ${
+              isChatMode ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'
+            }`}>
             <h2 className="text-[45px] font-hedvig font-normal text-[rgba(21,52,61,1)] tracking-tight mb-8">
               Jobs
             </h2>
