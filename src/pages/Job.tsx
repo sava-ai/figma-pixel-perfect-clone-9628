@@ -85,7 +85,7 @@ Qualifications`);
         </div>
 
         {/* Center - Tabs */}
-        <div className="flex items-center gap-4 px-6 py-2 rounded-lg" style={{ backgroundColor: '#FAF8F4' }}>
+        <div className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{ backgroundColor: '#FAF8F4' }}>
           <button
             onClick={() => setActiveTab('job')}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
@@ -159,12 +159,12 @@ Qualifications`);
           </div>
         </ResizablePanel>
 
-        <ResizableHandle />
+        <ResizableHandle className="w-0 bg-transparent" />
 
         {/* Right side - Chat Interface */}
         <ResizablePanel defaultSize={50} minSize={30}>
           <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
-            <div className="flex flex-col h-full p-8">
+            <div className="flex flex-col h-full py-8 pr-8 pl-6">
               {/* Chat Header */}
               <div className="flex gap-6 mb-6 border-b pb-4 flex-shrink-0">
                 <button className="text-foreground font-medium border-b-2 border-[rgba(21,52,61,1)] pb-2">
