@@ -26,7 +26,7 @@ const Index = () => {
   return <main className="min-h-screen w-full relative">
       <img src={backgroundImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
 
-      <div className="relative z-10 flex flex-col items-center pt-20 pb-20 px-4">
+      <div className="relative z-10 flex flex-col items-center pt-8 pb-20 px-4">
         {/* Right sidebar */}
         <aside className="fixed right-4 top-8 flex flex-col gap-4">
           <UserAvatar initials="TW" />
@@ -50,7 +50,7 @@ const Index = () => {
         {/* Main content */}
         <div className="w-full max-w-[1200px]">
           {/* Logo */}
-          <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-20">
+          <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-8">
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
             </svg>
