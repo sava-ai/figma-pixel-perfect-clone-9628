@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { UserAvatar } from '@/components/UserAvatar';
 import { JobCard } from '@/components/JobCard';
 import backgroundImage from '@/assets/background.png';
+import userAvatarImage from '@/assets/user-avatar.png';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -10,6 +11,7 @@ const Index = () => {
   const jobData = {
     title: "Chief Operations Officer",
     userName: "Mateusz Budka",
+    userAvatar: userAvatarImage,
     stats: {
       found: 55,
       saved: 55,
@@ -66,7 +68,7 @@ const Index = () => {
 
           {/* Search section */}
           <div className="text-center mb-8">
-            <h1 className="text-[42px] font-serif italic text-[rgba(21,52,61,1)] mb-6">
+            <h1 className="text-[32px] font-serif italic text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto">
               Describe who you want to hire
             </h1>
             <form onSubmit={handleSearch} className="relative max-w-[750px] mx-auto">
