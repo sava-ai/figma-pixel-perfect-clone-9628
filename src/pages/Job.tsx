@@ -338,8 +338,8 @@ Qualifications
               {/* AI Suggestions Tracker */}
               {activeSuggestions.length > 0 && (
                 <div className="mb-6 flex items-center gap-3">
-                  <span className="text-sm text-gray-700">
-                    {appliedCount}/{totalSuggestions} applied
+                  <span className="text-base font-semibold text-gray-700">
+                    AI Suggestions: {appliedCount}/{totalSuggestions} applied
                   </span>
                   <div className="flex gap-1">
                     <button
