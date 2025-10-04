@@ -11,6 +11,9 @@ const Job = () => {
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
   const [showThinking, setShowThinking] = useState(true);
+  const [showSecondThinking, setShowSecondThinking] = useState(false);
+  const [showFirstMessage, setShowFirstMessage] = useState(false);
+  const [showSecondMessage, setShowSecondMessage] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [aiSuggestions, setAiSuggestions] = useState<{[key: string]: boolean}>({
     'suggestion1': true,
@@ -44,15 +47,33 @@ Qualifications
 • Experience with user research methodologies and A/B testing[/AI_SUGGESTION]`);
 
   React.useEffect(() => {
-    const timer = setTimeout(() => {
+    // First thinking for 3 seconds
+    const timer1 = setTimeout(() => {
       setShowThinking(false);
+      setShowFirstMessage(true);
     }, 3000);
-    return () => clearTimeout(timer);
+
+    // Second thinking starts after first message
+    const timer2 = setTimeout(() => {
+      setShowSecondThinking(true);
+    }, 3000);
+
+    // Second thinking ends and show second message
+    const timer3 = setTimeout(() => {
+      setShowSecondThinking(false);
+      setShowSecondMessage(true);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
   }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [showThinking]);
+  }, [showThinking, showFirstMessage, showSecondThinking, showSecondMessage]);
 
   const handleApproveSuggestion = (suggestionId: string) => {
     // Remove the AI suggestion markup from the job description (with multiline support)
@@ -158,17 +179,7 @@ Qualifications
     { text: 'Okay! How much experience should the candidates have?', isUser: false },
     { text: '5+ years', isUser: true },
     { text: 'For sure! Is there anything else I should keep in mind?', isUser: false },
-    { text: 'They should have strong Figma skills', isUser: true },
-    { 
-      text: "I've captured the criteria for creating a perfect job description and created the position",
-      isUser: false,
-      hasJobBlock: true
-    },
-    { 
-      text: "Thank you for the information, I've created the job description and applied your requirements. You can further refine or start matching candidates directly.",
-      isUser: false,
-      hasButton: true
-    }
+    { text: 'They should have strong Figma skills', isUser: true }
   ]);
 
   const jobs = [
@@ -310,13 +321,13 @@ Qualifications
             <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
               <div className="flex flex-col h-full py-6 pr-8 pl-6 pb-8">
                 {/* Chat Header */}
-                <div className="flex gap-6 mb-8 flex-shrink-0 relative">
+                <div className="flex gap-6 mb-12 flex-shrink-0 relative">
                   <button
                     onClick={() => setIsChatCollapsed(true)}
                     className="absolute right-0 top-0 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
                   >
-                    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 19l7-7-7-7" />
+                    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ transform: 'rotate(180deg)' }}>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                   </button>
                 </div>
@@ -338,19 +349,6 @@ Qualifications
                       <div className={!message.isUser ? 'px-6 py-4' : ''}>
                         {message.text}
                       </div>
-                      {message.hasJobBlock && !showThinking && (
-                        <div className="mt-3 ml-6 p-4 bg-white rounded-lg shadow-sm border border-gray-200 flex items-center gap-3">
-                          <img src={jobDropdownIcon} alt="Job" className="w-8 h-8 rounded" />
-                          <span className="font-medium text-gray-700">Senior product designer</span>
-                        </div>
-                      )}
-                      {message.hasButton && !showThinking && (
-                        <button 
-                          className="mt-3 ml-6 px-4 py-2 bg-[rgba(21,52,61,1)] text-white rounded-lg hover:bg-[rgba(21,52,61,0.9)] transition-colors text-sm font-medium"
-                        >
-                          Find matching candidates
-                        </button>
-                      )}
                     </div>
                   </div>
                 ))}
@@ -366,6 +364,50 @@ Qualifications
                     </div>
                   </div>
                 )}
+
+                {/* First message with job block */}
+                {showFirstMessage && (
+                  <div className="flex justify-start">
+                    <div className="text-foreground">
+                      <div className="px-6 py-4">
+                        I've captured the criteria for creating a perfect job description and created the position
+                      </div>
+                      <div className="mt-3 ml-6 p-4 bg-white rounded-lg shadow-sm border border-gray-200 flex items-center gap-3">
+                        <img src={jobDropdownIcon} alt="Job" className="w-8 h-8 rounded" />
+                        <span className="font-medium text-gray-700">Senior product designer</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Second thinking indicator */}
+                {showSecondThinking && (
+                  <div className="flex justify-start">
+                    <div className="flex items-center gap-2 px-6 py-4">
+                      <svg className="w-5 h-5 text-yellow-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                      <span className="text-muted-foreground">Thinking...</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Second message with button */}
+                {showSecondMessage && (
+                  <div className="flex justify-start">
+                    <div className="text-foreground">
+                      <div className="px-6 py-4">
+                        Thank you for the information, I've created the job description and applied your requirements. You can further refine or start matching candidates directly.
+                      </div>
+                      <button 
+                        className="mt-3 ml-6 px-4 py-2 bg-[rgba(21,52,61,1)] text-white rounded-lg hover:bg-[rgba(21,52,61,0.9)] transition-colors text-sm font-medium"
+                      >
+                        Find matching candidates
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 <div ref={messagesEndRef} />
               </div>
 
