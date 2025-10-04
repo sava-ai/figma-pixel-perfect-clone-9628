@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, X } from 'lucide-react';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
@@ -11,12 +11,20 @@ const Job = () => {
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
   const [showThinking, setShowThinking] = useState(true);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [aiSuggestions, setAiSuggestions] = useState<{[key: string]: boolean}>({
+    'suggestion1': true,
+    'suggestion2': true,
+    'suggestion3': true,
+    'suggestion4': true,
+  });
   const [jobDescription, setJobDescription] = useState(`Senior Product Designer
 
 Job description
 
 About us
 We build workflow analytics tools that help product teams spot friction points in minutes
+[AI_SUGGESTION:suggestion1]with a focus on real-time collaboration and data visualization[/AI_SUGGESTION]
 
 Role overview
 We need a senior product designer to own complex feature work from research to polished UI for our core analytics platform in Stockholm. You will collaborate with product and engineering to ship user-centered solutions that move key metrics
@@ -25,15 +33,15 @@ Responsibilities
 • Drive problem-framing and discovery research for new product initiatives.
 • Translate insights into flows, wireframes, prototypes, and final visuals in Figma.
 • Partnering on a daily with PMs and engineers for defining scope, milestones, and success metrics
+[AI_SUGGESTION:suggestion2]• Lead design critiques and mentor junior designers[/AI_SUGGESTION]
 • Maintain and evolve our cross-platform design system
+[AI_SUGGESTION:suggestion3]• Conduct competitive analysis and stay updated on design trends[/AI_SUGGESTION]
 • Instrument live experiments and iterate
 
 Qualifications
-
-AI Suggested Requirements (Pending Approval):
-☐ Experience with user research methodologies and usability testing
-☐ Strong portfolio demonstrating end-to-end product design projects
-☐ Proficiency in design systems and component libraries`);
+[AI_SUGGESTION:suggestion4]• 5+ years of experience in product design with strong Figma proficiency
+• Portfolio demonstrating end-to-end design solutions
+• Experience with user research methodologies and A/B testing[/AI_SUGGESTION]`);
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -42,18 +50,57 @@ AI Suggested Requirements (Pending Approval):
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [showThinking]);
+
+  const handleApproveSuggestion = (suggestionId: string) => {
+    setAiSuggestions(prev => ({ ...prev, [suggestionId]: false }));
+  };
+
+  const handleRejectSuggestion = (suggestionId: string) => {
+    setAiSuggestions(prev => ({ ...prev, [suggestionId]: false }));
+  };
+
   const formatJobDescription = (text: string) => {
     const lines = text.split('\n');
     return lines.map((line, index) => {
       const trimmedLine = line.trim();
-      const isSectionTitle = ['Senior Product Designer', 'Job description', 'About us', 'Role overview', 'Responsibilities', 'Qualifications', 'AI Suggested Requirements (Pending Approval):'].includes(trimmedLine);
-      const isCheckboxItem = line.startsWith('☐');
+      const isSectionTitle = ['Senior Product Designer', 'Job description', 'About us', 'Role overview', 'Responsibilities', 'Qualifications'].includes(trimmedLine);
       
-      if (isCheckboxItem) {
+      // Check if line contains AI suggestion
+      const suggestionMatch = line.match(/\[AI_SUGGESTION:(\w+)\](.*?)\[\/AI_SUGGESTION\]/);
+      
+      if (suggestionMatch && aiSuggestions[suggestionMatch[1]]) {
+        const suggestionId = suggestionMatch[1];
+        const suggestionText = suggestionMatch[2];
+        const beforeSuggestion = line.substring(0, line.indexOf('[AI_SUGGESTION'));
+        
         return (
-          <div key={index} className="flex items-start gap-3 mb-2">
-            <input type="checkbox" className="mt-1 w-4 h-4 rounded border-gray-300" />
-            <span>{line.substring(1).trim()}</span>
+          <div key={index} className="mb-1 flex items-start gap-2 group">
+            <div className="flex-1">
+              {beforeSuggestion}
+              <span className="font-semibold inline-flex items-center gap-1">
+                <Sparkles className="w-4 h-4 text-yellow-500 inline" />
+                {suggestionText}
+              </span>
+            </div>
+            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              <button
+                onClick={() => handleApproveSuggestion(suggestionId)}
+                className="p-1 rounded hover:bg-green-100 transition-colors"
+                title="Approve"
+              >
+                <Check className="w-4 h-4 text-green-600" />
+              </button>
+              <button
+                onClick={() => handleRejectSuggestion(suggestionId)}
+                className="p-1 rounded hover:bg-red-100 transition-colors"
+                title="Reject"
+              >
+                <X className="w-4 h-4 text-red-600" />
+              </button>
+            </div>
           </div>
         );
       }
@@ -190,8 +237,8 @@ AI Suggested Requirements (Pending Approval):
       {/* Main Content with Resizable Panels */}
       <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden">
         {/* Left side - Job Description Editor */}
-        <ResizablePanel defaultSize={isChatCollapsed ? 100 : 60} minSize={30}>
-          <div className="h-full flex flex-col p-6 relative" style={{ backgroundColor: '#FAF8F4' }}>
+        <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
+          <div className="h-full flex flex-col py-6 pl-6 pr-6 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
             <div className="flex-1 overflow-y-auto bg-background rounded-[15px] p-12">
               <div className="text-foreground whitespace-pre-wrap">
                 {formatJobDescription(jobDescription)}
@@ -212,9 +259,9 @@ AI Suggested Requirements (Pending Approval):
 
         {/* Right side - Chat Interface */}
         {!isChatCollapsed && (
-          <ResizablePanel defaultSize={30} minSize={30}>
+          <ResizablePanel defaultSize={35} minSize={30}>
             <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
-              <div className="flex flex-col h-full py-8 pr-8 pl-6">
+              <div className="flex flex-col h-full py-6 pr-8 pl-6 pb-8">
                 {/* Chat Header */}
                 <div className="flex gap-6 mb-6 flex-shrink-0 relative">
                   <button className="text-foreground font-medium pb-2">
@@ -270,6 +317,7 @@ AI Suggested Requirements (Pending Approval):
                     </div>
                   </div>
                 )}
+                <div ref={messagesEndRef} />
               </div>
 
               {/* Chat Input - Fixed at bottom */}
