@@ -99,35 +99,36 @@ Qualifications
       const trimmedLine = line.trim();
       const isSectionTitle = ['Senior Product Designer', 'Job description', 'About us', 'Role overview', 'Responsibilities', 'Qualifications'].includes(trimmedLine);
       
-      // Check for AI suggestion (single-line or multi-line)
-      const suggestionMatch = line.match(/\[AI_SUGGESTION:(\w+)\]([\s\S]*?)(\[\/AI_SUGGESTION\])?/);
+      // Check for AI suggestion opening tag
+      const suggestionStartMatch = line.match(/\[AI_SUGGESTION:(\w+)\]/);
       
-      if (suggestionMatch) {
-        const suggestionId = suggestionMatch[1];
+      if (suggestionStartMatch) {
+        const suggestionId = suggestionStartMatch[1];
         
         if (aiSuggestions[suggestionId]) {
-          let suggestionText = suggestionMatch[2] || '';
+          // Extract text after the opening tag
+          let suggestionText = line.substring(line.indexOf(']') + 1);
           
-          // If closing tag is not on the same line, collect remaining lines
-          if (!line.includes('[/AI_SUGGESTION]')) {
+          // If closing tag is on the same line, remove it
+          if (suggestionText.includes('[/AI_SUGGESTION]')) {
+            suggestionText = suggestionText.replace('[/AI_SUGGESTION]', '').trim();
+          } else {
+            // Multi-line suggestion - collect remaining lines
+            const textParts = [suggestionText];
             i++;
             while (i < lines.length && !lines[i].includes('[/AI_SUGGESTION]')) {
-              suggestionText += '\n' + lines[i];
+              textParts.push(lines[i]);
               i++;
             }
-            // Add the last line with closing tag
+            // Add the last line before closing tag
             if (i < lines.length) {
-              const lastLine = lines[i].replace('[/AI_SUGGESTION]', '');
-              if (lastLine.trim()) {
-                suggestionText += '\n' + lastLine;
+              const lastLine = lines[i].replace('[/AI_SUGGESTION]', '').trim();
+              if (lastLine) {
+                textParts.push(lastLine);
               }
             }
-          } else {
-            // Single line suggestion - remove closing tag
-            suggestionText = suggestionText.replace('[/AI_SUGGESTION]', '');
+            suggestionText = textParts.join('\n').trim();
           }
-          
-          suggestionText = suggestionText.trim();
           
           result.push(
             <div key={`suggestion-${suggestionId}-${result.length}`} className="mb-1 flex items-start gap-2 group">
@@ -158,7 +159,7 @@ Qualifications
           i++;
           continue;
         } else {
-          // Skip hidden suggestions entirely (don't render anything)
+          // Skip hidden suggestions
           if (!line.includes('[/AI_SUGGESTION]')) {
             i++;
             while (i < lines.length && !lines[i].includes('[/AI_SUGGESTION]')) {
@@ -170,12 +171,14 @@ Qualifications
         }
       }
       
-      // Regular line
-      result.push(
-        <div key={`line-${i}`} className={isSectionTitle ? 'text-xl font-semibold mb-2 mt-4' : 'mb-1'}>
-          {line || '\u00A0'}
-        </div>
-      );
+      // Regular line (skip if it's just a closing tag)
+      if (!line.includes('[/AI_SUGGESTION]')) {
+        result.push(
+          <div key={`line-${i}`} className={isSectionTitle ? 'text-xl font-semibold mb-2 mt-4' : 'mb-1'}>
+            {line || '\u00A0'}
+          </div>
+        );
+      }
       i++;
     }
     
