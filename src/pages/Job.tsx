@@ -10,6 +10,7 @@ const Job = () => {
   const [activeTab, setActiveTab] = useState<'job' | 'people' | 'shortlist'>('job');
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
+  const [showThinking, setShowThinking] = useState(true);
   const [jobDescription, setJobDescription] = useState(`Senior Product Designer
 
 Job description
@@ -27,13 +28,35 @@ Responsibilities
 • Maintain and evolve our cross-platform design system
 • Instrument live experiments and iterate
 
-Qualifications`);
+Qualifications
+
+AI Suggested Requirements (Pending Approval):
+☐ Experience with user research methodologies and usability testing
+☐ Strong portfolio demonstrating end-to-end product design projects
+☐ Proficiency in design systems and component libraries`);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowThinking(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const formatJobDescription = (text: string) => {
     const lines = text.split('\n');
     return lines.map((line, index) => {
       const trimmedLine = line.trim();
-      const isSectionTitle = ['Senior Product Designer', 'Job description', 'About us', 'Role overview', 'Responsibilities', 'Qualifications'].includes(trimmedLine);
+      const isSectionTitle = ['Senior Product Designer', 'Job description', 'About us', 'Role overview', 'Responsibilities', 'Qualifications', 'AI Suggested Requirements (Pending Approval):'].includes(trimmedLine);
+      const isCheckboxItem = line.startsWith('☐');
+      
+      if (isCheckboxItem) {
+        return (
+          <div key={index} className="flex items-start gap-3 mb-2">
+            <input type="checkbox" className="mt-1 w-4 h-4 rounded border-gray-300" />
+            <span>{line.substring(1).trim()}</span>
+          </div>
+        );
+      }
       
       return (
         <div key={index} className={isSectionTitle ? 'text-xl font-semibold mb-2 mt-4' : 'mb-1'}>
@@ -48,7 +71,12 @@ Qualifications`);
     { text: 'Okay! How much experience should the candidates have?', isUser: false },
     { text: '5+ years', isUser: true },
     { text: 'For sure! Is there anything else I should keep in mind?', isUser: false },
-    { text: 'They should have strong Figma skills', isUser: true }
+    { text: 'They should have strong Figma skills', isUser: true },
+    { 
+      text: "Thank you for the information, I've created the job description and applied your requirements. You can further refine or start matching candidates directly.",
+      isUser: false,
+      hasButton: true
+    }
   ]);
 
   const jobs = [
@@ -184,7 +212,7 @@ Qualifications`);
 
         {/* Right side - Chat Interface */}
         {!isChatCollapsed && (
-          <ResizablePanel defaultSize={40} minSize={30}>
+          <ResizablePanel defaultSize={30} minSize={30}>
             <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
               <div className="flex flex-col h-full py-8 pr-8 pl-6">
                 {/* Chat Header */}
@@ -211,26 +239,37 @@ Qualifications`);
                     className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-[80%] px-6 py-4 rounded-2xl ${
+                      className={`max-w-[80%] ${
                         message.isUser
-                          ? 'bg-white shadow-sm text-foreground'
+                          ? 'bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl'
                           : 'text-foreground'
                       }`}
                     >
-                      {message.text}
+                      <div className={!message.isUser ? 'px-6 py-4' : ''}>
+                        {message.text}
+                      </div>
+                      {message.hasButton && !showThinking && (
+                        <button 
+                          className="mt-3 ml-6 px-4 py-2 bg-[rgba(21,52,61,1)] text-white rounded-lg hover:bg-[rgba(21,52,61,0.9)] transition-colors text-sm font-medium"
+                        >
+                          Find matching candidates
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))}
                 
                 {/* Thinking indicator */}
-                <div className="flex justify-start">
-                  <div className="flex items-center gap-2 px-6 py-4">
-                    <svg className="w-5 h-5 text-yellow-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <span className="text-muted-foreground">Thinking...</span>
+                {showThinking && (
+                  <div className="flex justify-start">
+                    <div className="flex items-center gap-2 px-6 py-4">
+                      <svg className="w-5 h-5 text-yellow-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                      <span className="text-muted-foreground">Thinking...</span>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {/* Chat Input - Fixed at bottom */}
