@@ -69,70 +69,62 @@ Qualifications
   };
 
   const formatJobDescription = (text: string) => {
-    // First, handle multi-line AI suggestions
-    let processedText = text;
-    const multiLineSuggestionRegex = /\[AI_SUGGESTION:(\w+)\]([\s\S]*?)\[\/AI_SUGGESTION\]/g;
-    
-    let match;
-    const suggestions: { id: string; content: string; startIndex: number; endIndex: number }[] = [];
-    
-    while ((match = multiLineSuggestionRegex.exec(text)) !== null) {
-      suggestions.push({
-        id: match[1],
-        content: match[2],
-        startIndex: match.index,
-        endIndex: match.index + match[0].length
-      });
-    }
-    
     const lines = text.split('\n');
-    let currentIndex = 0;
+    const result: JSX.Element[] = [];
+    let i = 0;
     
-    return lines.map((line, lineIndex) => {
+    while (i < lines.length) {
+      const line = lines[i];
       const trimmedLine = line.trim();
       const isSectionTitle = ['Senior Product Designer', 'Job description', 'About us', 'Role overview', 'Responsibilities', 'Qualifications'].includes(trimmedLine);
       
-      const lineStartIndex = currentIndex;
-      const lineEndIndex = currentIndex + line.length;
-      currentIndex = lineEndIndex + 1; // +1 for newline
+      // Check for AI suggestion start
+      const suggestionStartMatch = line.match(/\[AI_SUGGESTION:(\w+)\]/);
       
-      // Check if this line is part of an AI suggestion
-      const suggestion = suggestions.find(s => 
-        lineStartIndex >= s.startIndex && lineEndIndex <= s.endIndex
-      );
-      
-      if (suggestion && aiSuggestions[suggestion.id]) {
-        // Check if this is the first line of the suggestion
-        const isFirstLine = line.includes(`[AI_SUGGESTION:${suggestion.id}]`);
-        const isLastLine = line.includes('[/AI_SUGGESTION]');
+      if (suggestionStartMatch) {
+        const suggestionId = suggestionStartMatch[1];
         
-        let displayText = line;
-        if (isFirstLine) {
-          displayText = line.replace(`[AI_SUGGESTION:${suggestion.id}]`, '');
-        }
-        if (isLastLine) {
-          displayText = displayText.replace('[/AI_SUGGESTION]', '');
-        }
-        
-        if (isFirstLine) {
-          return (
-            <div key={lineIndex} className="mb-1 flex items-start gap-2 group">
-              <div className="flex-1">
-                <span className="font-semibold inline-flex items-center gap-1">
-                  <Sparkles className="w-4 h-4 text-yellow-500 inline" />
-                  {displayText}
+        if (aiSuggestions[suggestionId]) {
+          // Collect all lines until we find the closing tag
+          let suggestionLines = [];
+          let currentLine = line.replace(/\[AI_SUGGESTION:\w+\]/, '');
+          
+          while (i < lines.length && !lines[i].includes('[/AI_SUGGESTION]')) {
+            if (i === lines.findIndex(l => l.includes(`[AI_SUGGESTION:${suggestionId}]`))) {
+              suggestionLines.push(currentLine);
+            } else {
+              suggestionLines.push(lines[i]);
+            }
+            i++;
+          }
+          
+          // Add the last line (with closing tag)
+          if (i < lines.length) {
+            suggestionLines.push(lines[i].replace('[/AI_SUGGESTION]', ''));
+            i++;
+          }
+          
+          // Render the suggestion with approve/reject buttons
+          const suggestionText = suggestionLines.join('\n').trim();
+          
+          result.push(
+            <div key={`suggestion-${suggestionId}-${result.length}`} className="mb-1 flex items-start gap-2 group">
+              <div className="flex-1 whitespace-pre-wrap">
+                <span className="font-semibold inline-flex items-start gap-1">
+                  <Sparkles className="w-4 h-4 text-yellow-500 inline mt-1 flex-shrink-0" />
+                  <span>{suggestionText}</span>
                 </span>
               </div>
-              <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
                 <button
-                  onClick={() => handleApproveSuggestion(suggestion.id)}
+                  onClick={() => handleApproveSuggestion(suggestionId)}
                   className="p-1 rounded hover:bg-green-100 transition-colors"
                   title="Approve"
                 >
                   <Check className="w-4 h-4 text-green-600" />
                 </button>
                 <button
-                  onClick={() => handleRejectSuggestion(suggestion.id)}
+                  onClick={() => handleRejectSuggestion(suggestionId)}
                   className="p-1 rounded hover:bg-red-100 transition-colors"
                   title="Reject"
                 >
@@ -141,21 +133,20 @@ Qualifications
               </div>
             </div>
           );
-        } else {
-          return (
-            <div key={lineIndex} className="mb-1 font-semibold">
-              {displayText}
-            </div>
-          );
+          continue;
         }
       }
       
-      return (
-        <div key={lineIndex} className={isSectionTitle ? 'text-xl font-semibold mb-2 mt-4' : 'mb-1'}>
+      // Regular line
+      result.push(
+        <div key={`line-${i}`} className={isSectionTitle ? 'text-xl font-semibold mb-2 mt-4' : 'mb-1'}>
           {line || '\u00A0'}
         </div>
       );
-    });
+      i++;
+    }
+    
+    return result;
   };
 
   const [messages] = useState([
@@ -311,12 +302,6 @@ Qualifications
               <div className="flex flex-col h-full py-6 pr-8 pl-6 pb-8">
                 {/* Chat Header */}
                 <div className="flex gap-6 mb-6 flex-shrink-0 relative">
-                  <button className="text-foreground font-medium pb-2">
-                    AI chat
-                  </button>
-                  <button className="text-muted-foreground font-medium pb-2 hover:text-foreground transition-colors">
-                    Team chat
-                  </button>
                   <button
                     onClick={() => setIsChatCollapsed(true)}
                     className="absolute right-0 top-0 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
