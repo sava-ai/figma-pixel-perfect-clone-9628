@@ -322,24 +322,19 @@ Qualifications
             <div className="flex-1 overflow-y-auto bg-background rounded-[15px] p-12">
               {/* AI Suggestions Tracker */}
               {activeSuggestions.length > 0 && (
-                <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 text-yellow-500" />
-                      <span className="font-semibold text-gray-900">
-                        AI Suggestions: {appliedCount}/{totalSuggestions} applied
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {activeSuggestions.map(([suggestionId]) => (
+                <div className="mb-6 flex items-center gap-3">
+                  <span className="text-sm text-muted-foreground">
+                    {appliedCount}/{totalSuggestions} applied
+                  </span>
+                  <div className="flex gap-1">
+                    {activeSuggestions.map(([suggestionId], index) => (
                       <button
                         key={suggestionId}
                         onClick={() => scrollToSuggestion(suggestionId)}
-                        className="flex items-center gap-1 px-3 py-1.5 bg-white border border-yellow-300 rounded-md hover:bg-yellow-100 transition-colors text-sm"
+                        className="p-1 hover:bg-accent rounded transition-colors"
+                        title={`Jump to suggestion ${index + 1}`}
                       >
-                        <ArrowDown className="w-3 h-3" />
-                        Jump to suggestion
+                        <ArrowDown className="w-4 h-4 text-muted-foreground" />
                       </button>
                     ))}
                   </div>
