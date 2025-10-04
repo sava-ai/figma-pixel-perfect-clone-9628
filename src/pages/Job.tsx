@@ -99,36 +99,35 @@ Qualifications
       const trimmedLine = line.trim();
       const isSectionTitle = ['Senior Product Designer', 'Job description', 'About us', 'Role overview', 'Responsibilities', 'Qualifications'].includes(trimmedLine);
       
-      // Check for AI suggestion start
-      const suggestionStartMatch = line.match(/\[AI_SUGGESTION:(\w+)\]/);
+      // Check for AI suggestion (single-line or multi-line)
+      const suggestionMatch = line.match(/\[AI_SUGGESTION:(\w+)\]([\s\S]*?)(\[\/AI_SUGGESTION\])?/);
       
-      if (suggestionStartMatch) {
-        const suggestionId = suggestionStartMatch[1];
+      if (suggestionMatch) {
+        const suggestionId = suggestionMatch[1];
         
         if (aiSuggestions[suggestionId]) {
-          // Collect all lines until we find the closing tag
-          let suggestionLines = [];
-          let startIndex = i;
+          let suggestionText = suggestionMatch[2] || '';
           
-          while (i < lines.length && !lines[i].includes('[/AI_SUGGESTION]')) {
-            const cleanLine = lines[i].replace(/\[AI_SUGGESTION:\w+\]/, '');
-            if (cleanLine.trim()) {
-              suggestionLines.push(cleanLine);
-            }
+          // If closing tag is not on the same line, collect remaining lines
+          if (!line.includes('[/AI_SUGGESTION]')) {
             i++;
+            while (i < lines.length && !lines[i].includes('[/AI_SUGGESTION]')) {
+              suggestionText += '\n' + lines[i];
+              i++;
+            }
+            // Add the last line with closing tag
+            if (i < lines.length) {
+              const lastLine = lines[i].replace('[/AI_SUGGESTION]', '');
+              if (lastLine.trim()) {
+                suggestionText += '\n' + lastLine;
+              }
+            }
+          } else {
+            // Single line suggestion - remove closing tag
+            suggestionText = suggestionText.replace('[/AI_SUGGESTION]', '');
           }
           
-          // Add the last line (with closing tag)
-          if (i < lines.length) {
-            const cleanLine = lines[i].replace('[/AI_SUGGESTION]', '');
-            if (cleanLine.trim()) {
-              suggestionLines.push(cleanLine);
-            }
-            i++;
-          }
-          
-          // Render the suggestion with approve/reject buttons (no markup text)
-          const suggestionText = suggestionLines.join('\n').trim();
+          suggestionText = suggestionText.trim();
           
           result.push(
             <div key={`suggestion-${suggestionId}-${result.length}`} className="mb-1 flex items-start gap-2 group">
@@ -156,18 +155,27 @@ Qualifications
               </div>
             </div>
           );
+          i++;
+          continue;
+        } else {
+          // Skip hidden suggestions entirely (don't render anything)
+          if (!line.includes('[/AI_SUGGESTION]')) {
+            i++;
+            while (i < lines.length && !lines[i].includes('[/AI_SUGGESTION]')) {
+              i++;
+            }
+          }
+          i++;
           continue;
         }
       }
       
-      // Regular line (skip if it contains AI_SUGGESTION markup for hidden suggestions)
-      if (!line.includes('[AI_SUGGESTION:') && !line.includes('[/AI_SUGGESTION]')) {
-        result.push(
-          <div key={`line-${i}`} className={isSectionTitle ? 'text-xl font-semibold mb-2 mt-4' : 'mb-1'}>
-            {line || '\u00A0'}
-          </div>
-        );
-      }
+      // Regular line
+      result.push(
+        <div key={`line-${i}`} className={isSectionTitle ? 'text-xl font-semibold mb-2 mt-4' : 'mb-1'}>
+          {line || '\u00A0'}
+        </div>
+      );
       i++;
     }
     
@@ -294,7 +302,7 @@ Qualifications
       <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden">
         {/* Left side - Job Description Editor */}
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
-          <div className="h-full flex flex-col py-6 pl-6 pr-6 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
+          <div className="h-full flex flex-col py-6 pl-6 pr-2.5 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
             <div className="flex-1 overflow-y-auto bg-background rounded-[15px] p-12">
               <div className="text-foreground whitespace-pre-wrap">
                 {formatJobDescription(jobDescription)}
@@ -319,7 +327,7 @@ Qualifications
         {!isChatCollapsed && (
           <ResizablePanel defaultSize={35} minSize={30}>
             <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
-              <div className="flex flex-col h-full py-6 pr-8 pl-6 pb-8">
+              <div className="flex flex-col h-full py-6 pr-8 pl-2.5 pb-8">
                 {/* Chat Header */}
                 <div className="flex gap-6 mb-12 flex-shrink-0 relative">
                   <button
@@ -343,12 +351,10 @@ Qualifications
                       className={`max-w-[80%] ${
                         message.isUser
                           ? 'bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl'
-                          : 'text-foreground'
+                          : 'text-foreground px-6 py-4'
                       }`}
                     >
-                      <div className={!message.isUser ? 'px-6 py-4' : ''}>
-                        {message.text}
-                      </div>
+                      {message.text}
                     </div>
                   </div>
                 ))}
