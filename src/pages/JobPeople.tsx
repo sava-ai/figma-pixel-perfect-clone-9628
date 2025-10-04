@@ -439,61 +439,66 @@ const JobPeople = () => {
           </div>
         </ResizablePanel>
 
+        {!isChatCollapsed && <ResizableHandle className="w-0 bg-transparent" />}
+
+        {/* Right side - Chat Interface */}
         {!isChatCollapsed && (
-          <>
-            <ResizableHandle withHandle />
-            <ResizablePanel defaultSize={35} minSize={20}>
-              <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
-                <div className="flex-1 overflow-y-auto bg-background rounded-[15px] mr-6 ml-2.5 flex flex-col relative">
-                  {/* Chat Header */}
-                  <div className="flex items-center justify-between p-4 border-b">
-                    <h2 className="text-lg font-semibold">AI Assistant</h2>
-                    <button
-                      onClick={() => setIsChatCollapsed(true)}
-                      className="w-8 h-8 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md border border-gray-200"
+          <ResizablePanel defaultSize={35} minSize={30}>
+            <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
+              <div className="flex flex-col h-full py-6 pr-8 pl-2.5 pb-8">
+                {/* Chat Header */}
+                <div className="flex gap-6 mb-12 flex-shrink-0 relative">
+                  <button
+                    onClick={() => setIsChatCollapsed(true)}
+                    className="absolute right-0 top-0 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
+                  >
+                    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ transform: 'rotate(180deg)' }}>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                  </button>
+                </div>
+
+              {/* Chat Messages - Scrollable */}
+              <div className="flex-1 overflow-y-auto mb-6 space-y-4">
+                {messages.map((message, index) => (
+                  <div
+                    key={index}
+                    className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div
+                      className={`max-w-[80%] ${
+                        message.isUser
+                          ? 'bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl'
+                          : 'text-foreground px-6 py-4'
+                      }`}
                     >
-                      <ChevronRight className="w-4 h-4 text-gray-700" />
-                    </button>
-                  </div>
-
-                  {/* Chat Messages */}
-                  <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                    {messages.map((message, index) => (
-                      <div
-                        key={index}
-                        className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-                      >
-                        <div
-                          className={`max-w-[80%] rounded-lg px-4 py-2 ${
-                            message.isUser
-                              ? 'bg-gray-900 text-white'
-                              : 'bg-gray-100 text-gray-900'
-                          }`}
-                        >
-                          {message.text}
-                        </div>
-                      </div>
-                    ))}
-                    <div ref={messagesEndRef} />
-                  </div>
-
-                  {/* Chat Input */}
-                  <div className="p-4 border-t">
-                    <div className="flex gap-2">
-                      <input
-                        type="text"
-                        placeholder="Type a message..."
-                        className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
-                      />
-                      <button className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
-                        Send
-                      </button>
+                      {message.text}
                     </div>
                   </div>
-                </div>
+                ))}
+
+                <div ref={messagesEndRef} />
               </div>
-            </ResizablePanel>
-          </>
+
+              {/* Chat Input - Fixed at bottom */}
+              <form className="relative flex-shrink-0">
+                <textarea
+                  placeholder="Ask anything about this job description..."
+                  rows={3}
+                  className="w-full bg-white rounded-2xl px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none min-h-[80px] shadow-sm"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-4 bottom-4 w-10 h-10 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors shadow-md"
+                >
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </div>
+        </ResizablePanel>
         )}
       </ResizablePanelGroup>
     </div>
