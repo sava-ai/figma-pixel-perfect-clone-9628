@@ -510,6 +510,7 @@ Qualifications
                           Publish job offer and find candidates
                         </button>
                         <button 
+                          onClick={() => navigate('/job/people')}
                           className="px-4 py-2 bg-white text-[rgba(21,52,61,1)] border border-[rgba(21,52,61,1)] rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium"
                         >
                           Find candidates without job offer
