@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical } from 'lucide-react';
+import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight } from 'lucide-react';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import userAvatarImage from '@/assets/user-avatar.png';
+import jobIcon from '@/assets/job-icon.svg';
 
 const Job = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'job' | 'people' | 'shortlist'>('job');
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
+  const [isChatCollapsed, setIsChatCollapsed] = useState(false);
   const [jobDescription, setJobDescription] = useState(`Senior Product Designer
 
 Job description
@@ -36,9 +38,9 @@ Qualifications`);
   ]);
 
   const jobs = [
-    { id: 1, title: 'Senior Product Designer', emoji: '🎨' },
-    { id: 2, title: 'Chief Operations Officer', emoji: '💼' },
-    { id: 3, title: 'Frontend Developer', emoji: '💻' }
+    { id: 1, title: 'Senior Product Designer' },
+    { id: 2, title: 'Chief Operations Officer' },
+    { id: 3, title: 'Frontend Developer' }
   ];
 
   return (
@@ -62,7 +64,7 @@ Qualifications`);
               onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)}
               className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
             >
-              <span className="text-lg">🎨</span>
+              <img src={jobIcon} alt="Job" className="w-5 h-5" />
               <span className="font-medium text-gray-700">Senior product designer</span>
               <ChevronDown className="w-4 h-4 text-gray-700" />
             </button>
@@ -75,7 +77,7 @@ Qualifications`);
                     className="w-full flex items-center gap-3 px-4 py-3 hover:bg-accent transition-colors text-left"
                     onClick={() => setJobsDropdownOpen(false)}
                   >
-                    <span className="text-lg">{job.emoji}</span>
+                    <img src={jobIcon} alt="Job" className="w-5 h-5" />
                     <span className="text-sm">{job.title}</span>
                   </button>
                 ))}
@@ -146,8 +148,8 @@ Qualifications`);
       {/* Main Content with Resizable Panels */}
       <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden">
         {/* Left side - Job Description Editor */}
-        <ResizablePanel defaultSize={50} minSize={30}>
-          <div className="h-full flex flex-col p-6" style={{ backgroundColor: '#FAF8F4' }}>
+        <ResizablePanel defaultSize={isChatCollapsed ? 100 : 50} minSize={30}>
+          <div className="h-full flex flex-col p-6 relative" style={{ backgroundColor: '#FAF8F4' }}>
             <div className="flex-1 overflow-y-auto bg-background rounded-[15px] p-12">
               <textarea
                 value={jobDescription}
@@ -156,24 +158,39 @@ Qualifications`);
                 style={{ whiteSpace: 'pre-wrap' }}
               />
             </div>
+            {isChatCollapsed && (
+              <button
+                onClick={() => setIsChatCollapsed(false)}
+                className="absolute top-6 right-6 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
+              >
+                <ChevronLeft className="w-5 h-5 text-gray-700" />
+              </button>
+            )}
           </div>
         </ResizablePanel>
 
-        <ResizableHandle className="w-0 bg-transparent" />
+        {!isChatCollapsed && <ResizableHandle className="w-0 bg-transparent" />}
 
         {/* Right side - Chat Interface */}
-        <ResizablePanel defaultSize={50} minSize={30}>
-          <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
-            <div className="flex flex-col h-full py-8 pr-8 pl-6">
-              {/* Chat Header */}
-              <div className="flex gap-6 mb-6 border-b pb-4 flex-shrink-0">
-                <button className="text-foreground font-medium border-b-2 border-[rgba(21,52,61,1)] pb-2">
-                  AI chat
-                </button>
-                <button className="text-muted-foreground font-medium pb-2 hover:text-foreground transition-colors">
-                  Team chat
-                </button>
-              </div>
+        {!isChatCollapsed && (
+          <ResizablePanel defaultSize={50} minSize={30}>
+            <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
+              <div className="flex flex-col h-full py-8 pr-8 pl-6">
+                {/* Chat Header */}
+                <div className="flex gap-6 mb-6 border-b pb-4 flex-shrink-0 relative">
+                  <button className="text-foreground font-medium border-b-2 border-[rgba(21,52,61,1)] pb-2">
+                    AI chat
+                  </button>
+                  <button className="text-muted-foreground font-medium pb-2 hover:text-foreground transition-colors">
+                    Team chat
+                  </button>
+                  <button
+                    onClick={() => setIsChatCollapsed(true)}
+                    className="absolute right-0 top-0 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
+                  >
+                    <ChevronRight className="w-5 h-5 text-gray-700" />
+                  </button>
+                </div>
 
               {/* Chat Messages - Scrollable */}
               <div className="flex-1 overflow-y-auto mb-6 space-y-4">
@@ -224,6 +241,7 @@ Qualifications`);
             </div>
           </div>
         </ResizablePanel>
+        )}
       </ResizablePanelGroup>
     </div>
   );
