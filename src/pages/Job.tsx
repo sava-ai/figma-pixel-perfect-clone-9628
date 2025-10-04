@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, X, ArrowDown } from 'lucide-react';
+import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, X, ArrowDown, ArrowUp } from 'lucide-react';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
@@ -16,6 +16,7 @@ const Job = () => {
   const [showSecondMessage, setShowSecondMessage] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const suggestionRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
+  const [currentSuggestionIndex, setCurrentSuggestionIndex] = useState(0);
   const [aiSuggestions, setAiSuggestions] = useState<{[key: string]: boolean}>({
     'suggestion1': true,
     'suggestion2': true,
@@ -83,6 +84,20 @@ Qualifications
   const activeSuggestions = Object.entries(aiSuggestions).filter(([_, isActive]) => isActive);
   const totalSuggestions = Object.keys(aiSuggestions).length;
   const appliedCount = totalSuggestions - activeSuggestions.length;
+
+  const navigateToNextSuggestion = () => {
+    if (activeSuggestions.length === 0) return;
+    const nextIndex = (currentSuggestionIndex + 1) % activeSuggestions.length;
+    setCurrentSuggestionIndex(nextIndex);
+    scrollToSuggestion(activeSuggestions[nextIndex][0]);
+  };
+
+  const navigateToPrevSuggestion = () => {
+    if (activeSuggestions.length === 0) return;
+    const prevIndex = currentSuggestionIndex === 0 ? activeSuggestions.length - 1 : currentSuggestionIndex - 1;
+    setCurrentSuggestionIndex(prevIndex);
+    scrollToSuggestion(activeSuggestions[prevIndex][0]);
+  };
 
   const handleApproveSuggestion = (suggestionId: string) => {
     // Remove the AI suggestion markup from the job description (with multiline support)
@@ -323,20 +338,24 @@ Qualifications
               {/* AI Suggestions Tracker */}
               {activeSuggestions.length > 0 && (
                 <div className="mb-6 flex items-center gap-3">
-                  <span className="text-sm text-muted-foreground">
+                  <span className="text-sm text-gray-700">
                     {appliedCount}/{totalSuggestions} applied
                   </span>
                   <div className="flex gap-1">
-                    {activeSuggestions.map(([suggestionId], index) => (
-                      <button
-                        key={suggestionId}
-                        onClick={() => scrollToSuggestion(suggestionId)}
-                        className="p-1 hover:bg-accent rounded transition-colors"
-                        title={`Jump to suggestion ${index + 1}`}
-                      >
-                        <ArrowDown className="w-4 h-4 text-muted-foreground" />
-                      </button>
-                    ))}
+                    <button
+                      onClick={navigateToPrevSuggestion}
+                      className="w-7 h-7 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md border border-gray-200"
+                      title="Previous suggestion"
+                    >
+                      <ArrowUp className="w-4 h-4 text-gray-700" />
+                    </button>
+                    <button
+                      onClick={navigateToNextSuggestion}
+                      className="w-7 h-7 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md border border-gray-200"
+                      title="Next suggestion"
+                    >
+                      <ArrowDown className="w-4 h-4 text-gray-700" />
+                    </button>
                   </div>
                 </div>
               )}
