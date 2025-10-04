@@ -55,15 +55,15 @@ Qualifications
   }, [showThinking]);
 
   const handleApproveSuggestion = (suggestionId: string) => {
-    // Remove the AI suggestion markup from the job description
-    const regex = new RegExp(`\\[AI_SUGGESTION:${suggestionId}\\](.*?)\\[\\/AI_SUGGESTION\\]`, 'g');
+    // Remove the AI suggestion markup from the job description (with multiline support)
+    const regex = new RegExp(`\\[AI_SUGGESTION:${suggestionId}\\]([\\s\\S]*?)\\[\\/AI_SUGGESTION\\]`, 'g');
     setJobDescription(prev => prev.replace(regex, '$1'));
     setAiSuggestions(prev => ({ ...prev, [suggestionId]: false }));
   };
 
   const handleRejectSuggestion = (suggestionId: string) => {
-    // Remove the entire AI suggestion including the text
-    const regex = new RegExp(`\\[AI_SUGGESTION:${suggestionId}\\].*?\\[\\/AI_SUGGESTION\\]`, 'g');
+    // Remove the entire AI suggestion including the text (with multiline support)
+    const regex = new RegExp(`\\[AI_SUGGESTION:${suggestionId}\\][\\s\\S]*?\\[\\/AI_SUGGESTION\\]`, 'g');
     setJobDescription(prev => prev.replace(regex, ''));
     setAiSuggestions(prev => ({ ...prev, [suggestionId]: false }));
   };
@@ -301,13 +301,13 @@ Qualifications
             <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
               <div className="flex flex-col h-full py-6 pr-8 pl-6 pb-8">
                 {/* Chat Header */}
-                <div className="flex gap-6 mb-6 flex-shrink-0 relative">
+                <div className="flex gap-6 mb-8 flex-shrink-0 relative">
                   <button
                     onClick={() => setIsChatCollapsed(true)}
                     className="absolute right-0 top-0 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
                   >
                     <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 5l7 7-7 7" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                   </button>
                 </div>
@@ -363,9 +363,9 @@ Qualifications
                 />
                 <button
                   type="submit"
-                  className="absolute right-4 bottom-4 w-12 h-12 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors shadow-md"
+                  className="absolute right-4 bottom-4 w-10 h-10 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors shadow-md"
                 >
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </button>
