@@ -333,11 +333,11 @@ Qualifications
       <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden">
         {/* Left side - Job Description Editor */}
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
-          <div className="h-full flex flex-col py-6 pl-6 pr-2.5 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
-            <div className="flex-1 overflow-y-auto bg-background rounded-[15px] p-12">
-              {/* AI Suggestions Tracker - Sticky */}
+          <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
+            {/* AI Suggestions Tracker - Aligned with chat button */}
+            <div className={`flex items-center justify-between mb-6 flex-shrink-0 ${isChatCollapsed ? 'px-6' : 'pl-6 pr-2.5'}`}>
               {activeSuggestions.length > 0 && (
-                <div className="sticky top-0 z-10 bg-background pt-0 pb-6 mb-6 flex items-center gap-3">
+                <div className="flex items-center gap-3">
                   <span className="text-base font-semibold text-gray-700">
                     AI Suggestions: {appliedCount}/{totalSuggestions} applied
                   </span>
@@ -360,20 +360,23 @@ Qualifications
                 </div>
               )}
               
+              {isChatCollapsed && (
+                <button
+                  onClick={() => setIsChatCollapsed(false)}
+                  className="w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
+                >
+                  <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                </button>
+              )}
+            </div>
+            
+            <div className={`flex-1 overflow-y-auto bg-background rounded-[15px] p-12 ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
               <div className="text-foreground whitespace-pre-wrap">
                 {formatJobDescription(jobDescription)}
               </div>
             </div>
-            {isChatCollapsed && (
-              <button
-                onClick={() => setIsChatCollapsed(false)}
-                className="absolute top-10 right-10 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
-              >
-                <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-              </button>
-            )}
           </div>
         </ResizablePanel>
 
