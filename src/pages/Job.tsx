@@ -337,7 +337,7 @@ Qualifications
             <div className={`flex-1 overflow-y-auto bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
               {/* AI Suggestions Tracker - Sticky at top, aligned with chat button */}
               {activeSuggestions.length > 0 && (
-                <div className="sticky top-0 z-10 bg-background pt-6 pb-4 flex items-center gap-3">
+                <div className="sticky top-0 z-10 bg-background pt-6 pb-4 pl-12 flex items-center gap-3">
                   <span className="text-base font-semibold text-gray-700">
                     AI Suggestions: {appliedCount}/{totalSuggestions} applied
                   </span>
