@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, X } from 'lucide-react';
+import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, X, ArrowDown } from 'lucide-react';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
@@ -15,6 +15,7 @@ const Job = () => {
   const [showFirstMessage, setShowFirstMessage] = useState(false);
   const [showSecondMessage, setShowSecondMessage] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const suggestionRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
   const [aiSuggestions, setAiSuggestions] = useState<{[key: string]: boolean}>({
     'suggestion1': true,
     'suggestion2': true,
@@ -75,6 +76,14 @@ Qualifications
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [showThinking, showFirstMessage, showSecondThinking, showSecondMessage]);
 
+  const scrollToSuggestion = (suggestionId: string) => {
+    suggestionRefs.current[suggestionId]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  const activeSuggestions = Object.entries(aiSuggestions).filter(([_, isActive]) => isActive);
+  const totalSuggestions = Object.keys(aiSuggestions).length;
+  const appliedCount = totalSuggestions - activeSuggestions.length;
+
   const handleApproveSuggestion = (suggestionId: string) => {
     // Remove the AI suggestion markup from the job description (with multiline support)
     const regex = new RegExp(`\\[AI_SUGGESTION:${suggestionId}\\]([\\s\\S]*?)\\[\\/AI_SUGGESTION\\]`, 'g');
@@ -131,7 +140,11 @@ Qualifications
           }
           
           result.push(
-            <div key={`suggestion-${suggestionId}-${result.length}`} className="mb-1 flex items-start gap-2 group">
+            <div 
+              key={`suggestion-${suggestionId}-${result.length}`} 
+              className="mb-1 flex items-start gap-2 group"
+              ref={(el) => suggestionRefs.current[suggestionId] = el}
+            >
               <div className="flex-1 whitespace-pre-wrap">
                 <span className="font-semibold inline-flex items-start gap-1">
                   <Sparkles className="w-4 h-4 text-yellow-500 inline mt-1 flex-shrink-0" />
@@ -307,6 +320,32 @@ Qualifications
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
           <div className="h-full flex flex-col py-6 pl-6 pr-2.5 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
             <div className="flex-1 overflow-y-auto bg-background rounded-[15px] p-12">
+              {/* AI Suggestions Tracker */}
+              {activeSuggestions.length > 0 && (
+                <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-yellow-500" />
+                      <span className="font-semibold text-gray-900">
+                        AI Suggestions: {appliedCount}/{totalSuggestions} applied
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {activeSuggestions.map(([suggestionId]) => (
+                      <button
+                        key={suggestionId}
+                        onClick={() => scrollToSuggestion(suggestionId)}
+                        className="flex items-center gap-1 px-3 py-1.5 bg-white border border-yellow-300 rounded-md hover:bg-yellow-100 transition-colors text-sm"
+                      >
+                        <ArrowDown className="w-3 h-3" />
+                        Jump to suggestion
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
               <div className="text-foreground whitespace-pre-wrap">
                 {formatJobDescription(jobDescription)}
               </div>
