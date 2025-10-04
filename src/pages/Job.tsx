@@ -69,50 +69,89 @@ Qualifications
   };
 
   const formatJobDescription = (text: string) => {
+    // First, handle multi-line AI suggestions
+    let processedText = text;
+    const multiLineSuggestionRegex = /\[AI_SUGGESTION:(\w+)\]([\s\S]*?)\[\/AI_SUGGESTION\]/g;
+    
+    let match;
+    const suggestions: { id: string; content: string; startIndex: number; endIndex: number }[] = [];
+    
+    while ((match = multiLineSuggestionRegex.exec(text)) !== null) {
+      suggestions.push({
+        id: match[1],
+        content: match[2],
+        startIndex: match.index,
+        endIndex: match.index + match[0].length
+      });
+    }
+    
     const lines = text.split('\n');
-    return lines.map((line, index) => {
+    let currentIndex = 0;
+    
+    return lines.map((line, lineIndex) => {
       const trimmedLine = line.trim();
       const isSectionTitle = ['Senior Product Designer', 'Job description', 'About us', 'Role overview', 'Responsibilities', 'Qualifications'].includes(trimmedLine);
       
-      // Check if line contains AI suggestion
-      const suggestionMatch = line.match(/\[AI_SUGGESTION:(\w+)\](.*?)\[\/AI_SUGGESTION\]/);
+      const lineStartIndex = currentIndex;
+      const lineEndIndex = currentIndex + line.length;
+      currentIndex = lineEndIndex + 1; // +1 for newline
       
-      if (suggestionMatch && aiSuggestions[suggestionMatch[1]]) {
-        const suggestionId = suggestionMatch[1];
-        const suggestionText = suggestionMatch[2];
-        const beforeSuggestion = line.substring(0, line.indexOf('[AI_SUGGESTION'));
+      // Check if this line is part of an AI suggestion
+      const suggestion = suggestions.find(s => 
+        lineStartIndex >= s.startIndex && lineEndIndex <= s.endIndex
+      );
+      
+      if (suggestion && aiSuggestions[suggestion.id]) {
+        // Check if this is the first line of the suggestion
+        const isFirstLine = line.includes(`[AI_SUGGESTION:${suggestion.id}]`);
+        const isLastLine = line.includes('[/AI_SUGGESTION]');
         
-        return (
-          <div key={index} className="mb-1 flex items-start gap-2 group">
-            <div className="flex-1">
-              {beforeSuggestion}
-              <span className="font-semibold inline-flex items-center gap-1">
-                <Sparkles className="w-4 h-4 text-yellow-500 inline" />
-                {suggestionText}
-              </span>
+        let displayText = line;
+        if (isFirstLine) {
+          displayText = line.replace(`[AI_SUGGESTION:${suggestion.id}]`, '');
+        }
+        if (isLastLine) {
+          displayText = displayText.replace('[/AI_SUGGESTION]', '');
+        }
+        
+        if (isFirstLine) {
+          return (
+            <div key={lineIndex} className="mb-1 flex items-start gap-2 group">
+              <div className="flex-1">
+                <span className="font-semibold inline-flex items-center gap-1">
+                  <Sparkles className="w-4 h-4 text-yellow-500 inline" />
+                  {displayText}
+                </span>
+              </div>
+              <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button
+                  onClick={() => handleApproveSuggestion(suggestion.id)}
+                  className="p-1 rounded hover:bg-green-100 transition-colors"
+                  title="Approve"
+                >
+                  <Check className="w-4 h-4 text-green-600" />
+                </button>
+                <button
+                  onClick={() => handleRejectSuggestion(suggestion.id)}
+                  className="p-1 rounded hover:bg-red-100 transition-colors"
+                  title="Reject"
+                >
+                  <X className="w-4 h-4 text-red-600" />
+                </button>
+              </div>
             </div>
-            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-              <button
-                onClick={() => handleApproveSuggestion(suggestionId)}
-                className="p-1 rounded hover:bg-green-100 transition-colors"
-                title="Approve"
-              >
-                <Check className="w-4 h-4 text-green-600" />
-              </button>
-              <button
-                onClick={() => handleRejectSuggestion(suggestionId)}
-                className="p-1 rounded hover:bg-red-100 transition-colors"
-                title="Reject"
-              >
-                <X className="w-4 h-4 text-red-600" />
-              </button>
+          );
+        } else {
+          return (
+            <div key={lineIndex} className="mb-1 font-semibold">
+              {displayText}
             </div>
-          </div>
-        );
+          );
+        }
       }
       
       return (
-        <div key={index} className={isSectionTitle ? 'text-xl font-semibold mb-2 mt-4' : 'mb-1'}>
+        <div key={lineIndex} className={isSectionTitle ? 'text-xl font-semibold mb-2 mt-4' : 'mb-1'}>
           {line || '\u00A0'}
         </div>
       );
