@@ -335,9 +335,9 @@ Qualifications
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
           <div className="h-full flex flex-col py-6 pl-6 pr-2.5 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
             <div className="flex-1 overflow-y-auto bg-background rounded-[15px] p-12">
-              {/* AI Suggestions Tracker */}
+              {/* AI Suggestions Tracker - Sticky */}
               {activeSuggestions.length > 0 && (
-                <div className="mb-6 flex items-center gap-3">
+                <div className="sticky top-0 z-10 bg-background pt-0 pb-6 mb-6 flex items-center gap-3">
                   <span className="text-base font-semibold text-gray-700">
                     AI Suggestions: {appliedCount}/{totalSuggestions} applied
                   </span>
