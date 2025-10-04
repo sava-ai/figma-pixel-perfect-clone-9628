@@ -87,24 +87,26 @@ Qualifications
         if (aiSuggestions[suggestionId]) {
           // Collect all lines until we find the closing tag
           let suggestionLines = [];
-          let currentLine = line.replace(/\[AI_SUGGESTION:\w+\]/, '');
+          let startIndex = i;
           
           while (i < lines.length && !lines[i].includes('[/AI_SUGGESTION]')) {
-            if (i === lines.findIndex(l => l.includes(`[AI_SUGGESTION:${suggestionId}]`))) {
-              suggestionLines.push(currentLine);
-            } else {
-              suggestionLines.push(lines[i]);
+            const cleanLine = lines[i].replace(/\[AI_SUGGESTION:\w+\]/, '');
+            if (cleanLine.trim()) {
+              suggestionLines.push(cleanLine);
             }
             i++;
           }
           
           // Add the last line (with closing tag)
           if (i < lines.length) {
-            suggestionLines.push(lines[i].replace('[/AI_SUGGESTION]', ''));
+            const cleanLine = lines[i].replace('[/AI_SUGGESTION]', '');
+            if (cleanLine.trim()) {
+              suggestionLines.push(cleanLine);
+            }
             i++;
           }
           
-          // Render the suggestion with approve/reject buttons
+          // Render the suggestion with approve/reject buttons (no markup text)
           const suggestionText = suggestionLines.join('\n').trim();
           
           result.push(
@@ -137,12 +139,14 @@ Qualifications
         }
       }
       
-      // Regular line
-      result.push(
-        <div key={`line-${i}`} className={isSectionTitle ? 'text-xl font-semibold mb-2 mt-4' : 'mb-1'}>
-          {line || '\u00A0'}
-        </div>
-      );
+      // Regular line (skip if it contains AI_SUGGESTION markup for hidden suggestions)
+      if (!line.includes('[AI_SUGGESTION:') && !line.includes('[/AI_SUGGESTION]')) {
+        result.push(
+          <div key={`line-${i}`} className={isSectionTitle ? 'text-xl font-semibold mb-2 mt-4' : 'mb-1'}>
+            {line || '\u00A0'}
+          </div>
+        );
+      }
       i++;
     }
     
@@ -155,6 +159,11 @@ Qualifications
     { text: '5+ years', isUser: true },
     { text: 'For sure! Is there anything else I should keep in mind?', isUser: false },
     { text: 'They should have strong Figma skills', isUser: true },
+    { 
+      text: "I've captured the criteria for creating a perfect job description and created the position",
+      isUser: false,
+      hasJobBlock: true
+    },
     { 
       text: "Thank you for the information, I've created the job description and applied your requirements. You can further refine or start matching candidates directly.",
       isUser: false,
@@ -286,7 +295,7 @@ Qualifications
                 className="absolute top-10 right-10 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
               >
                 <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l-7 7 7 7" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
               </button>
             )}
@@ -307,7 +316,7 @@ Qualifications
                     className="absolute right-0 top-0 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
                   >
                     <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 19l7-7-7-7" />
                     </svg>
                   </button>
                 </div>
@@ -329,6 +338,12 @@ Qualifications
                       <div className={!message.isUser ? 'px-6 py-4' : ''}>
                         {message.text}
                       </div>
+                      {message.hasJobBlock && !showThinking && (
+                        <div className="mt-3 ml-6 p-4 bg-white rounded-lg shadow-sm border border-gray-200 flex items-center gap-3">
+                          <img src={jobDropdownIcon} alt="Job" className="w-8 h-8 rounded" />
+                          <span className="font-medium text-gray-700">Senior product designer</span>
+                        </div>
+                      )}
                       {message.hasButton && !showThinking && (
                         <button 
                           className="mt-3 ml-6 px-4 py-2 bg-[rgba(21,52,61,1)] text-white rounded-lg hover:bg-[rgba(21,52,61,0.9)] transition-colors text-sm font-medium"
