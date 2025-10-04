@@ -193,25 +193,25 @@ const JobPeople = () => {
       <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden">
         {/* Left side - Search Animation */}
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
-          <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
-            <div className={`flex-1 overflow-y-auto bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
-              <div className="h-full flex flex-col justify-center px-12 py-10 gap-8">
-                {/* Searching Loader */}
-                <div className="text-center mb-4">
-                  <div className="flex items-center justify-center gap-3 text-lg font-medium text-foreground">
+          <div className="h-full flex flex-col py-4 pb-6 relative" style={{ backgroundColor: '#FAF8F4' }}>
+            <div className={`flex-1 overflow-y-auto bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-4' : 'ml-4 mr-2'}`}>
+              <div className="h-full flex flex-col justify-center px-8 py-6 gap-4">
+                {/* Searching Loader - More prominent at top */}
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-2.5 text-base font-medium text-muted-foreground">
                     {isSearching && (
-                      <div className="w-5 h-5 border-2 border-[rgba(21,52,61,0.3)] border-t-[rgba(21,52,61,1)] rounded-full animate-spin" />
+                      <div className="w-4 h-4 border-2 border-[rgba(21,52,61,0.3)] border-t-[rgba(21,52,61,1)] rounded-full animate-spin" />
                     )}
                     {isSearching ? 'Searching for people...' : 'Search complete!'}
                   </div>
                 </div>
 
                 {/* External Sources */}
-                <div className="rounded-2xl p-8" style={{ backgroundColor: '#FAF8F4' }}>
-                  <h3 className="text-xs font-semibold text-muted-foreground text-center mb-6 uppercase tracking-wider">
+                <div className="rounded-xl p-5" style={{ backgroundColor: '#FAF8F4' }}>
+                  <h3 className="text-[10px] font-semibold text-muted-foreground text-center mb-4 uppercase tracking-wider">
                     External Sources
                   </h3>
-                  <div className="relative overflow-hidden h-20">
+                  <div className="relative overflow-hidden h-16">
                     <div className="flex gap-6 animate-[scroll_20s_linear_infinite] absolute whitespace-nowrap">
                       <div className="flex gap-6 items-center">
                         <div className="w-12 h-12 flex items-center justify-center">
@@ -387,46 +387,46 @@ const JobPeople = () => {
                 </div>
 
                 {/* Internal Sources */}
-                <div className="rounded-2xl p-8" style={{ backgroundColor: '#FAF8F4' }}>
-                  <h3 className="text-xs font-semibold text-muted-foreground text-center mb-6 uppercase tracking-wider">
+                <div className="rounded-xl p-5" style={{ backgroundColor: '#FAF8F4' }}>
+                  <h3 className="text-[10px] font-semibold text-muted-foreground text-center mb-4 uppercase tracking-wider">
                     Internal Sources
                   </h3>
-                  <div className="flex gap-4 justify-center">
-                    <div className="px-6 py-2 bg-white rounded-lg text-sm font-medium shadow-sm">Network</div>
-                    <div className="px-6 py-2 bg-white rounded-lg text-sm font-medium shadow-sm">Applied</div>
+                  <div className="flex gap-3 justify-center">
+                    <div className="px-5 py-1.5 bg-white rounded-lg text-sm font-medium shadow-sm">Network</div>
+                    <div className="px-5 py-1.5 bg-white rounded-lg text-sm font-medium shadow-sm">Applied</div>
                   </div>
                 </div>
 
                 {/* People Found Counter */}
-                <div className="rounded-2xl p-8" style={{ backgroundColor: '#FAF8F4' }}>
-                  <h3 className="text-xs font-semibold text-muted-foreground mb-4 uppercase tracking-wider text-center">People Found</h3>
+                <div className="rounded-xl p-5" style={{ backgroundColor: '#FAF8F4' }}>
+                  <h3 className="text-[10px] font-semibold text-muted-foreground mb-3 uppercase tracking-wider text-center">People Found</h3>
                   <div className="flex items-center justify-center gap-3">
                     <div className="flex -space-x-2">
-                      <div className="w-10 h-10 rounded-full bg-blue-400 border-2 border-white" />
-                      <div className="w-10 h-10 rounded-full bg-purple-400 border-2 border-white" />
-                      <div className="w-10 h-10 rounded-full bg-green-400 border-2 border-white" />
+                      <div className="w-8 h-8 rounded-full bg-blue-400 border-2 border-white" />
+                      <div className="w-8 h-8 rounded-full bg-purple-400 border-2 border-white" />
+                      <div className="w-8 h-8 rounded-full bg-green-400 border-2 border-white" />
                     </div>
-                    <div className="text-3xl font-bold text-foreground">{peopleCount}</div>
+                    <div className="text-2xl font-bold text-foreground">{peopleCount}</div>
                   </div>
                 </div>
 
                 {/* Best Matches */}
-                <div className="rounded-2xl p-8" style={{ backgroundColor: '#FAF8F4' }}>
-                  <h3 className="text-xs font-semibold text-muted-foreground text-center mb-6 uppercase tracking-wider">
+                <div className="rounded-xl p-5" style={{ backgroundColor: '#FAF8F4' }}>
+                  <h3 className="text-[10px] font-semibold text-muted-foreground text-center mb-4 uppercase tracking-wider">
                     Best Matches
                   </h3>
-                  <div className="flex flex-wrap gap-3 justify-center">
+                  <div className="flex flex-wrap gap-2 justify-center">
                     {bestMatches.slice(0, visibleMatches).map((match, index) => (
                       <div
                         key={index}
-                        className={`w-14 h-14 rounded-xl ${match.color} flex items-center justify-center text-white font-semibold text-sm animate-fade-in shadow-sm`}
+                        className={`w-12 h-12 rounded-xl ${match.color} flex items-center justify-center text-white font-semibold text-xs animate-fade-in shadow-sm`}
                         title={match.name}
                       >
                         {match.initials}
                       </div>
                     ))}
                     {visibleMatches >= 17 && (
-                      <div className="w-14 h-14 rounded-xl bg-gray-400 flex items-center justify-center text-white font-semibold text-sm animate-fade-in shadow-sm">
+                      <div className="w-12 h-12 rounded-xl bg-gray-400 flex items-center justify-center text-white font-semibold text-xs animate-fade-in shadow-sm">
                         +12
                       </div>
                     )}
