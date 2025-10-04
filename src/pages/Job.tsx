@@ -29,6 +29,20 @@ Responsibilities
 
 Qualifications`);
 
+  const formatJobDescription = (text: string) => {
+    const lines = text.split('\n');
+    return lines.map((line, index) => {
+      const trimmedLine = line.trim();
+      const isSectionTitle = ['Senior Product Designer', 'Job description', 'About us', 'Role overview', 'Responsibilities', 'Qualifications'].includes(trimmedLine);
+      
+      return (
+        <div key={index} className={isSectionTitle ? 'text-xl font-semibold mb-2 mt-4' : 'mb-1'}>
+          {line || '\u00A0'}
+        </div>
+      );
+    });
+  };
+
   const [messages] = useState([
     { text: 'Find me a senior product designer based in Stockholm.', isUser: true },
     { text: 'Okay! How much experience should the candidates have?', isUser: false },
@@ -151,17 +165,14 @@ Qualifications`);
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 50} minSize={30}>
           <div className="h-full flex flex-col p-6 relative" style={{ backgroundColor: '#FAF8F4' }}>
             <div className="flex-1 overflow-y-auto bg-background rounded-[15px] p-12">
-              <textarea
-                value={jobDescription}
-                onChange={(e) => setJobDescription(e.target.value)}
-                className="w-full h-full min-h-[800px] text-foreground focus:outline-none resize-none font-sans bg-transparent"
-                style={{ whiteSpace: 'pre-wrap' }}
-              />
+              <div className="text-foreground whitespace-pre-wrap">
+                {formatJobDescription(jobDescription)}
+              </div>
             </div>
             {isChatCollapsed && (
               <button
                 onClick={() => setIsChatCollapsed(false)}
-                className="absolute top-6 right-6 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
+                className="absolute top-10 right-10 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
               >
                 <ChevronLeft className="w-5 h-5 text-gray-700" />
               </button>
