@@ -108,7 +108,7 @@ export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDia
         {step === 1 && (
           <>
             <DialogHeader>
-              <DialogTitle>Select candidates to reject</DialogTitle>
+              <DialogTitle className="font-hedvig">Select candidates to reject</DialogTitle>
             </DialogHeader>
             
             <div className="space-y-4">
