@@ -322,7 +322,7 @@ export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDia
                     </div>
                   </div>
                   <div>
-                    <div className="text-2xl font-semibold mb-2">
+                    <div className="text-2xl font-semibold mb-2 font-hedvig">
                       Success!
                     </div>
                     <div className="text-muted-foreground">
