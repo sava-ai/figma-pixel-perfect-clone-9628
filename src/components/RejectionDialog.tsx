@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { CheckCircle2, Sparkles, MessageSquare } from 'lucide-react';
+import { CheckCircle2, Sparkles, MessageSquare, ChevronDown } from 'lucide-react';
 
 interface RejectedCandidate {
   id: number;
@@ -215,30 +215,34 @@ export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDia
               {/* Template picker */}
               <div className="space-y-3">
                 <label className="text-sm font-semibold uppercase text-muted-foreground">Template</label>
-                <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value="templates" className="border rounded-lg shadow-md">
-                    <AccordionTrigger className="px-4 py-3 hover:no-underline">
-                      <div className="flex items-center gap-2">
-                        <MessageSquare className="w-4 h-4" />
-                        <span className="text-sm">Select a template</span>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-3">
-                      <div className="space-y-2">
-                        {templates.map((template) => (
-                          <button
-                            key={template.id}
-                            onClick={() => handleTemplateSelect(template)}
-                            className="w-full text-left px-3 py-2 text-sm hover:bg-muted rounded-md transition-colors"
-                          >
-                            <div className="font-medium">{template.name}</div>
-                            <div className="text-xs text-muted-foreground mt-1">{template.subject}</div>
-                          </button>
-                        ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start gap-2 shadow-md"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                      <span className="text-sm">Select a template</span>
+                      <ChevronDown className="w-4 h-4 ml-auto" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-2 bg-background" align="start">
+                    <div className="space-y-1">
+                      {templates.map((template) => (
+                        <button
+                          key={template.id}
+                          onClick={() => {
+                            handleTemplateSelect(template);
+                          }}
+                          className="w-full text-left px-3 py-2 text-sm hover:bg-muted rounded-md transition-colors"
+                        >
+                          <div className="font-medium">{template.name}</div>
+                          <div className="text-xs text-muted-foreground mt-1">{template.subject}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </div>
 
               {/* Subject */}
