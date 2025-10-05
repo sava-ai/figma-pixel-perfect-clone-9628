@@ -289,7 +289,7 @@ const JobPeopleView = () => {
                         </div>
                         <p className="text-muted-foreground text-sm">Rejections</p>
                       </div>
-                      <p className="text-3xl font-semibold text-foreground mb-4">8</p>
+                      <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">8</p>
                       <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                         <span>Review now</span>
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
