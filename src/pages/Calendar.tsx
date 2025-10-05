@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
+import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
 import profile1 from '@/assets/profile-1.jpg';
 import profile2 from '@/assets/profile-2.jpg';
 import profile3 from '@/assets/profile-3.jpg';
@@ -112,6 +113,7 @@ const Calendar = () => {
                 onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)}
                 className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
               >
+                <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded" />
                 <span className="font-medium text-gray-700">All Jobs</span>
                 <ChevronDown className="w-4 h-4 text-gray-700" />
               </button>
@@ -122,6 +124,7 @@ const Calendar = () => {
                     className="w-full flex items-center gap-3 px-4 py-3 hover:bg-accent transition-colors text-left"
                     onClick={() => setJobsDropdownOpen(false)}
                   >
+                    <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded" />
                     <span className="text-sm font-medium">All Jobs</span>
                   </button>
                   {jobs.map((job) => (
@@ -130,6 +133,7 @@ const Calendar = () => {
                       className="w-full flex items-center gap-3 px-4 py-3 hover:bg-accent transition-colors text-left"
                       onClick={() => setJobsDropdownOpen(false)}
                     >
+                      <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded" />
                       <span className="text-sm">{job.title}</span>
                     </button>
                   ))}
