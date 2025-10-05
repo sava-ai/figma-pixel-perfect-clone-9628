@@ -119,26 +119,27 @@ Looking forward to seeing you there!`;
           <div className="space-y-6 py-4">
             {/* Title */}
             <div className="space-y-2">
-              <Label htmlFor="title">Title</Label>
+              <Label htmlFor="title">Title <span className="text-destructive">*</span></Label>
               <Input
                 id="title"
                 placeholder="Meeting title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                className={!title ? 'border-destructive/50' : ''}
               />
             </div>
 
             {/* Date and Time */}
             <div className="grid grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label>Date</Label>
+                <Label>Date <span className="text-destructive">*</span></Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
                       className={cn(
                         "w-full justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
+                        !date && "text-muted-foreground border-destructive/50"
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -157,13 +158,13 @@ Looking forward to seeing you there!`;
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="start-time">Start Time</Label>
+                <Label htmlFor="start-time">Start Time <span className="text-destructive">*</span></Label>
                 <div className="relative">
                   <Clock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="start-time"
                     type="time"
-                    className="pl-10"
+                    className={cn("pl-10", !startTime && "border-destructive/50")}
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
                   />
@@ -171,13 +172,13 @@ Looking forward to seeing you there!`;
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="end-time">End Time</Label>
+                <Label htmlFor="end-time">End Time <span className="text-destructive">*</span></Label>
                 <div className="relative">
                   <Clock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="end-time"
                     type="time"
-                    className="pl-10"
+                    className={cn("pl-10", !endTime && "border-destructive/50")}
                     value={endTime}
                     onChange={(e) => setEndTime(e.target.value)}
                   />
@@ -294,7 +295,7 @@ Looking forward to seeing you there!`;
               Cancel
             </Button>
             <Button onClick={handleSave} disabled={!title || !date || !startTime || !endTime}>
-              Save
+              {!title || !date || !startTime || !endTime ? 'Fill required fields' : 'Save'}
             </Button>
           </DialogFooter>
         </DialogContent>
