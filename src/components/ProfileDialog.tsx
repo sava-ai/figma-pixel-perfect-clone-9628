@@ -195,7 +195,7 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
               </div>
 
               {/* Right side - Contact form */}
-              <div className="space-y-4">
+              <div className="space-y-4 sticky top-0 self-start max-h-[calc(90vh-180px)] overflow-y-auto">
                 <div className="rounded-lg p-6 space-y-4" style={{ backgroundColor: '#FAF8F4' }}>
                   <h4 className="text-sm font-semibold uppercase text-muted-foreground">Template</h4>
                   
