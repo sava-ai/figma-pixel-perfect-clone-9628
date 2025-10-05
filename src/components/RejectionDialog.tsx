@@ -104,16 +104,16 @@ export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDia
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col p-0">
+      <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col p-0 gap-0">
         {step === 1 && (
           <>
-            <div className="px-6 pt-6">
+            <div className="px-6 pt-6 pb-4">
               <DialogHeader>
                 <DialogTitle className="font-hedvig">Select candidates to reject</DialogTitle>
               </DialogHeader>
             </div>
             
-            <div className="flex-1 overflow-y-auto px-6 space-y-4">
+            <div className="flex-1 overflow-y-auto px-6 pb-4 space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Checkbox
@@ -164,7 +164,7 @@ export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDia
               </div>
             </div>
 
-            <div className="sticky bottom-0 border-t bg-background px-6 py-4 flex justify-end gap-3">
+            <div className="border-t bg-background px-6 py-4 flex justify-end gap-3 mt-auto">
               <Button variant="outline" onClick={() => onOpenChange(false)}>
                 Cancel
               </Button>
