@@ -88,10 +88,11 @@ const Calendar = () => {
     <div className="min-h-screen bg-[#FAF8F4] p-6">
       {/* Header */}
       <div className="max-w-7xl mx-auto mb-8">
-        <div className="flex items-center justify-between mb-6">
+        <div className="relative flex items-center justify-between mb-6">
           <h1 className="font-hedvig text-4xl text-foreground">Meetings</h1>
           
-          <div className="flex items-center gap-3">
+          {/* Center - Month switcher */}
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-3">
             <button className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow">
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -103,51 +104,54 @@ const Calendar = () => {
             </button>
           </div>
 
-          {/* Job Filter Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
-            >
-              <span className="font-medium text-gray-700">All Jobs</span>
-              <ChevronDown className="w-4 h-4 text-gray-700" />
-            </button>
-            
-            {jobsDropdownOpen && (
-              <div className="absolute top-full right-0 mt-2 w-64 bg-white border rounded-lg shadow-lg z-50">
-                <button
-                  className="w-full flex items-center gap-3 px-4 py-3 hover:bg-accent transition-colors text-left"
-                  onClick={() => setJobsDropdownOpen(false)}
-                >
-                  <span className="text-sm font-medium">All Jobs</span>
-                </button>
-                {jobs.map((job) => (
+          {/* Right side - Job Filter, Create meeting, Close */}
+          <div className="flex items-center gap-2">
+            {/* Job Filter Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
+              >
+                <span className="font-medium text-gray-700">All Jobs</span>
+                <ChevronDown className="w-4 h-4 text-gray-700" />
+              </button>
+              
+              {jobsDropdownOpen && (
+                <div className="absolute top-full right-0 mt-2 w-64 bg-white border rounded-lg shadow-lg z-50">
                   <button
-                    key={job.id}
                     className="w-full flex items-center gap-3 px-4 py-3 hover:bg-accent transition-colors text-left"
                     onClick={() => setJobsDropdownOpen(false)}
                   >
-                    <span className="text-sm">{job.title}</span>
+                    <span className="text-sm font-medium">All Jobs</span>
                   </button>
-                ))}
-              </div>
-            )}
-          </div>
+                  {jobs.map((job) => (
+                    <button
+                      key={job.id}
+                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-accent transition-colors text-left"
+                      onClick={() => setJobsDropdownOpen(false)}
+                    >
+                      <span className="text-sm">{job.title}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
-          <button 
-            className="px-4 py-2 bg-[rgba(21,52,61,1)] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-medium"
-          >
-            Create meeting
-          </button>
-          
-          <button 
-            onClick={() => navigate('/')}
-            className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+            <button 
+              className="px-4 py-2 bg-[rgba(21,52,61,1)] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-medium"
+            >
+              Create meeting
+            </button>
+            
+            <button 
+              onClick={() => navigate('/')}
+              className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Day selector */}
