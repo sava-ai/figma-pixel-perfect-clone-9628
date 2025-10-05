@@ -305,7 +305,7 @@ Looking forward to seeing you there!`;
       <Dialog open={showMessageDialog} onOpenChange={setShowMessageDialog}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
-            <DialogTitle>Invitation Message</DialogTitle>
+            <DialogTitle className="font-hedvig">Invitation Message</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-4 py-4">
