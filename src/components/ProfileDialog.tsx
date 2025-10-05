@@ -6,6 +6,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Mail, Linkedin, Phone, Link as LinkIcon, Award, FileText, ExternalLink, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import * as React from "react";
 import aresLogo from "@/assets/company-ares.png";
 import stripeLogo from "@/assets/company-stripe.png";
 import figmaLogo from "@/assets/company-figma.png";
@@ -37,6 +38,8 @@ interface ProfileDialogProps {
 
 export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNext, onSkip }: ProfileDialogProps) => {
   if (!candidate) return null;
+
+  const [contactMethod, setContactMethod] = React.useState<'email' | 'linkedin'>('email');
 
   const achievements = [
     "Award winner UX hackathon 2025",
@@ -227,39 +230,49 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                   {/* Contact options */}
                   <div className="space-y-3">
                     <h5 className="text-sm font-semibold uppercase text-muted-foreground">Contact options</h5>
-                    <div className="flex gap-2">
-                      <Button variant="outline" className="flex-1 gap-2">
+                    <div className="flex gap-1 p-1 bg-muted rounded-lg">
+                      <Button 
+                        variant={contactMethod === 'email' ? 'default' : 'ghost'}
+                        className="flex-1 gap-2"
+                        onClick={() => setContactMethod('email')}
+                      >
                         <Mail className="w-4 h-4" />
                         Email
                       </Button>
-                      <Button variant="outline" className="flex-1 gap-2">
+                      <Button 
+                        variant={contactMethod === 'linkedin' ? 'default' : 'ghost'}
+                        className="flex-1 gap-2"
+                        onClick={() => setContactMethod('linkedin')}
+                      >
                         <Linkedin className="w-4 h-4" />
                         LinkedIn
                       </Button>
                     </div>
                   </div>
 
-                  {/* Email selection accordion */}
-                  <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value="email" className="border rounded-lg">
-                      <AccordionTrigger className="px-4 py-3 hover:no-underline">
-                        <div className="flex items-center gap-2">
-                          <Mail className="w-4 h-4" />
-                          <span className="text-sm">{candidate.name.toLowerCase().replace(' ', '.')}@email.com</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="px-4 pb-3">
-                        <div className="space-y-2">
-                          <button className="w-full text-left px-3 py-2 text-sm hover:bg-muted rounded-md transition-colors">
-                            {candidate.name.toLowerCase().replace(' ', '.')}@email.com
-                          </button>
-                          <button className="w-full text-left px-3 py-2 text-sm hover:bg-muted rounded-md transition-colors">
-                            {candidate.name.toLowerCase().split(' ')[0]}@company.com
-                          </button>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
+                  {/* Email selection accordion - only show when email is selected */}
+                  {contactMethod === 'email' && (
+                    <Accordion type="single" collapsible className="w-full">
+                      <AccordionItem value="email" className="border rounded-lg">
+                        <AccordionTrigger className="px-4 py-3 hover:no-underline">
+                          <div className="flex items-center gap-2">
+                            <Mail className="w-4 h-4" />
+                            <span className="text-sm">{candidate.name.toLowerCase().replace(' ', '.')}@email.com</span>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="px-4 pb-3">
+                          <div className="space-y-2">
+                            <button className="w-full text-left px-3 py-2 text-sm hover:bg-muted rounded-md transition-colors">
+                              {candidate.name.toLowerCase().replace(' ', '.')}@email.com
+                            </button>
+                            <button className="w-full text-left px-3 py-2 text-sm hover:bg-muted rounded-md transition-colors">
+                              {candidate.name.toLowerCase().split(' ')[0]}@company.com
+                            </button>
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  )}
 
                   {/* Subject input */}
                   <div className="space-y-2">
