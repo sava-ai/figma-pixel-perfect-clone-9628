@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
+import { CreateMeetingDialog } from '@/components/CreateMeetingDialog';
 import profile1 from '@/assets/profile-1.jpg';
 import profile2 from '@/assets/profile-2.jpg';
 import profile3 from '@/assets/profile-3.jpg';
@@ -13,6 +14,7 @@ const Calendar = () => {
   const [currentDate] = useState(new Date());
   const [dayOffset, setDayOffset] = useState(0);
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
+  const [createMeetingOpen, setCreateMeetingOpen] = useState(false);
   
   const meetings = [
     {
@@ -142,6 +144,7 @@ const Calendar = () => {
             </div>
 
             <button 
+              onClick={() => setCreateMeetingOpen(true)}
               className="px-4 py-2 bg-[rgba(21,52,61,1)] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-medium"
             >
               Create meeting
@@ -303,6 +306,11 @@ const Calendar = () => {
           </div>
         </div>
       </div>
+
+      <CreateMeetingDialog 
+        open={createMeetingOpen} 
+        onOpenChange={setCreateMeetingOpen} 
+      />
     </div>
   );
 };
