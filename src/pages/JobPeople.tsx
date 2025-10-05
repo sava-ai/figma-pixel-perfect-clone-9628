@@ -83,13 +83,19 @@ const JobPeople = () => {
       setIsSearching(false);
     }, 8000);
 
+    // Stage 5: Navigate to view page 2 seconds after search completes
+    const timer5 = setTimeout(() => {
+      navigate('/job/people/view');
+    }, 10000);
+
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
       clearTimeout(timer3);
       clearTimeout(timer4);
+      clearTimeout(timer5);
     };
-  }, []);
+  }, [navigate]);
 
   // Gradually show more matches
   useEffect(() => {
