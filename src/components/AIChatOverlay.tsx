@@ -37,7 +37,8 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isResizing) return;
       const newWidth = e.clientX;
-      if (newWidth >= 320 && newWidth <= 800) {
+      const maxWidth = window.innerWidth * 0.8; // 80% of screen width
+      if (newWidth >= 320 && newWidth <= maxWidth) {
         setChatWidth(newWidth);
       }
     };
@@ -103,7 +104,7 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
         />
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto px-6 pt-6 pb-4 space-y-4">
+        <div className="flex-1 overflow-y-auto px-6 pt-16 pb-4 space-y-4">
           {messages.map((message, index) => (
             <div
               key={index}
@@ -113,28 +114,28 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
                 animationDelay: `${index * 0.05}s`
               }}
             >
-              <div
-                className={`max-w-[85%] px-5 py-3 rounded-2xl shadow-md ${
-                  message.isUser
-                    ? 'bg-white text-foreground'
-                    : 'bg-[rgba(21,52,61,1)] text-white'
-                }`}
-              >
-                <p className="text-[15px] leading-relaxed whitespace-pre-wrap">
-                  {message.text}
-                </p>
-              </div>
+            <div
+              className={`max-w-[85%] px-5 py-3 rounded-2xl shadow-md ${
+                message.isUser
+                  ? 'bg-white text-foreground'
+                  : 'bg-transparent text-foreground'
+              }`}
+            >
+              <p className="text-[15px] leading-relaxed whitespace-pre-wrap">
+                {message.text}
+              </p>
+            </div>
             </div>
           ))}
           
           {isThinking && (
             <div className="flex justify-start">
-              <div className="bg-[rgba(21,52,61,1)] text-white px-5 py-3 rounded-2xl shadow-md">
+              <div className="bg-transparent text-foreground px-5 py-3 rounded-2xl">
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1">
-                    <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    <div className="w-2 h-2 bg-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <div className="w-2 h-2 bg-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <div className="w-2 h-2 bg-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                   </div>
                   <span className="text-[15px]">Thinking...</span>
                 </div>
