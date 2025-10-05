@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronDown, MoreVertical, ChevronLeft, Search } from 'lucide-react';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import { ProfileDialog } from '@/components/ProfileDialog';
+import { RejectionDialog } from '@/components/RejectionDialog';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
 import profile1 from '@/assets/profile-1.jpg';
@@ -13,6 +14,18 @@ import profile5 from '@/assets/profile-5.jpg';
 import profile6 from '@/assets/profile-6.jpg';
 import profile7 from '@/assets/profile-7.jpg';
 import profile8 from '@/assets/profile-8.jpg';
+import profile9 from '@/assets/profile-9.jpg';
+import profile10 from '@/assets/profile-10.jpg';
+import profile11 from '@/assets/profile-11.jpg';
+import profile12 from '@/assets/profile-12.jpg';
+import profile13 from '@/assets/profile-13.jpg';
+import profile14 from '@/assets/profile-14.jpg';
+import profile15 from '@/assets/profile-15.jpg';
+import profile16 from '@/assets/profile-16.jpg';
+import profile17 from '@/assets/profile-17.jpg';
+import profile18 from '@/assets/profile-18.jpg';
+import profile19 from '@/assets/profile-19.jpg';
+import profile20 from '@/assets/profile-20.jpg';
 const JobPeopleView = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'job' | 'people' | 'shortlist'>('people');
@@ -20,6 +33,7 @@ const JobPeopleView = () => {
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState<typeof bestCandidates[0] | null>(null);
   const [profileDialogOpen, setProfileDialogOpen] = useState(false);
+  const [rejectionDialogOpen, setRejectionDialogOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   // Animated counters
@@ -209,6 +223,17 @@ const JobPeopleView = () => {
     id: 3,
     title: 'Frontend Developer'
   }];
+
+  const rejectedCandidates = [
+    { id: 1, name: "Michael Johnson", email: "michael.j@email.com", image: profile9, appliedDate: "2024-01-15" },
+    { id: 2, name: "Sarah Williams", email: "sarah.w@email.com", image: profile10, appliedDate: "2024-01-16" },
+    { id: 3, name: "David Brown", email: "david.b@email.com", image: profile11, appliedDate: "2024-01-17" },
+    { id: 4, name: "Emily Davis", email: "emily.d@email.com", image: profile12, appliedDate: "2024-01-18" },
+    { id: 5, name: "James Wilson", email: "james.w@email.com", image: profile13, appliedDate: "2024-01-19" },
+    { id: 6, name: "Lisa Anderson", email: "lisa.a@email.com", image: profile14, appliedDate: "2024-01-20" },
+    { id: 7, name: "Robert Taylor", email: "robert.t@email.com", image: profile15, appliedDate: "2024-01-21" },
+    { id: 8, name: "Jennifer Thomas", email: "jennifer.t@email.com", image: profile16, appliedDate: "2024-01-22" },
+  ];
   return <div className="h-screen w-full flex flex-col bg-background overflow-hidden">
       {/* Header */}
       <header className="h-[68px] bg-background flex items-center justify-between px-6 flex-shrink-0">
@@ -329,7 +354,10 @@ const JobPeopleView = () => {
                         <p className="text-sm text-gray-950">Rejections</p>
                       </div>
                       <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">{rejectionsCount}</p>
-                      <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                      <button 
+                        onClick={() => setRejectionDialogOpen(true)}
+                        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      >
                         <span className="text-gray-950">Review now</span>
                         <svg fill="none" stroke="black" viewBox="0 0 24 24" className="w-4 h-4">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -551,6 +579,13 @@ const JobPeopleView = () => {
             setProfileDialogOpen(false);
           }
         }}
+      />
+
+      {/* Rejection Dialog */}
+      <RejectionDialog
+        open={rejectionDialogOpen}
+        onOpenChange={setRejectionDialogOpen}
+        candidates={rejectedCandidates}
       />
     </div>;
 };
