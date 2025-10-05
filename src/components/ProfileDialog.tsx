@@ -95,7 +95,7 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                     <Sparkles className="w-4 h-4 text-primary" />
                     <p className="text-sm font-medium">AI Summary</p>
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-black leading-relaxed">
                     {candidate.description}
                   </p>
                 </div>
