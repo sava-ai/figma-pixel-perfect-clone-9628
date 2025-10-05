@@ -144,7 +144,7 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                         </div>
                       ))}
                     </div>
-                    <Separator className="w-1/2 mx-auto my-4" />
+                    <Separator className="my-4" />
                   </div>
 
                   {/* Contact Info */}
@@ -164,7 +164,7 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                         <a href="#" className="text-primary hover:underline">linkedin.com/in/{candidate.name.toLowerCase().replace(' ', '-')}</a>
                       </div>
                     </div>
-                    <Separator className="w-1/2 mx-auto my-4" />
+                    <Separator className="my-4" />
                   </div>
 
                   {/* Achievements & Links */}
@@ -190,7 +190,6 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                         </a>
                       </div>
                     </div>
-                    <Separator className="w-1/2 mx-auto my-4" />
                   </div>
                 </div>
               </div>
