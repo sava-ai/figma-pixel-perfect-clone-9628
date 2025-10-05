@@ -119,8 +119,8 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                       <Sparkles className="w-4 h-4 text-primary" />
                       <p className="text-sm font-medium">AI Analysis</p>
                     </div>
-                    <p className="text-sm text-black leading-relaxed font-normal">
-                      {aiAnalysis}
+                    <p className="text-sm text-black leading-relaxed font-light">
+                      <span className="font-normal">{candidate.name}</span> is an <span className="font-normal">exceptional match</span> for the <span className="font-normal">Product Designer position</span>. With <span className="font-normal">extensive experience in fintech</span> and <span className="font-normal">proven leadership abilities</span>, they demonstrate <span className="font-normal">strong alignment</span> with the role requirements. Their portfolio showcases a deep understanding of <span className="font-normal">user-centered design principles</span> and ability to balance business objectives with user needs. The candidate has a track record of <span className="font-normal">successful product launches</span> and team collaboration, making them an <span className="font-normal">ideal fit</span> for a fast-paced, innovation-driven environment.
                     </p>
                   </div>
 
