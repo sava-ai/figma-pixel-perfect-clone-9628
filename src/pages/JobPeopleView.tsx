@@ -302,7 +302,7 @@ const JobPeopleView = () => {
 
                 {/* Best matches section */}
                 <div className="mb-4">
-                  <h2 className="text-base font-medium text-foreground mb-4">Best matches</h2>
+                  <h2 className="font-medium text-foreground mb-4 text-xl">Best matches</h2>
                 </div>
 
                 {/* Candidates grid */}
