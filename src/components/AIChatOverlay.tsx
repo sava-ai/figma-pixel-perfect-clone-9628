@@ -21,7 +21,7 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isThinking, setIsThinking] = useState(true);
-  const [chatWidth, setChatWidth] = useState(480);
+  const [chatWidth, setChatWidth] = useState(window.innerWidth * 0.3); // 30% of screen width
   const [isResizing, setIsResizing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -45,8 +45,9 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isResizing) return;
       const newWidth = e.clientX;
-      const maxWidth = window.innerWidth * 0.9; // 90% of screen width
-      if (newWidth >= 320 && newWidth <= maxWidth) {
+      const minWidth = window.innerWidth * 0.2; // 20% minimum
+      const maxWidth = window.innerWidth * 0.5; // 50% maximum
+      if (newWidth >= minWidth && newWidth <= maxWidth) {
         setChatWidth(newWidth);
       }
     };
