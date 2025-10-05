@@ -47,8 +47,8 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[90vw] w-[1200px] max-h-[90vh] p-0 overflow-hidden">
-        <div className="flex flex-col h-full">
+      <DialogContent className="max-w-[90vw] w-[1200px] h-[90vh] p-0 overflow-hidden flex flex-col">
+        <div className="flex flex-col h-full min-h-0">
           {/* Progress bar */}
           <div className="h-2 bg-muted">
             <div className="h-full bg-primary w-1/2 transition-all" />
@@ -61,7 +61,7 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
           </div>
 
           {/* Main content */}
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto min-h-0">
             <div className="grid grid-cols-2 gap-8 p-6">
               {/* Left side - Profile info */}
               <div className="space-y-6">
