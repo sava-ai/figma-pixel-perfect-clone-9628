@@ -113,7 +113,7 @@ Looking forward to seeing you there!`;
       <Dialog open={open && !showMessageDialog} onOpenChange={onOpenChange}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl">Create Meeting</DialogTitle>
+            <DialogTitle className="font-hedvig text-2xl">Create Meeting</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-6 py-4">
