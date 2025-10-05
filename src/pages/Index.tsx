@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserAvatar } from '@/components/UserAvatar';
 import { JobCard } from '@/components/JobCard';
+import { AIChatOverlay } from '@/components/AIChatOverlay';
 import backgroundImage from '@/assets/background.png';
 import userAvatarImage from '@/assets/user-avatar.png';
 import logoIcon from '@/assets/logo-icon.svg';
@@ -13,6 +14,7 @@ const Index = () => {
   const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean }>>([]);
   const [isThinking, setIsThinking] = useState(false);
   const [conversationStep, setConversationStep] = useState(0);
+  const [isAIChatOpen, setIsAIChatOpen] = useState(false);
   const jobData = {
     title: "Chief Operations Officer",
     userName: "Mateusz Budka",
@@ -75,10 +77,8 @@ const Index = () => {
         {/* Logo - left sidebar */}
         <aside className="fixed left-4 top-8">
           <button 
-            onClick={isChatMode ? handleBackToSearch : undefined}
-            className={`w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm transition-all duration-1000 ${
-              isChatMode ? 'hover:bg-accent cursor-pointer' : ''
-            }`}
+            onClick={isChatMode ? handleBackToSearch : () => setIsAIChatOpen(true)}
+            className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm hover:bg-accent transition-all duration-300 cursor-pointer"
           >
             <div className="relative w-6 h-6">
               <img 
@@ -101,6 +101,9 @@ const Index = () => {
             </div>
           </button>
         </aside>
+
+        {/* AI Chat Overlay */}
+        <AIChatOverlay open={isAIChatOpen} onOpenChange={setIsAIChatOpen} />
 
         {/* Right sidebar */}
         <aside className="fixed right-4 top-8 flex flex-col gap-4">
