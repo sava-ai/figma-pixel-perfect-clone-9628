@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronDown, MoreVertical, ChevronLeft, Search } from 'lucide-react';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
+import { ProfileDialog } from '@/components/ProfileDialog';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
 import profile1 from '@/assets/profile-1.jpg';
@@ -17,6 +18,8 @@ const JobPeopleView = () => {
   const [activeTab, setActiveTab] = useState<'job' | 'people' | 'shortlist'>('people');
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
+  const [selectedCandidate, setSelectedCandidate] = useState<typeof bestCandidates[0] | null>(null);
+  const [profileDialogOpen, setProfileDialogOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const bestCandidates = [{
     id: 1,
@@ -307,7 +310,14 @@ const JobPeopleView = () => {
 
                 {/* Candidates grid */}
                 <div className="grid grid-cols-2 gap-4">
-                  {bestCandidates.map(candidate => <div key={candidate.id} className="bg-card border border-border/40 rounded-xl p-5 hover:border-primary/50 transition-all cursor-pointer group">
+                  {bestCandidates.map(candidate => <div 
+                      key={candidate.id} 
+                      className="bg-card border border-border/40 rounded-xl p-5 hover:border-primary/50 transition-all cursor-pointer group"
+                      onClick={() => {
+                        setSelectedCandidate(candidate);
+                        setProfileDialogOpen(true);
+                      }}
+                    >
                       {/* Candidate header */}
                       <div className="flex items-start gap-3 mb-4">
                         <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
@@ -477,6 +487,35 @@ const JobPeopleView = () => {
             </div>
           </ResizablePanel>}
       </ResizablePanelGroup>
+
+      {/* Profile Dialog */}
+      <ProfileDialog 
+        candidate={selectedCandidate}
+        open={profileDialogOpen}
+        onOpenChange={setProfileDialogOpen}
+        onPrevious={() => {
+          const currentIndex = bestCandidates.findIndex(c => c.id === selectedCandidate?.id);
+          if (currentIndex > 0) {
+            setSelectedCandidate(bestCandidates[currentIndex - 1]);
+          }
+        }}
+        onNext={() => {
+          const currentIndex = bestCandidates.findIndex(c => c.id === selectedCandidate?.id);
+          if (currentIndex < bestCandidates.length - 1) {
+            setSelectedCandidate(bestCandidates[currentIndex + 1]);
+          } else {
+            setProfileDialogOpen(false);
+          }
+        }}
+        onSkip={() => {
+          const currentIndex = bestCandidates.findIndex(c => c.id === selectedCandidate?.id);
+          if (currentIndex < bestCandidates.length - 1) {
+            setSelectedCandidate(bestCandidates[currentIndex + 1]);
+          } else {
+            setProfileDialogOpen(false);
+          }
+        }}
+      />
     </div>;
 };
 export default JobPeopleView;
