@@ -29,9 +29,9 @@ const JobPeopleView = () => {
       match: "10/12",
       description: "A seasoned Senior Product Designer with extensive leadership experience in fintech. Sarah has dedicated over 8 years to building world-class products, contributing to high-growth companies. Her expertise lies in creating intuitive user experiences while driving product strategy and mentoring design teams.",
       roles: [
-        { company: "Klarna", role: "Senior UX/UI Designer", logo: "K" },
-        { company: "Spotify", role: "Product Designer", logo: "S" },
-        { company: "Tink", role: "Product Design Intern", logo: "T" }
+        { company: "Klarna", role: "Senior UX/UI Designer" },
+        { company: "Spotify", role: "Product Designer" },
+        { company: "Tink", role: "Product Design Intern" }
       ]
     },
     {
@@ -42,9 +42,9 @@ const JobPeopleView = () => {
       match: "9/12",
       description: "Marcus is a Senior Designer at Asseco with 10 years of experience, having multiple projects on Dribbble displaying potential of exponential product understanding. He specializes in design systems and has led transformation initiatives across enterprise platforms, bringing consistency and scalability to complex products.",
       roles: [
-        { company: "Asseco", role: "Senior Designer", logo: "A" },
-        { company: "H&M", role: "UX Designer", logo: "H" },
-        { company: "Ericsson", role: "UI Designer", logo: "E" }
+        { company: "Asseco", role: "Senior Designer" },
+        { company: "H&M", role: "UX Designer" },
+        { company: "Ericsson", role: "UI Designer" }
       ]
     },
     {
@@ -55,9 +55,9 @@ const JobPeopleView = () => {
       match: "11/12",
       description: "Emma is an innovative Senior Product Designer known for her data-driven approach and exceptional prototyping skills. With 9 years in the industry, she has crafted user experiences for both B2B and B2C products, always focusing on measurable impact and user satisfaction metrics.",
       roles: [
-        { company: "Bambora", role: "Lead Product Designer", logo: "B" },
-        { company: "iZettle", role: "Product Designer", logo: "I" },
-        { company: "King", role: "Senior UI Designer", logo: "K" }
+        { company: "Bambora", role: "Lead Product Designer" },
+        { company: "iZettle", role: "Product Designer" },
+        { company: "King", role: "Senior UI Designer" }
       ]
     },
     {
@@ -68,9 +68,9 @@ const JobPeopleView = () => {
       match: "10/12",
       description: "Oliver brings a unique blend of technical knowledge and design excellence, having worked extensively with cross-functional teams in agile environments. His 7 years of experience span fintech, e-commerce, and SaaS products, with a strong focus on accessibility and inclusive design practices.",
       roles: [
-        { company: "Northmill", role: "Senior Product Designer", logo: "N" },
-        { company: "Delivery Hero", role: "Product Designer", logo: "D" },
-        { company: "Trustly", role: "UX Designer", logo: "T" }
+        { company: "Northmill", role: "Senior Product Designer" },
+        { company: "Delivery Hero", role: "Product Designer" },
+        { company: "Trustly", role: "UX Designer" }
       ]
     },
     {
@@ -81,9 +81,9 @@ const JobPeopleView = () => {
       match: "9/12",
       description: "Linnea excels at transforming complex requirements into elegant, user-friendly interfaces. With 6 years specializing in fintech and payment solutions, she has a proven track record of improving conversion rates and reducing user friction through thoughtful design iterations and rigorous testing.",
       roles: [
-        { company: "Lunar", role: "Product Designer", logo: "L" },
-        { company: "Wrapp", role: "UX/UI Designer", logo: "W" },
-        { company: "Zimpler", role: "Junior Designer", logo: "Z" }
+        { company: "Lunar", role: "Product Designer" },
+        { company: "Wrapp", role: "UX/UI Designer" },
+        { company: "Zimpler", role: "Junior Designer" }
       ]
     },
     {
@@ -94,9 +94,9 @@ const JobPeopleView = () => {
       match: "10/12",
       description: "Filip is a creative problem-solver with extensive experience in building design systems and leading design sprints. His 8 years in the field have equipped him with deep expertise in user research, interaction design, and visual design, making him a versatile asset to any product team.",
       roles: [
-        { company: "Schibsted", role: "Senior Product Designer", logo: "S" },
-        { company: "Avanza", role: "Lead Designer", logo: "A" },
-        { company: "Collector Bank", role: "Product Designer", logo: "C" }
+        { company: "Schibsted", role: "Senior Product Designer" },
+        { company: "Avanza", role: "Lead Designer" },
+        { company: "Collector Bank", role: "Product Designer" }
       ]
     },
     {
@@ -107,9 +107,9 @@ const JobPeopleView = () => {
       match: "11/12",
       description: "Isabella combines strategic thinking with exceptional execution skills, having delivered award-winning products throughout her 9-year career. She specializes in end-to-end product design, from initial research and concept development to final implementation and post-launch optimization.",
       roles: [
-        { company: "Tetra Pak", role: "Senior UX Designer", logo: "T" },
-        { company: "Sony Mobile", role: "Product Designer", logo: "S" },
-        { company: "Axis", role: "Interaction Designer", logo: "A" }
+        { company: "Tetra Pak", role: "Senior UX Designer" },
+        { company: "Sony Mobile", role: "Product Designer" },
+        { company: "Axis", role: "Interaction Designer" }
       ]
     },
     {
@@ -120,9 +120,9 @@ const JobPeopleView = () => {
       match: "9/12",
       description: "Alexander is passionate about creating delightful user experiences through animation and micro-interactions. His 7 years of experience include work on mobile apps, web platforms, and emerging technologies, always pushing the boundaries of what's possible in digital product design.",
       roles: [
-        { company: "Tobii", role: "Senior Product Designer", logo: "T" },
-        { company: "Mojang", role: "UI/UX Designer", logo: "M" },
-        { company: "Paradox", role: "Product Designer", logo: "P" }
+        { company: "Tobii", role: "Senior Product Designer" },
+        { company: "Mojang", role: "UI/UX Designer" },
+        { company: "Paradox", role: "Product Designer" }
       ]
     }
   ];
@@ -261,7 +261,7 @@ const JobPeopleView = () => {
                   {/* Applicants and Rejections */}
                   <div className="grid grid-cols-2 gap-4 mb-8">
                     <div className="bg-card border border-border/40 rounded-xl p-5">
-                      <div className="flex items-start gap-3 mb-4">
+                      <div className="flex items-center gap-3 mb-3">
                         <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                           <svg className="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -270,18 +270,19 @@ const JobPeopleView = () => {
                             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                           </svg>
                         </div>
-                        <div className="flex-1">
-                          <p className="text-xs text-muted-foreground mb-1">Applicants</p>
-                          <p className="text-3xl font-semibold text-foreground">23</p>
-                        </div>
+                        <p className="text-xs text-muted-foreground">Applicants</p>
                       </div>
-                      <button className="w-full py-2 text-sm text-primary hover:text-primary/80 transition-colors">
-                        → Review now
+                      <p className="text-3xl font-semibold text-foreground mb-4">23</p>
+                      <button className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors">
+                        <span>Review now</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
                       </button>
                     </div>
 
                     <div className="bg-card border border-border/40 rounded-xl p-5">
-                      <div className="flex items-start gap-3 mb-4">
+                      <div className="flex items-center gap-3 mb-3">
                         <div className="w-10 h-10 rounded-lg bg-destructive/10 flex items-center justify-center">
                           <svg className="w-5 h-5 text-destructive" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <circle cx="12" cy="12" r="10" />
@@ -289,13 +290,14 @@ const JobPeopleView = () => {
                             <path d="m9 9 6 6" />
                           </svg>
                         </div>
-                        <div className="flex-1">
-                          <p className="text-xs text-muted-foreground mb-1">Sent rejections</p>
-                          <p className="text-3xl font-semibold text-foreground">8</p>
-                        </div>
+                        <p className="text-xs text-muted-foreground">Rejections</p>
                       </div>
-                      <button className="w-full py-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                        → Review now
+                      <p className="text-3xl font-semibold text-foreground mb-4">8</p>
+                      <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                        <span>Review now</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
                       </button>
                     </div>
                   </div>
@@ -346,11 +348,135 @@ const JobPeopleView = () => {
                             key={idx}
                             className="flex items-center gap-1.5 px-2.5 py-1.5 bg-muted/50 rounded-lg text-xs"
                           >
-                            <div className="w-5 h-5 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
-                              <span className="text-[10px] font-semibold text-primary">
-                                {role.logo}
-                              </span>
-                            </div>
+                            {role.company === 'Klarna' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FFB3C7]">
+                                <span className="text-[10px] font-bold" style={{ color: '#000' }}>K</span>
+                              </div>
+                            )}
+                            {role.company === 'Spotify' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#1DB954]">
+                                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="white">
+                                  <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                                </svg>
+                              </div>
+                            )}
+                            {role.company === 'Tink' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-black">
+                                <span className="text-[10px] font-bold text-white">T</span>
+                              </div>
+                            )}
+                            {role.company === 'Asseco' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#0066B3]">
+                                <span className="text-[10px] font-bold text-white">A</span>
+                              </div>
+                            )}
+                            {role.company === 'H&M' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#E50010]">
+                                <span className="text-[8px] font-bold text-white">H&M</span>
+                              </div>
+                            )}
+                            {role.company === 'Ericsson' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#0082CE]">
+                                <span className="text-[10px] font-bold text-white">E</span>
+                              </div>
+                            )}
+                            {role.company === 'Bambora' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#5E2CA5]">
+                                <span className="text-[10px] font-bold text-white">B</span>
+                              </div>
+                            )}
+                            {role.company === 'iZettle' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#2DBECD]">
+                                <span className="text-[10px] font-bold text-white">iZ</span>
+                              </div>
+                            )}
+                            {role.company === 'King' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FF6C00]">
+                                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="white">
+                                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                                </svg>
+                              </div>
+                            )}
+                            {role.company === 'Northmill' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00C896]">
+                                <span className="text-[10px] font-bold text-white">N</span>
+                              </div>
+                            )}
+                            {role.company === 'Delivery Hero' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#D61F26]">
+                                <span className="text-[10px] font-bold text-white">DH</span>
+                              </div>
+                            )}
+                            {role.company === 'Trustly' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#0EE06E]">
+                                <span className="text-[10px] font-bold text-black">T</span>
+                              </div>
+                            )}
+                            {role.company === 'Lunar' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-black">
+                                <span className="text-[10px] font-bold text-white">L</span>
+                              </div>
+                            )}
+                            {role.company === 'Wrapp' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FF6B9D]">
+                                <span className="text-[10px] font-bold text-white">W</span>
+                              </div>
+                            )}
+                            {role.company === 'Zimpler' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00B67A]">
+                                <span className="text-[10px] font-bold text-white">Z</span>
+                              </div>
+                            )}
+                            {role.company === 'Schibsted' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FF6200]">
+                                <span className="text-[10px] font-bold text-white">S</span>
+                              </div>
+                            )}
+                            {role.company === 'Avanza' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00C281]">
+                                <span className="text-[10px] font-bold text-white">A</span>
+                              </div>
+                            )}
+                            {role.company === 'Collector Bank' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#002855]">
+                                <span className="text-[10px] font-bold text-white">C</span>
+                              </div>
+                            )}
+                            {role.company === 'Tetra Pak' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#0033A0]">
+                                <span className="text-[10px] font-bold text-white">TP</span>
+                              </div>
+                            )}
+                            {role.company === 'Sony Mobile' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-black">
+                                <span className="text-[10px] font-bold text-white">S</span>
+                              </div>
+                            )}
+                            {role.company === 'Axis' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00A3E0]">
+                                <span className="text-[10px] font-bold text-white">A</span>
+                              </div>
+                            )}
+                            {role.company === 'Tobii' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00A3E0]">
+                                <span className="text-[10px] font-bold text-white">T</span>
+                              </div>
+                            )}
+                            {role.company === 'Mojang' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#8B0000]">
+                                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="white">
+                                  <rect x="4" y="4" width="6" height="6"/>
+                                  <rect x="14" y="4" width="6" height="6"/>
+                                  <rect x="4" y="14" width="6" height="6"/>
+                                  <rect x="14" y="14" width="6" height="6"/>
+                                </svg>
+                              </div>
+                            )}
+                            {role.company === 'Paradox' && (
+                              <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#E03C31]">
+                                <span className="text-[10px] font-bold text-white">P</span>
+                              </div>
+                            )}
                             <span className="text-muted-foreground truncate">
                               {role.role}
                             </span>
