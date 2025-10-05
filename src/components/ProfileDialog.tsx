@@ -199,12 +199,12 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
 
               {/* Right side - Contact form */}
               <div className="space-y-4 sticky top-0 self-start max-h-[calc(90vh-180px)] overflow-y-auto">
-                <div className="rounded-lg p-6 space-y-4" style={{ backgroundColor: '#FAF8F4' }}>
+                <div className="rounded-lg p-6 space-y-4">
                   <h4 className="text-sm font-semibold uppercase text-muted-foreground">Template</h4>
                   
                   {/* Template accordion */}
                   <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value="template" className="border rounded-lg">
+                    <AccordionItem value="template" className="border rounded-lg shadow-md">
                       <AccordionTrigger className="px-4 py-3 hover:no-underline">
                         <div className="flex items-center gap-2">
                           <FileText className="w-4 h-4" />
@@ -253,7 +253,7 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                   {/* Email selection accordion - only show when email is selected */}
                   {contactMethod === 'email' && (
                     <Accordion type="single" collapsible className="w-full">
-                      <AccordionItem value="email" className="border rounded-lg">
+                      <AccordionItem value="email" className="border rounded-lg shadow-md">
                         <AccordionTrigger className="px-4 py-3 hover:no-underline">
                           <div className="flex items-center gap-2">
                             <Mail className="w-4 h-4" />
@@ -280,6 +280,7 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                     <Input 
                       placeholder="Opportunity at Ares Studio" 
                       defaultValue="Opportunity at Ares Studio"
+                      className="shadow-md"
                     />
                   </div>
 
@@ -297,7 +298,7 @@ Looking forward to connecting!"
 I hope you're doing well. My name is Sarah Whitman, and I'm a recruiter at Ares Studio. We're looking for a talented Product Designer to join our team, and your work stood out to us.
 
 Looking forward to connecting!`}
-                      className="min-h-[200px] resize-none"
+                      className="min-h-[200px] resize-none shadow-md"
                     />
                   </div>
 
