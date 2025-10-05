@@ -17,7 +17,7 @@ const Calendar = () => {
       id: 1,
       name: "Martin Outhern",
       time: "10:00 AM - 11:00 AM",
-      date: "Today",
+      dayOffset: 0,
       avatar: profile1,
       color: "bg-[#F5F3E8]"
     },
@@ -25,7 +25,7 @@ const Calendar = () => {
       id: 2,
       name: "Nicole Kim",
       time: "11:30 AM - 12:30 PM",
-      date: "Today",
+      dayOffset: 0,
       avatar: profile2,
       color: "bg-[#E8F3E8]"
     },
@@ -33,7 +33,7 @@ const Calendar = () => {
       id: 3,
       name: "Sarah Chapman",
       time: "2:00 PM - 3:00 PM",
-      date: "Today",
+      dayOffset: 0,
       avatar: profile3,
       color: "bg-[#F3E8F3]"
     },
@@ -41,7 +41,7 @@ const Calendar = () => {
       id: 4,
       name: "Marcus Andersson",
       time: "4:00 PM - 5:00 PM",
-      date: "Today",
+      dayOffset: 0,
       avatar: profile4,
       color: "bg-[#E8F0F3]"
     },
@@ -49,11 +49,31 @@ const Calendar = () => {
       id: 5,
       name: "Emma Lundberg",
       time: "10:00 AM - 11:00 AM",
-      date: "Tomorrow",
+      dayOffset: 1,
       avatar: profile5,
       color: "bg-[#F3EBE8]"
+    },
+    {
+      id: 6,
+      name: "Oliver Karlsson",
+      time: "3:00 PM - 4:00 PM",
+      dayOffset: 2,
+      avatar: profile4,
+      color: "bg-[#E8F3F0]"
+    },
+    {
+      id: 7,
+      name: "Anna Berg",
+      time: "11:00 AM - 12:00 PM",
+      dayOffset: 2,
+      avatar: profile1,
+      color: "bg-[#F5E8F3]"
     }
   ];
+
+  const getMeetingCountForDay = (dayIndex: number) => {
+    return meetings.filter(m => m.dayOffset === dayIndex).length;
+  };
 
   const hours = Array.from({ length: 12 }, (_, i) => i + 8); // 8 AM to 7 PM
 
@@ -104,11 +124,12 @@ const Calendar = () => {
                 const date = new Date();
                 date.setDate(date.getDate() + i);
                 const isToday = i === 0;
+                const meetingCount = getMeetingCountForDay(i);
                 
                 return (
                   <button
                     key={i}
-                    className={`flex-shrink-0 flex flex-col items-center justify-center w-16 h-20 rounded-2xl transition-all ${
+                    className={`relative flex-shrink-0 flex flex-col items-center justify-center w-16 h-20 rounded-2xl transition-all ${
                       isToday 
                         ? 'bg-[rgba(21,52,61,1)] text-white shadow-md' 
                         : 'bg-white text-foreground hover:bg-accent'
@@ -120,6 +141,13 @@ const Calendar = () => {
                     <span className="text-2xl font-medium">
                       {date.getDate()}
                     </span>
+                    {meetingCount > 0 && (
+                      <div className={`absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-xs font-medium ${
+                        isToday ? 'bg-white text-[rgba(21,52,61,1)]' : 'bg-[rgba(21,52,61,1)] text-white'
+                      }`}>
+                        {meetingCount}
+                      </div>
+                    )}
                   </button>
                 );
               })}
