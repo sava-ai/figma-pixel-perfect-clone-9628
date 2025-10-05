@@ -287,7 +287,7 @@ const JobPeopleView = () => {
                             <path d="m9 9 6 6" />
                           </svg>
                         </div>
-                        <p className="text-muted-foreground text-sm">Rejections</p>
+                        <p className="text-sm text-gray-950">Rejections</p>
                       </div>
                       <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">8</p>
                       <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
