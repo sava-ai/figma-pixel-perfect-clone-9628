@@ -17,17 +17,25 @@ interface AIChatOverlayProps {
 
 export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
   const [messages, setMessages] = useState<Message[]>([
-    { text: 'Find me a senior product designer based in Stockholm.', isUser: true },
-    { text: 'Okay! How much experience should the candidates have?', isUser: false },
-    { text: '5+ years', isUser: true },
-    { text: 'For sure! Is there anything else I should keep in mind?', isUser: false },
-    { text: 'They should have strong Figma skills', isUser: true }
+    { text: 'What are the wages for product designers in Warsaw right now?', isUser: true },
   ]);
   const [inputValue, setInputValue] = useState('');
-  const [isThinking, setIsThinking] = useState(false);
+  const [isThinking, setIsThinking] = useState(true);
   const [chatWidth, setChatWidth] = useState(480);
   const [isResizing, setIsResizing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Simulate AI response after component mounts
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsThinking(false);
+      setMessages(prev => [...prev, { 
+        text: 'Based on current market data, product designers in Warsaw typically earn between 8,000-15,000 PLN per month for mid-level positions, and 12,000-22,000 PLN for senior roles. These figures can vary based on company size, experience, and specific skills like UX research or UI specialization.', 
+        isUser: false 
+      }]);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -88,10 +96,11 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent 
         side="left" 
-        className="p-0 flex flex-col border-r-0 max-w-none [&>button]:hidden"
+        className="p-0 flex flex-col border-r-0 [&>button]:hidden !w-auto !max-w-none"
         style={{ 
           backgroundColor: '#FAF8F4',
-          width: `${chatWidth}px`
+          width: `${chatWidth}px`,
+          maxWidth: 'none'
         }}
       >
         {/* Close button */}
