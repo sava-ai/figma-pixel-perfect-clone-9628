@@ -167,7 +167,7 @@ const Calendar = () => {
             <ChevronLeft className="w-5 h-5" />
           </button>
           
-          <div className="flex-1 overflow-hidden">
+          <div className="flex-1 overflow-hidden pt-3">
             <div 
               className="flex gap-2 transition-transform duration-300 ease-out"
               style={{ transform: `translateX(-${dayOffset * 72}px)` }}
