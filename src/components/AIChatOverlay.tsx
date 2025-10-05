@@ -37,7 +37,7 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isResizing) return;
       const newWidth = e.clientX;
-      const maxWidth = window.innerWidth * 0.8; // 80% of screen width
+      const maxWidth = window.innerWidth * 0.9; // 90% of screen width
       if (newWidth >= 320 && newWidth <= maxWidth) {
         setChatWidth(newWidth);
       }
@@ -50,11 +50,18 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
     if (isResizing) {
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = 'ew-resize';
+      document.body.style.userSelect = 'none';
+    } else {
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
     }
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
     };
   }, [isResizing]);
 
@@ -99,8 +106,11 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
 
         {/* Resize handle */}
         <div
-          className="absolute top-0 right-0 w-1 h-full cursor-ew-resize hover:bg-primary/20 transition-colors z-20"
-          onMouseDown={() => setIsResizing(true)}
+          className="absolute top-0 right-0 w-2 h-full cursor-ew-resize hover:bg-primary/30 active:bg-primary/50 transition-colors z-20"
+          onMouseDown={(e) => {
+            e.preventDefault();
+            setIsResizing(true);
+          }}
         />
 
         {/* Messages Area */}
@@ -115,10 +125,10 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
               }}
             >
             <div
-              className={`max-w-[85%] px-5 py-3 rounded-2xl shadow-md ${
+              className={`max-w-[85%] px-5 py-3 rounded-2xl ${
                 message.isUser
-                  ? 'bg-white text-foreground'
-                  : 'bg-transparent text-foreground'
+                  ? 'bg-white text-foreground shadow-md'
+                  : 'text-foreground'
               }`}
             >
               <p className="text-[15px] leading-relaxed whitespace-pre-wrap">
