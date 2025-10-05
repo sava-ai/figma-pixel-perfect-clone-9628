@@ -3,8 +3,6 @@ import { X } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
-  SheetTitle,
 } from '@/components/ui/sheet';
 
 interface Message {
@@ -27,11 +25,37 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isThinking, setIsThinking] = useState(false);
+  const [chatWidth, setChatWidth] = useState(480);
+  const [isResizing, setIsResizing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isThinking]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isResizing) return;
+      const newWidth = e.clientX;
+      if (newWidth >= 320 && newWidth <= 800) {
+        setChatWidth(newWidth);
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+    };
+
+    if (isResizing) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isResizing]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,23 +80,30 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent 
         side="left" 
-        className="w-[480px] p-0 flex flex-col"
-        style={{ backgroundColor: '#FAF8F4' }}
+        className="p-0 flex flex-col border-r-0"
+        style={{ 
+          backgroundColor: '#FAF8F4',
+          width: `${chatWidth}px`
+        }}
       >
-        <SheetHeader className="p-6 pb-4 flex-shrink-0">
-          <div className="flex items-center justify-between">
-            <SheetTitle className="font-hedvig text-2xl">AI Assistant</SheetTitle>
-            <button
-              onClick={() => onOpenChange(false)}
-              className="w-8 h-8 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md border border-gray-200"
-            >
-              <X className="w-4 h-4 text-gray-700" />
-            </button>
-          </div>
-        </SheetHeader>
+        {/* Close button */}
+        <div className="absolute top-6 right-6 z-10">
+          <button
+            onClick={() => onOpenChange(false)}
+            className="w-8 h-8 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md border border-gray-200"
+          >
+            <X className="w-4 h-4 text-gray-700" />
+          </button>
+        </div>
+
+        {/* Resize handle */}
+        <div
+          className="absolute top-0 right-0 w-1 h-full cursor-ew-resize hover:bg-primary/20 transition-colors z-20"
+          onMouseDown={() => setIsResizing(true)}
+        />
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto px-6 pb-4 space-y-4">
+        <div className="flex-1 overflow-y-auto px-6 pt-6 pb-4 space-y-4">
           {messages.map((message, index) => (
             <div
               key={index}
@@ -137,7 +168,7 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
                 className="absolute bottom-4 right-4 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </button>
             </div>
