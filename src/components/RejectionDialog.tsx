@@ -104,14 +104,16 @@ export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDia
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col p-0">
         {step === 1 && (
           <>
-            <DialogHeader>
-              <DialogTitle className="font-hedvig">Select candidates to reject</DialogTitle>
-            </DialogHeader>
+            <div className="px-6 pt-6">
+              <DialogHeader>
+                <DialogTitle className="font-hedvig">Select candidates to reject</DialogTitle>
+              </DialogHeader>
+            </div>
             
-            <div className="space-y-4">
+            <div className="flex-1 overflow-y-auto px-6 space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Checkbox
@@ -160,18 +162,18 @@ export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDia
                   </TableBody>
                 </Table>
               </div>
+            </div>
 
-              <div className="flex justify-end gap-3">
-                <Button variant="outline" onClick={() => onOpenChange(false)}>
-                  Cancel
-                </Button>
-                <Button 
-                  onClick={() => setStep(2)}
-                  disabled={selectedCandidates.size === 0}
-                >
-                  Continue ({selectedCandidates.size})
-                </Button>
-              </div>
+            <div className="sticky bottom-0 border-t bg-background px-6 py-4 flex justify-end gap-3">
+              <Button variant="outline" onClick={() => onOpenChange(false)}>
+                Cancel
+              </Button>
+              <Button 
+                onClick={() => setStep(2)}
+                disabled={selectedCandidates.size === 0}
+              >
+                Continue ({selectedCandidates.size})
+              </Button>
             </div>
           </>
         )}
