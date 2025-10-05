@@ -80,7 +80,7 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent 
         side="left" 
-        className="p-0 flex flex-col border-r-0"
+        className="p-0 flex flex-col border-r-0 max-w-none [&>button]:hidden"
         style={{ 
           backgroundColor: '#FAF8F4',
           width: `${chatWidth}px`
