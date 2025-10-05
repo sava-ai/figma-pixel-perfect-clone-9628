@@ -4,7 +4,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { Mail, Linkedin, Phone, Link as LinkIcon, Award, FileText, ExternalLink, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import aresLogo from "@/assets/company-ares.png";
+import stripeLogo from "@/assets/company-stripe.png";
+import figmaLogo from "@/assets/company-figma.png";
+import ideoLogo from "@/assets/company-ideo.png";
 
 interface Role {
   company: string;
@@ -45,19 +50,25 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
 
   const aiAnalysis = `${candidate.name} is an exceptional match for the Product Designer position. With extensive experience in fintech and proven leadership abilities, they demonstrate strong alignment with the role requirements. Their portfolio showcases a deep understanding of user-centered design principles and ability to balance business objectives with user needs. The candidate has a track record of successful product launches and team collaboration, making them an ideal fit for a fast-paced, innovation-driven environment.`;
 
+  const companyLogos: Record<string, string> = {
+    "Ares Studio": aresLogo,
+    "Stripe": stripeLogo,
+    "Figma": figmaLogo,
+    "IDEO": ideoLogo,
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-[90vw] w-[1200px] h-[90vh] p-0 overflow-hidden flex flex-col">
         <div className="flex flex-col h-full min-h-0">
-          {/* Progress bar */}
-          <div className="h-2 bg-muted">
-            <div className="h-full bg-primary w-1/2 transition-all" />
-          </div>
-
           {/* Header */}
           <div className="px-6 py-4 border-b">
             <h2 className="text-xl font-semibold">Contact {candidate.name}</h2>
-            <p className="text-sm text-muted-foreground">2 of 2</p>
+            <p className="text-sm text-muted-foreground mb-3">2 of 2</p>
+            {/* Progress bar */}
+            <div className="h-2 bg-muted rounded-full">
+              <div className="h-full bg-primary w-1/2 transition-all rounded-full" />
+            </div>
           </div>
 
           {/* Main content */}
@@ -92,7 +103,7 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2">
                   {achievements.slice(0, 5).map((achievement, idx) => (
-                    <Badge key={idx} variant="secondary" className="px-3 py-1.5">
+                    <Badge key={idx} variant="secondary" className="px-3 py-1.5" style={{ backgroundColor: '#FAF8F4' }}>
                       {achievement}
                     </Badge>
                   ))}
@@ -103,7 +114,7 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                   <h4 className="text-lg font-semibold">About</h4>
                   
                   {/* AI Analysis */}
-                  <div className="bg-muted/50 rounded-lg p-4 space-y-2">
+                  <div className="rounded-lg p-4 space-y-2" style={{ backgroundColor: '#FAF8F4' }}>
                     <div className="flex items-center gap-2">
                       <Sparkles className="w-4 h-4 text-primary" />
                       <p className="text-sm font-medium">AI Analysis</p>
@@ -119,8 +130,12 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                     <div className="space-y-3">
                       {candidate.roles.map((role, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                            <span className="text-xs font-bold">{role.company[0]}</span>
+                          <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden bg-white border">
+                            <img 
+                              src={companyLogos[role.company] || aresLogo} 
+                              alt={role.company}
+                              className="w-full h-full object-contain p-1"
+                            />
                           </div>
                           <div>
                             <p className="font-medium text-sm">{role.role}</p>
@@ -129,6 +144,7 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                         </div>
                       ))}
                     </div>
+                    <Separator className="w-1/2 mx-auto my-4" />
                   </div>
 
                   {/* Contact Info */}
@@ -148,6 +164,7 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                         <a href="#" className="text-primary hover:underline">linkedin.com/in/{candidate.name.toLowerCase().replace(' ', '-')}</a>
                       </div>
                     </div>
+                    <Separator className="w-1/2 mx-auto my-4" />
                   </div>
 
                   {/* Achievements & Links */}
@@ -173,13 +190,14 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                         </a>
                       </div>
                     </div>
+                    <Separator className="w-1/2 mx-auto my-4" />
                   </div>
                 </div>
               </div>
 
               {/* Right side - Contact form */}
               <div className="space-y-4">
-                <div className="bg-muted/30 rounded-lg p-6 space-y-4">
+                <div className="rounded-lg p-6 space-y-4" style={{ backgroundColor: '#FAF8F4' }}>
                   <h4 className="text-sm font-semibold uppercase text-muted-foreground">Template</h4>
                   
                   {/* Template accordion */}
