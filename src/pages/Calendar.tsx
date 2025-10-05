@@ -159,7 +159,7 @@ const Calendar = () => {
         </div>
 
         {/* Day selector */}
-        <div className="relative flex items-center gap-3 pt-6">
+        <div className="relative flex items-center gap-3 pt-2">
           <button 
             onClick={() => setDayOffset(prev => prev - 1)}
             className="flex-shrink-0 w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
