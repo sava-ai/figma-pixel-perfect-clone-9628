@@ -10,6 +10,7 @@ import profile5 from '@/assets/profile-5.jpg';
 const Calendar = () => {
   const navigate = useNavigate();
   const [currentDate] = useState(new Date());
+  const [dayOffset, setDayOffset] = useState(0);
   
   const meetings = [
     {
@@ -61,15 +62,6 @@ const Calendar = () => {
       {/* Header */}
       <div className="max-w-7xl mx-auto mb-8">
         <div className="flex items-center justify-between mb-6">
-          <button 
-            onClick={() => navigate('/')}
-            className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          
           <h1 className="font-hedvig text-4xl text-foreground">Meetings</h1>
           
           <div className="flex items-center gap-3">
@@ -83,33 +75,63 @@ const Calendar = () => {
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
+          
+          <button 
+            onClick={() => navigate('/')}
+            className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
 
         {/* Day selector */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4">
-          {Array.from({ length: 7 }, (_, i) => {
-            const date = new Date();
-            date.setDate(date.getDate() + i);
-            const isToday = i === 0;
-            
-            return (
-              <button
-                key={i}
-                className={`flex-shrink-0 flex flex-col items-center justify-center w-16 h-20 rounded-2xl transition-all ${
-                  isToday 
-                    ? 'bg-[rgba(21,52,61,1)] text-white shadow-md' 
-                    : 'bg-white text-foreground hover:bg-accent'
-                }`}
-              >
-                <span className="text-xs mb-1">
-                  {date.toLocaleDateString('en-US', { weekday: 'short' })}
-                </span>
-                <span className="text-2xl font-medium">
-                  {date.getDate()}
-                </span>
-              </button>
-            );
-          })}
+        <div className="relative flex items-center gap-3">
+          <button 
+            onClick={() => setDayOffset(prev => prev - 1)}
+            className="flex-shrink-0 w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          
+          <div className="flex-1 overflow-hidden">
+            <div 
+              className="flex gap-2 transition-transform duration-300 ease-out"
+              style={{ transform: `translateX(-${dayOffset * 72}px)` }}
+            >
+              {Array.from({ length: 30 }, (_, i) => {
+                const date = new Date();
+                date.setDate(date.getDate() + i);
+                const isToday = i === 0;
+                
+                return (
+                  <button
+                    key={i}
+                    className={`flex-shrink-0 flex flex-col items-center justify-center w-16 h-20 rounded-2xl transition-all ${
+                      isToday 
+                        ? 'bg-[rgba(21,52,61,1)] text-white shadow-md' 
+                        : 'bg-white text-foreground hover:bg-accent'
+                    }`}
+                  >
+                    <span className="text-xs mb-1">
+                      {date.toLocaleDateString('en-US', { weekday: 'short' })}
+                    </span>
+                    <span className="text-2xl font-medium">
+                      {date.getDate()}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          
+          <button 
+            onClick={() => setDayOffset(prev => prev + 1)}
+            className="flex-shrink-0 w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
       </div>
 
