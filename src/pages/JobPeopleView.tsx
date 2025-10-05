@@ -21,6 +21,15 @@ const JobPeopleView = () => {
   const [selectedCandidate, setSelectedCandidate] = useState<typeof bestCandidates[0] | null>(null);
   const [profileDialogOpen, setProfileDialogOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  // Animated counters
+  const [applicantsCount, setApplicantsCount] = useState(0);
+  const [rejectionsCount, setRejectionsCount] = useState(0);
+  const [bestMatchesCount, setBestMatchesCount] = useState(0);
+  
+  const targetApplicants = 23;
+  const targetRejections = 8;
+  const targetBestMatches = 100;
   const bestCandidates = [{
     id: 1,
     name: "Sarah Chapman",
@@ -163,6 +172,33 @@ const JobPeopleView = () => {
       behavior: 'smooth'
     });
   }, []);
+  
+  // Animate counters on mount
+  useEffect(() => {
+    const duration = 5000; // 5 seconds
+    const steps = 60; // 60 frames per second
+    const interval = duration / steps;
+    
+    let currentStep = 0;
+    
+    const timer = setInterval(() => {
+      currentStep++;
+      const progress = currentStep / steps;
+      
+      setApplicantsCount(Math.floor(targetApplicants * progress));
+      setRejectionsCount(Math.floor(targetRejections * progress));
+      setBestMatchesCount(Math.floor(targetBestMatches * progress));
+      
+      if (currentStep >= steps) {
+        setApplicantsCount(targetApplicants);
+        setRejectionsCount(targetRejections);
+        setBestMatchesCount(targetBestMatches);
+        clearInterval(timer);
+      }
+    }, interval);
+    
+    return () => clearInterval(timer);
+  }, []);
   const jobs = [{
     id: 1,
     title: 'Senior Product Designer'
@@ -249,7 +285,7 @@ const JobPeopleView = () => {
                 {/* Header with stats */}
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-4">
-                    <h1 className="text-lg font-medium text-foreground">100 of 230 people</h1>
+                    <h1 className="text-lg font-medium text-foreground">{bestMatchesCount} of 230 people</h1>
                     <div className="flex items-center gap-2">
                       <button className="flex items-center gap-2 px-3 py-1.5 text-xs bg-muted/50 rounded-lg hover:bg-muted transition-colors">
                         <Search className="w-3.5 h-3.5" />
@@ -272,7 +308,7 @@ const JobPeopleView = () => {
                         </div>
                         <p className="text-sm text-slate-950">Applicants</p>
                       </div>
-                      <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">23</p>
+                      <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">{applicantsCount}</p>
                       <button className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors">
                         <span className="text-gray-950">Review now</span>
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -292,7 +328,7 @@ const JobPeopleView = () => {
                         </div>
                         <p className="text-sm text-gray-950">Rejections</p>
                       </div>
-                      <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">8</p>
+                      <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">{rejectionsCount}</p>
                       <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                         <span className="text-gray-950">Review now</span>
                         <svg fill="none" stroke="black" viewBox="0 0 24 24" className="w-4 h-4">
