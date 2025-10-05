@@ -320,7 +320,7 @@ const JobPeopleView = () => {
                           <div className="flex items-center gap-2 text-xs text-muted-foreground">
                             <span>{candidate.city}</span>
                             <span>•</span>
-                            <span className="text-primary font-medium">{candidate.match} Match</span>
+                            <span className="font-medium text-lime-800">{candidate.match} Match</span>
                           </div>
                         </div>
                       </div>
