@@ -274,7 +274,7 @@ const JobPeople = () => {
                     External Sources
                   </h3>
                   <div className="relative overflow-hidden h-16">
-                    <div className="flex gap-4 animate-[scroll_15s_linear_infinite] absolute whitespace-nowrap">
+                    <div className="flex gap-4 animate-scroll absolute whitespace-nowrap">
                       <div className="flex gap-4 items-center">
                         {/* LinkedIn */}
                         <div className="w-10 h-10 rounded-lg bg-[#0A66C2] flex items-center justify-center shadow-sm">
