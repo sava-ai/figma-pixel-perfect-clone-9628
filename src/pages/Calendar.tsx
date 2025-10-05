@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import profile1 from '@/assets/profile-1.jpg';
 import profile2 from '@/assets/profile-2.jpg';
 import profile3 from '@/assets/profile-3.jpg';
@@ -11,6 +11,7 @@ const Calendar = () => {
   const navigate = useNavigate();
   const [currentDate] = useState(new Date());
   const [dayOffset, setDayOffset] = useState(0);
+  const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   
   const meetings = [
     {
@@ -75,6 +76,12 @@ const Calendar = () => {
     return meetings.filter(m => m.dayOffset === dayIndex).length;
   };
 
+  const jobs = [
+    { id: 1, title: 'Senior Product Designer' },
+    { id: 2, title: 'Chief Operations Officer' },
+    { id: 3, title: 'Frontend Developer' }
+  ];
+
   const hours = Array.from({ length: 12 }, (_, i) => i + 8); // 8 AM to 7 PM
 
   return (
@@ -95,6 +102,43 @@ const Calendar = () => {
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
+
+          {/* Job Filter Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
+            >
+              <span className="font-medium text-gray-700">All Jobs</span>
+              <ChevronDown className="w-4 h-4 text-gray-700" />
+            </button>
+            
+            {jobsDropdownOpen && (
+              <div className="absolute top-full right-0 mt-2 w-64 bg-white border rounded-lg shadow-lg z-50">
+                <button
+                  className="w-full flex items-center gap-3 px-4 py-3 hover:bg-accent transition-colors text-left"
+                  onClick={() => setJobsDropdownOpen(false)}
+                >
+                  <span className="text-sm font-medium">All Jobs</span>
+                </button>
+                {jobs.map((job) => (
+                  <button
+                    key={job.id}
+                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-accent transition-colors text-left"
+                    onClick={() => setJobsDropdownOpen(false)}
+                  >
+                    <span className="text-sm">{job.title}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <button 
+            className="px-4 py-2 bg-[rgba(21,52,61,1)] text-white rounded-lg shadow-md hover:shadow-lg transition-all font-medium"
+          >
+            Create meeting
+          </button>
           
           <button 
             onClick={() => navigate('/')}
@@ -107,7 +151,7 @@ const Calendar = () => {
         </div>
 
         {/* Day selector */}
-        <div className="relative flex items-center gap-3">
+        <div className="relative flex items-center gap-3 pt-2">
           <button 
             onClick={() => setDayOffset(prev => prev - 1)}
             className="flex-shrink-0 w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
