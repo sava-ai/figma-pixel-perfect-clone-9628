@@ -1,10 +1,12 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical, Clock } from 'lucide-react';
+import { ChevronDown, MoreVertical, Clock, MoreHorizontal, Calendar, MessageSquare, User, Trash2, XCircle } from 'lucide-react';
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, closestCorners, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import { InviteDialog } from '@/components/InviteDialog';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
 import profile1 from '@/assets/profile-1.jpg';
@@ -41,8 +43,15 @@ interface Column {
   candidates: Candidate[];
 }
 
-const CandidateCard = ({ candidate, isDragging }: { candidate: Candidate; isDragging?: boolean }) => {
+const CandidateCard = ({ candidate, isDragging, onReject, onDelete }: { 
+  candidate: Candidate; 
+  isDragging?: boolean;
+  onReject: (candidateId: string) => void;
+  onDelete: (candidateId: string) => void;
+}) => {
+  const navigate = useNavigate();
   const [rating, setRating] = useState(candidate.rating);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const companyLogos: { [key: string]: string } = {
     'Ares': companyAres,
@@ -51,81 +60,167 @@ const CandidateCard = ({ candidate, isDragging }: { candidate: Candidate; isDrag
     'Stripe': companyStripe,
   };
 
-  return (
-    <div className={`bg-card border border-border/40 rounded-xl p-4 cursor-move transition-all ${isDragging ? 'opacity-50' : 'hover:shadow-md'}`}>
-      <div className="flex items-start gap-3 mb-3">
-        <img 
-          src={candidate.image} 
-          alt={candidate.name}
-          className="w-12 h-12 rounded-full object-cover"
-        />
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between gap-2 mb-1">
-            <h3 className="font-medium text-sm text-foreground truncate">{candidate.name}</h3>
-            <span className="text-xs text-muted-foreground whitespace-nowrap">{candidate.match}</span>
-          </div>
-          <p className="text-xs text-muted-foreground truncate">{candidate.position} - {candidate.company}</p>
-        </div>
-      </div>
+  const handleScheduleMeeting = () => {
+    navigate('/calendar');
+  };
 
-      {/* Rating stars and last contact */}
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-1">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <button
-              key={star}
-              onClick={(e) => {
-                e.stopPropagation();
-                setRating(star);
-              }}
-              className="transition-transform hover:scale-110"
-            >
-              <img 
-                src={starIcon} 
-                alt="star"
-                className="w-4 h-4"
-                style={{
-                  filter: star <= rating ? 'none' : 'grayscale(100%) opacity(0.3)'
+  const handleWriteMessage = () => {
+    navigate('/messages');
+  };
+
+  const handleViewProfile = () => {
+    // TODO: Implement view profile
+    console.log('View profile for', candidate.name);
+  };
+
+  const handleReject = () => {
+    onReject(candidate.id);
+  };
+
+  const handleDelete = () => {
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = () => {
+    onDelete(candidate.id);
+    setDeleteDialogOpen(false);
+  };
+
+  return (
+    <>
+      <div className={`bg-card border border-border/40 rounded-xl p-4 cursor-move transition-all ${isDragging ? 'opacity-50' : 'hover:shadow-md'}`}>
+        <div className="flex items-start gap-3 mb-3">
+          <img 
+            src={candidate.image} 
+            alt={candidate.name}
+            className="w-12 h-12 rounded-full object-cover"
+          />
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center justify-between gap-2 mb-1">
+              <h3 className="font-medium text-sm text-foreground truncate">{candidate.name}</h3>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+                  <button className="text-muted-foreground hover:text-foreground transition-colors">
+                    <MoreHorizontal className="w-4 h-4" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem onClick={handleScheduleMeeting}>
+                    <Calendar className="w-4 h-4 mr-2" />
+                    Schedule meeting
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleWriteMessage}>
+                    <MessageSquare className="w-4 h-4 mr-2" />
+                    Write message
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleViewProfile}>
+                    <User className="w-4 h-4 mr-2" />
+                    View profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleReject}>
+                    <XCircle className="w-4 h-4 mr-2" />
+                    Reject
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleDelete} className="text-destructive focus:text-destructive">
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            <p className="text-xs text-muted-foreground truncate">{candidate.position} - {candidate.company}</p>
+          </div>
+        </div>
+
+        {/* Match score above stars */}
+        <div className="mb-2">
+          <span className="text-xs text-muted-foreground">{candidate.match} match</span>
+        </div>
+
+        {/* Rating stars and last contact */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-1">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <button
+                key={star}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setRating(star);
                 }}
-              />
-            </button>
-          ))}
+                className="transition-transform hover:scale-110"
+              >
+                <img 
+                  src={starIcon} 
+                  alt="star"
+                  className="w-4 h-4"
+                  style={{
+                    filter: star <= rating ? 'none' : 'grayscale(100%) opacity(0.3)'
+                  }}
+                />
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-1.5 text-muted-foreground">
+            <Clock className="w-3.5 h-3.5" />
+            <span className="text-xs">{candidate.lastContact}</span>
+          </div>
         </div>
-        <div className="flex items-center gap-1.5 text-muted-foreground">
-          <Clock className="w-3.5 h-3.5" />
-          <span className="text-xs">{candidate.lastContact}</span>
-        </div>
-      </div>
 
       {/* Location and Company logos */}
-      <div className="flex items-center gap-2 flex-wrap">
-        <span className="inline-flex items-center px-2 py-1 rounded-full bg-muted text-xs text-muted-foreground">
-          {candidate.city}, {candidate.country}
-        </span>
-        
-        {/* Company logos */}
-        <div className="flex items-center gap-1">
-          {candidate.companies.slice(0, 2).map((company, idx) => (
-            <div key={idx} className="w-6 h-6 rounded-full bg-white border border-border/40 flex items-center justify-center overflow-hidden">
-              <img 
-                src={companyLogos[company] || companyAres} 
-                alt={company}
-                className="w-4 h-4 object-contain"
-              />
-            </div>
-          ))}
-          {candidate.companies.length > 2 && (
-            <div className="w-6 h-6 rounded-full bg-muted border border-border/40 flex items-center justify-center">
-              <span className="text-[10px] font-medium text-muted-foreground">+{candidate.companies.length - 2}</span>
-            </div>
-          )}
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="inline-flex items-center px-2 py-1 rounded-full bg-muted text-xs text-muted-foreground">
+            {candidate.city}, {candidate.country}
+          </span>
+          
+          {/* Company logos */}
+          <div className="flex items-center gap-1">
+            {candidate.companies.slice(0, 2).map((company, idx) => (
+              <div key={idx} className="w-6 h-6 rounded-full bg-white border border-border/40 flex items-center justify-center overflow-hidden">
+                <img 
+                  src={companyLogos[company] || companyAres} 
+                  alt={company}
+                  className="w-4 h-4 object-contain"
+                />
+              </div>
+            ))}
+            {candidate.companies.length > 2 && (
+              <div className="w-6 h-6 rounded-full bg-muted border border-border/40 flex items-center justify-center">
+                <span className="text-[10px] font-medium text-muted-foreground">+{candidate.companies.length - 2}</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently delete {candidate.name} from the pipeline. This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 };
 
-const SortableCandidate = ({ candidate }: { candidate: Candidate }) => {
+const SortableCandidate = ({ 
+  candidate, 
+  onReject, 
+  onDelete 
+}: { 
+  candidate: Candidate;
+  onReject: (candidateId: string) => void;
+  onDelete: (candidateId: string) => void;
+}) => {
   const {
     attributes,
     listeners,
@@ -142,7 +237,12 @@ const SortableCandidate = ({ candidate }: { candidate: Candidate }) => {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <CandidateCard candidate={candidate} isDragging={isDragging} />
+      <CandidateCard 
+        candidate={candidate} 
+        isDragging={isDragging}
+        onReject={onReject}
+        onDelete={onDelete}
+      />
     </div>
   );
 };
@@ -285,6 +385,11 @@ const JobPipeline = () => {
       candidates: [],
     },
     {
+      id: 'rejected',
+      title: 'Rejected',
+      candidates: [],
+    },
+    {
       id: 'rejected-noticed',
       title: 'Rejected & noticed',
       candidates: [],
@@ -354,9 +459,48 @@ const JobPipeline = () => {
     }));
   };
 
+  const handleRejectCandidate = (candidateId: string) => {
+    setColumns(prev => {
+      const sourceColumn = prev.find(col => col.candidates.some(c => c.id === candidateId));
+      const rejectedColumn = prev.find(col => col.id === 'rejected');
+      
+      if (!sourceColumn || !rejectedColumn) return prev;
+      
+      const candidate = sourceColumn.candidates.find(c => c.id === candidateId);
+      if (!candidate) return prev;
+
+      return prev.map(col => {
+        if (col.id === sourceColumn.id) {
+          return {
+            ...col,
+            candidates: col.candidates.filter(c => c.id !== candidateId),
+          };
+        }
+        if (col.id === 'rejected') {
+          return {
+            ...col,
+            candidates: [...col.candidates, candidate],
+          };
+        }
+        return col;
+      });
+    });
+  };
+
+  const handleDeleteCandidate = (candidateId: string) => {
+    setColumns(prev => prev.map(col => ({
+      ...col,
+      candidates: col.candidates.filter(c => c.id !== candidateId),
+    })));
+  };
+
   const activeDragCandidate = activeDragId 
     ? columns.flatMap(col => col.candidates).find(c => c.id === activeDragId)
     : null;
+
+  if (activeDragCandidate) {
+    console.log('Active drag candidate:', activeDragCandidate);
+  }
 
   return (
     <div className="h-screen w-full flex flex-col bg-background overflow-hidden">
@@ -498,7 +642,12 @@ const JobPipeline = () => {
                           >
                             <div className="space-y-3">
                               {column.candidates.map((candidate) => (
-                                <SortableCandidate key={candidate.id} candidate={candidate} />
+                                <SortableCandidate 
+                                  key={candidate.id} 
+                                  candidate={candidate}
+                                  onReject={handleRejectCandidate}
+                                  onDelete={handleDeleteCandidate}
+                                />
                               ))}
                             </div>
                           </SortableContext>
@@ -509,7 +658,12 @@ const JobPipeline = () => {
                 </div>
                 <DragOverlay>
                   {activeDragCandidate ? (
-                    <CandidateCard candidate={activeDragCandidate} isDragging />
+                    <CandidateCard 
+                      candidate={activeDragCandidate} 
+                      isDragging
+                      onReject={handleRejectCandidate}
+                      onDelete={handleDeleteCandidate}
+                    />
                   ) : null}
                 </DragOverlay>
               </DndContext>
