@@ -32,6 +32,7 @@ interface Candidate {
   rating: number;
   companies: string[];
   lastContact: string;
+  match: string;
 }
 
 interface Column {
@@ -59,7 +60,10 @@ const CandidateCard = ({ candidate, isDragging }: { candidate: Candidate; isDrag
           className="w-12 h-12 rounded-full object-cover"
         />
         <div className="flex-1 min-w-0">
-          <h3 className="font-medium text-sm text-foreground truncate">{candidate.name}</h3>
+          <div className="flex items-center justify-between gap-2 mb-1">
+            <h3 className="font-medium text-sm text-foreground truncate">{candidate.name}</h3>
+            <span className="text-xs text-muted-foreground whitespace-nowrap">{candidate.match}</span>
+          </div>
           <p className="text-xs text-muted-foreground truncate">{candidate.position} - {candidate.company}</p>
         </div>
       </div>
@@ -177,6 +181,7 @@ const JobPipeline = () => {
           rating: 4,
           companies: ['Stripe', 'Figma', 'IDEO'],
           lastContact: '1h ago',
+          match: '10/12',
         },
         {
           id: '2',
@@ -189,6 +194,7 @@ const JobPipeline = () => {
           rating: 5,
           companies: ['Ares', 'Figma'],
           lastContact: '3h ago',
+          match: '11/12',
         },
       ],
     },
@@ -212,6 +218,7 @@ const JobPipeline = () => {
           rating: 3,
           companies: ['Stripe', 'IDEO'],
           lastContact: '2d ago',
+          match: '9/12',
         },
       ],
     },
@@ -230,6 +237,7 @@ const JobPipeline = () => {
           rating: 4,
           companies: ['Figma', 'Ares'],
           lastContact: '5h ago',
+          match: '8/12',
         },
       ],
     },
@@ -248,6 +256,7 @@ const JobPipeline = () => {
           rating: 5,
           companies: ['Stripe', 'Figma', 'IDEO', 'Ares'],
           lastContact: '1d ago',
+          match: '12/12',
         },
       ],
     },
@@ -266,6 +275,7 @@ const JobPipeline = () => {
           rating: 4,
           companies: ['Figma', 'IDEO'],
           lastContact: '12h ago',
+          match: '10/12',
         },
       ],
     },
