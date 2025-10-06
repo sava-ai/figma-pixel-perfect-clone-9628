@@ -25,7 +25,7 @@ const Job = () => {
     'suggestion3': true,
     'suggestion4': true,
   });
-  const [jobDescription, setJobDescription] = useState(`Senior Product Designer
+  const initialJobDescription = `Senior Product Designer
 
 Job description
 
@@ -48,7 +48,15 @@ Responsibilities
 Qualifications
 [AI_SUGGESTION:suggestion4]• 5+ years of experience in product design with strong Figma proficiency
 • Portfolio demonstrating end-to-end design solutions
-• Experience with user research methodologies and A/B testing[/AI_SUGGESTION]`);
+• Experience with user research methodologies and A/B testing[/AI_SUGGESTION]`;
+  
+  const [jobDescription, setJobDescription] = useState(initialJobDescription);
+  const [publishedJobDescription, setPublishedJobDescription] = useState(initialJobDescription);
+  const isPublished = jobDescription === publishedJobDescription;
+
+  const handlePublish = () => {
+    setPublishedJobDescription(jobDescription);
+  };
 
   React.useEffect(() => {
     // First thinking for 3 seconds
@@ -347,30 +355,44 @@ Qualifications
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
           <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
             <div className={`flex-1 overflow-y-auto bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
-              {/* AI Suggestions Tracker - Sticky at top, aligned with chat button */}
-              {activeSuggestions.length > 0 && (
-                <div className="sticky top-0 z-10 bg-background pt-6 pb-4 pl-12 flex items-center gap-3">
-                  <span className="text-base font-semibold text-gray-700">
-                    AI Suggestions: {appliedCount}/{totalSuggestions} applied
-                  </span>
-                  <div className="flex gap-1">
-                    <button
-                      onClick={navigateToPrevSuggestion}
-                      className="w-7 h-7 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md border border-gray-200"
-                      title="Previous suggestion"
-                    >
-                      <ArrowUp className="w-4 h-4 text-gray-700" />
-                    </button>
-                    <button
-                      onClick={navigateToNextSuggestion}
-                      className="w-7 h-7 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md border border-gray-200"
-                      title="Next suggestion"
-                    >
-                      <ArrowDown className="w-4 h-4 text-gray-700" />
-                    </button>
+              {/* AI Suggestions Tracker & Publish Button - Sticky at top */}
+              <div className="sticky top-0 z-10 bg-background pt-6 pb-4 pl-12 pr-12 flex items-center justify-between">
+                {activeSuggestions.length > 0 ? (
+                  <div className="flex items-center gap-3">
+                    <span className="text-base font-semibold text-gray-700">
+                      AI Suggestions: {appliedCount}/{totalSuggestions} applied
+                    </span>
+                    <div className="flex gap-1">
+                      <button
+                        onClick={navigateToPrevSuggestion}
+                        className="w-7 h-7 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md border border-gray-200"
+                        title="Previous suggestion"
+                      >
+                        <ArrowUp className="w-4 h-4 text-gray-700" />
+                      </button>
+                      <button
+                        onClick={navigateToNextSuggestion}
+                        className="w-7 h-7 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md border border-gray-200"
+                        title="Next suggestion"
+                      >
+                        <ArrowDown className="w-4 h-4 text-gray-700" />
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
+                ) : <div />}
+                
+                <button
+                  onClick={handlePublish}
+                  disabled={isPublished}
+                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                    isPublished
+                      ? 'bg-green-50 text-green-700 border border-green-200 cursor-default'
+                      : 'bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-md hover:shadow-lg border border-gray-700'
+                  }`}
+                >
+                  {isPublished ? 'Published' : 'Publish'}
+                </button>
+              </div>
               
               <div className={`text-foreground whitespace-pre-wrap ${activeSuggestions.length > 0 ? 'px-12' : 'p-12'}`}>
                 {formatJobDescription(jobDescription)}
