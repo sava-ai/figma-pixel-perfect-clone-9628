@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, ArrowLeft, Sparkles, Award, FileText, ExternalLink, Phone, Mail, Linkedin, Link as LinkIcon, Send, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, ArrowLeft, Sparkles, Award, FileText, ExternalLink, Phone, Mail, Linkedin, Link as LinkIcon, Send, ChevronLeft, ChevronRight, MoreHorizontal, User, XCircle } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import backgroundImage from '@/assets/background.png';
 import profile1 from '@/assets/profile-1.jpg';
 import profile2 from '@/assets/profile-2.jpg';
@@ -136,6 +137,7 @@ const Messages = () => {
   const [selectedPerson, setSelectedPerson] = useState<Message>(mockMessages[0]);
   const [messageInput, setMessageInput] = useState('');
   const [isRightPanelCollapsed, setIsRightPanelCollapsed] = useState(false);
+  const [hoveredMessageId, setHoveredMessageId] = useState<number | null>(null);
 
   const filteredMessages = mockMessages.filter(msg => {
     const matchesSearch = msg.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -150,6 +152,16 @@ const Messages = () => {
       // In real app, send message here
       setMessageInput('');
     }
+  };
+
+  const handleViewProfile = (personId: number) => {
+    console.log('View profile for person:', personId);
+    // TODO: Implement view profile
+  };
+
+  const handleReject = (personId: number) => {
+    console.log('Reject person:', personId);
+    // TODO: Implement reject logic
   };
 
   return (
@@ -236,34 +248,67 @@ const Messages = () => {
             {/* Messages List */}
             <div className="flex-1 overflow-y-auto">
               {filteredMessages.map((msg) => (
-                <button
+                <div
                   key={msg.id}
-                  onClick={() => setSelectedPerson(msg)}
-                  className={`w-full px-4 py-3 flex items-start gap-3 hover:bg-muted/50 transition-colors border-b border-border/50 ${
-                    selectedPerson.id === msg.id ? '' : ''
-                  }`}
-                  style={selectedPerson.id === msg.id ? { backgroundColor: '#FAF8F4' } : {}}
+                  onMouseEnter={() => setHoveredMessageId(msg.id)}
+                  onMouseLeave={() => setHoveredMessageId(null)}
+                  className="relative"
                 >
-                  <img
-                    src={msg.avatar}
-                    alt={msg.name}
-                    className="w-12 h-12 rounded-full object-cover flex-shrink-0"
-                  />
-                  <div className="flex-1 min-w-0 text-left">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className={`text-sm font-medium ${msg.unread ? 'text-foreground' : 'text-muted-foreground'}`}>
-                        {msg.name}
-                      </span>
-                      <span className="text-xs text-muted-foreground">{msg.time}</span>
+                  <button
+                    onClick={() => setSelectedPerson(msg)}
+                    className={`w-full px-4 py-3 flex items-start gap-3 hover:bg-muted/50 transition-colors border-b border-border/50 ${
+                      selectedPerson.id === msg.id ? '' : ''
+                    }`}
+                    style={selectedPerson.id === msg.id ? { backgroundColor: '#FAF8F4' } : {}}
+                  >
+                    <img
+                      src={msg.avatar}
+                      alt={msg.name}
+                      className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                    />
+                    <div className="flex-1 min-w-0 text-left">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className={`text-sm font-medium ${msg.unread ? 'text-foreground' : 'text-muted-foreground'}`}>
+                          {msg.name}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-muted-foreground">{msg.time}</span>
+                          {hoveredMessageId === msg.id && (
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+                                <button className="w-7 h-7 rounded-full bg-white border border-border/40 flex items-center justify-center hover:bg-muted transition-colors shadow-sm">
+                                  <MoreHorizontal className="w-4 h-4" />
+                                </button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end" className="w-44">
+                                <DropdownMenuItem onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleViewProfile(msg.id);
+                                }}>
+                                  <User className="w-4 h-4 mr-2" />
+                                  View profile
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleReject(msg.id);
+                                }}>
+                                  <XCircle className="w-4 h-4 mr-2" />
+                                  Reject
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          )}
+                        </div>
+                      </div>
+                      <p className={`text-sm truncate ${msg.unread ? 'text-foreground font-medium' : 'text-muted-foreground'}`}>
+                        {msg.message}
+                      </p>
                     </div>
-                    <p className={`text-sm truncate ${msg.unread ? 'text-foreground font-medium' : 'text-muted-foreground'}`}>
-                      {msg.message}
-                    </p>
-                  </div>
-                  {msg.unread && (
-                    <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-2" />
-                  )}
-                </button>
+                    {msg.unread && (
+                      <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-2" />
+                    )}
+                  </button>
+                </div>
               ))}
             </div>
           </aside>
