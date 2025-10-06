@@ -81,7 +81,7 @@ export const InviteDialog = ({ open, onOpenChange }: InviteDialogProps) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Invite People</DialogTitle>
+          <DialogTitle className="font-hedvig">Invite People</DialogTitle>
         </DialogHeader>
         
         <div className="space-y-6">
