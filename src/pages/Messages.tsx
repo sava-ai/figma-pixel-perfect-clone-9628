@@ -252,62 +252,61 @@ const Messages = () => {
                   key={msg.id}
                   onMouseEnter={() => setHoveredMessageId(msg.id)}
                   onMouseLeave={() => setHoveredMessageId(null)}
-                  className="relative"
+                  onClick={() => setSelectedPerson(msg)}
+                  className={`w-full px-4 py-3 flex items-start gap-3 hover:bg-muted/50 transition-colors border-b border-border/50 cursor-pointer ${
+                    selectedPerson.id === msg.id ? '' : ''
+                  }`}
+                  style={selectedPerson.id === msg.id ? { backgroundColor: '#FAF8F4' } : {}}
                 >
-                  <button
-                    onClick={() => setSelectedPerson(msg)}
-                    className={`w-full px-4 py-3 flex items-start gap-3 hover:bg-muted/50 transition-colors border-b border-border/50 ${
-                      selectedPerson.id === msg.id ? '' : ''
-                    }`}
-                    style={selectedPerson.id === msg.id ? { backgroundColor: '#FAF8F4' } : {}}
-                  >
-                    <img
-                      src={msg.avatar}
-                      alt={msg.name}
-                      className="w-12 h-12 rounded-full object-cover flex-shrink-0"
-                    />
-                    <div className="flex-1 min-w-0 text-left">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className={`text-sm font-medium ${msg.unread ? 'text-foreground' : 'text-muted-foreground'}`}>
-                          {msg.name}
-                        </span>
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs text-muted-foreground">{msg.time}</span>
-                          {hoveredMessageId === msg.id && (
-                            <DropdownMenu>
-                              <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
-                                <button className="w-7 h-7 rounded-full bg-white border border-border/40 flex items-center justify-center hover:bg-muted transition-colors shadow-sm">
-                                  <MoreHorizontal className="w-4 h-4" />
-                                </button>
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end" className="w-44">
-                                <DropdownMenuItem onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleViewProfile(msg.id);
-                                }}>
-                                  <User className="w-4 h-4 mr-2" />
-                                  View profile
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleReject(msg.id);
-                                }}>
-                                  <XCircle className="w-4 h-4 mr-2" />
-                                  Reject
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          )}
-                        </div>
+                  <img
+                    src={msg.avatar}
+                    alt={msg.name}
+                    className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className={`text-sm font-medium ${msg.unread ? 'text-foreground' : 'text-muted-foreground'}`}>
+                        {msg.name}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-muted-foreground">{msg.time}</span>
+                        {hoveredMessageId === msg.id && (
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <button 
+                                className="w-7 h-7 rounded-full bg-white border border-border/40 flex items-center justify-center hover:bg-muted transition-colors shadow-sm"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <MoreHorizontal className="w-4 h-4" />
+                              </button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-44">
+                              <DropdownMenuItem onClick={(e) => {
+                                e.stopPropagation();
+                                handleViewProfile(msg.id);
+                              }}>
+                                <User className="w-4 h-4 mr-2" />
+                                View profile
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={(e) => {
+                                e.stopPropagation();
+                                handleReject(msg.id);
+                              }}>
+                                <XCircle className="w-4 h-4 mr-2" />
+                                Reject
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        )}
                       </div>
-                      <p className={`text-sm truncate ${msg.unread ? 'text-foreground font-medium' : 'text-muted-foreground'}`}>
-                        {msg.message}
-                      </p>
                     </div>
-                    {msg.unread && (
-                      <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-2" />
-                    )}
-                  </button>
+                    <p className={`text-sm truncate ${msg.unread ? 'text-foreground font-medium' : 'text-muted-foreground'}`}>
+                      {msg.message}
+                    </p>
+                  </div>
+                  {msg.unread && (
+                    <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-2" />
+                  )}
                 </div>
               ))}
             </div>
