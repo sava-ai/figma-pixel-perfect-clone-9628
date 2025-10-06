@@ -181,7 +181,7 @@ const Messages = () => {
                   placeholder="Search messages..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-muted rounded-full pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="w-full bg-white rounded-full pl-10 pr-4 py-2 text-sm text-foreground shadow-sm border border-border/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
                 />
               </div>
             </div>
@@ -198,7 +198,7 @@ const Messages = () => {
 
               <Popover>
                 <PopoverTrigger asChild>
-                  <button className="w-full flex items-center justify-between px-3 py-2 bg-muted rounded-lg text-sm hover:bg-accent transition-colors">
+                  <button className="w-full flex items-center justify-between px-3 py-2 bg-white rounded-lg text-sm hover:bg-accent transition-colors shadow-sm border border-border/40">
                     <span className="text-muted-foreground">
                       {selectedJob || 'Filter by job'}
                     </span>
@@ -240,8 +240,9 @@ const Messages = () => {
                   key={msg.id}
                   onClick={() => setSelectedPerson(msg)}
                   className={`w-full px-4 py-3 flex items-start gap-3 hover:bg-muted/50 transition-colors border-b border-border/50 ${
-                    selectedPerson.id === msg.id ? 'bg-muted' : ''
+                    selectedPerson.id === msg.id ? '' : ''
                   }`}
+                  style={selectedPerson.id === msg.id ? { backgroundColor: '#FAF8F4' } : {}}
                 >
                   <img
                     src={msg.avatar}
@@ -324,7 +325,7 @@ const Messages = () => {
                   placeholder="Type a message..."
                   value={messageInput}
                   onChange={(e) => setMessageInput(e.target.value)}
-                  className="w-full bg-muted rounded-full pl-6 pr-14 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="w-full bg-white rounded-full pl-6 pr-14 py-3 text-sm text-foreground shadow-md border border-border/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
                 />
                 <button
                   type="submit"
