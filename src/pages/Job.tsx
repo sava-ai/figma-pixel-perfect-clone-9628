@@ -306,7 +306,10 @@ Qualifications
             Job
           </button>
           <button
-            onClick={() => setActiveTab('people')}
+            onClick={() => {
+              setActiveTab('people');
+              navigate('/job/people/view');
+            }}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all ${
               activeTab === 'people' 
                 ? 'bg-gradient-to-b from-white to-gray-100 shadow-md border border-gray-200 text-gray-700 font-medium' 
