@@ -86,27 +86,29 @@ const CandidateCard = ({ candidate, isDragging }: { candidate: Candidate; isDrag
         ))}
       </div>
 
-      {/* Location */}
-      <div className="flex items-center gap-2 mb-3">
+      {/* Location and Company logos */}
+      <div className="flex items-center gap-2 flex-wrap">
         <span className="inline-flex items-center px-2 py-1 rounded-full bg-muted text-xs text-muted-foreground">
           {candidate.city}, {candidate.country}
         </span>
-      </div>
-
-      {/* Company logos */}
-      <div className="flex items-center gap-1">
-        {candidate.companies.slice(0, 3).map((company, idx) => (
-          <div key={idx} className="w-6 h-6 rounded-full bg-white border border-border/40 flex items-center justify-center overflow-hidden">
-            <img 
-              src={companyLogos[company] || companyAres} 
-              alt={company}
-              className="w-4 h-4 object-contain"
-            />
-          </div>
-        ))}
-        {candidate.companies.length > 3 && (
-          <span className="text-xs text-muted-foreground ml-1">+{candidate.companies.length - 3}</span>
-        )}
+        
+        {/* Company logos */}
+        <div className="flex items-center gap-1">
+          {candidate.companies.slice(0, 2).map((company, idx) => (
+            <div key={idx} className="w-6 h-6 rounded-full bg-white border border-border/40 flex items-center justify-center overflow-hidden">
+              <img 
+                src={companyLogos[company] || companyAres} 
+                alt={company}
+                className="w-4 h-4 object-contain"
+              />
+            </div>
+          ))}
+          {candidate.companies.length > 2 && (
+            <div className="w-6 h-6 rounded-full bg-muted border border-border/40 flex items-center justify-center">
+              <span className="text-[10px] font-medium text-muted-foreground">+{candidate.companies.length - 2}</span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
