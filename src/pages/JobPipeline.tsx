@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical } from 'lucide-react';
+import { ChevronDown, MoreVertical, Clock } from 'lucide-react';
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, closestCorners, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
@@ -31,6 +31,7 @@ interface Candidate {
   country: string;
   rating: number;
   companies: string[];
+  lastContact: string;
 }
 
 interface Column {
@@ -63,27 +64,33 @@ const CandidateCard = ({ candidate, isDragging }: { candidate: Candidate; isDrag
         </div>
       </div>
 
-      {/* Rating stars */}
-      <div className="flex items-center gap-1 mb-3">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <button
-            key={star}
-            onClick={(e) => {
-              e.stopPropagation();
-              setRating(star);
-            }}
-            className="transition-transform hover:scale-110"
-          >
-            <img 
-              src={starIcon} 
-              alt="star"
-              className="w-4 h-4"
-              style={{
-                filter: star <= rating ? 'none' : 'grayscale(100%) opacity(0.3)'
+      {/* Rating stars and last contact */}
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-1">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <button
+              key={star}
+              onClick={(e) => {
+                e.stopPropagation();
+                setRating(star);
               }}
-            />
-          </button>
-        ))}
+              className="transition-transform hover:scale-110"
+            >
+              <img 
+                src={starIcon} 
+                alt="star"
+                className="w-4 h-4"
+                style={{
+                  filter: star <= rating ? 'none' : 'grayscale(100%) opacity(0.3)'
+                }}
+              />
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center gap-1.5 text-muted-foreground">
+          <Clock className="w-3.5 h-3.5" />
+          <span className="text-xs">{candidate.lastContact}</span>
+        </div>
       </div>
 
       {/* Location and Company logos */}
@@ -169,6 +176,7 @@ const JobPipeline = () => {
           country: 'Sweden',
           rating: 4,
           companies: ['Stripe', 'Figma', 'IDEO'],
+          lastContact: '1h ago',
         },
         {
           id: '2',
@@ -180,6 +188,7 @@ const JobPipeline = () => {
           country: 'Sweden',
           rating: 5,
           companies: ['Ares', 'Figma'],
+          lastContact: '3h ago',
         },
       ],
     },
@@ -202,6 +211,7 @@ const JobPipeline = () => {
           country: 'Sweden',
           rating: 3,
           companies: ['Stripe', 'IDEO'],
+          lastContact: '2d ago',
         },
       ],
     },
@@ -219,6 +229,7 @@ const JobPipeline = () => {
           country: 'Sweden',
           rating: 4,
           companies: ['Figma', 'Ares'],
+          lastContact: '5h ago',
         },
       ],
     },
@@ -236,6 +247,7 @@ const JobPipeline = () => {
           country: 'Sweden',
           rating: 5,
           companies: ['Stripe', 'Figma', 'IDEO', 'Ares'],
+          lastContact: '1d ago',
         },
       ],
     },
@@ -253,6 +265,7 @@ const JobPipeline = () => {
           country: 'Sweden',
           rating: 4,
           companies: ['Figma', 'IDEO'],
+          lastContact: '12h ago',
         },
       ],
     },
