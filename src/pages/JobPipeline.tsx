@@ -488,96 +488,138 @@ const JobPipeline = () => {
                   ) : null}
                 </DragOverlay>
               </DndContext>
+
+              {isChatCollapsed && (
+                <button
+                  onClick={() => setIsChatCollapsed(false)}
+                  className="absolute top-6 right-6 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200 z-10"
+                >
+                  <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                </button>
+              )}
             </div>
           </div>
         </ResizablePanel>
 
+        {!isChatCollapsed && <ResizableHandle className="w-0 bg-transparent" />}
+
+        {/* Right side - Chat Interface */}
         {!isChatCollapsed && (
-          <>
-            <ResizableHandle withHandle />
-            <ResizablePanel defaultSize={35} minSize={25} maxSize={50}>
-              <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
-                <div className="flex-1 overflow-hidden bg-background rounded-[15px] relative mr-6 ml-2.5 flex flex-col">
-                  {/* Chat header */}
-                  <div className="px-6 py-4 border-b">
-                    <div className="flex items-center justify-between mb-2">
-                      <h2 className="text-lg font-semibold">AI Assistant</h2>
-                      <button 
-                        onClick={() => setIsChatCollapsed(true)}
-                        className="text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-                    </div>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => setChatMode('personal')}
-                        className={`px-3 py-1.5 rounded-lg text-sm transition-colors ${
-                          chatMode === 'personal'
-                            ? 'bg-primary text-primary-foreground'
-                            : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                        }`}
-                      >
-                        Personal
-                      </button>
-                      <button
-                        onClick={() => setChatMode('team')}
-                        className={`px-3 py-1.5 rounded-lg text-sm transition-colors ${
-                          chatMode === 'team'
-                            ? 'bg-primary text-primary-foreground'
-                            : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                        }`}
-                      >
-                        Team
-                      </button>
-                    </div>
+          <ResizablePanel defaultSize={35} minSize={30}>
+            <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
+              <div className="flex flex-col h-full py-6 pr-8 pl-2.5 pb-8">
+                {/* Chat Header */}
+                <div className="flex items-center justify-between gap-6 mb-12 flex-shrink-0 relative">
+                  {/* Left side - Personal/Team Switch */}
+                  <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg shadow-sm">
+                    <button
+                      onClick={() => setChatMode('personal')}
+                      className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                        chatMode === 'personal' 
+                          ? 'bg-gray-900 text-white' 
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      Personal
+                    </button>
+                    <button
+                      onClick={() => setChatMode('team')}
+                      className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                        chatMode === 'team' 
+                          ? 'bg-gray-900 text-white' 
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      Team
+                    </button>
                   </div>
 
-                  {/* Chat messages */}
-                  <div className="flex-1 overflow-y-auto p-6">
-                    <div className="space-y-4">
-                      <div className="flex gap-3">
-                        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-                          <svg className="w-4 h-4 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                          </svg>
-                        </div>
-                        <div className="flex-1">
-                          <div className="bg-muted rounded-lg p-3">
-                            <p className="text-sm">I can help you manage your pipeline and suggest the best candidates for each stage.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div ref={messagesEndRef} />
-                  </div>
-
-                  {/* Chat input */}
-                  <div className="p-4 border-t" style={{ backgroundColor: '#FAF8F4' }}>
-                    <form className="flex gap-2">
-                      <div className="relative flex-1">
-                        <input
-                          type="text"
-                          placeholder="Ask AI assistant..."
-                          className="w-full px-4 py-2 pr-12 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                        />
-                        <button
-                          type="submit"
-                          className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-primary text-primary-foreground rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors"
-                        >
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                          </svg>
-                        </button>
-                      </div>
-                    </form>
-                  </div>
+                  {/* Right side - Collapse Button */}
+                  <button
+                    onClick={() => setIsChatCollapsed(true)}
+                    className="w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
+                  >
+                    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ transform: 'rotate(180deg)' }}>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                  </button>
                 </div>
+
+              {/* Chat Messages - Scrollable */}
+              <div className="flex-1 overflow-y-auto mb-6 space-y-4">
+                {chatMode === 'personal' ? (
+                  <>
+                    <div className="flex justify-start">
+                      <div className="text-foreground px-6 py-4">
+                        I can help you manage your pipeline and suggest the best candidates for each stage.
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* Team Chat View */}
+                    <div className="space-y-6">
+                      {/* Team Member 1 */}
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2 px-2">
+                          <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-medium">
+                            SM
+                          </div>
+                          <span className="text-sm font-medium text-muted-foreground">Sarah Miller</span>
+                          <span className="text-xs text-muted-foreground">2h ago</span>
+                        </div>
+                        <div className="bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl ml-8">
+                          Move the top candidates to screening stage
+                        </div>
+                        <div className="text-foreground px-6 py-4 ml-8">
+                          I've moved 3 top-rated candidates to the screening stage for your review.
+                        </div>
+                      </div>
+
+                      {/* Team Member 2 */}
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2 px-2">
+                          <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-xs font-medium">
+                            MC
+                          </div>
+                          <span className="text-sm font-medium text-muted-foreground">Mike Chen</span>
+                          <span className="text-xs text-muted-foreground">5h ago</span>
+                        </div>
+                        <div className="bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl ml-8">
+                          Schedule first interviews for candidates in the screening stage
+                        </div>
+                        <div className="text-foreground px-6 py-4 ml-8">
+                          I've scheduled interviews for next week. All candidates have been notified via email.
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                <div ref={messagesEndRef} />
               </div>
-            </ResizablePanel>
-          </>
+
+              {/* Chat Input - Fixed at bottom */}
+              <form className="relative flex-shrink-0">
+                <textarea
+                  placeholder="Ask anything about the pipeline..."
+                  rows={3}
+                  className="w-full bg-white rounded-2xl px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none min-h-[80px] shadow-sm"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-4 bottom-4 w-10 h-10 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors shadow-md"
+                >
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </div>
+        </ResizablePanel>
         )}
       </ResizablePanelGroup>
 
