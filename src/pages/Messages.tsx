@@ -157,7 +157,7 @@ const Messages = () => {
       
       <div className="relative z-10 h-screen flex flex-col">
         {/* Header */}
-        <header className="bg-white/80 backdrop-blur-sm border-b border-border px-6 py-4 flex items-center gap-4">
+        <header className="border-b border-border px-6 py-4 flex items-center gap-4" style={{ backgroundColor: '#FAF8F4' }}>
           <button
             onClick={() => navigate(-1)}
             className="w-10 h-10 rounded-lg hover:bg-muted flex items-center justify-center transition-colors"
@@ -267,7 +267,7 @@ const Messages = () => {
           </aside>
 
           {/* Middle - Chat Area */}
-          <div className="flex-1 bg-white/50 backdrop-blur-sm flex flex-col">
+          <div className="flex-1 flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
             {/* Chat Header */}
             <div className="px-6 py-4 bg-white border-b border-border flex items-center gap-3">
               <img
