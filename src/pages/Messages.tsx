@@ -276,10 +276,19 @@ const Messages = () => {
                 alt={selectedPerson.name}
                 className="w-10 h-10 rounded-full object-cover"
               />
-              <div>
+              <div className="flex-1">
                 <h3 className="font-semibold">{selectedPerson.name}</h3>
                 <p className="text-xs text-muted-foreground">Active now</p>
               </div>
+              {/* Toggle Button when collapsed */}
+              {isRightPanelCollapsed && (
+                <button
+                  onClick={() => setIsRightPanelCollapsed(false)}
+                  className="w-8 h-8 bg-muted border border-border rounded-full flex items-center justify-center hover:bg-accent transition-colors"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+              )}
             </div>
 
             {/* Chat Messages */}
@@ -332,23 +341,20 @@ const Messages = () => {
 
           {/* Right Sidebar - Profile */}
           <aside 
-            className={`bg-white border-l border-border overflow-y-auto transition-all duration-300 relative ${
+            className={`bg-white border-l border-border overflow-y-auto transition-all duration-300 ${
               isRightPanelCollapsed ? 'w-0' : 'w-[380px]'
             }`}
           >
-            {/* Toggle Button */}
-            <button
-              onClick={() => setIsRightPanelCollapsed(!isRightPanelCollapsed)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 bg-white border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors shadow-md z-10"
-            >
-              {isRightPanelCollapsed ? (
-                <ChevronLeft className="w-4 h-4" />
-              ) : (
-                <ChevronRight className="w-4 h-4" />
+            <div className={`p-6 space-y-6 ${isRightPanelCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition-opacity duration-300`}>
+              {/* Toggle Button when expanded - at top left */}
+              {!isRightPanelCollapsed && (
+                <button
+                  onClick={() => setIsRightPanelCollapsed(true)}
+                  className="w-8 h-8 bg-muted border border-border rounded-full flex items-center justify-center hover:bg-accent transition-colors mb-4"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
               )}
-            </button>
-
-            <div className={`p-6 space-y-6 ${isRightPanelCollapsed ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
               {/* Profile Header */}
               <div className="flex flex-col items-center text-center space-y-3">
                 <img 
