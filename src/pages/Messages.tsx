@@ -138,6 +138,7 @@ const Messages = () => {
   const [messageInput, setMessageInput] = useState('');
   const [isRightPanelCollapsed, setIsRightPanelCollapsed] = useState(false);
   const [hoveredMessageId, setHoveredMessageId] = useState<number | null>(null);
+  const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
 
   const filteredMessages = mockMessages.filter(msg => {
     const matchesSearch = msg.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -251,7 +252,12 @@ const Messages = () => {
                 <div
                   key={msg.id}
                   onMouseEnter={() => setHoveredMessageId(msg.id)}
-                  onMouseLeave={() => setHoveredMessageId(null)}
+                  onMouseLeave={() => {
+                    // Only hide if dropdown is not open
+                    if (openDropdownId !== msg.id) {
+                      setHoveredMessageId(null);
+                    }
+                  }}
                   onClick={() => setSelectedPerson(msg)}
                   className={`w-full px-4 py-3 flex items-start gap-3 hover:bg-muted/50 transition-colors border-b border-border/50 cursor-pointer ${
                     selectedPerson.id === msg.id ? '' : ''
@@ -270,8 +276,15 @@ const Messages = () => {
                       </span>
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-muted-foreground">{msg.time}</span>
-                        {hoveredMessageId === msg.id && (
-                          <DropdownMenu>
+                        {(hoveredMessageId === msg.id || openDropdownId === msg.id) && (
+                          <DropdownMenu
+                            onOpenChange={(open) => {
+                              setOpenDropdownId(open ? msg.id : null);
+                              if (!open) {
+                                setHoveredMessageId(null);
+                              }
+                            }}
+                          >
                             <DropdownMenuTrigger asChild>
                               <button 
                                 className="w-7 h-7 rounded-full bg-white border border-border/40 flex items-center justify-center hover:bg-muted transition-colors shadow-sm"
