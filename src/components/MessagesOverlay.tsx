@@ -213,7 +213,7 @@ export const MessagesOverlay = ({ isOpen, onClose, buttonPosition }: MessagesOve
               <button
                 key={msg.id}
                 onClick={handlePersonClick}
-                className="w-full px-4 py-3 flex items-start gap-3 hover:bg-muted/50 transition-colors border-b border-border/50"
+                className="w-full px-4 py-3 flex items-start gap-3 hover:bg-[#FAF8F4] transition-colors border-b border-border/50"
               >
                 <img
                   src={msg.avatar}
