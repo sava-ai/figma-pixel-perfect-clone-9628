@@ -28,7 +28,7 @@ import profile20 from '@/assets/profile-20.jpg';
 
 const JobPeople = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'job' | 'people' | 'shortlist'>('people');
+  const [activeTab, setActiveTab] = useState<'job' | 'people' | 'pipeline'>('people');
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
@@ -223,17 +223,17 @@ const JobPeople = () => {
             People
           </button>
           <button
-            onClick={() => setActiveTab('shortlist')}
+            onClick={() => navigate('/job/pipeline')}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all ${
-              activeTab === 'shortlist' 
+              activeTab === 'pipeline' 
                 ? 'bg-gradient-to-b from-white to-gray-100 shadow-md border border-gray-200 text-gray-700 font-medium' 
                 : 'text-foreground hover:text-foreground'
             }`}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
             </svg>
-            Shortlist
+            Pipeline
           </button>
         </div>
 
