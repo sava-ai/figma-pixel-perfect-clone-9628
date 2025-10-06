@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, ArrowLeft, Sparkles, Award, FileText, ExternalLink, Phone, Mail, Linkedin, Link as LinkIcon, Send } from 'lucide-react';
+import { Search, ArrowLeft, Sparkles, Award, FileText, ExternalLink, Phone, Mail, Linkedin, Link as LinkIcon, Send, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -135,6 +135,7 @@ const Messages = () => {
   const [selectedJob, setSelectedJob] = useState<string | null>(null);
   const [selectedPerson, setSelectedPerson] = useState<Message>(mockMessages[0]);
   const [messageInput, setMessageInput] = useState('');
+  const [isRightPanelCollapsed, setIsRightPanelCollapsed] = useState(false);
 
   const filteredMessages = mockMessages.filter(msg => {
     const matchesSearch = msg.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -330,8 +331,24 @@ const Messages = () => {
           </div>
 
           {/* Right Sidebar - Profile */}
-          <aside className="w-[380px] bg-white border-l border-border overflow-y-auto">
-            <div className="p-6 space-y-6">
+          <aside 
+            className={`bg-white border-l border-border overflow-y-auto transition-all duration-300 relative ${
+              isRightPanelCollapsed ? 'w-0' : 'w-[380px]'
+            }`}
+          >
+            {/* Toggle Button */}
+            <button
+              onClick={() => setIsRightPanelCollapsed(!isRightPanelCollapsed)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 bg-white border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors shadow-md z-10"
+            >
+              {isRightPanelCollapsed ? (
+                <ChevronLeft className="w-4 h-4" />
+              ) : (
+                <ChevronRight className="w-4 h-4" />
+              )}
+            </button>
+
+            <div className={`p-6 space-y-6 ${isRightPanelCollapsed ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
               {/* Profile Header */}
               <div className="flex flex-col items-center text-center space-y-3">
                 <img 
