@@ -394,12 +394,14 @@ Qualifications
                 </button>
               </div>
               
-              <textarea
-                value={jobDescription}
-                onChange={(e) => setJobDescription(e.target.value)}
-                className={`w-full min-h-full text-foreground whitespace-pre-wrap bg-transparent border-none outline-none resize-none font-sans ${activeSuggestions.length > 0 ? 'px-12' : 'p-12'}`}
-                placeholder="Enter job description..."
-              />
+              <div 
+                contentEditable
+                suppressContentEditableWarning
+                onInput={(e) => setJobDescription(e.currentTarget.textContent || '')}
+                className={`text-foreground whitespace-pre-wrap outline-none ${activeSuggestions.length > 0 ? 'px-12' : 'p-12'}`}
+              >
+                {formatJobDescription(jobDescription)}
+              </div>
               
               {isChatCollapsed && (
                 <button
