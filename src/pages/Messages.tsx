@@ -160,7 +160,7 @@ const Messages = () => {
         <header className="border-b border-border px-6 py-4 flex items-center gap-4" style={{ backgroundColor: '#FAF8F4' }}>
           <button
             onClick={() => navigate(-1)}
-            className="w-10 h-10 rounded-lg hover:bg-muted flex items-center justify-center transition-colors"
+            className="w-10 h-10 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
