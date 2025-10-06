@@ -32,6 +32,7 @@ const JobPeople = () => {
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
+  const [chatMode, setChatMode] = useState<'personal' | 'team'>('personal');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [peopleCount, setPeopleCount] = useState(0);
   const [visibleMatches, setVisibleMatches] = useState(0);
@@ -459,10 +460,35 @@ const JobPeople = () => {
             <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
               <div className="flex flex-col h-full py-6 pr-8 pl-2.5 pb-8">
                 {/* Chat Header */}
-                <div className="flex gap-6 mb-12 flex-shrink-0 relative">
+                <div className="flex items-center justify-between gap-6 mb-12 flex-shrink-0 relative">
+                  {/* Left side - Personal/Team Switch */}
+                  <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg shadow-sm">
+                    <button
+                      onClick={() => setChatMode('personal')}
+                      className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                        chatMode === 'personal' 
+                          ? 'bg-gray-900 text-white' 
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      Personal
+                    </button>
+                    <button
+                      onClick={() => setChatMode('team')}
+                      className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                        chatMode === 'team' 
+                          ? 'bg-gray-900 text-white' 
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      Team
+                    </button>
+                  </div>
+
+                  {/* Right side - Collapse Button */}
                   <button
                     onClick={() => setIsChatCollapsed(true)}
-                    className="absolute right-0 top-0 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
                   >
                     <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ transform: 'rotate(180deg)' }}>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -472,22 +498,65 @@ const JobPeople = () => {
 
               {/* Chat Messages - Scrollable */}
               <div className="flex-1 overflow-y-auto mb-6 space-y-4">
-                {messages.map((message, index) => (
-                  <div
-                    key={index}
-                    className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-                  >
-                    <div
-                      className={`max-w-[80%] ${
-                        message.isUser
-                          ? 'bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl'
-                          : 'text-foreground px-6 py-4'
-                      }`}
-                    >
-                      {message.text}
+                {chatMode === 'personal' ? (
+                  <>
+                    {messages.map((message, index) => (
+                      <div
+                        key={index}
+                        className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                      >
+                        <div
+                          className={`max-w-[80%] ${
+                            message.isUser
+                              ? 'bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl'
+                              : 'text-foreground px-6 py-4'
+                          }`}
+                        >
+                          {message.text}
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    {/* Team Chat View */}
+                    <div className="space-y-6">
+                      {/* Team Member 1 */}
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2 px-2">
+                          <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-medium">
+                            SM
+                          </div>
+                          <span className="text-sm font-medium text-muted-foreground">Sarah Miller</span>
+                          <span className="text-xs text-muted-foreground">30m ago</span>
+                        </div>
+                        <div className="bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl ml-8">
+                          Search for senior backend engineers with Python experience
+                        </div>
+                        <div className="text-foreground px-6 py-4 ml-8">
+                          Found 87 candidates with 5+ years Python experience. Top matches include specialists in Django and FastAPI frameworks.
+                        </div>
+                      </div>
+
+                      {/* Team Member 2 */}
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2 px-2">
+                          <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-xs font-medium">
+                            MC
+                          </div>
+                          <span className="text-sm font-medium text-muted-foreground">Mike Chen</span>
+                          <span className="text-xs text-muted-foreground">1h ago</span>
+                        </div>
+                        <div className="bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl ml-8">
+                          Show candidates who applied in the last 24 hours
+                        </div>
+                        <div className="text-foreground px-6 py-4 ml-8">
+                          12 new applications received. 3 candidates match the senior level requirements with relevant portfolio work.
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  </>
+                )}
 
                 <div ref={messagesEndRef} />
               </div>
