@@ -465,8 +465,8 @@ const JobPipeline = () => {
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
               >
-                <div className="h-full overflow-x-auto overflow-y-hidden p-6">
-                  <div className="flex gap-4 h-full" style={{ minWidth: 'max-content' }}>
+                <div className="h-full overflow-x-auto overflow-y-hidden pl-6 pr-6 pt-6 pb-6">
+                  <div className="flex gap-4 h-full pr-6" style={{ minWidth: 'max-content' }}>
                     {columns.map((column) => (
                       <div
                         key={column.id}
