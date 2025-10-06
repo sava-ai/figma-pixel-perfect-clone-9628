@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        'hedvig': ['Hedvig Letters Serif', 'serif'],
+        'hedvig': ['Hedvig Letters Sans', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
