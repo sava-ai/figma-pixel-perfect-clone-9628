@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, X, ArrowDown, ArrowUp } from 'lucide-react';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
+import { InviteDialog } from '@/components/InviteDialog';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
 
@@ -9,6 +10,7 @@ const Job = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'job' | 'people' | 'shortlist'>('job');
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
+  const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
   const [showThinking, setShowThinking] = useState(true);
   const [showSecondThinking, setShowSecondThinking] = useState(false);
@@ -343,7 +345,10 @@ Qualifications
             alt="Profile" 
             className="w-9 h-9 rounded-full object-cover shadow-md border-2 border-gray-200"
           />
-          <button className="px-3 py-1.5 rounded-lg font-medium transition-all bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-md hover:shadow-lg border border-gray-700">
+          <button 
+            onClick={() => setInviteDialogOpen(true)}
+            className="px-3 py-1.5 rounded-lg font-medium transition-all bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-md hover:shadow-lg border border-gray-700"
+          >
             Invite
           </button>
           <button className="w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200">
@@ -574,6 +579,8 @@ Qualifications
         </ResizablePanel>
         )}
       </ResizablePanelGroup>
+
+      <InviteDialog open={inviteDialogOpen} onOpenChange={setInviteDialogOpen} />
     </div>
   );
 };
