@@ -8,6 +8,7 @@ import Job from "./pages/Job";
 import JobPeople from "./pages/JobPeople";
 import JobPeopleView from "./pages/JobPeopleView";
 import Calendar from "./pages/Calendar";
+import Messages from "./pages/Messages";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/job/people" element={<JobPeople />} />
           <Route path="/job/people/view" element={<JobPeopleView />} />
           <Route path="/calendar" element={<Calendar />} />
+          <Route path="/messages" element={<Messages />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { X, Search } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import {
@@ -85,6 +86,7 @@ const jobFilters = [
 ];
 
 export const MessagesOverlay = ({ isOpen, onClose, buttonPosition }: MessagesOverlayProps) => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [showUnreadOnly, setShowUnreadOnly] = useState(false);
   const [selectedJob, setSelectedJob] = useState<string | null>(null);
@@ -95,6 +97,16 @@ export const MessagesOverlay = ({ isOpen, onClose, buttonPosition }: MessagesOve
     const matchesUnread = !showUnreadOnly || msg.unread;
     return matchesSearch && matchesUnread;
   });
+
+  const handlePersonClick = () => {
+    navigate('/messages');
+    onClose();
+  };
+
+  const handleReadAllClick = () => {
+    navigate('/messages');
+    onClose();
+  };
 
   if (!isOpen) return null;
 
@@ -200,6 +212,7 @@ export const MessagesOverlay = ({ isOpen, onClose, buttonPosition }: MessagesOve
             filteredMessages.map((msg) => (
               <button
                 key={msg.id}
+                onClick={handlePersonClick}
                 className="w-full px-4 py-3 flex items-start gap-3 hover:bg-muted/50 transition-colors border-b border-border/50"
               >
                 <img
@@ -228,7 +241,10 @@ export const MessagesOverlay = ({ isOpen, onClose, buttonPosition }: MessagesOve
 
         {/* Footer Button */}
         <div className="p-4 border-t border-border">
-          <button className="w-full py-2.5 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
+          <button 
+            onClick={handleReadAllClick}
+            className="w-full py-2.5 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
+          >
             Read all messages
           </button>
         </div>
