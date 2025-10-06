@@ -466,8 +466,8 @@ const JobPipeline = () => {
                           </span>
                         </div>
                         <div 
-                          className="flex-1 bg-muted/20 rounded-xl p-3 overflow-y-auto"
-                          style={{ minHeight: '200px' }}
+                          className="flex-1 rounded-xl p-3 overflow-y-auto"
+                          style={{ minHeight: '200px', backgroundColor: '#FAF8F4' }}
                         >
                           <SortableContext
                             items={column.candidates.map(c => c.id)}
