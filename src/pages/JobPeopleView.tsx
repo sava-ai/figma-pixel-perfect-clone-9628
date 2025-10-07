@@ -53,6 +53,7 @@ const JobPeopleView = () => {
     image: profile1,
     city: "Stockholm",
     match: "10/12",
+    isNew: true,
     description: "A seasoned Senior Product Designer with extensive leadership experience in fintech. Sarah has dedicated over 8 years to building world-class products, contributing to high-growth companies. Her expertise lies in creating intuitive user experiences while driving product strategy and mentoring design teams.",
     roles: [{
       company: "Klarna",
@@ -70,6 +71,7 @@ const JobPeopleView = () => {
     image: profile2,
     city: "Gothenburg",
     match: "9/12",
+    isNew: true,
     description: "Marcus is a Senior Designer at Asseco with 10 years of experience, having multiple projects on Dribbble displaying potential of exponential product understanding. He specializes in design systems and has led transformation initiatives across enterprise platforms, bringing consistency and scalability to complex products.",
     roles: [{
       company: "Asseco",
@@ -87,6 +89,7 @@ const JobPeopleView = () => {
     image: profile3,
     city: "Malmö",
     match: "11/12",
+    isNew: false,
     description: "Emma is an innovative Senior Product Designer known for her data-driven approach and exceptional prototyping skills. With 9 years in the industry, she has crafted user experiences for both B2B and B2C products, always focusing on measurable impact and user satisfaction metrics.",
     roles: [{
       company: "Bambora",
@@ -104,6 +107,7 @@ const JobPeopleView = () => {
     image: profile4,
     city: "Stockholm",
     match: "10/12",
+    isNew: true,
     description: "Oliver brings a unique blend of technical knowledge and design excellence, having worked extensively with cross-functional teams in agile environments. His 7 years of experience span fintech, e-commerce, and SaaS products, with a strong focus on accessibility and inclusive design practices.",
     roles: [{
       company: "Northmill",
@@ -121,6 +125,7 @@ const JobPeopleView = () => {
     image: profile5,
     city: "Uppsala",
     match: "9/12",
+    isNew: false,
     description: "Linnea excels at transforming complex requirements into elegant, user-friendly interfaces. With 6 years specializing in fintech and payment solutions, she has a proven track record of improving conversion rates and reducing user friction through thoughtful design iterations and rigorous testing.",
     roles: [{
       company: "Lunar",
@@ -138,6 +143,7 @@ const JobPeopleView = () => {
     image: profile6,
     city: "Stockholm",
     match: "10/12",
+    isNew: false,
     description: "Filip is a creative problem-solver with extensive experience in building design systems and leading design sprints. His 8 years in the field have equipped him with deep expertise in user research, interaction design, and visual design, making him a versatile asset to any product team.",
     roles: [{
       company: "Schibsted",
@@ -155,6 +161,7 @@ const JobPeopleView = () => {
     image: profile7,
     city: "Lund",
     match: "11/12",
+    isNew: false,
     description: "Isabella combines strategic thinking with exceptional execution skills, having delivered award-winning products throughout her 9-year career. She specializes in end-to-end product design, from initial research and concept development to final implementation and post-launch optimization.",
     roles: [{
       company: "Tetra Pak",
@@ -172,6 +179,7 @@ const JobPeopleView = () => {
     image: profile8,
     city: "Stockholm",
     match: "9/12",
+    isNew: false,
     description: "Alexander is passionate about creating delightful user experiences through animation and micro-interactions. His 7 years of experience include work on mobile apps, web platforms, and emerging technologies, always pushing the boundaries of what's possible in digital product design.",
     roles: [{
       company: "Tobii",
@@ -327,7 +335,8 @@ const JobPeopleView = () => {
 
                   {/* Applicants and Rejections */}
                   <div className="grid grid-cols-2 gap-4 mb-8">
-                    <div className="bg-card border border-border/40 rounded-xl p-5">
+                    <div className="bg-card border border-border/40 rounded-xl p-5 relative">
+                      <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full"></div>
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
                           <svg className="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -348,7 +357,8 @@ const JobPeopleView = () => {
                       </button>
                     </div>
 
-                    <div className="bg-card border border-border/40 rounded-xl p-5">
+                    <div className="bg-card border border-border/40 rounded-xl p-5 relative">
+                      <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full"></div>
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-7 h-7 rounded-lg bg-destructive/10 flex items-center justify-center">
                           <svg className="w-5 h-5 text-destructive" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -382,12 +392,19 @@ const JobPeopleView = () => {
                 <div className="grid grid-cols-2 gap-4">
                   {bestCandidates.map(candidate => <div 
                       key={candidate.id} 
-                      className="bg-card border border-border/40 rounded-xl p-5 hover:border-primary/50 transition-all cursor-pointer group"
+                      className="bg-card border border-border/40 rounded-xl p-5 hover:border-primary/50 transition-all cursor-pointer group relative"
+                      style={candidate.isNew ? { backgroundColor: '#FAF8F4' } : {}}
                       onClick={() => {
                         setSelectedCandidate(candidate);
                         setProfileDialogOpen(true);
                       }}
                     >
+                      {candidate.isNew && (
+                        <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2 py-1 bg-primary text-primary-foreground rounded-full text-[10px] font-semibold">
+                          <span className="w-1.5 h-1.5 bg-primary-foreground rounded-full"></span>
+                          NEW
+                        </div>
+                      )}
                       {/* Candidate header */}
                       <div className="flex items-start gap-3 mb-4">
                         <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
