@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
+import { X, Paperclip } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -180,10 +180,18 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
                   }
                 }}
                 placeholder="Ask me anything..."
-                className="w-full px-5 py-4 pr-14 rounded-2xl resize-none bg-white border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 text-[15px] leading-relaxed"
+                className="w-full px-5 py-4 pl-14 pr-14 rounded-2xl resize-none bg-white border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 text-[15px] leading-relaxed"
                 rows={3}
                 disabled={isThinking}
               />
+              {/* Attachment button - bottom left */}
+              <button
+                type="button"
+                className="absolute bottom-4 left-4 w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-gray-100 text-gray-600 hover:text-gray-900"
+              >
+                <Paperclip className="w-5 h-5" />
+              </button>
+              {/* Submit button - bottom right */}
               <button
                 type="submit"
                 disabled={!inputValue.trim() || isThinking}
