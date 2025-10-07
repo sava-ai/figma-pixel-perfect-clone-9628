@@ -395,38 +395,34 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
               />
               {/* Action Buttons */}
               <div className="absolute bottom-4 left-4 flex gap-2">
-                <CollapsibleTrigger asChild>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      setCompareOpen(!compareOpen);
-                      setFindSimilarOpen(false);
-                      setSearchQuery('');
-                    }}
-                    className="h-8 px-3 text-xs bg-gray-100 hover:bg-gray-200"
-                  >
-                    <Users className="w-3.5 h-3.5 mr-1.5" />
-                    Compare
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleTrigger asChild>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      setFindSimilarOpen(!findSimilarOpen);
-                      setCompareOpen(false);
-                      setSearchQuery('');
-                    }}
-                    className="h-8 px-3 text-xs bg-gray-100 hover:bg-gray-200"
-                  >
-                    <Search className="w-3.5 h-3.5 mr-1.5" />
-                    Find similar
-                  </Button>
-                </CollapsibleTrigger>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    setCompareOpen(!compareOpen);
+                    setFindSimilarOpen(false);
+                    setSearchQuery('');
+                  }}
+                  className="h-8 px-3 text-xs bg-gray-100 hover:bg-gray-200"
+                >
+                  <Users className="w-3.5 h-3.5 mr-1.5" />
+                  Compare
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    setFindSimilarOpen(!findSimilarOpen);
+                    setCompareOpen(false);
+                    setSearchQuery('');
+                  }}
+                  className="h-8 px-3 text-xs bg-gray-100 hover:bg-gray-200"
+                >
+                  <Search className="w-3.5 h-3.5 mr-1.5" />
+                  Find similar
+                </Button>
               </div>
               <button
                 type="submit"
