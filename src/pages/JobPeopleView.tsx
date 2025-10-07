@@ -5,6 +5,7 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/componen
 import { ProfileDialog } from '@/components/ProfileDialog';
 import { RejectionDialog } from '@/components/RejectionDialog';
 import { InviteDialog } from '@/components/InviteDialog';
+import { JobChatPanel } from '@/components/JobChatPanel';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
 import profile1 from '@/assets/profile-1.jpg';
@@ -33,11 +34,9 @@ const JobPeopleView = () => {
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
-  const [chatMode, setChatMode] = useState<'personal' | 'team'>('personal');
   const [selectedCandidate, setSelectedCandidate] = useState<typeof bestCandidates[0] | null>(null);
   const [profileDialogOpen, setProfileDialogOpen] = useState(false);
   const [rejectionDialogOpen, setRejectionDialogOpen] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   
   // Animated counters
   const [applicantsCount, setApplicantsCount] = useState(0);
@@ -192,11 +191,6 @@ const JobPeopleView = () => {
       role: "Product Designer"
     }]
   }];
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({
-      behavior: 'smooth'
-    });
-  }, []);
   
   // Animate counters on mount
   useEffect(() => {
@@ -535,109 +529,11 @@ const JobPeopleView = () => {
 
         {/* Right Panel - Chat */}
         {!isChatCollapsed && <ResizablePanel defaultSize={35} minSize={30}>
-            <div className="h-full flex flex-col" style={{
-          backgroundColor: '#FAF8F4'
-        }}>
-              <div className="flex flex-col h-full py-6 pr-8 pl-2.5 pb-8">
-                {/* Chat Header */}
-                <div className="flex items-center justify-between gap-6 mb-12 flex-shrink-0 relative">
-                  {/* Left side - Personal/Team Switch */}
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg shadow-sm">
-                    <button
-                      onClick={() => setChatMode('personal')}
-                      className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                        chatMode === 'personal' 
-                          ? 'bg-gray-900 text-white' 
-                          : 'text-gray-600 hover:text-gray-900'
-                      }`}
-                    >
-                      Personal
-                    </button>
-                    <button
-                      onClick={() => setChatMode('team')}
-                      className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                        chatMode === 'team' 
-                          ? 'bg-gray-900 text-white' 
-                          : 'text-gray-600 hover:text-gray-900'
-                      }`}
-                    >
-                      Team
-                    </button>
-                  </div>
-
-                  {/* Right side - Collapse Button */}
-                  <button onClick={() => setIsChatCollapsed(true)} className="w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200">
-                    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ transform: 'rotate(180deg)' }}>
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                    </svg>
-                  </button>
-                </div>
-
-                {/* Chat Messages - Scrollable */}
-                <div className="flex-1 overflow-y-auto mb-6 space-y-4">
-                  {chatMode === 'personal' ? (
-                    <>
-                      <div className="flex justify-start">
-                        <div className="text-foreground px-6 py-4">
-                          I've found 100 candidates matching your criteria. The search covered external sources (LinkedIn, GitHub, Dribbble) and internal sources (Network, Applied). The best matches are displayed based on their skills, experience, and cultural fit.
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      {/* Team Chat View */}
-                      <div className="space-y-6">
-                        {/* Team Member 1 */}
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-2 px-2">
-                            <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-medium">
-                              SM
-                            </div>
-                            <span className="text-sm font-medium text-muted-foreground">Sarah Miller</span>
-                            <span className="text-xs text-muted-foreground">45m ago</span>
-                          </div>
-                          <div className="bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl ml-8">
-                            Review the shortlisted candidates for the Product Designer role
-                          </div>
-                          <div className="text-foreground px-6 py-4 ml-8">
-                            17 candidates have been shortlisted. 5 have strong portfolios with enterprise experience. Shall I schedule interviews?
-                          </div>
-                        </div>
-
-                        {/* Team Member 2 */}
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-2 px-2">
-                            <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs font-medium">
-                              AR
-                            </div>
-                            <span className="text-sm font-medium text-muted-foreground">Alex Rivera</span>
-                            <span className="text-xs text-muted-foreground">2h ago</span>
-                          </div>
-                          <div className="bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl ml-8">
-                            Compare Sarah Chapman and Mike Johnson for the senior role
-                          </div>
-                          <div className="text-foreground px-6 py-4 ml-8">
-                            Both are excellent candidates. Sarah has more Figma expertise and design system experience, while Mike excels in user research and A/B testing methodologies.
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  <div ref={messagesEndRef} />
-                </div>
-
-                {/* Chat Input - Fixed at bottom */}
-                <form className="relative flex-shrink-0">
-                  <textarea placeholder="Ask anything about the candidates..." rows={3} className="w-full bg-white rounded-2xl px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none min-h-[80px] shadow-sm" />
-                  <button type="submit" className="absolute right-4 bottom-4 w-10 h-10 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors shadow-md">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </button>
-                </form>
-              </div>
-            </div>
+            <JobChatPanel 
+              defaultMessages={[{ text: 'I\'ve found 100 candidates matching your criteria. The search covered external sources (LinkedIn, GitHub, Dribbble) and internal sources (Network, Applied). The best matches are displayed based on their skills, experience, and cultural fit.', isUser: false }]}
+              placeholder="Ask anything about the candidates..."
+              onCollapse={() => setIsChatCollapsed(true)}
+            />
           </ResizablePanel>}
       </ResizablePanelGroup>
 
