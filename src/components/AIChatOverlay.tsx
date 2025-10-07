@@ -180,7 +180,7 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
                   }
                 }}
                 placeholder="Ask me anything..."
-                className="w-full px-5 py-4 pl-14 pr-14 rounded-2xl resize-none bg-white border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 text-[15px] leading-relaxed"
+                className="w-full py-4 pl-14 pr-14 rounded-2xl resize-none bg-white border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 text-[15px] leading-relaxed"
                 rows={3}
                 disabled={isThinking}
               />
