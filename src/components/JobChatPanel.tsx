@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { X, Users, Search as SearchIcon } from 'lucide-react';
-import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ProfileDialog } from '@/components/ProfileDialog';
@@ -273,11 +272,11 @@ export const JobChatPanel = ({
           </div>
 
           {/* Chat Input - Fixed at bottom */}
-          <div className="flex-shrink-0 space-y-2">
-            {/* Compare Collapsible */}
-            <Collapsible open={compareOpen} onOpenChange={setCompareOpen}>
-              <CollapsibleContent className="mb-2">
-                <div className="bg-white rounded-xl p-4 shadow-sm border border-border/40">
+          <div className="flex-shrink-0 relative">
+            {/* Compare Overlay */}
+            {compareOpen && (
+              <div className="absolute bottom-full left-0 right-0 mb-2 z-50">
+                <div className="bg-white rounded-xl p-4 shadow-lg border border-border/40">
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="text-sm font-medium">Select 2 candidates to compare</h3>
                     <button onClick={() => setCompareOpen(false)}>
@@ -319,13 +318,13 @@ export const JobChatPanel = ({
                     Confirm ({selectedForCompare.length}/2)
                   </Button>
                 </div>
-              </CollapsibleContent>
-            </Collapsible>
+              </div>
+            )}
 
-            {/* Find Similar Collapsible */}
-            <Collapsible open={findSimilarOpen} onOpenChange={setFindSimilarOpen}>
-              <CollapsibleContent className="mb-2">
-                <div className="bg-white rounded-xl p-4 shadow-sm border border-border/40">
+            {/* Find Similar Overlay */}
+            {findSimilarOpen && (
+              <div className="absolute bottom-full left-0 right-0 mb-2 z-50">
+                <div className="bg-white rounded-xl p-4 shadow-lg border border-border/40">
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="text-sm font-medium">Select a candidate</h3>
                     <button onClick={() => setFindSimilarOpen(false)}>
@@ -367,8 +366,8 @@ export const JobChatPanel = ({
                     Confirm
                   </Button>
                 </div>
-              </CollapsibleContent>
-            </Collapsible>
+              </div>
+            )}
 
             {/* Action Buttons */}
             <div className="flex gap-2 mb-2">
