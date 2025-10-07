@@ -1,13 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
+import { X, Search, Users, UserCheck } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
 } from '@/components/ui/sheet';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ProfileDialog } from './ProfileDialog';
 
 interface Message {
   text: string;
   isUser: boolean;
+  action?: 'compare' | 'find-similar';
+}
+
+interface Candidate {
+  id: string;
+  name: string;
+  role: string;
 }
 
 interface AIChatOverlayProps {
@@ -24,6 +39,24 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
   const [chatWidth, setChatWidth] = useState(window.innerWidth * 0.3); // 30% of screen width
   const [isResizing, setIsResizing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  // Compare and Find Similar states
+  const [compareOpen, setCompareOpen] = useState(false);
+  const [findSimilarOpen, setFindSimilarOpen] = useState(false);
+  const [selectedForCompare, setSelectedForCompare] = useState<Candidate[]>([]);
+  const [selectedForSimilar, setSelectedForSimilar] = useState<Candidate | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [profileDialogOpen, setProfileDialogOpen] = useState(false);
+  const [selectedCandidate, setSelectedCandidate] = useState<any>(null);
+
+  // Mock recent candidates
+  const recentCandidates: Candidate[] = [
+    { id: '1', name: 'Emma Wilson', role: 'Senior Product Designer' },
+    { id: '2', name: 'Oliver Karlsson', role: 'UX Designer' },
+    { id: '3', name: 'Emilia Chen', role: 'Product Designer' },
+    { id: '4', name: 'Marcus Andersson', role: 'UI/UX Designer' },
+    { id: '5', name: 'Sarah Chapman', role: 'Lead Designer' },
+  ];
 
   // Simulate AI response after component mounts
   useEffect(() => {
@@ -74,11 +107,46 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
     };
   }, [isResizing]);
 
+  const handleCompareSelect = (candidate: Candidate) => {
+    if (selectedForCompare.find(c => c.id === candidate.id)) {
+      setSelectedForCompare(selectedForCompare.filter(c => c.id !== candidate.id));
+    } else if (selectedForCompare.length < 2) {
+      setSelectedForCompare([...selectedForCompare, candidate]);
+    }
+  };
+
+  const handleSimilarSelect = (candidate: Candidate) => {
+    setSelectedForSimilar(candidate);
+  };
+
+  const handleCompareConfirm = () => {
+    if (selectedForCompare.length === 2) {
+      setInputValue(`Compare candidates @${selectedForCompare[0].name} with @${selectedForCompare[1].name}`);
+      setCompareOpen(false);
+      setSelectedForCompare([]);
+    }
+  };
+
+  const handleSimilarConfirm = () => {
+    if (selectedForSimilar) {
+      setInputValue(`Find similar candidates to @${selectedForSimilar.name}`);
+      setFindSimilarOpen(false);
+      setSelectedForSimilar(null);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim() || isThinking) return;
 
-    const userMessage = { text: inputValue, isUser: true };
+    const isCompareMessage = inputValue.startsWith('Compare candidates');
+    const isFindSimilarMessage = inputValue.startsWith('Find similar candidates');
+
+    const userMessage: Message = { 
+      text: inputValue, 
+      isUser: true,
+      action: isCompareMessage ? 'compare' : isFindSimilarMessage ? 'find-similar' : undefined
+    };
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
     setIsThinking(true);
@@ -86,11 +154,35 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
     // Mock AI response after 2 seconds
     setTimeout(() => {
       setIsThinking(false);
-      setMessages(prev => [...prev, { 
-        text: 'Great! I\'ll help you find the perfect candidate with those qualifications.', 
-        isUser: false 
-      }]);
+      if (isCompareMessage) {
+        setMessages(prev => [...prev, { 
+          text: 'I\'ve analyzed both candidates in detail. Emma has 8 years of experience with strong UI skills, while Oliver excels in UX research with 6 years of experience. Emma would be better for visual design projects, while Oliver is ideal for user research-focused roles.', 
+          isUser: false,
+          action: 'compare'
+        }]);
+      } else if (isFindSimilarMessage) {
+        setMessages(prev => [...prev, { 
+          text: 'I found 3 candidates with similar profiles to Emilia. They all have 5-7 years of experience in product design, strong portfolio work, and expertise in both UI and UX.', 
+          isUser: false,
+          action: 'find-similar'
+        }]);
+      } else {
+        setMessages(prev => [...prev, { 
+          text: 'Great! I\'ll help you find the perfect candidate with those qualifications.', 
+          isUser: false 
+        }]);
+      }
     }, 2000);
+  };
+
+  const handleCheckCandidates = () => {
+    setSelectedCandidate({
+      name: "Emma Wilson",
+      city: "Stockholm",
+      profileImage: "/src/assets/profile-1.jpg",
+      role: "Senior Product Designer"
+    });
+    setProfileDialogOpen(true);
   };
 
   return (
@@ -127,25 +219,38 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
         {/* Messages Area */}
         <div className="flex-1 overflow-y-auto px-6 pt-16 pb-4 space-y-4">
           {messages.map((message, index) => (
-            <div
-              key={index}
-              className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-              style={{
-                animation: 'slideFromCenter 0.4s ease-out forwards',
-                animationDelay: `${index * 0.05}s`
-              }}
-            >
-            <div
-              className={`max-w-[85%] px-5 py-3 rounded-2xl ${
-                message.isUser
-                  ? 'bg-white text-foreground shadow-md'
-                  : 'text-foreground'
-              }`}
-            >
-              <p className="text-[15px] leading-relaxed whitespace-pre-wrap">
-                {message.text}
-              </p>
-            </div>
+            <div key={index} className="space-y-2">
+              <div
+                className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                style={{
+                  animation: 'slideFromCenter 0.4s ease-out forwards',
+                  animationDelay: `${index * 0.05}s`
+                }}
+              >
+                <div
+                  className={`max-w-[85%] px-5 py-3 rounded-2xl ${
+                    message.isUser
+                      ? 'bg-white text-foreground shadow-md'
+                      : 'text-foreground'
+                  }`}
+                >
+                  <p className="text-[15px] leading-relaxed whitespace-pre-wrap">
+                    {message.text}
+                  </p>
+                </div>
+              </div>
+              {!message.isUser && (message.action === 'compare' || message.action === 'find-similar') && (
+                <div className="flex justify-start">
+                  <Button
+                    onClick={handleCheckCandidates}
+                    variant="outline"
+                    size="sm"
+                    className="ml-5 bg-white shadow-sm hover:shadow-md"
+                  >
+                    Check candidates
+                  </Button>
+                </div>
+              )}
             </div>
           ))}
           
@@ -167,7 +272,111 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
         </div>
 
         {/* Input Area */}
-        <div className="p-6 pt-0 flex-shrink-0">
+        <div className="p-6 pt-0 flex-shrink-0 space-y-3">
+          {/* Compare Accordion */}
+          <Collapsible open={compareOpen} onOpenChange={setCompareOpen}>
+            <CollapsibleContent className="bg-white rounded-2xl border border-gray-200 shadow-sm p-4 mb-3">
+              <div className="space-y-3">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Input
+                    placeholder="Search candidates..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 bg-gray-50 border-gray-200"
+                  />
+                </div>
+                <div className="space-y-1 max-h-48 overflow-y-auto">
+                  <p className="text-xs text-gray-500 px-2 py-1">Recent candidates</p>
+                  {recentCandidates
+                    .filter(c => c.name.toLowerCase().includes(searchQuery.toLowerCase()))
+                    .map(candidate => (
+                      <button
+                        key={candidate.id}
+                        onClick={() => handleCompareSelect(candidate)}
+                        className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors text-left ${
+                          selectedForCompare.find(c => c.id === candidate.id) ? 'bg-primary/10' : ''
+                        }`}
+                      >
+                        <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-foreground truncate">{candidate.name}</p>
+                          <p className="text-xs text-gray-500 truncate">{candidate.role}</p>
+                        </div>
+                        {selectedForCompare.find(c => c.id === candidate.id) && (
+                          <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                            <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                        )}
+                      </button>
+                    ))}
+                </div>
+                <Button
+                  onClick={handleCompareConfirm}
+                  disabled={selectedForCompare.length !== 2}
+                  className="w-full"
+                  size="sm"
+                >
+                  Compare {selectedForCompare.length}/2 selected
+                </Button>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+
+          {/* Find Similar Accordion */}
+          <Collapsible open={findSimilarOpen} onOpenChange={setFindSimilarOpen}>
+            <CollapsibleContent className="bg-white rounded-2xl border border-gray-200 shadow-sm p-4 mb-3">
+              <div className="space-y-3">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Input
+                    placeholder="Search candidates..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 bg-gray-50 border-gray-200"
+                  />
+                </div>
+                <div className="space-y-1 max-h-48 overflow-y-auto">
+                  <p className="text-xs text-gray-500 px-2 py-1">Recent candidates</p>
+                  {recentCandidates
+                    .filter(c => c.name.toLowerCase().includes(searchQuery.toLowerCase()))
+                    .map(candidate => (
+                      <button
+                        key={candidate.id}
+                        onClick={() => handleSimilarSelect(candidate)}
+                        className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors text-left ${
+                          selectedForSimilar?.id === candidate.id ? 'bg-primary/10' : ''
+                        }`}
+                      >
+                        <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-foreground truncate">{candidate.name}</p>
+                          <p className="text-xs text-gray-500 truncate">{candidate.role}</p>
+                        </div>
+                        {selectedForSimilar?.id === candidate.id && (
+                          <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                            <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                        )}
+                      </button>
+                    ))}
+                </div>
+                <Button
+                  onClick={handleSimilarConfirm}
+                  disabled={!selectedForSimilar}
+                  className="w-full"
+                  size="sm"
+                >
+                  Find similar
+                </Button>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+
           <form onSubmit={handleSubmit}>
             <div className="relative">
               <textarea
@@ -180,10 +389,45 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
                   }
                 }}
                 placeholder="Ask me anything..."
-                className="w-full px-5 py-4 pr-14 rounded-2xl resize-none bg-white border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 text-[15px] leading-relaxed"
+                className="w-full px-5 py-4 pr-14 pb-14 rounded-2xl resize-none bg-white border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 text-[15px] leading-relaxed"
                 rows={3}
                 disabled={isThinking}
               />
+              {/* Action Buttons */}
+              <div className="absolute bottom-4 left-4 flex gap-2">
+                <CollapsibleTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setCompareOpen(!compareOpen);
+                      setFindSimilarOpen(false);
+                      setSearchQuery('');
+                    }}
+                    className="h-8 px-3 text-xs bg-gray-100 hover:bg-gray-200"
+                  >
+                    <Users className="w-3.5 h-3.5 mr-1.5" />
+                    Compare
+                  </Button>
+                </CollapsibleTrigger>
+                <CollapsibleTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setFindSimilarOpen(!findSimilarOpen);
+                      setCompareOpen(false);
+                      setSearchQuery('');
+                    }}
+                    className="h-8 px-3 text-xs bg-gray-100 hover:bg-gray-200"
+                  >
+                    <Search className="w-3.5 h-3.5 mr-1.5" />
+                    Find similar
+                  </Button>
+                </CollapsibleTrigger>
+              </div>
               <button
                 type="submit"
                 disabled={!inputValue.trim() || isThinking}
@@ -196,6 +440,15 @@ export const AIChatOverlay = ({ open, onOpenChange }: AIChatOverlayProps) => {
             </div>
           </form>
         </div>
+        
+        {/* Profile Dialog */}
+        {selectedCandidate && (
+          <ProfileDialog
+            candidate={selectedCandidate}
+            open={profileDialogOpen}
+            onOpenChange={setProfileDialogOpen}
+          />
+        )}
       </SheetContent>
     </Sheet>
   );
