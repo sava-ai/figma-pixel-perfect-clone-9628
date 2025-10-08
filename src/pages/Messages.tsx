@@ -287,14 +287,21 @@ const Messages = () => {
                     ))}
                   </AccordionContent>
                 </AccordionItem>
+              </Accordion>
 
-                <AccordionItem value="stage" className="border-none">
-                  <AccordionTrigger className="px-3 py-2 bg-white rounded-lg text-sm hover:bg-accent transition-colors border border-border hover:no-underline mt-2">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button className="w-full flex items-center justify-between px-3 py-2 bg-white rounded-lg text-sm hover:bg-accent transition-colors border border-border">
                     <span className="text-muted-foreground">
-                      Filter by stage
+                      {selectedStages.length > 0 ? `${selectedStages.length} stage${selectedStages.length > 1 ? 's' : ''} selected` : 'Filter by stage'}
                     </span>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-2 pt-2 space-y-1">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[340px] p-2" align="start">
+                  <div className="space-y-1">
                     {pipelineStages.map((stage) => (
                       <div
                         key={stage}
@@ -311,9 +318,9 @@ const Messages = () => {
                         </label>
                       </div>
                     ))}
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
 
             {/* Messages List */}
