@@ -35,7 +35,7 @@ interface PersonalizedMessage {
   channel: Channel;
 }
 
-type SortField = 'match' | 'location' | 'engagement' | 'source';
+type SortField = 'match' | 'location' | 'engagement' | 'source' | 'currentRole';
 type SortDirection = 'asc' | 'desc' | null;
 
 export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContactDialogProps) => {
@@ -72,6 +72,10 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
       const aSource = a.tags[0] || '';
       const bSource = b.tags[0] || '';
       comparison = aSource.localeCompare(bSource);
+    } else if (sortField === 'currentRole') {
+      const aRole = a.isOpenToWork ? 'Open to work' : (a.roles[a.currentRoleIndex || 0]?.role || '');
+      const bRole = b.isOpenToWork ? 'Open to work' : (b.roles[b.currentRoleIndex || 0]?.role || '');
+      comparison = aRole.localeCompare(bRole);
     }
     
     return sortDirection === 'asc' ? comparison : -comparison;
@@ -281,7 +285,15 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
                           <SortIcon field="source" />
                         </button>
                       </th>
-                      <th className="text-left p-3 font-medium">Current Role</th>
+                      <th className="text-left p-3 font-medium">
+                        <button 
+                          onClick={() => handleSort('currentRole')}
+                          className="flex items-center hover:text-primary transition-colors"
+                        >
+                          Current Role
+                          <SortIcon field="currentRole" />
+                        </button>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
