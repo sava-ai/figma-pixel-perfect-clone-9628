@@ -10,6 +10,8 @@ import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Checkbox } from '@/components/ui/checkbox';
 import backgroundImage from '@/assets/background.png';
 import profile1 from '@/assets/profile-1.jpg';
 import profile2 from '@/assets/profile-2.jpg';
@@ -155,6 +157,28 @@ const Messages = () => {
   const [hoveredMessageId, setHoveredMessageId] = useState<number | null>(null);
   const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
   const { isPersonalizing, personalizeText } = useAIPersonalize();
+  const [selectedStages, setSelectedStages] = useState<string[]>([]);
+
+  const pipelineStages = [
+    'AI sourced',
+    'Referred',
+    'Sourced',
+    'Applied & approved',
+    'Screening',
+    'First interview',
+    'Second interview',
+    'Rejected',
+    'Rejected & noticed',
+    'Top picks'
+  ];
+
+  const toggleStage = (stage: string) => {
+    setSelectedStages(prev => 
+      prev.includes(stage) 
+        ? prev.filter(s => s !== stage)
+        : [...prev, stage]
+    );
+  };
 
   const handlePersonalize = async () => {
     if (!messageInput.trim()) return;
@@ -234,19 +258,14 @@ const Messages = () => {
                 />
               </div>
 
-              <Popover>
-                <PopoverTrigger asChild>
-                  <button className="w-full flex items-center justify-between px-3 py-2 bg-white rounded-lg text-sm hover:bg-accent transition-colors border border-border">
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="job" className="border-none">
+                  <AccordionTrigger className="px-3 py-2 bg-white rounded-lg text-sm hover:bg-accent transition-colors border border-border hover:no-underline">
                     <span className="text-muted-foreground">
                       {selectedJob || 'Filter by job'}
                     </span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                </PopoverTrigger>
-                <PopoverContent className="w-[340px] p-0" align="start">
-                  <div className="p-2">
+                  </AccordionTrigger>
+                  <AccordionContent className="px-2 pt-2">
                     <button
                       onClick={() => setSelectedJob(null)}
                       className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted transition-colors ${
@@ -266,9 +285,35 @@ const Messages = () => {
                         {job}
                       </button>
                     ))}
-                  </div>
-                </PopoverContent>
-              </Popover>
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="stage" className="border-none">
+                  <AccordionTrigger className="px-3 py-2 bg-white rounded-lg text-sm hover:bg-accent transition-colors border border-border hover:no-underline mt-2">
+                    <span className="text-muted-foreground">
+                      Filter by stage
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-2 pt-2 space-y-1">
+                    {pipelineStages.map((stage) => (
+                      <div
+                        key={stage}
+                        className="flex items-center space-x-2 px-3 py-2 hover:bg-muted rounded-md cursor-pointer transition-colors"
+                        onClick={() => toggleStage(stage)}
+                      >
+                        <Checkbox
+                          id={`stage-${stage}`}
+                          checked={selectedStages.includes(stage)}
+                          onCheckedChange={() => toggleStage(stage)}
+                        />
+                        <label htmlFor={`stage-${stage}`} className="flex-1 text-sm cursor-pointer">
+                          {stage}
+                        </label>
+                      </div>
+                    ))}
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </div>
 
             {/* Messages List */}
