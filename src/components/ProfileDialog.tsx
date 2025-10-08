@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Mail, Linkedin, Phone, Link as LinkIcon, Award, FileText, ExternalLink, ChevronLeft, ChevronRight, Sparkles, Paperclip } from "lucide-react";
 import * as React from "react";
+import { AskAIPopover } from "@/components/AskAIPopover";
+import { useAIPersonalize } from "@/hooks/useAIPersonalize";
 import aresLogo from "@/assets/company-ares.png";
 import stripeLogo from "@/assets/company-stripe.png";
 import figmaLogo from "@/assets/company-figma.png";
@@ -40,6 +42,21 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
   if (!candidate) return null;
 
   const [contactMethod, setContactMethod] = React.useState<'email' | 'linkedin'>('email');
+  const [messageBody, setMessageBody] = React.useState(`Hi ${candidate.name.split(' ')[0]},
+
+I hope you're doing well. My name is Sarah Whitman, and I'm a recruiter at Ares Studio. We're looking for a talented Product Designer to join our team, and your work stood out to us.
+
+Looking forward to connecting!`);
+  
+  const { isPersonalizing, personalizeText } = useAIPersonalize();
+
+  const handlePersonalize = async () => {
+    const personalized = await personalizeText(messageBody, {
+      name: candidate.name,
+      role: candidate.roles[0]?.role || 'Product Designer'
+    });
+    setMessageBody(personalized);
+  };
 
   const achievements = [
     "Award winner UX hackathon 2025",
@@ -285,21 +302,30 @@ export const ProfileDialog = ({ candidate, open, onOpenChange, onPrevious, onNex
                   </div>
 
                   {/* Body textarea */}
-                  <div className="space-y-2">
+                  <div className="space-y-2 relative">
                     <label className="text-sm font-semibold uppercase text-muted-foreground">Body</label>
-                    <Textarea 
-                      placeholder="Hi Sophia,
-
-I hope you're doing well. My name is Sarah Whitman, and I'm a recruiter at Ares Studio. We're looking for a talented Product Designer to join our team, and your work stood out to us, particularly your case study on Crafting seamless e-comm experiences.
-
-Looking forward to connecting!"
-                      defaultValue={`Hi ${candidate.name.split(' ')[0]},
-
-I hope you're doing well. My name is Sarah Whitman, and I'm a recruiter at Ares Studio. We're looking for a talented Product Designer to join our team, and your work stood out to us.
-
-Looking forward to connecting!`}
-                      className="min-h-[200px] resize-none shadow-md"
-                    />
+                    <div className="relative">
+                      <Textarea 
+                        value={messageBody}
+                        onChange={(e) => setMessageBody(e.target.value)}
+                        className="min-h-[200px] resize-none shadow-md"
+                      />
+                      {isPersonalizing && (
+                        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm rounded-md flex items-center justify-center animate-fade-in">
+                          <div className="flex flex-col items-center gap-3">
+                            <div className="flex gap-1">
+                              <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                              <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                              <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Sparkles className="w-4 h-4 text-primary" />
+                              <span className="text-sm font-medium">AI is personalizing...</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   {/* AI buttons */}
@@ -308,14 +334,27 @@ Looking forward to connecting!`}
                       <Paperclip className="w-4 h-4" />
                       Add attachment
                     </Button>
-                    <Button variant="outline" className="flex-1 gap-2">
+                    <Button 
+                      variant="outline" 
+                      className="flex-1 gap-2"
+                      onClick={handlePersonalize}
+                      disabled={isPersonalizing}
+                    >
                       <Sparkles className="w-4 h-4" />
                       AI Personalize
                     </Button>
-                    <Button variant="outline" className="flex-1 gap-2">
-                      <Sparkles className="w-4 h-4" />
-                      Ask AI
-                    </Button>
+                    <AskAIPopover
+                      trigger={
+                        <Button variant="outline" className="flex-1 gap-2">
+                          <Sparkles className="w-4 h-4" />
+                          Ask AI
+                        </Button>
+                      }
+                      onApply={(answer) => {
+                        // Append AI answer as a note or suggestion
+                        setMessageBody(prev => prev + '\n\n' + answer);
+                      }}
+                    />
                   </div>
                 </div>
               </div>

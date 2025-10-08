@@ -7,6 +7,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { CheckCircle2, Sparkles, MessageSquare, ChevronDown } from 'lucide-react';
+import { AskAIPopover } from '@/components/AskAIPopover';
+import { useAIPersonalize } from '@/hooks/useAIPersonalize';
 
 interface RejectedCandidate {
   id: number;
@@ -48,6 +50,15 @@ export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDia
   const [selectedCandidates, setSelectedCandidates] = useState<Set<number>>(new Set());
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
+  const { isPersonalizing, personalizeText } = useAIPersonalize();
+
+  const handlePersonalize = async () => {
+    const personalized = await personalizeText(body, {
+      name: 'candidate',
+      role: 'the position'
+    });
+    setBody(personalized);
+  };
   const [sendingProgress, setSendingProgress] = useState(0);
   const [isSending, setIsSending] = useState(false);
 
@@ -257,25 +268,55 @@ export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDia
               </div>
 
               {/* Body */}
-              <div className="space-y-2">
+              <div className="space-y-2 relative">
                 <label className="text-sm font-semibold uppercase text-muted-foreground">Body</label>
-                <Textarea
-                  value={body}
-                  onChange={(e) => setBody(e.target.value)}
-                  placeholder="Email body..."
-                  className="min-h-[200px] resize-none shadow-md"
-                />
+                <div className="relative">
+                  <Textarea
+                    value={body}
+                    onChange={(e) => setBody(e.target.value)}
+                    placeholder="Email body..."
+                    className="min-h-[200px] resize-none shadow-md"
+                  />
+                  {isPersonalizing && (
+                    <div className="absolute inset-0 bg-background/80 backdrop-blur-sm rounded-md flex items-center justify-center animate-fade-in">
+                      <div className="flex flex-col items-center gap-3">
+                        <div className="flex gap-1">
+                          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Sparkles className="w-4 h-4 text-primary" />
+                          <span className="text-sm font-medium">AI is personalizing...</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
                 
                 {/* AI Buttons */}
                 <div className="flex gap-2 pt-2">
-                  <Button variant="outline" size="sm" className="flex-1 gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex-1 gap-2"
+                    onClick={handlePersonalize}
+                    disabled={isPersonalizing}
+                  >
                     <Sparkles className="w-4 h-4" />
                     AI Personalize
                   </Button>
-                  <Button variant="outline" size="sm" className="flex-1 gap-2">
-                    <Sparkles className="w-4 h-4" />
-                    Ask AI
-                  </Button>
+                  <AskAIPopover
+                    trigger={
+                      <Button variant="outline" size="sm" className="flex-1 gap-2">
+                        <Sparkles className="w-4 h-4" />
+                        Ask AI
+                      </Button>
+                    }
+                    onApply={(answer) => {
+                      setBody(prev => prev + '\n\n' + answer);
+                    }}
+                  />
                 </div>
               </div>
             </div>

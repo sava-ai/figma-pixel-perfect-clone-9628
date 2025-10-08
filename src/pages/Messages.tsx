@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, ArrowLeft, Sparkles, Award, FileText, ExternalLink, Phone, Mail, Linkedin, Link as LinkIcon, Send, ChevronLeft, ChevronRight, MoreHorizontal, User, XCircle, Paperclip, Bot } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { AskAIPopover } from '@/components/AskAIPopover';
+import { useAIPersonalize } from '@/hooks/useAIPersonalize';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -140,6 +142,16 @@ const Messages = () => {
   const [isRightPanelCollapsed, setIsRightPanelCollapsed] = useState(false);
   const [hoveredMessageId, setHoveredMessageId] = useState<number | null>(null);
   const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
+  const { isPersonalizing, personalizeText } = useAIPersonalize();
+
+  const handlePersonalize = async () => {
+    if (!messageInput.trim()) return;
+    const personalized = await personalizeText(messageInput, {
+      name: selectedPerson.name,
+      role: 'colleague'
+    });
+    setMessageInput(personalized);
+  };
 
   const filteredMessages = mockMessages.filter(msg => {
     const matchesSearch = msg.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -399,7 +411,9 @@ const Messages = () => {
                       <TooltipTrigger asChild>
                         <button
                           type="button"
-                          className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-muted text-muted-foreground hover:text-foreground"
+                          onClick={handlePersonalize}
+                          disabled={isPersonalizing || !messageInput.trim()}
+                          className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-muted text-muted-foreground hover:text-foreground disabled:opacity-50"
                         >
                           <Sparkles className="w-5 h-5" />
                         </button>
@@ -409,19 +423,26 @@ const Messages = () => {
                       </TooltipContent>
                     </Tooltip>
                     
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <button
-                          type="button"
-                          className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-muted text-muted-foreground hover:text-foreground"
-                        >
-                          <Bot className="w-5 h-5" />
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Ask AI</p>
-                      </TooltipContent>
-                    </Tooltip>
+                    <AskAIPopover
+                      trigger={
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              type="button"
+                              className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-muted text-muted-foreground hover:text-foreground"
+                            >
+                              <Bot className="w-5 h-5" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Ask AI</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      }
+                      onApply={(answer) => {
+                        setMessageInput(prev => prev ? prev + '\n\n' + answer : answer);
+                      }}
+                    />
                   </div>
                   
                   {/* Input field */}
@@ -433,6 +454,18 @@ const Messages = () => {
                       onChange={(e) => setMessageInput(e.target.value)}
                       className="w-full bg-white rounded-full pl-6 pr-14 py-3 text-sm text-foreground shadow-md border border-border/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
+                    {isPersonalizing && (
+                      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center">
+                        <div className="flex items-center gap-2">
+                          <div className="flex gap-1">
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                          </div>
+                          <span className="text-xs font-medium">Personalizing...</span>
+                        </div>
+                      </div>
+                    )}
                     <button
                       type="submit"
                       disabled={!messageInput.trim()}
