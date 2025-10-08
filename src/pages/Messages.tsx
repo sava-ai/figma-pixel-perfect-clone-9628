@@ -39,6 +39,7 @@ interface Message {
   match: string;
   rating: number;
   companies: string[];
+  engagementRate: number;
 }
 interface ChatMessage {
   id: number;
@@ -61,7 +62,8 @@ const mockMessages: Message[] = [{
   company: 'Klarna',
   match: '10/12',
   rating: 4,
-  companies: ['Stripe', 'Figma', 'IDEO']
+  companies: ['Stripe', 'Figma', 'IDEO'],
+  engagementRate: 78
 }, {
   id: 2,
   name: 'Mike Chen',
@@ -77,7 +79,8 @@ const mockMessages: Message[] = [{
   company: 'Spotify',
   match: '12/12',
   rating: 5,
-  companies: ['Ares Studio', 'Figma']
+  companies: ['Ares Studio', 'Figma'],
+  engagementRate: 92
 }, {
   id: 3,
   name: 'Alex Rivera',
@@ -93,7 +96,8 @@ const mockMessages: Message[] = [{
   company: 'Bambora',
   match: '9/12',
   rating: 3,
-  companies: ['Stripe', 'IDEO']
+  companies: ['Stripe', 'IDEO'],
+  engagementRate: 65
 }, {
   id: 4,
   name: 'Emma Thompson',
@@ -109,7 +113,8 @@ const mockMessages: Message[] = [{
   company: 'Tink',
   match: '8/12',
   rating: 4,
-  companies: ['Figma', 'Ares Studio']
+  companies: ['Figma', 'Ares Studio'],
+  engagementRate: 71
 }, {
   id: 5,
   name: 'David Park',
@@ -125,7 +130,8 @@ const mockMessages: Message[] = [{
   company: 'iZettle',
   match: '11/12',
   rating: 5,
-  companies: ['Stripe', 'Figma', 'IDEO', 'Ares Studio']
+  companies: ['Stripe', 'Figma', 'IDEO', 'Ares Studio'],
+  engagementRate: 95
 }];
 const mockChatHistory: ChatMessage[] = [{
   id: 1,
@@ -480,9 +486,10 @@ const Messages = () => {
                   <p className="text-xs text-muted-foreground">{selectedPerson.city}, {selectedPerson.country}</p>
                 </div>
                 
-                {/* Match score */}
-                <div className="w-full">
+                {/* Match score and engagement rate */}
+                <div className="w-full flex items-center justify-center gap-3">
                   <span className="text-sm text-muted-foreground">Match {selectedPerson.match}</span>
+                  <span className="text-sm font-medium text-primary">Engagement: {selectedPerson.engagementRate}%</span>
                 </div>
                 
                 {/* Rating stars */}
