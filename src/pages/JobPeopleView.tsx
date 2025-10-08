@@ -499,12 +499,31 @@ const JobPeopleView = () => {
                           <h3 className="text-sm font-medium text-foreground mb-0.5 truncate">
                             {candidate.name}
                           </h3>
-                          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
                             <span>{candidate.city}</span>
                             <span>•</span>
                             <span className="font-medium text-lime-800">{candidate.match} Match</span>
                           </div>
+                          <div className="text-xs">
+                            {candidate.engagementRate > 0 ? (
+                              <span className="font-medium text-primary">Engagement: {candidate.engagementRate}%</span>
+                            ) : (
+                              <span className="text-muted-foreground">Not engaged</span>
+                            )}
+                          </div>
                         </div>
+                      </div>
+
+                      {/* Source Tags */}
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {candidate.tags.map((tag, idx) => (
+                          <span 
+                            key={idx}
+                            className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-primary/10 text-primary"
+                          >
+                            {tag}
+                          </span>
+                        ))}
                       </div>
 
                       {/* Description */}
