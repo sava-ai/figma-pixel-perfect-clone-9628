@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Mail, Linkedin, Phone, Link as LinkIcon, Award, FileText, ExternalLink, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { Mail, Linkedin, Phone, Link as LinkIcon, Award, FileText, ExternalLink, ChevronLeft, ChevronRight, Sparkles, Paperclip } from "lucide-react";
 import * as React from "react";
 import aresLogo from "@/assets/company-ares.png";
 import stripeLogo from "@/assets/company-stripe.png";
@@ -304,6 +304,10 @@ Looking forward to connecting!`}
 
                   {/* AI buttons */}
                   <div className="flex gap-2">
+                    <Button variant="outline" className="flex-1 gap-2">
+                      <Paperclip className="w-4 h-4" />
+                      Add attachment
+                    </Button>
                     <Button variant="outline" className="flex-1 gap-2">
                       <Sparkles className="w-4 h-4" />
                       AI Personalize
