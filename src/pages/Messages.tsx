@@ -23,7 +23,6 @@ import stripeLogo from '@/assets/company-stripe.png';
 import figmaLogo from '@/assets/company-figma.png';
 import ideoLogo from '@/assets/company-ideo.png';
 import starIcon from '@/assets/star-icon.svg';
-
 interface Message {
   id: number;
   name: string;
@@ -41,142 +40,140 @@ interface Message {
   rating: number;
   companies: string[];
 }
-
 interface ChatMessage {
   id: number;
   text: string;
   isMe: boolean;
   time: string;
 }
-
-const mockMessages: Message[] = [
-  {
-    id: 1,
-    name: 'Sarah Miller',
-    avatar: profile1,
-    message: 'Hey! I reviewed the candidates for the UX Designer position...',
-    time: '2m ago',
-    unread: true,
-    city: 'Stockholm',
-    country: 'Sweden',
-    email: 'sarah.miller@email.com',
-    linkedin: 'linkedin.com/in/sarahmiller',
-    position: 'Senior Product Designer',
-    company: 'Klarna',
-    match: '10/12',
-    rating: 4,
-    companies: ['Stripe', 'Figma', 'IDEO'],
-  },
-  {
-    id: 2,
-    name: 'Mike Chen',
-    avatar: profile2,
-    message: 'Can you send me the interview schedule for this week?',
-    time: '15m ago',
-    unread: true,
-    city: 'Gothenburg',
-    country: 'Sweden',
-    email: 'mike.chen@email.com',
-    linkedin: 'linkedin.com/in/mikechen',
-    position: 'Lead Designer',
-    company: 'Spotify',
-    match: '12/12',
-    rating: 5,
-    companies: ['Ares Studio', 'Figma'],
-  },
-  {
-    id: 3,
-    name: 'Alex Rivera',
-    avatar: profile3,
-    message: 'The developer candidate looks great! Let\'s move forward.',
-    time: '1h ago',
-    unread: false,
-    city: 'Malmö',
-    country: 'Sweden',
-    email: 'alex.rivera@email.com',
-    linkedin: 'linkedin.com/in/alexrivera',
-    position: 'Product Designer',
-    company: 'Bambora',
-    match: '9/12',
-    rating: 3,
-    companies: ['Stripe', 'IDEO'],
-  },
-  {
-    id: 4,
-    name: 'Emma Thompson',
-    avatar: profile4,
-    message: 'I have some questions about the COO role requirements.',
-    time: '3h ago',
-    unread: false,
-    city: 'Uppsala',
-    country: 'Sweden',
-    email: 'emma.thompson@email.com',
-    linkedin: 'linkedin.com/in/emmathompson',
-    position: 'UX Designer',
-    company: 'Tink',
-    match: '8/12',
-    rating: 4,
-    companies: ['Figma', 'Ares Studio'],
-  },
-  {
-    id: 5,
-    name: 'David Park',
-    avatar: profile5,
-    message: 'Thanks for the update on the hiring timeline!',
-    time: '1d ago',
-    unread: false,
-    city: 'Lund',
-    country: 'Sweden',
-    email: 'david.park@email.com',
-    linkedin: 'linkedin.com/in/davidpark',
-    position: 'Senior UX Designer',
-    company: 'iZettle',
-    match: '11/12',
-    rating: 5,
-    companies: ['Stripe', 'Figma', 'IDEO', 'Ares Studio'],
-  },
-];
-
-const mockChatHistory: ChatMessage[] = [
-  { id: 1, text: 'Hey! I reviewed the candidates for the UX Designer position and I think we have some strong contenders.', isMe: false, time: '10:30 AM' },
-  { id: 2, text: 'That\'s great! Which ones stood out to you?', isMe: true, time: '10:32 AM' },
-  { id: 3, text: 'Sophia Anderson and Marcus Johnson both have impressive portfolios. Sophia has more fintech experience, while Marcus brings startup energy.', isMe: false, time: '10:35 AM' },
-  { id: 4, text: 'Perfect. Let\'s schedule calls with both of them next week.', isMe: true, time: '10:36 AM' },
-  { id: 5, text: 'Will do! I\'ll send out the invites today.', isMe: false, time: '10:37 AM' },
-];
-
-const jobFilters = [
-  'Chief Operations Officer',
-  'UX Designer',
-  'Senior Developer',
-  'Product Manager',
-  'Marketing Lead',
-];
-
-const achievements = [
-  "Award winner UX hackathon 2025",
-  "AI First",
-  "Forbes 30 under 30",
-  "UX Planning",
-  "Startup Experience",
-  "Design Systems Expert",
-  "Fintech Specialist"
-];
-
-const roles = [
-  { company: 'Ares Studio', role: 'Senior Product Designer' },
-  { company: 'Stripe', role: 'Product Designer' },
-  { company: 'Figma', role: 'UX Designer' },
-  { company: 'IDEO', role: 'Design Intern' },
-];
-
+const mockMessages: Message[] = [{
+  id: 1,
+  name: 'Sarah Miller',
+  avatar: profile1,
+  message: 'Hey! I reviewed the candidates for the UX Designer position...',
+  time: '2m ago',
+  unread: true,
+  city: 'Stockholm',
+  country: 'Sweden',
+  email: 'sarah.miller@email.com',
+  linkedin: 'linkedin.com/in/sarahmiller',
+  position: 'Senior Product Designer',
+  company: 'Klarna',
+  match: '10/12',
+  rating: 4,
+  companies: ['Stripe', 'Figma', 'IDEO']
+}, {
+  id: 2,
+  name: 'Mike Chen',
+  avatar: profile2,
+  message: 'Can you send me the interview schedule for this week?',
+  time: '15m ago',
+  unread: true,
+  city: 'Gothenburg',
+  country: 'Sweden',
+  email: 'mike.chen@email.com',
+  linkedin: 'linkedin.com/in/mikechen',
+  position: 'Lead Designer',
+  company: 'Spotify',
+  match: '12/12',
+  rating: 5,
+  companies: ['Ares Studio', 'Figma']
+}, {
+  id: 3,
+  name: 'Alex Rivera',
+  avatar: profile3,
+  message: 'The developer candidate looks great! Let\'s move forward.',
+  time: '1h ago',
+  unread: false,
+  city: 'Malmö',
+  country: 'Sweden',
+  email: 'alex.rivera@email.com',
+  linkedin: 'linkedin.com/in/alexrivera',
+  position: 'Product Designer',
+  company: 'Bambora',
+  match: '9/12',
+  rating: 3,
+  companies: ['Stripe', 'IDEO']
+}, {
+  id: 4,
+  name: 'Emma Thompson',
+  avatar: profile4,
+  message: 'I have some questions about the COO role requirements.',
+  time: '3h ago',
+  unread: false,
+  city: 'Uppsala',
+  country: 'Sweden',
+  email: 'emma.thompson@email.com',
+  linkedin: 'linkedin.com/in/emmathompson',
+  position: 'UX Designer',
+  company: 'Tink',
+  match: '8/12',
+  rating: 4,
+  companies: ['Figma', 'Ares Studio']
+}, {
+  id: 5,
+  name: 'David Park',
+  avatar: profile5,
+  message: 'Thanks for the update on the hiring timeline!',
+  time: '1d ago',
+  unread: false,
+  city: 'Lund',
+  country: 'Sweden',
+  email: 'david.park@email.com',
+  linkedin: 'linkedin.com/in/davidpark',
+  position: 'Senior UX Designer',
+  company: 'iZettle',
+  match: '11/12',
+  rating: 5,
+  companies: ['Stripe', 'Figma', 'IDEO', 'Ares Studio']
+}];
+const mockChatHistory: ChatMessage[] = [{
+  id: 1,
+  text: 'Hey! I reviewed the candidates for the UX Designer position and I think we have some strong contenders.',
+  isMe: false,
+  time: '10:30 AM'
+}, {
+  id: 2,
+  text: 'That\'s great! Which ones stood out to you?',
+  isMe: true,
+  time: '10:32 AM'
+}, {
+  id: 3,
+  text: 'Sophia Anderson and Marcus Johnson both have impressive portfolios. Sophia has more fintech experience, while Marcus brings startup energy.',
+  isMe: false,
+  time: '10:35 AM'
+}, {
+  id: 4,
+  text: 'Perfect. Let\'s schedule calls with both of them next week.',
+  isMe: true,
+  time: '10:36 AM'
+}, {
+  id: 5,
+  text: 'Will do! I\'ll send out the invites today.',
+  isMe: false,
+  time: '10:37 AM'
+}];
+const jobFilters = ['Chief Operations Officer', 'UX Designer', 'Senior Developer', 'Product Manager', 'Marketing Lead'];
+const achievements = ["Award winner UX hackathon 2025", "AI First", "Forbes 30 under 30", "UX Planning", "Startup Experience", "Design Systems Expert", "Fintech Specialist"];
+const roles = [{
+  company: 'Ares Studio',
+  role: 'Senior Product Designer'
+}, {
+  company: 'Stripe',
+  role: 'Product Designer'
+}, {
+  company: 'Figma',
+  role: 'UX Designer'
+}, {
+  company: 'IDEO',
+  role: 'Design Intern'
+}];
 const companyLogos: Record<string, string> = {
   "Ares Studio": aresLogo,
   "Stripe": stripeLogo,
   "Figma": figmaLogo,
-  "IDEO": ideoLogo,
+  "IDEO": ideoLogo
 };
-
 const Messages = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
@@ -187,30 +184,15 @@ const Messages = () => {
   const [isRightPanelCollapsed, setIsRightPanelCollapsed] = useState(false);
   const [hoveredMessageId, setHoveredMessageId] = useState<number | null>(null);
   const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
-  const { isPersonalizing, personalizeText } = useAIPersonalize();
+  const {
+    isPersonalizing,
+    personalizeText
+  } = useAIPersonalize();
   const [selectedStages, setSelectedStages] = useState<string[]>([]);
-
-  const pipelineStages = [
-    'AI sourced',
-    'Referred',
-    'Sourced',
-    'Applied & approved',
-    'Screening',
-    'First interview',
-    'Second interview',
-    'Rejected',
-    'Rejected & noticed',
-    'Top picks'
-  ];
-
+  const pipelineStages = ['AI sourced', 'Referred', 'Sourced', 'Applied & approved', 'Screening', 'First interview', 'Second interview', 'Rejected', 'Rejected & noticed', 'Top picks'];
   const toggleStage = (stage: string) => {
-    setSelectedStages(prev => 
-      prev.includes(stage) 
-        ? prev.filter(s => s !== stage)
-        : [...prev, stage]
-    );
+    setSelectedStages(prev => prev.includes(stage) ? prev.filter(s => s !== stage) : [...prev, stage]);
   };
-
   const handlePersonalize = async () => {
     if (!messageInput.trim()) return;
     const personalized = await personalizeText(messageInput, {
@@ -219,14 +201,11 @@ const Messages = () => {
     });
     setMessageInput(personalized);
   };
-
   const filteredMessages = mockMessages.filter(msg => {
-    const matchesSearch = msg.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         msg.message.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = msg.name.toLowerCase().includes(searchQuery.toLowerCase()) || msg.message.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesUnread = !showUnreadOnly || msg.unread;
     return matchesSearch && matchesUnread;
   });
-
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (messageInput.trim()) {
@@ -234,28 +213,23 @@ const Messages = () => {
       setMessageInput('');
     }
   };
-
   const handleViewProfile = (personId: number) => {
     console.log('View profile for person:', personId);
     // TODO: Implement view profile
   };
-
   const handleReject = (personId: number) => {
     console.log('Reject person:', personId);
     // TODO: Implement reject logic
   };
-
-  return (
-    <main className="min-h-screen w-full relative overflow-hidden">
+  return <main className="min-h-screen w-full relative overflow-hidden">
       <img src={backgroundImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
       
       <div className="relative z-10 h-screen flex flex-col">
         {/* Header */}
-        <header className="border-b border-border px-6 py-4 flex items-center gap-4" style={{ backgroundColor: '#FAF8F4' }}>
-          <button
-            onClick={() => navigate(-1)}
-            className="w-10 h-10 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md"
-          >
+        <header className="border-b border-border px-6 py-4 flex items-center gap-4" style={{
+        backgroundColor: '#FAF8F4'
+      }}>
+          <button onClick={() => navigate(-1)} className="w-10 h-10 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md">
             <ArrowLeft className="w-5 h-5" />
           </button>
           <h1 className="font-hedvig text-3xl">Messages</h1>
@@ -269,13 +243,7 @@ const Messages = () => {
             <div className="p-4 border-b border-border">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Search messages..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-white rounded-full pl-10 pr-4 py-2 text-sm text-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary/20"
-                />
+                <input type="text" placeholder="Search messages..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="w-full bg-white rounded-full pl-10 pr-4 py-2 text-sm text-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary/20" />
               </div>
             </div>
 
@@ -283,10 +251,7 @@ const Messages = () => {
             <div className="p-4 border-b border-border space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Show unread only</span>
-                <Switch
-                  checked={showUnreadOnly}
-                  onCheckedChange={setShowUnreadOnly}
-                />
+                <Switch checked={showUnreadOnly} onCheckedChange={setShowUnreadOnly} />
               </div>
 
               <Popover>
@@ -301,25 +266,12 @@ const Messages = () => {
                   </button>
                 </PopoverTrigger>
                 <PopoverContent className="w-[340px] p-2" align="start">
-                  <button
-                    onClick={() => setSelectedJob(null)}
-                    className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted transition-colors ${
-                      !selectedJob ? 'bg-muted font-medium' : ''
-                    }`}
-                  >
+                  <button onClick={() => setSelectedJob(null)} className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted transition-colors ${!selectedJob ? 'bg-muted font-medium' : ''}`}>
                     All jobs
                   </button>
-                  {jobFilters.map((job) => (
-                    <button
-                      key={job}
-                      onClick={() => setSelectedJob(job)}
-                      className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted transition-colors ${
-                        selectedJob === job ? 'bg-muted font-medium' : ''
-                      }`}
-                    >
+                  {jobFilters.map(job => <button key={job} onClick={() => setSelectedJob(job)} className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted transition-colors ${selectedJob === job ? 'bg-muted font-medium' : ''}`}>
                       {job}
-                    </button>
-                  ))}
+                    </button>)}
                 </PopoverContent>
               </Popover>
 
@@ -336,22 +288,12 @@ const Messages = () => {
                 </PopoverTrigger>
                 <PopoverContent className="w-[340px] p-2" align="start">
                   <div className="space-y-1">
-                    {pipelineStages.map((stage) => (
-                      <div
-                        key={stage}
-                        className="flex items-center space-x-2 px-3 py-2 hover:bg-muted rounded-md cursor-pointer transition-colors"
-                        onClick={() => toggleStage(stage)}
-                      >
-                        <Checkbox
-                          id={`stage-${stage}`}
-                          checked={selectedStages.includes(stage)}
-                          onCheckedChange={() => toggleStage(stage)}
-                        />
+                    {pipelineStages.map(stage => <div key={stage} className="flex items-center space-x-2 px-3 py-2 hover:bg-muted rounded-md cursor-pointer transition-colors" onClick={() => toggleStage(stage)}>
+                        <Checkbox id={`stage-${stage}`} checked={selectedStages.includes(stage)} onCheckedChange={() => toggleStage(stage)} />
                         <label htmlFor={`stage-${stage}`} className="flex-1 text-sm cursor-pointer">
                           {stage}
                         </label>
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
                 </PopoverContent>
               </Popover>
@@ -359,27 +301,15 @@ const Messages = () => {
 
             {/* Messages List */}
             <div className="flex-1 overflow-y-auto">
-              {filteredMessages.map((msg) => (
-                <div
-                  key={msg.id}
-                  onMouseEnter={() => setHoveredMessageId(msg.id)}
-                  onMouseLeave={() => {
-                    // Only hide if dropdown is not open
-                    if (openDropdownId !== msg.id) {
-                      setHoveredMessageId(null);
-                    }
-                  }}
-                  onClick={() => setSelectedPerson(msg)}
-                  className={`w-full px-4 py-3 flex items-start gap-3 hover:bg-muted/50 transition-colors border-b border-border/50 cursor-pointer ${
-                    selectedPerson.id === msg.id ? '' : ''
-                  }`}
-                  style={selectedPerson.id === msg.id ? { backgroundColor: '#FAF8F4' } : {}}
-                >
-                  <img
-                    src={msg.avatar}
-                    alt={msg.name}
-                    className="w-12 h-12 rounded-full object-cover flex-shrink-0"
-                  />
+              {filteredMessages.map(msg => <div key={msg.id} onMouseEnter={() => setHoveredMessageId(msg.id)} onMouseLeave={() => {
+              // Only hide if dropdown is not open
+              if (openDropdownId !== msg.id) {
+                setHoveredMessageId(null);
+              }
+            }} onClick={() => setSelectedPerson(msg)} className={`w-full px-4 py-3 flex items-start gap-3 hover:bg-muted/50 transition-colors border-b border-border/50 cursor-pointer ${selectedPerson.id === msg.id ? '' : ''}`} style={selectedPerson.id === msg.id ? {
+              backgroundColor: '#FAF8F4'
+            } : {}}>
+                  <img src={msg.avatar} alt={msg.name} className="w-12 h-12 rounded-full object-cover flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
                       <div className="flex items-center gap-2">
@@ -390,64 +320,52 @@ const Messages = () => {
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-muted-foreground">{msg.time}</span>
-                        {(hoveredMessageId === msg.id || openDropdownId === msg.id) && (
-                          <DropdownMenu
-                            onOpenChange={(open) => {
-                              setOpenDropdownId(open ? msg.id : null);
-                              if (!open) {
-                                setHoveredMessageId(null);
-                              }
-                            }}
-                          >
+                        {(hoveredMessageId === msg.id || openDropdownId === msg.id) && <DropdownMenu onOpenChange={open => {
+                      setOpenDropdownId(open ? msg.id : null);
+                      if (!open) {
+                        setHoveredMessageId(null);
+                      }
+                    }}>
                             <DropdownMenuTrigger asChild>
-                              <button 
-                                className="w-7 h-7 rounded-full bg-white border border-border/40 flex items-center justify-center hover:bg-muted transition-colors shadow-sm"
-                                onClick={(e) => e.stopPropagation()}
-                              >
+                              <button className="w-7 h-7 rounded-full bg-white border border-border/40 flex items-center justify-center hover:bg-muted transition-colors shadow-sm" onClick={e => e.stopPropagation()}>
                                 <MoreHorizontal className="w-4 h-4" />
                               </button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-44">
-                              <DropdownMenuItem onClick={(e) => {
-                                e.stopPropagation();
-                                handleViewProfile(msg.id);
-                              }}>
+                              <DropdownMenuItem onClick={e => {
+                          e.stopPropagation();
+                          handleViewProfile(msg.id);
+                        }}>
                                 <User className="w-4 h-4 mr-2" />
                                 View profile
                               </DropdownMenuItem>
-                              <DropdownMenuItem onClick={(e) => {
-                                e.stopPropagation();
-                                handleReject(msg.id);
-                              }}>
+                              <DropdownMenuItem onClick={e => {
+                          e.stopPropagation();
+                          handleReject(msg.id);
+                        }}>
                                 <XCircle className="w-4 h-4 mr-2" />
                                 Reject
                               </DropdownMenuItem>
                             </DropdownMenuContent>
-                          </DropdownMenu>
-                        )}
+                          </DropdownMenu>}
                       </div>
                     </div>
                     <p className={`text-sm truncate ${msg.unread ? 'text-foreground font-medium' : 'text-muted-foreground'}`}>
                       {msg.message}
                     </p>
                   </div>
-                  {msg.unread && (
-                    <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-2" />
-                  )}
-                </div>
-              ))}
+                  {msg.unread && <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-2" />}
+                </div>)}
             </div>
           </aside>
 
           {/* Middle - Chat Area */}
-          <div className="flex-1 flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
+          <div className="flex-1 flex flex-col" style={{
+          backgroundColor: '#FAF8F4'
+        }}>
             {/* Chat Header */}
             <div className="px-6 py-4 bg-white border-b border-border flex items-center gap-3">
-              <img
-                src={selectedPerson.avatar}
-                alt={selectedPerson.name}
-                className="w-10 h-10 rounded-full object-cover"
-              />
+              <img src={selectedPerson.avatar} alt={selectedPerson.name} className="w-10 h-10 rounded-full object-cover" />
               <div className="flex-1">
                 <h3 className="font-semibold">{selectedPerson.name}</h3>
                 <p className="text-xs text-muted-foreground">
@@ -455,39 +373,23 @@ const Messages = () => {
                 </p>
               </div>
               {/* Toggle Button when collapsed */}
-              {isRightPanelCollapsed && (
-                <button
-                  onClick={() => setIsRightPanelCollapsed(false)}
-                  className="w-8 h-8 bg-muted border border-border rounded-full flex items-center justify-center hover:bg-accent transition-colors"
-                >
+              {isRightPanelCollapsed && <button onClick={() => setIsRightPanelCollapsed(false)} className="w-8 h-8 bg-muted border border-border rounded-full flex items-center justify-center hover:bg-accent transition-colors">
                   <ChevronLeft className="w-4 h-4" />
-                </button>
-              )}
+                </button>}
             </div>
 
             {/* Chat Messages */}
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
-              {mockChatHistory.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={`flex ${msg.isMe ? 'justify-end' : 'justify-start'}`}
-                >
+              {mockChatHistory.map(msg => <div key={msg.id} className={`flex ${msg.isMe ? 'justify-end' : 'justify-start'}`}>
                   <div className={`max-w-[70%] ${msg.isMe ? 'order-2' : 'order-1'}`}>
-                    <div
-                      className={`px-4 py-2 rounded-2xl ${
-                        msg.isMe
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-white text-foreground'
-                      }`}
-                    >
+                    <div className={`px-4 py-2 rounded-2xl ${msg.isMe ? 'bg-primary text-primary-foreground' : 'bg-white text-foreground'}`}>
                       <p className="text-sm">{msg.text}</p>
                     </div>
                     <span className="text-xs text-muted-foreground mt-1 block">
                       {msg.time}
                     </span>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
 
             {/* Message Input */}
@@ -498,10 +400,7 @@ const Messages = () => {
                   <div className="flex items-center gap-1">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <button
-                          type="button"
-                          className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-muted text-muted-foreground hover:text-foreground"
-                        >
+                        <button type="button" className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-muted text-muted-foreground hover:text-foreground">
                           <Paperclip className="w-5 h-5" />
                         </button>
                       </TooltipTrigger>
@@ -512,12 +411,7 @@ const Messages = () => {
                     
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <button
-                          type="button"
-                          onClick={handlePersonalize}
-                          disabled={isPersonalizing || !messageInput.trim()}
-                          className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-muted text-muted-foreground hover:text-foreground disabled:opacity-50"
-                        >
+                        <button type="button" onClick={handlePersonalize} disabled={isPersonalizing || !messageInput.trim()} className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-muted text-muted-foreground hover:text-foreground disabled:opacity-50">
                           <Sparkles className="w-5 h-5" />
                         </button>
                       </TooltipTrigger>
@@ -527,21 +421,13 @@ const Messages = () => {
                     </Tooltip>
                     
                     <Tooltip>
-                      <AskAIPopover
-                        trigger={
-                          <TooltipTrigger asChild>
-                            <button
-                              type="button"
-                              className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-muted text-muted-foreground hover:text-foreground"
-                            >
+                      <AskAIPopover trigger={<TooltipTrigger asChild>
+                            <button type="button" className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-muted text-muted-foreground hover:text-foreground">
                               <Bot className="w-5 h-5" />
                             </button>
-                          </TooltipTrigger>
-                        }
-                        onApply={(answer) => {
-                          setMessageInput(prev => prev ? prev + '\n\n' + answer : answer);
-                        }}
-                      />
+                          </TooltipTrigger>} onApply={answer => {
+                      setMessageInput(prev => prev ? prev + '\n\n' + answer : answer);
+                    }} />
                       <TooltipContent>
                         <p>Ask AI</p>
                       </TooltipContent>
@@ -550,30 +436,24 @@ const Messages = () => {
                   
                   {/* Input field */}
                   <div className="relative flex-1">
-                    <input
-                      type="text"
-                      placeholder="Type a message..."
-                      value={messageInput}
-                      onChange={(e) => setMessageInput(e.target.value)}
-                      className="w-full bg-white rounded-full pl-6 pr-14 py-3 text-sm text-foreground shadow-md border border-border/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    />
-                    {isPersonalizing && (
-                      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center">
+                    <input type="text" placeholder="Type a message..." value={messageInput} onChange={e => setMessageInput(e.target.value)} className="w-full bg-white rounded-full pl-6 pr-14 py-3 text-sm text-foreground shadow-md border border-border/40 focus:outline-none focus:ring-2 focus:ring-primary/20" />
+                    {isPersonalizing && <div className="absolute inset-0 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center">
                         <div className="flex items-center gap-2">
                           <div className="flex gap-1">
-                            <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                            <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                            <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{
+                          animationDelay: '0ms'
+                        }} />
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{
+                          animationDelay: '150ms'
+                        }} />
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{
+                          animationDelay: '300ms'
+                        }} />
                           </div>
                           <span className="text-xs font-medium">Personalizing...</span>
                         </div>
-                      </div>
-                    )}
-                    <button
-                      type="submit"
-                      disabled={!messageInput.trim()}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-primary text-primary-foreground rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
+                      </div>}
+                    <button type="submit" disabled={!messageInput.trim()} className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-primary text-primary-foreground rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
@@ -585,28 +465,15 @@ const Messages = () => {
           </div>
 
           {/* Right Sidebar - Profile */}
-          <aside 
-            className={`bg-white border-l border-border overflow-y-auto transition-all duration-300 ${
-              isRightPanelCollapsed ? 'w-0' : 'w-[380px]'
-            }`}
-          >
+          <aside className={`bg-white border-l border-border overflow-y-auto transition-all duration-300 ${isRightPanelCollapsed ? 'w-0' : 'w-[380px]'}`}>
             <div className={`p-6 space-y-6 ${isRightPanelCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition-opacity duration-300`}>
               {/* Toggle Button when expanded - at top left */}
-              {!isRightPanelCollapsed && (
-                <button
-                  onClick={() => setIsRightPanelCollapsed(true)}
-                  className="w-8 h-8 bg-muted border border-border rounded-full flex items-center justify-center hover:bg-accent transition-colors mb-4"
-                >
+              {!isRightPanelCollapsed && <button onClick={() => setIsRightPanelCollapsed(true)} className="w-8 h-8 bg-muted border border-border rounded-full flex items-center justify-center hover:bg-accent transition-colors mb-4">
                   <ChevronRight className="w-4 h-4" />
-                </button>
-              )}
+                </button>}
               {/* Profile Header */}
               <div className="flex flex-col items-center text-center space-y-3">
-                <img 
-                  src={selectedPerson.avatar} 
-                  alt={selectedPerson.name}
-                  className="w-24 h-24 rounded-2xl object-cover shadow-lg"
-                />
+                <img src={selectedPerson.avatar} alt={selectedPerson.name} className="w-24 h-24 rounded-2xl object-cover shadow-lg" />
                 <div>
                   <h3 className="text-xl font-semibold">{selectedPerson.name}</h3>
                   <p className="text-sm text-muted-foreground mb-2">{selectedPerson.position} - {selectedPerson.company}</p>
@@ -620,34 +487,13 @@ const Messages = () => {
                 
                 {/* Rating stars */}
                 <div className="flex items-center gap-1">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <img 
-                      key={star}
-                      src={starIcon} 
-                      alt="star"
-                      className="w-5 h-5"
-                      style={{
-                        filter: star <= selectedPerson.rating ? 'none' : 'grayscale(100%) opacity(0.3)'
-                      }}
-                    />
-                  ))}
+                  {[1, 2, 3, 4, 5].map(star => <img key={star} src={starIcon} alt="star" className="w-5 h-5" style={{
+                  filter: star <= selectedPerson.rating ? 'none' : 'grayscale(100%) opacity(0.3)'
+                }} />)}
                 </div>
                 
                 {/* Company logos */}
-                <div className="flex items-center gap-2 flex-wrap justify-center">
-                  {selectedPerson.companies.map((company, idx) => (
-                    <div key={idx} className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-muted border border-border/40">
-                      <div className="w-5 h-5 rounded-full bg-white border border-border/40 flex items-center justify-center overflow-hidden">
-                        <img 
-                          src={companyLogos[company] || aresLogo} 
-                          alt={company}
-                          className="w-3.5 h-3.5 object-contain"
-                        />
-                      </div>
-                      <span className="text-xs font-medium text-muted-foreground">{company}</span>
-                    </div>
-                  ))}
-                </div>
+                
               </div>
 
               {/* AI Summary */}
@@ -663,11 +509,11 @@ const Messages = () => {
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2">
-                {achievements.slice(0, 5).map((achievement, idx) => (
-                  <Badge key={idx} variant="secondary" className="px-3 py-1.5" style={{ backgroundColor: '#FAF8F4' }}>
+                {achievements.slice(0, 5).map((achievement, idx) => <Badge key={idx} variant="secondary" className="px-3 py-1.5" style={{
+                backgroundColor: '#FAF8F4'
+              }}>
                     {achievement}
-                  </Badge>
-                ))}
+                  </Badge>)}
               </div>
 
               <Separator />
@@ -677,7 +523,9 @@ const Messages = () => {
                 <h4 className="text-lg font-semibold">About</h4>
                 
                 {/* AI Analysis */}
-                <div className="rounded-lg p-4 space-y-2" style={{ backgroundColor: '#FAF8F4' }}>
+                <div className="rounded-lg p-4 space-y-2" style={{
+                backgroundColor: '#FAF8F4'
+              }}>
                   <div className="flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-primary" />
                     <p className="text-sm font-medium">AI Analysis</p>
@@ -691,21 +539,15 @@ const Messages = () => {
                 <div className="space-y-3">
                   <h5 className="text-sm font-semibold">Experience</h5>
                   <div className="space-y-3">
-                    {roles.map((role, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
+                    {roles.map((role, idx) => <div key={idx} className="flex items-start gap-3">
                         <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden bg-white border">
-                          <img 
-                            src={companyLogos[role.company] || aresLogo} 
-                            alt={role.company}
-                            className="w-full h-full object-contain p-1"
-                          />
+                          <img src={companyLogos[role.company] || aresLogo} alt={role.company} className="w-full h-full object-contain p-1" />
                         </div>
                         <div>
                           <p className="font-medium text-sm">{role.role}</p>
                           <p className="text-xs text-muted-foreground">{role.company}</p>
                         </div>
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
                 </div>
 
@@ -761,8 +603,6 @@ const Messages = () => {
           </aside>
         </div>
       </div>
-    </main>
-  );
+    </main>;
 };
-
 export default Messages;
