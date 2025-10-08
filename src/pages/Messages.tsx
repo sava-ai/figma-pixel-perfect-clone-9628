@@ -22,6 +22,7 @@ import aresLogo from '@/assets/company-ares.png';
 import stripeLogo from '@/assets/company-stripe.png';
 import figmaLogo from '@/assets/company-figma.png';
 import ideoLogo from '@/assets/company-ideo.png';
+import starIcon from '@/assets/star-icon.svg';
 
 interface Message {
   id: number;
@@ -34,6 +35,11 @@ interface Message {
   country: string;
   email?: string;
   linkedin?: string;
+  position: string;
+  company: string;
+  match: string;
+  rating: number;
+  companies: string[];
 }
 
 interface ChatMessage {
@@ -55,6 +61,11 @@ const mockMessages: Message[] = [
     country: 'Sweden',
     email: 'sarah.miller@email.com',
     linkedin: 'linkedin.com/in/sarahmiller',
+    position: 'Senior Product Designer',
+    company: 'Klarna',
+    match: '10/12',
+    rating: 4,
+    companies: ['Stripe', 'Figma', 'IDEO'],
   },
   {
     id: 2,
@@ -67,6 +78,11 @@ const mockMessages: Message[] = [
     country: 'Sweden',
     email: 'mike.chen@email.com',
     linkedin: 'linkedin.com/in/mikechen',
+    position: 'Lead Designer',
+    company: 'Spotify',
+    match: '12/12',
+    rating: 5,
+    companies: ['Ares Studio', 'Figma'],
   },
   {
     id: 3,
@@ -79,6 +95,11 @@ const mockMessages: Message[] = [
     country: 'Sweden',
     email: 'alex.rivera@email.com',
     linkedin: 'linkedin.com/in/alexrivera',
+    position: 'Product Designer',
+    company: 'Bambora',
+    match: '9/12',
+    rating: 3,
+    companies: ['Stripe', 'IDEO'],
   },
   {
     id: 4,
@@ -91,6 +112,11 @@ const mockMessages: Message[] = [
     country: 'Sweden',
     email: 'emma.thompson@email.com',
     linkedin: 'linkedin.com/in/emmathompson',
+    position: 'UX Designer',
+    company: 'Tink',
+    match: '8/12',
+    rating: 4,
+    companies: ['Figma', 'Ares Studio'],
   },
   {
     id: 5,
@@ -103,6 +129,11 @@ const mockMessages: Message[] = [
     country: 'Sweden',
     email: 'david.park@email.com',
     linkedin: 'linkedin.com/in/davidpark',
+    position: 'Senior UX Designer',
+    company: 'iZettle',
+    match: '11/12',
+    rating: 5,
+    companies: ['Stripe', 'Figma', 'IDEO', 'Ares Studio'],
   },
 ];
 
@@ -351,9 +382,12 @@ const Messages = () => {
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
-                      <span className={`text-sm font-medium ${msg.unread ? 'text-foreground' : 'text-muted-foreground'}`}>
-                        {msg.name}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className={`text-sm font-medium ${msg.unread ? 'text-foreground' : 'text-muted-foreground'}`}>
+                          {msg.name}
+                        </span>
+                        <span className="text-xs text-muted-foreground">Match {msg.match}</span>
+                      </div>
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-muted-foreground">{msg.time}</span>
                         {(hoveredMessageId === msg.id || openDropdownId === msg.id) && (
@@ -575,7 +609,44 @@ const Messages = () => {
                 />
                 <div>
                   <h3 className="text-xl font-semibold">{selectedPerson.name}</h3>
-                  <p className="text-sm text-muted-foreground">{selectedPerson.city}, {selectedPerson.country}</p>
+                  <p className="text-sm text-muted-foreground mb-2">{selectedPerson.position} - {selectedPerson.company}</p>
+                  <p className="text-xs text-muted-foreground">{selectedPerson.city}, {selectedPerson.country}</p>
+                </div>
+                
+                {/* Match score */}
+                <div className="w-full">
+                  <span className="text-sm text-muted-foreground">Match {selectedPerson.match}</span>
+                </div>
+                
+                {/* Rating stars */}
+                <div className="flex items-center gap-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <img 
+                      key={star}
+                      src={starIcon} 
+                      alt="star"
+                      className="w-5 h-5"
+                      style={{
+                        filter: star <= selectedPerson.rating ? 'none' : 'grayscale(100%) opacity(0.3)'
+                      }}
+                    />
+                  ))}
+                </div>
+                
+                {/* Company logos */}
+                <div className="flex items-center gap-2 flex-wrap justify-center">
+                  {selectedPerson.companies.map((company, idx) => (
+                    <div key={idx} className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-muted border border-border/40">
+                      <div className="w-5 h-5 rounded-full bg-white border border-border/40 flex items-center justify-center overflow-hidden">
+                        <img 
+                          src={companyLogos[company] || aresLogo} 
+                          alt={company}
+                          className="w-3.5 h-3.5 object-contain"
+                        />
+                      </div>
+                      <span className="text-xs font-medium text-muted-foreground">{company}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
