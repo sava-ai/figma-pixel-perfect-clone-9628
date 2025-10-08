@@ -63,7 +63,8 @@ const JobPeopleView = () => {
     }, {
       company: "Tink",
       role: "Product Design Intern"
-    }]
+    }],
+    engagementRate: 85
   }, {
     id: 2,
     name: "Marcus Andersson",
@@ -81,7 +82,8 @@ const JobPeopleView = () => {
     }, {
       company: "Ericsson",
       role: "UI Designer"
-    }]
+    }],
+    engagementRate: 72
   }, {
     id: 3,
     name: "Emma Lundberg",
@@ -99,7 +101,8 @@ const JobPeopleView = () => {
     }, {
       company: "King",
       role: "Senior UI Designer"
-    }]
+    }],
+    engagementRate: 88
   }, {
     id: 4,
     name: "Oliver Karlsson",
@@ -117,7 +120,8 @@ const JobPeopleView = () => {
     }, {
       company: "Trustly",
       role: "UX Designer"
-    }]
+    }],
+    engagementRate: 79
   }, {
     id: 5,
     name: "Linnea Bergström",
@@ -135,7 +139,8 @@ const JobPeopleView = () => {
     }, {
       company: "Zimpler",
       role: "Junior Designer"
-    }]
+    }],
+    engagementRate: 68
   }, {
     id: 6,
     name: "Filip Johansson",
@@ -153,7 +158,8 @@ const JobPeopleView = () => {
     }, {
       company: "Collector Bank",
       role: "Product Designer"
-    }]
+    }],
+    engagementRate: 81
   }, {
     id: 7,
     name: "Isabella Nilsson",
@@ -171,7 +177,8 @@ const JobPeopleView = () => {
     }, {
       company: "Axis",
       role: "Interaction Designer"
-    }]
+    }],
+    engagementRate: 93
   }, {
     id: 8,
     name: "Alexander Berg",
@@ -189,7 +196,8 @@ const JobPeopleView = () => {
     }, {
       company: "Paradox",
       role: "Product Designer"
-    }]
+    }],
+    engagementRate: 76
   }];
   
   // Animate counters on mount

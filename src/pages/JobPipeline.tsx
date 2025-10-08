@@ -36,6 +36,7 @@ interface Candidate {
   companies: string[];
   lastContact: string;
   match: string;
+  engagementRate: number;
 }
 
 interface Column {
@@ -133,9 +134,10 @@ const CandidateCard = ({ candidate, isDragging, onReject, onDelete }: {
           </div>
         </div>
 
-        {/* Match score above stars */}
-        <div className="mb-2">
+        {/* Match score and engagement rate */}
+        <div className="mb-2 flex items-center justify-between">
           <span className="text-xs text-muted-foreground">{candidate.match} match</span>
+          <span className="text-xs font-medium text-primary">Engagement: {candidate.engagementRate}%</span>
         </div>
 
         {/* Rating stars and last contact */}
@@ -281,6 +283,7 @@ const JobPipeline = () => {
           companies: ['Stripe', 'Figma', 'IDEO'],
           lastContact: '1h ago',
           match: '10/12',
+          engagementRate: 78,
         },
         {
           id: '2',
@@ -294,6 +297,7 @@ const JobPipeline = () => {
           companies: ['Ares', 'Figma'],
           lastContact: '3h ago',
           match: '11/12',
+          engagementRate: 92,
         },
       ],
     },
@@ -318,6 +322,7 @@ const JobPipeline = () => {
           companies: ['Stripe', 'IDEO'],
           lastContact: '2d ago',
           match: '9/12',
+          engagementRate: 65,
         },
       ],
     },
@@ -337,6 +342,7 @@ const JobPipeline = () => {
           companies: ['Figma', 'Ares'],
           lastContact: '5h ago',
           match: '8/12',
+          engagementRate: 71,
         },
       ],
     },
@@ -356,6 +362,7 @@ const JobPipeline = () => {
           companies: ['Stripe', 'Figma', 'IDEO', 'Ares'],
           lastContact: '1d ago',
           match: '12/12',
+          engagementRate: 95,
         },
       ],
     },
@@ -375,6 +382,7 @@ const JobPipeline = () => {
           companies: ['Figma', 'IDEO'],
           lastContact: '12h ago',
           match: '10/12',
+          engagementRate: 83,
         },
       ],
     },

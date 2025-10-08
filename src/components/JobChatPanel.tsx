@@ -31,6 +31,7 @@ interface Candidate {
   match: string;
   description: string;
   roles: { company: string; role: string; }[];
+  engagementRate: number;
 }
 
 interface JobChatPanelProps {
@@ -154,7 +155,8 @@ export const JobChatPanel = ({
         { company: 'Bambora', role: 'Lead Product Designer' },
         { company: 'iZettle', role: 'Product Designer' },
         { company: 'King', role: 'Senior UI Designer' }
-      ]
+      ],
+      engagementRate: 88
     });
     setProfileDialogOpen(true);
   };
