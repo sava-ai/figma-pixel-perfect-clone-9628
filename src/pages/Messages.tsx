@@ -423,9 +423,9 @@ const Messages = () => {
                       </TooltipContent>
                     </Tooltip>
                     
-                    <AskAIPopover
-                      trigger={
-                        <Tooltip>
+                    <Tooltip>
+                      <AskAIPopover
+                        trigger={
                           <TooltipTrigger asChild>
                             <button
                               type="button"
@@ -434,15 +434,15 @@ const Messages = () => {
                               <Bot className="w-5 h-5" />
                             </button>
                           </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Ask AI</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      }
-                      onApply={(answer) => {
-                        setMessageInput(prev => prev ? prev + '\n\n' + answer : answer);
-                      }}
-                    />
+                        }
+                        onApply={(answer) => {
+                          setMessageInput(prev => prev ? prev + '\n\n' + answer : answer);
+                        }}
+                      />
+                      <TooltipContent>
+                        <p>Ask AI</p>
+                      </TooltipContent>
+                    </Tooltip>
                   </div>
                   
                   {/* Input field */}
