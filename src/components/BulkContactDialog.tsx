@@ -5,6 +5,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
 import { ChevronDown, ChevronRight, Mail, Linkedin, Loader2 } from 'lucide-react';
 import { useAIPersonalize } from '@/hooks/useAIPersonalize';
+import { ProfileDialog } from '@/components/ProfileDialog';
 
 interface Candidate {
   id: number;
@@ -13,6 +14,8 @@ interface Candidate {
   city: string;
   match: string;
   roles: { company: string; role: string }[];
+  description: string;
+  engagementRate: number;
 }
 
 interface BulkContactDialogProps {
@@ -37,6 +40,8 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
   const [expandedMessages, setExpandedMessages] = useState<Set<number>>(new Set());
   const [isGenerating, setIsGenerating] = useState(false);
   const [sendingProgress, setSendingProgress] = useState(0);
+  const [profileDialogOpen, setProfileDialogOpen] = useState(false);
+  const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(null);
   const { personalizeText } = useAIPersonalize();
 
   const itemsPerPage = 50;
@@ -146,7 +151,14 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
     setExpandedMessages(new Set());
     setSendingProgress(0);
     setCurrentPage(1);
+    setProfileDialogOpen(false);
+    setSelectedCandidate(null);
     onOpenChange(false);
+  };
+
+  const openProfile = (candidate: Candidate) => {
+    setSelectedCandidate(candidate);
+    setProfileDialogOpen(true);
   };
 
   return (
@@ -191,7 +203,10 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
                           />
                         </td>
                         <td className="p-3">
-                          <div className="flex items-center gap-3">
+                          <div 
+                            className="flex items-center gap-3 cursor-pointer hover:opacity-70 transition-opacity"
+                            onClick={() => openProfile(candidate)}
+                          >
                             <img src={candidate.image} alt={candidate.name} className="w-8 h-8 rounded-full object-cover" />
                             <span className="font-medium">{candidate.name}</span>
                           </div>
@@ -375,6 +390,37 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
           </div>
         )}
       </DialogContent>
+
+      {/* Profile Dialog */}
+      {selectedCandidate && (
+        <ProfileDialog
+          open={profileDialogOpen}
+          onOpenChange={setProfileDialogOpen}
+          candidate={selectedCandidate}
+          onNext={() => {
+            const currentIndex = candidates.findIndex(c => c.id === selectedCandidate?.id);
+            if (currentIndex < candidates.length - 1) {
+              setSelectedCandidate(candidates[currentIndex + 1]);
+            } else {
+              setProfileDialogOpen(false);
+            }
+          }}
+          onPrevious={() => {
+            const currentIndex = candidates.findIndex(c => c.id === selectedCandidate?.id);
+            if (currentIndex > 0) {
+              setSelectedCandidate(candidates[currentIndex - 1]);
+            }
+          }}
+          onSkip={() => {
+            const currentIndex = candidates.findIndex(c => c.id === selectedCandidate?.id);
+            if (currentIndex < candidates.length - 1) {
+              setSelectedCandidate(candidates[currentIndex + 1]);
+            } else {
+              setProfileDialogOpen(false);
+            }
+          }}
+        />
+      )}
     </Dialog>
   );
 };
