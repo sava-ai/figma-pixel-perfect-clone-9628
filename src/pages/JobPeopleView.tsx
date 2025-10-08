@@ -80,9 +80,7 @@ const JobPeopleView = () => {
       role: "Product Design Intern"
     }],
     engagementRate: 85,
-    tags: ['AI sourced'],
-    pipelineStatus: 'Contacted',
-    openToWork: true
+    tags: ['AI sourced']
   }, {
     id: 2,
     name: "Marcus Andersson",
@@ -102,9 +100,7 @@ const JobPeopleView = () => {
       role: "UI Designer"
     }],
     engagementRate: 0,
-    tags: ['Sourced'],
-    pipelineStatus: null,
-    openToWork: false
+    tags: ['Sourced']
   }, {
     id: 3,
     name: "Emma Lundberg",
@@ -124,9 +120,7 @@ const JobPeopleView = () => {
       role: "Senior UI Designer"
     }],
     engagementRate: 88,
-    tags: ['Referred'],
-    pipelineStatus: 'Interviewed',
-    openToWork: true
+    tags: ['Referred']
   }, {
     id: 4,
     name: "Oliver Karlsson",
@@ -146,9 +140,7 @@ const JobPeopleView = () => {
       role: "UX Designer"
     }],
     engagementRate: 79,
-    tags: ['Database'],
-    pipelineStatus: null,
-    openToWork: true
+    tags: ['Database']
   }, {
     id: 5,
     name: "Linnea Bergström",
@@ -168,9 +160,7 @@ const JobPeopleView = () => {
       role: "Junior Designer"
     }],
     engagementRate: 0,
-    tags: ['AI sourced'],
-    pipelineStatus: 'Offered',
-    openToWork: false
+    tags: ['AI sourced']
   }, {
     id: 6,
     name: "Filip Johansson",
@@ -190,9 +180,7 @@ const JobPeopleView = () => {
       role: "Product Designer"
     }],
     engagementRate: 81,
-    tags: ['Sourced'],
-    pipelineStatus: null,
-    openToWork: true
+    tags: ['Sourced']
   }, {
     id: 7,
     name: "Isabella Nilsson",
@@ -212,9 +200,7 @@ const JobPeopleView = () => {
       role: "Interaction Designer"
     }],
     engagementRate: 93,
-    tags: ['Referred'],
-    pipelineStatus: 'Contacted',
-    openToWork: false
+    tags: ['Referred']
   }, {
     id: 8,
     name: "Alexander Berg",
@@ -234,9 +220,7 @@ const JobPeopleView = () => {
       role: "Product Designer"
     }],
     engagementRate: 76,
-    tags: ['Applicant'],
-    pipelineStatus: null,
-    openToWork: true
+    tags: ['Applicant']
   }];
 
   const filteredCandidates = selectedTags.length === 0 
@@ -506,22 +490,6 @@ const JobPeopleView = () => {
                           NEW
                         </div>
                       )}
-                      
-                      {/* Pipeline Status Badge */}
-                      {candidate.pipelineStatus && (
-                        <div className="absolute top-3 left-3 px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-[10px] font-semibold border border-blue-200">
-                          In Pipeline: {candidate.pipelineStatus}
-                        </div>
-                      )}
-                      
-                      {/* Open to Work Badge */}
-                      {candidate.openToWork && (
-                        <div className="absolute top-3 right-3 px-2 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-semibold border border-green-200"
-                             style={candidate.isNew ? { top: '40px' } : {}}>
-                          Open to work
-                        </div>
-                      )}
-                      
                       {/* Candidate header */}
                       <div className="flex items-start gap-3 mb-4">
                         <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
