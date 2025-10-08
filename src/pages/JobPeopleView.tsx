@@ -99,7 +99,7 @@ const JobPeopleView = () => {
       company: "Ericsson",
       role: "UI Designer"
     }],
-    engagementRate: 72,
+    engagementRate: 0,
     tags: ['Sourced']
   }, {
     id: 3,
@@ -159,7 +159,7 @@ const JobPeopleView = () => {
       company: "Zimpler",
       role: "Junior Designer"
     }],
-    engagementRate: 68,
+    engagementRate: 0,
     tags: ['AI sourced']
   }, {
     id: 6,

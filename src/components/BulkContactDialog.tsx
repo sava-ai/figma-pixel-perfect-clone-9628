@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
-import { ChevronDown, ChevronRight, Mail, Linkedin, Loader2 } from 'lucide-react';
+import { ChevronDown, ChevronRight, Mail, Linkedin, Loader2, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { useAIPersonalize } from '@/hooks/useAIPersonalize';
 import { ProfileDialog } from '@/components/ProfileDialog';
 
@@ -32,6 +32,9 @@ interface PersonalizedMessage {
   channel: Channel;
 }
 
+type SortField = 'match' | 'location' | 'engagement';
+type SortDirection = 'asc' | 'desc' | null;
+
 export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContactDialogProps) => {
   const [step, setStep] = useState<'select' | 'personalize' | 'sending'>('select');
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
@@ -42,13 +45,60 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
   const [sendingProgress, setSendingProgress] = useState(0);
   const [profileDialogOpen, setProfileDialogOpen] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(null);
+  const [sortField, setSortField] = useState<SortField | null>(null);
+  const [sortDirection, setSortDirection] = useState<SortDirection>(null);
   const { personalizeText } = useAIPersonalize();
 
   const itemsPerPage = 50;
-  const totalPages = Math.ceil(candidates.length / itemsPerPage);
+  
+  // Sorting logic
+  const sortedCandidates = [...candidates].sort((a, b) => {
+    if (!sortField || !sortDirection) return 0;
+    
+    let comparison = 0;
+    
+    if (sortField === 'match') {
+      const aMatch = parseInt(a.match.split('/')[0]);
+      const bMatch = parseInt(b.match.split('/')[0]);
+      comparison = aMatch - bMatch;
+    } else if (sortField === 'location') {
+      comparison = a.city.localeCompare(b.city);
+    } else if (sortField === 'engagement') {
+      comparison = a.engagementRate - b.engagementRate;
+    }
+    
+    return sortDirection === 'asc' ? comparison : -comparison;
+  });
+  
+  const totalPages = Math.ceil(sortedCandidates.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentCandidates = candidates.slice(startIndex, endIndex);
+  const currentCandidates = sortedCandidates.slice(startIndex, endIndex);
+  
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      // Cycle through: asc -> desc -> null
+      if (sortDirection === 'asc') {
+        setSortDirection('desc');
+      } else if (sortDirection === 'desc') {
+        setSortDirection(null);
+        setSortField(null);
+      }
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
+  
+  const SortIcon = ({ field }: { field: SortField }) => {
+    if (sortField !== field) {
+      return <ArrowUpDown className="w-3.5 h-3.5 ml-1 text-muted-foreground" />;
+    }
+    if (sortDirection === 'asc') {
+      return <ArrowUp className="w-3.5 h-3.5 ml-1 text-primary" />;
+    }
+    return <ArrowDown className="w-3.5 h-3.5 ml-1 text-primary" />;
+  };
 
   const toggleCandidate = (id: number) => {
     const newSelected = new Set(selectedIds);
@@ -188,8 +238,33 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
                         />
                       </th>
                       <th className="text-left p-3 font-medium">Name</th>
-                      <th className="text-left p-3 font-medium">Location</th>
-                      <th className="text-left p-3 font-medium">Match</th>
+                      <th className="text-left p-3 font-medium">
+                        <button 
+                          onClick={() => handleSort('location')}
+                          className="flex items-center hover:text-primary transition-colors"
+                        >
+                          Location
+                          <SortIcon field="location" />
+                        </button>
+                      </th>
+                      <th className="text-left p-3 font-medium">
+                        <button 
+                          onClick={() => handleSort('match')}
+                          className="flex items-center hover:text-primary transition-colors"
+                        >
+                          Match
+                          <SortIcon field="match" />
+                        </button>
+                      </th>
+                      <th className="text-left p-3 font-medium">
+                        <button 
+                          onClick={() => handleSort('engagement')}
+                          className="flex items-center hover:text-primary transition-colors"
+                        >
+                          Engagement
+                          <SortIcon field="engagement" />
+                        </button>
+                      </th>
                       <th className="text-left p-3 font-medium">Current Role</th>
                     </tr>
                   </thead>
@@ -213,6 +288,13 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
                         </td>
                         <td className="p-3 text-sm text-muted-foreground">{candidate.city}</td>
                         <td className="p-3 text-sm font-medium text-primary">{candidate.match}</td>
+                        <td className="p-3 text-sm">
+                          {candidate.engagementRate > 0 ? (
+                            <span className="font-medium text-primary">{candidate.engagementRate}%</span>
+                          ) : (
+                            <span className="text-muted-foreground">Not engaged</span>
+                          )}
+                        </td>
                         <td className="p-3 text-sm">{candidate.roles[0]?.role || 'N/A'}</td>
                       </tr>
                     ))}
