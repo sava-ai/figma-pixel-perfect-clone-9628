@@ -16,6 +16,9 @@ interface Candidate {
   roles: { company: string; role: string }[];
   description: string;
   engagementRate: number;
+  isOpenToWork?: boolean;
+  currentRoleIndex?: number;
+  tags: string[];
 }
 
 interface BulkContactDialogProps {
@@ -32,7 +35,7 @@ interface PersonalizedMessage {
   channel: Channel;
 }
 
-type SortField = 'match' | 'location' | 'engagement';
+type SortField = 'match' | 'location' | 'engagement' | 'source';
 type SortDirection = 'asc' | 'desc' | null;
 
 export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContactDialogProps) => {
@@ -65,6 +68,10 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
       comparison = a.city.localeCompare(b.city);
     } else if (sortField === 'engagement') {
       comparison = a.engagementRate - b.engagementRate;
+    } else if (sortField === 'source') {
+      const aSource = a.tags[0] || '';
+      const bSource = b.tags[0] || '';
+      comparison = aSource.localeCompare(bSource);
     }
     
     return sortDirection === 'asc' ? comparison : -comparison;
@@ -265,6 +272,15 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
                           <SortIcon field="engagement" />
                         </button>
                       </th>
+                      <th className="text-left p-3 font-medium">
+                        <button 
+                          onClick={() => handleSort('source')}
+                          className="flex items-center hover:text-primary transition-colors"
+                        >
+                          Source
+                          <SortIcon field="source" />
+                        </button>
+                      </th>
                       <th className="text-left p-3 font-medium">Current Role</th>
                     </tr>
                   </thead>
@@ -295,7 +311,21 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
                             <span className="text-muted-foreground">Not engaged</span>
                           )}
                         </td>
-                        <td className="p-3 text-sm">{candidate.roles[0]?.role || 'N/A'}</td>
+                        <td className="p-3 text-sm">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-primary/10 text-primary">
+                            {candidate.tags[0]}
+                          </span>
+                        </td>
+                        <td className="p-3 text-sm">
+                          {candidate.isOpenToWork ? (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-green-50 text-green-700 border border-green-200">
+                              <span className="w-1 h-1 bg-green-500 rounded-full"></span>
+                              Open to work
+                            </span>
+                          ) : (
+                            <span>{candidate.roles[candidate.currentRoleIndex || 0]?.role || 'N/A'}</span>
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
