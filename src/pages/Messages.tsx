@@ -258,36 +258,39 @@ const Messages = () => {
                 />
               </div>
 
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="job" className="border-none">
-                  <AccordionTrigger className="px-3 py-2 bg-white rounded-lg text-sm hover:bg-accent transition-colors border border-border hover:no-underline">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button className="w-full flex items-center justify-between px-3 py-2 bg-white rounded-lg text-sm hover:bg-accent transition-colors border border-border">
                     <span className="text-muted-foreground">
                       {selectedJob || 'Filter by job'}
                     </span>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-2 pt-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[340px] p-2" align="start">
+                  <button
+                    onClick={() => setSelectedJob(null)}
+                    className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted transition-colors ${
+                      !selectedJob ? 'bg-muted font-medium' : ''
+                    }`}
+                  >
+                    All jobs
+                  </button>
+                  {jobFilters.map((job) => (
                     <button
-                      onClick={() => setSelectedJob(null)}
+                      key={job}
+                      onClick={() => setSelectedJob(job)}
                       className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted transition-colors ${
-                        !selectedJob ? 'bg-muted font-medium' : ''
+                        selectedJob === job ? 'bg-muted font-medium' : ''
                       }`}
                     >
-                      All jobs
+                      {job}
                     </button>
-                    {jobFilters.map((job) => (
-                      <button
-                        key={job}
-                        onClick={() => setSelectedJob(job)}
-                        className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted transition-colors ${
-                          selectedJob === job ? 'bg-muted font-medium' : ''
-                        }`}
-                      >
-                        {job}
-                      </button>
-                    ))}
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+                  ))}
+                </PopoverContent>
+              </Popover>
 
               <Popover>
                 <PopoverTrigger asChild>
