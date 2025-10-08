@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, ArrowLeft, Sparkles, Award, FileText, ExternalLink, Phone, Mail, Linkedin, Link as LinkIcon, Send, ChevronLeft, ChevronRight, MoreHorizontal, User, XCircle } from 'lucide-react';
+import { Search, ArrowLeft, Sparkles, Award, FileText, ExternalLink, Phone, Mail, Linkedin, Link as LinkIcon, Send, ChevronLeft, ChevronRight, MoreHorizontal, User, XCircle, Paperclip, Bot } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -376,23 +376,51 @@ const Messages = () => {
 
             {/* Message Input */}
             <form onSubmit={handleSendMessage} className="p-4 bg-white border-t border-border">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Type a message..."
-                  value={messageInput}
-                  onChange={(e) => setMessageInput(e.target.value)}
-                  className="w-full bg-white rounded-full pl-6 pr-14 py-3 text-sm text-foreground shadow-md border border-border/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
-                />
-                <button
-                  type="submit"
-                  disabled={!messageInput.trim()}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-primary text-primary-foreground rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </button>
+              <div className="relative flex items-center gap-2">
+                {/* Icon buttons on the left */}
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-muted text-muted-foreground hover:text-foreground"
+                    title="Add attachment"
+                  >
+                    <Paperclip className="w-5 h-5" />
+                  </button>
+                  <button
+                    type="button"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-muted text-muted-foreground hover:text-foreground"
+                    title="AI personalize"
+                  >
+                    <Sparkles className="w-5 h-5" />
+                  </button>
+                  <button
+                    type="button"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:bg-muted text-muted-foreground hover:text-foreground"
+                    title="Ask AI"
+                  >
+                    <Bot className="w-5 h-5" />
+                  </button>
+                </div>
+                
+                {/* Input field */}
+                <div className="relative flex-1">
+                  <input
+                    type="text"
+                    placeholder="Type a message..."
+                    value={messageInput}
+                    onChange={(e) => setMessageInput(e.target.value)}
+                    className="w-full bg-white rounded-full pl-6 pr-14 py-3 text-sm text-foreground shadow-md border border-border/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
+                  <button
+                    type="submit"
+                    disabled={!messageInput.trim()}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-primary text-primary-foreground rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </form>
           </div>
