@@ -522,7 +522,7 @@ const JobPeopleView = () => {
                         </div>
                       </div>
 
-                      {/* Source Tags */}
+                      {/* Source Tags and Open to Work */}
                       <div className="flex flex-wrap gap-1.5 mb-3">
                         {candidate.tags.map((tag, idx) => (
                           <span 
@@ -532,6 +532,12 @@ const JobPeopleView = () => {
                             {tag}
                           </span>
                         ))}
+                        {candidate.isOpenToWork && (
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-green-50 text-green-700 border border-green-200">
+                            <span className="w-1 h-1 bg-green-500 rounded-full"></span>
+                            Open to work
+                          </span>
+                        )}
                       </div>
 
                       {/* Description */}
@@ -540,30 +546,14 @@ const JobPeopleView = () => {
                       </p>
 
                       {/* Roles */}
-                      <div className="space-y-2">
-                        {/* Open to Work Badge */}
-                        {candidate.isOpenToWork && (
-                          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-50 border border-green-200 rounded-lg">
-                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                            <span className="text-xs font-medium text-green-700">Open to work</span>
-                          </div>
-                        )}
-                        
-                        <div className="flex flex-wrap gap-2">
-                          {candidate.roles.map((role, idx) => {
-                            const isCurrent = candidate.currentRoleIndex === idx;
-                            return (
-                              <div 
-                                key={idx} 
-                                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs relative ${
-                                  isCurrent 
-                                    ? 'bg-primary/10 border border-primary/30 ring-2 ring-primary/20' 
-                                    : 'bg-muted/50'
-                                }`}
-                              >
-                                {isCurrent && (
-                                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full"></div>
-                                )}
+                      <div className="flex flex-wrap gap-2">
+                        {candidate.roles.map((role, idx) => {
+                          const isCurrent = candidate.currentRoleIndex === idx;
+                          return (
+                            <div 
+                              key={idx} 
+                              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-muted/50 rounded-lg text-xs"
+                            >
                                 {role.company === 'Klarna' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FFB3C7]">
                                     <span className="text-[10px] font-bold" style={{
                               color: '#000'
@@ -647,13 +637,17 @@ const JobPeopleView = () => {
                                 {role.company === 'Paradox' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#E03C31]">
                                     <span className="text-[10px] font-bold text-white">P</span>
                                   </div>}
-                                <span className={`truncate ${isCurrent ? 'font-medium text-foreground' : 'text-muted-foreground'}`}>
+                                <span className="text-muted-foreground truncate">
                                   {role.role}
                                 </span>
+                                {isCurrent && (
+                                  <span className="ml-auto pl-1.5 text-[9px] font-semibold text-primary uppercase tracking-wider">
+                                    Current
+                                  </span>
+                                )}
                               </div>
                             );
                           })}
-                        </div>
                       </div>
                     </div>)}
                 </div>
