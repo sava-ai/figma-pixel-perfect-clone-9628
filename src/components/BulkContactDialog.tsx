@@ -238,7 +238,7 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-6xl max-h-[80vh] overflow-hidden flex flex-col">
+      <DialogContent className={`${step === 'personalize' && isGenerating ? 'max-w-lg' : 'max-w-6xl'} max-h-[80vh] overflow-hidden flex flex-col`}>
         {step === 'select' && (
           <>
             <DialogHeader>
