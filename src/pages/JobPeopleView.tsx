@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical, ChevronLeft, Search } from 'lucide-react';
+import { ChevronDown, MoreVertical, ChevronLeft, Search, Filter } from 'lucide-react';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import { ProfileDialog } from '@/components/ProfileDialog';
 import { RejectionDialog } from '@/components/RejectionDialog';
 import { InviteDialog } from '@/components/InviteDialog';
 import { JobChatPanel } from '@/components/JobChatPanel';
+import { BulkContactDialog } from '@/components/BulkContactDialog';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
 import profile1 from '@/assets/profile-1.jpg';
@@ -37,6 +41,9 @@ const JobPeopleView = () => {
   const [selectedCandidate, setSelectedCandidate] = useState<typeof bestCandidates[0] | null>(null);
   const [profileDialogOpen, setProfileDialogOpen] = useState(false);
   const [rejectionDialogOpen, setRejectionDialogOpen] = useState(false);
+  const [bulkContactDialogOpen, setBulkContactDialogOpen] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   
   // Animated counters
   const [applicantsCount, setApplicantsCount] = useState(0);
@@ -46,6 +53,14 @@ const JobPeopleView = () => {
   const targetApplicants = 23;
   const targetRejections = 8;
   const targetBestMatches = 100;
+  const allTags = ['Referred', 'AI sourced', 'Sourced', 'Database', 'Applicant'];
+
+  const toggleTag = (tag: string) => {
+    setSelectedTags(prev => 
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+    );
+  };
+
   const bestCandidates = [{
     id: 1,
     name: "Sarah Chapman",
@@ -64,7 +79,8 @@ const JobPeopleView = () => {
       company: "Tink",
       role: "Product Design Intern"
     }],
-    engagementRate: 85
+    engagementRate: 85,
+    tags: ['AI sourced', 'Database']
   }, {
     id: 2,
     name: "Marcus Andersson",
@@ -83,7 +99,8 @@ const JobPeopleView = () => {
       company: "Ericsson",
       role: "UI Designer"
     }],
-    engagementRate: 72
+    engagementRate: 72,
+    tags: ['Sourced']
   }, {
     id: 3,
     name: "Emma Lundberg",
@@ -102,7 +119,8 @@ const JobPeopleView = () => {
       company: "King",
       role: "Senior UI Designer"
     }],
-    engagementRate: 88
+    engagementRate: 88,
+    tags: ['Referred', 'AI sourced']
   }, {
     id: 4,
     name: "Oliver Karlsson",
@@ -121,7 +139,8 @@ const JobPeopleView = () => {
       company: "Trustly",
       role: "UX Designer"
     }],
-    engagementRate: 79
+    engagementRate: 79,
+    tags: ['Database', 'Applicant']
   }, {
     id: 5,
     name: "Linnea Bergström",
@@ -140,7 +159,8 @@ const JobPeopleView = () => {
       company: "Zimpler",
       role: "Junior Designer"
     }],
-    engagementRate: 68
+    engagementRate: 68,
+    tags: ['AI sourced']
   }, {
     id: 6,
     name: "Filip Johansson",
@@ -159,7 +179,8 @@ const JobPeopleView = () => {
       company: "Collector Bank",
       role: "Product Designer"
     }],
-    engagementRate: 81
+    engagementRate: 81,
+    tags: ['Sourced', 'Database']
   }, {
     id: 7,
     name: "Isabella Nilsson",
@@ -178,7 +199,8 @@ const JobPeopleView = () => {
       company: "Axis",
       role: "Interaction Designer"
     }],
-    engagementRate: 93
+    engagementRate: 93,
+    tags: ['Referred']
   }, {
     id: 8,
     name: "Alexander Berg",
@@ -197,8 +219,15 @@ const JobPeopleView = () => {
       company: "Paradox",
       role: "Product Designer"
     }],
-    engagementRate: 76
+    engagementRate: 76,
+    tags: ['Applicant', 'Database']
   }];
+
+  const filteredCandidates = selectedTags.length === 0 
+    ? bestCandidates 
+    : bestCandidates.filter(candidate => 
+        selectedTags.some(tag => candidate.tags.includes(tag))
+      );
   
   // Animate counters on mount
   useEffect(() => {
@@ -387,12 +416,66 @@ const JobPeopleView = () => {
 
                 {/* Best matches section */}
                 <div className="mb-4">
-                  <h2 className="font-hedvig font-medium text-foreground mb-4 text-xl">Best matches</h2>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <h2 className="font-hedvig font-medium text-foreground text-xl">
+                        Best matches ({filteredCandidates.length})
+                      </h2>
+                      <Popover open={filterOpen} onOpenChange={setFilterOpen}>
+                        <PopoverTrigger asChild>
+                          <Button variant="outline" size="sm" className="h-8 gap-2">
+                            <Filter className="w-3.5 h-3.5" />
+                            Filter
+                            {selectedTags.length > 0 && (
+                              <span className="ml-1 px-1.5 py-0.5 bg-primary text-primary-foreground rounded-full text-xs">
+                                {selectedTags.length}
+                              </span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-56" align="start">
+                          <div className="space-y-3">
+                            <h4 className="font-medium text-sm">Filter by tags</h4>
+                            <div className="space-y-2">
+                              {allTags.map(tag => (
+                                <div key={tag} className="flex items-center space-x-2">
+                                  <Checkbox
+                                    id={tag}
+                                    checked={selectedTags.includes(tag)}
+                                    onCheckedChange={() => toggleTag(tag)}
+                                  />
+                                  <label
+                                    htmlFor={tag}
+                                    className="text-sm cursor-pointer"
+                                  >
+                                    {tag}
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                            {selectedTags.length > 0 && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="w-full"
+                                onClick={() => setSelectedTags([])}
+                              >
+                                Clear filters
+                              </Button>
+                            )}
+                          </div>
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                    <Button onClick={() => setBulkContactDialogOpen(true)}>
+                      Contact Selected
+                    </Button>
+                  </div>
                 </div>
 
                 {/* Candidates grid */}
                 <div className="grid grid-cols-2 gap-4">
-                  {bestCandidates.map(candidate => <div 
+                  {filteredCandidates.map(candidate => <div
                       key={candidate.id} 
                       className="bg-card border border-border/40 rounded-xl p-5 hover:border-primary/50 transition-all cursor-pointer group relative"
                       style={candidate.isNew ? { backgroundColor: '#FAF8F4' } : {}}
@@ -583,6 +666,13 @@ const JobPeopleView = () => {
 
       {/* Invite Dialog */}
       <InviteDialog open={inviteDialogOpen} onOpenChange={setInviteDialogOpen} />
+
+      {/* Bulk Contact Dialog */}
+      <BulkContactDialog
+        open={bulkContactDialogOpen}
+        onOpenChange={setBulkContactDialogOpen}
+        candidates={filteredCandidates}
+      />
     </div>;
 };
 export default JobPeopleView;
