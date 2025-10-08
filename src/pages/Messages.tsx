@@ -30,6 +30,8 @@ interface Message {
   unread: boolean;
   city: string;
   country: string;
+  email?: string;
+  linkedin?: string;
 }
 
 interface ChatMessage {
@@ -49,6 +51,8 @@ const mockMessages: Message[] = [
     unread: true,
     city: 'Stockholm',
     country: 'Sweden',
+    email: 'sarah.miller@email.com',
+    linkedin: 'linkedin.com/in/sarahmiller',
   },
   {
     id: 2,
@@ -59,6 +63,8 @@ const mockMessages: Message[] = [
     unread: true,
     city: 'Gothenburg',
     country: 'Sweden',
+    email: 'mike.chen@email.com',
+    linkedin: 'linkedin.com/in/mikechen',
   },
   {
     id: 3,
@@ -69,6 +75,8 @@ const mockMessages: Message[] = [
     unread: false,
     city: 'Malmö',
     country: 'Sweden',
+    email: 'alex.rivera@email.com',
+    linkedin: 'linkedin.com/in/alexrivera',
   },
   {
     id: 4,
@@ -79,6 +87,8 @@ const mockMessages: Message[] = [
     unread: false,
     city: 'Uppsala',
     country: 'Sweden',
+    email: 'emma.thompson@email.com',
+    linkedin: 'linkedin.com/in/emmathompson',
   },
   {
     id: 5,
@@ -89,6 +99,8 @@ const mockMessages: Message[] = [
     unread: false,
     city: 'Lund',
     country: 'Sweden',
+    email: 'david.park@email.com',
+    linkedin: 'linkedin.com/in/davidpark',
   },
 ];
 
@@ -349,7 +361,9 @@ const Messages = () => {
               />
               <div className="flex-1">
                 <h3 className="font-semibold">{selectedPerson.name}</h3>
-                <p className="text-xs text-muted-foreground">Active now</p>
+                <p className="text-xs text-muted-foreground">
+                  {selectedPerson.email || selectedPerson.linkedin || 'No contact info'}
+                </p>
               </div>
               {/* Toggle Button when collapsed */}
               {isRightPanelCollapsed && (
