@@ -31,6 +31,7 @@ type Channel = 'email' | 'linkedin' | 'both';
 
 interface PersonalizedMessage {
   candidateId: number;
+  subject: string;
   message: string;
   channel: Channel;
 }
@@ -141,12 +142,19 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
     const messages: PersonalizedMessage[] = [];
 
     for (const candidate of selectedCandidates) {
+      const subject = await personalizeText('', {
+        name: candidate.name,
+        role: candidate.roles[0]?.role || 'professional'
+      });
+      
       const message = await personalizeText('', {
         name: candidate.name,
         role: candidate.roles[0]?.role || 'professional'
       });
+      
       messages.push({
         candidateId: candidate.id,
+        subject: `Exciting Opportunity: ${candidate.roles[0]?.role || 'Position'} at Our Company`,
         message,
         channel: 'both'
       });
@@ -154,6 +162,12 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
 
     setPersonalizedMessages(messages);
     setIsGenerating(false);
+  };
+
+  const updateSubject = (candidateId: number, subject: string) => {
+    setPersonalizedMessages(prev =>
+      prev.map(m => m.candidateId === candidateId ? { ...m, subject } : m)
+    );
   };
 
   const updateMessage = (candidateId: number, message: string) => {
@@ -464,15 +478,38 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
                         </div>
 
                         {isExpanded && (
-                          <Textarea
-                            value={pm.message}
-                            onChange={(e) => updateMessage(pm.candidateId, e.target.value)}
-                            className="min-h-[150px] text-sm"
-                          />
+                          <div className="space-y-3">
+                            <div>
+                              <label className="text-xs font-medium text-muted-foreground mb-1.5 block">
+                                Subject
+                              </label>
+                              <input
+                                type="text"
+                                value={pm.subject}
+                                onChange={(e) => updateSubject(pm.candidateId, e.target.value)}
+                                className="w-full px-3 py-2 text-sm border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                              />
+                            </div>
+                            <div>
+                              <label className="text-xs font-medium text-muted-foreground mb-1.5 block">
+                                Message
+                              </label>
+                              <Textarea
+                                value={pm.message}
+                                onChange={(e) => updateMessage(pm.candidateId, e.target.value)}
+                                className="min-h-[150px] text-sm"
+                              />
+                            </div>
+                          </div>
                         )}
 
                         {!isExpanded && (
-                          <p className="text-sm text-muted-foreground line-clamp-2">{pm.message}</p>
+                          <div className="space-y-1">
+                            <p className="text-xs font-medium text-muted-foreground">Subject:</p>
+                            <p className="text-sm line-clamp-1 mb-2">{pm.subject}</p>
+                            <p className="text-xs font-medium text-muted-foreground">Message:</p>
+                            <p className="text-sm text-muted-foreground line-clamp-2">{pm.message}</p>
+                          </div>
                         )}
                       </div>
                     );
