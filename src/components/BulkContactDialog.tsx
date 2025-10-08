@@ -385,10 +385,16 @@ export const BulkContactDialog = ({ open, onOpenChange, candidates }: BulkContac
             </DialogHeader>
 
             {isGenerating ? (
-              <div className="flex-1 flex items-center justify-center">
-                <div className="text-center">
-                  <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-primary" />
-                  <p className="text-sm text-muted-foreground">Generating personalized messages...</p>
+              <div className="flex-1 flex items-center justify-center py-12">
+                <div className="text-center max-w-xs">
+                  <div className="relative mb-6">
+                    <div className="w-16 h-16 mx-auto">
+                      <Loader2 className="w-16 h-16 animate-spin text-primary" />
+                    </div>
+                    <div className="absolute inset-0 w-16 h-16 mx-auto rounded-full bg-primary/10 animate-pulse"></div>
+                  </div>
+                  <p className="text-base font-medium text-foreground mb-2">Generating personalized messages</p>
+                  <p className="text-sm text-muted-foreground">This may take a moment...</p>
                 </div>
               </div>
             ) : (
