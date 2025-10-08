@@ -80,7 +80,7 @@ const JobPeopleView = () => {
       role: "Product Design Intern"
     }],
     engagementRate: 85,
-    tags: ['AI sourced', 'Database']
+    tags: ['AI sourced']
   }, {
     id: 2,
     name: "Marcus Andersson",
@@ -120,7 +120,7 @@ const JobPeopleView = () => {
       role: "Senior UI Designer"
     }],
     engagementRate: 88,
-    tags: ['Referred', 'AI sourced']
+    tags: ['Referred']
   }, {
     id: 4,
     name: "Oliver Karlsson",
@@ -140,7 +140,7 @@ const JobPeopleView = () => {
       role: "UX Designer"
     }],
     engagementRate: 79,
-    tags: ['Database', 'Applicant']
+    tags: ['Database']
   }, {
     id: 5,
     name: "Linnea Bergström",
@@ -180,7 +180,7 @@ const JobPeopleView = () => {
       role: "Product Designer"
     }],
     engagementRate: 81,
-    tags: ['Sourced', 'Database']
+    tags: ['Sourced']
   }, {
     id: 7,
     name: "Isabella Nilsson",
@@ -220,7 +220,7 @@ const JobPeopleView = () => {
       role: "Product Designer"
     }],
     engagementRate: 76,
-    tags: ['Applicant', 'Database']
+    tags: ['Applicant']
   }];
 
   const filteredCandidates = selectedTags.length === 0 
