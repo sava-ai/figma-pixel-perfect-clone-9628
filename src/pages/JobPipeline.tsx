@@ -648,9 +648,6 @@ const JobPipeline = () => {
                         <div className="mb-4 flex items-center justify-between">
                           <h3 className="font-medium text-sm text-foreground">{column.title}</h3>
                           <div className="flex items-center gap-2">
-                            <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
-                              {column.candidates.length}
-                            </span>
                             {column.id === 'rejected' && (
                               <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
@@ -665,6 +662,9 @@ const JobPipeline = () => {
                                 </DropdownMenuContent>
                               </DropdownMenu>
                             )}
+                            <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
+                              {column.candidates.length}
+                            </span>
                           </div>
                         </div>
                         <div 
