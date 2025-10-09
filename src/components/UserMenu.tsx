@@ -4,12 +4,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { UserAvatar } from '@/components/UserAvatar';
 
 interface UserMenuProps {
@@ -35,33 +29,21 @@ export const UserMenu: React.FC<UserMenuProps> = ({ initials = "TW", src }) => {
         </button>
       </PopoverTrigger>
       <PopoverContent 
-        className="w-64 p-2 bg-background border-border" 
+        className="w-64 p-3 bg-background border-border" 
         align="end"
         sideOffset={8}
       >
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="menu" className="border-none">
-            <AccordionTrigger className="py-2 px-3 hover:bg-muted rounded-md">
-              <div className="flex items-center gap-2">
-                <UserAvatar initials={initials} src={src} size="sm" />
-                <span className="text-sm font-medium">Account</span>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className="pt-2">
-              <div className="space-y-1">
-                {menuItems.map((item) => (
-                  <div
-                    key={item.label}
-                    className="flex items-center gap-3 px-3 py-2 text-sm rounded-md hover:bg-muted cursor-not-allowed opacity-60"
-                  >
-                    <span className="text-lg">{item.icon}</span>
-                    <span>{item.label}</span>
-                  </div>
-                ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+        <div className="space-y-1">
+          {menuItems.map((item) => (
+            <div
+              key={item.label}
+              className="flex items-center gap-3 px-3 py-2 text-sm rounded-md hover:bg-muted cursor-not-allowed opacity-60 transition-colors"
+            >
+              <span className="text-lg">{item.icon}</span>
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </div>
       </PopoverContent>
     </Popover>
   );
