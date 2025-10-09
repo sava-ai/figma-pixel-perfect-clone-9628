@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserAvatar } from '@/components/UserAvatar';
+import { UserMenu } from '@/components/UserMenu';
 import { JobCard } from '@/components/JobCard';
 import { AIChatOverlay } from '@/components/AIChatOverlay';
 import { MessagesOverlay } from '@/components/MessagesOverlay';
@@ -125,7 +126,7 @@ const Index = () => {
 
         {/* Right sidebar */}
         <aside className="fixed right-4 top-8 flex flex-col gap-4">
-          <UserAvatar initials="TW" />
+          <UserMenu initials="TW" />
           <button 
             ref={chatButtonRef}
             onClick={() => setIsMessagesOpen(true)}
