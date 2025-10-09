@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { CheckCircle2, Sparkles, MessageSquare, ChevronDown } from 'lucide-react';
 import { AskAIPopover } from '@/components/AskAIPopover';
 import { useAIPersonalize } from '@/hooks/useAIPersonalize';
@@ -196,35 +195,35 @@ export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDia
                           </TableCell>
                           <TableCell>
                             {hasMultipleEmails ? (
-                              <Accordion type="single" collapsible className="w-full">
-                                <AccordionItem value="emails" className="border-none">
-                                  <AccordionTrigger className="py-0 hover:no-underline">
-                                    <div className="flex items-center gap-2 text-muted-foreground">
-                                      <span>{selectedEmail}</span>
-                                      <span className="text-xs bg-muted px-1.5 py-0.5 rounded">
-                                        +{emails.length - 1}
-                                      </span>
-                                    </div>
-                                  </AccordionTrigger>
-                                  <AccordionContent className="pb-2">
-                                    <div className="space-y-1 mt-2">
-                                      {emails.map((email, index) => (
-                                        <button
-                                          key={index}
-                                          onClick={() => selectEmail(candidate.id, email)}
-                                          className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
-                                            selectedEmail === email
-                                              ? 'bg-primary/10 text-primary font-medium'
-                                              : 'hover:bg-muted text-muted-foreground'
-                                          }`}
-                                        >
-                                          {email}
-                                        </button>
-                                      ))}
-                                    </div>
-                                  </AccordionContent>
-                                </AccordionItem>
-                              </Accordion>
+                              <Popover>
+                                <PopoverTrigger asChild>
+                                  <button className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+                                    <span>{selectedEmail}</span>
+                                    <span className="text-xs bg-muted px-1.5 py-0.5 rounded">
+                                      +{emails.length - 1}
+                                    </span>
+                                    <ChevronDown className="w-3 h-3" />
+                                  </button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-80 p-3 bg-background border shadow-lg z-[100]" align="start">
+                                  <div className="space-y-2">
+                                    <div className="text-sm font-semibold mb-3">Select email address</div>
+                                    {emails.map((email, index) => (
+                                      <button
+                                        key={index}
+                                        onClick={() => selectEmail(candidate.id, email)}
+                                        className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                                          selectedEmail === email
+                                            ? 'bg-primary/10 text-primary font-medium'
+                                            : 'hover:bg-muted text-muted-foreground'
+                                        }`}
+                                      >
+                                        {email}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </PopoverContent>
+                              </Popover>
                             ) : (
                               <span className="text-muted-foreground">{emails[0]}</span>
                             )}
