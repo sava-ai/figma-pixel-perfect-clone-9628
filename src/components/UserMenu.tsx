@@ -4,6 +4,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Settings, Users, Link2, FileText, BookOpen, LogOut } from 'lucide-react';
 import { UserAvatar } from '@/components/UserAvatar';
 
 interface UserMenuProps {
@@ -13,12 +14,12 @@ interface UserMenuProps {
 
 export const UserMenu: React.FC<UserMenuProps> = ({ initials = "TW", src }) => {
   const menuItems = [
-    { label: "Settings", icon: "⚙️" },
-    { label: "Team", icon: "👥" },
-    { label: "Integrations", icon: "🔗" },
-    { label: "Templates", icon: "📄" },
-    { label: "Knowledge", icon: "📚" },
-    { label: "Logout", icon: "🚪" },
+    { label: "Settings", icon: Settings },
+    { label: "Team", icon: Users },
+    { label: "Integrations", icon: Link2 },
+    { label: "Templates", icon: FileText },
+    { label: "Knowledge", icon: BookOpen },
+    { label: "Logout", icon: LogOut },
   ];
 
   return (
@@ -29,20 +30,23 @@ export const UserMenu: React.FC<UserMenuProps> = ({ initials = "TW", src }) => {
         </button>
       </PopoverTrigger>
       <PopoverContent 
-        className="w-64 p-3 bg-background border-border" 
+        className="w-56 p-2" 
         align="end"
         sideOffset={8}
       >
         <div className="space-y-1">
-          {menuItems.map((item) => (
-            <div
-              key={item.label}
-              className="flex items-center gap-3 px-3 py-2 text-sm rounded-md hover:bg-muted cursor-not-allowed opacity-60 transition-colors"
-            >
-              <span className="text-lg">{item.icon}</span>
-              <span>{item.label}</span>
-            </div>
-          ))}
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <button
+                key={item.label}
+                className="w-full flex items-center gap-3 px-3 py-2 text-sm rounded-md hover:bg-muted cursor-not-allowed opacity-60 transition-colors"
+              >
+                <Icon className="h-4 w-4" />
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
         </div>
       </PopoverContent>
     </Popover>
