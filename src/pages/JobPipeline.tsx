@@ -6,6 +6,7 @@ import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import { InviteDialog } from '@/components/InviteDialog';
 import { JobChatPanel } from '@/components/JobChatPanel';
+import { RejectionDialog } from '@/components/RejectionDialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import userAvatarImage from '@/assets/user-avatar.png';
@@ -255,6 +256,7 @@ const JobPipeline = () => {
   const [activeTab, setActiveTab] = useState<'job' | 'people' | 'pipeline'>('pipeline');
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
+  const [rejectionDialogOpen, setRejectionDialogOpen] = useState(false);
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
   const [activeDragId, setActiveDragId] = useState<string | null>(null);
 
@@ -412,6 +414,16 @@ const JobPipeline = () => {
     { id: 1, title: 'Senior product designer' },
     { id: 2, title: 'Backend Engineer' },
     { id: 3, title: 'Frontend Developer' }
+  ];
+
+  // Sample rejected candidates for mass rejection
+  const rejectedCandidates = [
+    { id: 1, name: "Michael Johnson", email: "michael.j@email.com", image: profile1, appliedDate: "2024-01-15" },
+    { id: 2, name: "Sarah Williams", email: "sarah.w@email.com", image: profile2, appliedDate: "2024-01-16" },
+    { id: 3, name: "David Brown", email: "david.b@email.com", image: profile3, appliedDate: "2024-01-17" },
+    { id: 4, name: "Emily Davis", email: "emily.d@email.com", image: profile4, appliedDate: "2024-01-18" },
+    { id: 5, name: "James Wilson", email: "james.w@email.com", image: profile5, appliedDate: "2024-01-19" },
+    { id: 6, name: "Lisa Anderson", email: "lisa.a@email.com", image: profile6, appliedDate: "2024-01-20" },
   ];
 
   const handleDragStart = (event: DragStartEvent) => {
@@ -635,9 +647,25 @@ const JobPipeline = () => {
                       >
                         <div className="mb-4 flex items-center justify-between">
                           <h3 className="font-medium text-sm text-foreground">{column.title}</h3>
-                          <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
-                            {column.candidates.length}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
+                              {column.candidates.length}
+                            </span>
+                            {column.id === 'rejected' && (
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <button className="text-muted-foreground hover:text-foreground transition-colors">
+                                    <MoreHorizontal className="w-4 h-4" />
+                                  </button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuItem onClick={() => setRejectionDialogOpen(true)}>
+                                    Mass reject
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            )}
+                          </div>
                         </div>
                         <div 
                           className="flex-1 rounded-xl p-3 overflow-y-auto"
@@ -705,6 +733,11 @@ const JobPipeline = () => {
       </ResizablePanelGroup>
 
       <InviteDialog open={inviteDialogOpen} onOpenChange={setInviteDialogOpen} />
+      <RejectionDialog 
+        open={rejectionDialogOpen} 
+        onOpenChange={setRejectionDialogOpen}
+        candidates={rejectedCandidates}
+      />
     </div>
   );
 };
