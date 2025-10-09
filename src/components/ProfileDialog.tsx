@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Mail, Linkedin, Phone, Link as LinkIcon, Award, FileText, ExternalLink, ChevronLeft, ChevronRight, Sparkles, Paperclip, X, Edit2, Plus } from "lucide-react";
+import { Mail, Linkedin, Phone, Link as LinkIcon, Award, FileText, ExternalLink, ChevronLeft, ChevronRight, Sparkles, Paperclip } from "lucide-react";
 import * as React from "react";
 import { AskAIPopover } from "@/components/AskAIPopover";
 import { useAIPersonalize } from "@/hooks/useAIPersonalize";
@@ -19,19 +19,6 @@ interface Role {
   role: string;
 }
 
-interface Document {
-  id: string;
-  name: string;
-  type: string;
-  url: string;
-}
-
-interface Note {
-  id: string;
-  content: string;
-  date: string;
-}
-
 interface Candidate {
   id: number;
   name: string;
@@ -41,8 +28,6 @@ interface Candidate {
   description: string;
   roles: Role[];
   engagementRate: number;
-  documents?: Document[];
-  notes?: Note[];
 }
 
 interface ProfileDialogProps {
@@ -65,12 +50,6 @@ I hope you're doing well. My name is Sarah Whitman, and I'm a recruiter at Ares 
 Looking forward to connecting!`);
   
   const { isPersonalizing, personalizeText } = useAIPersonalize();
-  const [selectedDocument, setSelectedDocument] = React.useState<Document | null>(null);
-  const [documentDialogOpen, setDocumentDialogOpen] = React.useState(false);
-  const [notes, setNotes] = React.useState<Note[]>(candidate.notes || []);
-  const [noteDialogOpen, setNoteDialogOpen] = React.useState(false);
-  const [noteText, setNoteText] = React.useState('');
-  const [editingNote, setEditingNote] = React.useState<string | null>(null);
 
   const handlePersonalize = async () => {
     const personalized = await personalizeText(messageBody, {
@@ -78,44 +57,6 @@ Looking forward to connecting!`);
       role: candidate.roles[0]?.role || 'Product Designer'
     });
     setMessageBody(personalized);
-  };
-
-  const handleAddNote = () => {
-    if (!noteText.trim()) return;
-    
-    if (editingNote) {
-      setNotes(notes.map(note => 
-        note.id === editingNote 
-          ? { ...note, content: noteText, date: new Date().toISOString() }
-          : note
-      ));
-      setEditingNote(null);
-    } else {
-      const newNote: Note = {
-        id: Date.now().toString(),
-        content: noteText,
-        date: new Date().toISOString()
-      };
-      setNotes([...notes, newNote]);
-    }
-    
-    setNoteText('');
-    setNoteDialogOpen(false);
-  };
-
-  const handleEditNote = (note: Note) => {
-    setNoteText(note.content);
-    setEditingNote(note.id);
-    setNoteDialogOpen(true);
-  };
-
-  const handleDeleteNote = (noteId: string) => {
-    setNotes(notes.filter(note => note.id !== noteId));
-  };
-
-  const handleOpenDocument = (doc: Document) => {
-    setSelectedDocument(doc);
-    setDocumentDialogOpen(true);
   };
 
   const achievements = [
@@ -197,81 +138,15 @@ Looking forward to connecting!`);
                 <div className="space-y-4">
                   <h4 className="text-lg font-semibold">About</h4>
                   
-                  {/* CV/Documents Section */}
-                  {candidate.documents && candidate.documents.length > 0 && (
-                    <div className="space-y-3">
-                      <h5 className="text-sm font-semibold">CV & Documents</h5>
-                      <div className="space-y-2">
-                        {candidate.documents.map((doc) => (
-                          <button
-                            key={doc.id}
-                            onClick={() => handleOpenDocument(doc)}
-                            className="w-full flex items-center gap-3 p-3 rounded-lg border hover:bg-muted transition-colors"
-                          >
-                            <FileText className="w-4 h-4 text-primary" />
-                            <div className="flex-1 text-left">
-                              <p className="text-sm font-medium">{doc.name}</p>
-                              <p className="text-xs text-muted-foreground">{doc.type}</p>
-                            </div>
-                            <ExternalLink className="w-4 h-4 text-muted-foreground" />
-                          </button>
-                        ))}
-                      </div>
-                      <Separator className="my-4" />
-                    </div>
-                  )}
-
-                  {/* AI CV Analysis */}
-                  <div className="rounded-lg p-4 space-y-3" style={{ backgroundColor: '#FAF8F4' }}>
+                  {/* AI Analysis */}
+                  <div className="rounded-lg p-4 space-y-2" style={{ backgroundColor: '#FAF8F4' }}>
                     <div className="flex items-center gap-2">
                       <Sparkles className="w-4 h-4 text-primary" />
-                      <p className="text-sm font-medium">AI CV Analysis</p>
+                      <p className="text-sm font-medium">AI Analysis</p>
                     </div>
-                    
-                    {/* Culture Fit */}
-                    <div className="space-y-2">
-                      <p className="text-xs font-semibold text-muted-foreground uppercase">Culture Fit</p>
-                      <p className="text-sm text-black leading-relaxed font-light">
-                        <span className="font-normal">{candidate.name}</span> demonstrates strong alignment with collaborative, innovation-driven environments. Their experience at fast-paced companies shows adaptability and a <span className="font-normal">proactive mindset</span>.
-                      </p>
-                    </div>
-
-                    {/* Core Skills */}
-                    <div className="space-y-2">
-                      <p className="text-xs font-semibold text-muted-foreground uppercase">Core Required Skills</p>
-                      <div className="flex flex-wrap gap-2">
-                        <Badge variant="secondary" className="bg-primary/10 text-primary">User Research</Badge>
-                        <Badge variant="secondary" className="bg-primary/10 text-primary">Prototyping</Badge>
-                        <Badge variant="secondary" className="bg-primary/10 text-primary">Design Systems</Badge>
-                        <Badge variant="secondary" className="bg-primary/10 text-primary">Figma</Badge>
-                        <Badge variant="secondary" className="bg-primary/10 text-primary">Cross-functional Leadership</Badge>
-                      </div>
-                    </div>
-
-                    {/* Advanced Analysis Accordion */}
-                    <Accordion type="single" collapsible className="w-full">
-                      <AccordionItem value="personality" className="border-none">
-                        <AccordionTrigger className="py-2 text-sm font-semibold text-muted-foreground uppercase hover:no-underline">
-                          Personality Analysis
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          <p className="text-sm text-black leading-relaxed font-light">
-                            Based on work history and achievements, {candidate.name} exhibits traits of a <span className="font-normal">collaborative leader</span> with strong <span className="font-normal">problem-solving abilities</span>. Their portfolio demonstrates attention to detail and a user-centric approach, suggesting high emotional intelligence and empathy.
-                          </p>
-                        </AccordionContent>
-                      </AccordionItem>
-                      
-                      <AccordionItem value="potential" className="border-none">
-                        <AccordionTrigger className="py-2 text-sm font-semibold text-muted-foreground uppercase hover:no-underline">
-                          Role Fit & Potential
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          <p className="text-sm text-black leading-relaxed font-light">
-                            <span className="font-normal">Excellent match</span> for the Product Designer role. Their progression from intern to senior positions shows <span className="font-normal">strong growth trajectory</span>. Experience in fintech aligns perfectly with our domain. Potential to take on <span className="font-normal">leadership responsibilities</span> and mentor junior team members.
-                          </p>
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
+                    <p className="text-sm text-black leading-relaxed font-light">
+                      <span className="font-normal">{candidate.name}</span> is an <span className="font-normal">exceptional match</span> for the <span className="font-normal">Product Designer position</span>. With <span className="font-normal">extensive experience in fintech</span> and <span className="font-normal">proven leadership abilities</span>, they demonstrate <span className="font-normal">strong alignment</span> with the role requirements. Their portfolio showcases a deep understanding of <span className="font-normal">user-centered design principles</span> and ability to balance business objectives with user needs. The candidate has a track record of <span className="font-normal">successful product launches</span> and team collaboration, making them an <span className="font-normal">ideal fit</span> for a fast-paced, innovation-driven environment.
+                    </p>
                   </div>
 
                   {/* Experience */}
@@ -341,46 +216,6 @@ Looking forward to connecting!`);
                       </div>
                     </div>
                   </div>
-
-                  {/* Notes Section */}
-                  {notes.length > 0 && (
-                    <div className="space-y-3">
-                      <h5 className="text-sm font-semibold">Notes</h5>
-                      <div className="space-y-2">
-                        {notes.map((note) => (
-                          <div key={note.id} className="p-3 rounded-lg border bg-muted/30">
-                            <div className="flex items-start justify-between gap-2 mb-2">
-                              <p className="text-xs text-muted-foreground">
-                                {new Date(note.date).toLocaleDateString('en-US', { 
-                                  year: 'numeric', 
-                                  month: 'short', 
-                                  day: 'numeric',
-                                  hour: '2-digit',
-                                  minute: '2-digit'
-                                })}
-                              </p>
-                              <div className="flex gap-1">
-                                <button
-                                  onClick={() => handleEditNote(note)}
-                                  className="p-1 hover:bg-background rounded transition-colors"
-                                >
-                                  <Edit2 className="w-3 h-3 text-muted-foreground" />
-                                </button>
-                                <button
-                                  onClick={() => handleDeleteNote(note.id)}
-                                  className="p-1 hover:bg-background rounded transition-colors"
-                                >
-                                  <X className="w-3 h-3 text-muted-foreground" />
-                                </button>
-                              </div>
-                            </div>
-                            <p className="text-sm">{note.content}</p>
-                          </div>
-                        ))}
-                      </div>
-                      <Separator className="my-4" />
-                    </div>
-                  )}
                 </div>
               </div>
 
@@ -533,28 +368,14 @@ Looking forward to connecting!`);
 
           {/* Footer */}
           <div className="border-t px-6 py-4 flex items-center justify-between">
-            <div className="flex gap-2">
-              <Button 
-                variant="ghost" 
-                onClick={onPrevious}
-                className="gap-2"
-              >
-                <ChevronLeft className="w-4 h-4" />
-                Previous
-              </Button>
-              <Button 
-                variant="outline"
-                onClick={() => {
-                  setNoteText('');
-                  setEditingNote(null);
-                  setNoteDialogOpen(true);
-                }}
-                className="gap-2"
-              >
-                <Plus className="w-4 h-4" />
-                Add note
-              </Button>
-            </div>
+            <Button 
+              variant="ghost" 
+              onClick={onPrevious}
+              className="gap-2"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              Previous
+            </Button>
             <div className="flex gap-2">
               <Button 
                 variant="outline" 
@@ -573,69 +394,6 @@ Looking forward to connecting!`);
           </div>
         </div>
       </DialogContent>
-
-      {/* Document Viewer Dialog */}
-      <Dialog open={documentDialogOpen} onOpenChange={setDocumentDialogOpen}>
-        <DialogContent className="max-w-4xl h-[90vh] p-0 flex flex-col">
-          <div className="px-6 py-4 border-b flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold">{selectedDocument?.name}</h3>
-              <p className="text-sm text-muted-foreground">{selectedDocument?.type}</p>
-            </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setDocumentDialogOpen(false)}
-            >
-              <X className="w-4 h-4" />
-            </Button>
-          </div>
-          <div className="flex-1 overflow-auto p-6">
-            {selectedDocument && (
-              <iframe
-                src={selectedDocument.url}
-                className="w-full h-full rounded-lg border"
-                title={selectedDocument.name}
-              />
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Add/Edit Note Dialog */}
-      <Dialog open={noteDialogOpen} onOpenChange={setNoteDialogOpen}>
-        <DialogContent className="max-w-md">
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg font-semibold">{editingNote ? 'Edit Note' : 'Add Note'}</h3>
-              <p className="text-sm text-muted-foreground">
-                Add notes about {candidate.name} for future reference
-              </p>
-            </div>
-            <Textarea
-              value={noteText}
-              onChange={(e) => setNoteText(e.target.value)}
-              placeholder="Enter your note here..."
-              className="min-h-[150px]"
-            />
-            <div className="flex justify-end gap-2">
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setNoteDialogOpen(false);
-                  setNoteText('');
-                  setEditingNote(null);
-                }}
-              >
-                Cancel
-              </Button>
-              <Button onClick={handleAddNote}>
-                {editingNote ? 'Update Note' : 'Save Note'}
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
     </Dialog>
   );
 };

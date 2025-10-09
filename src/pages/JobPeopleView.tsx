@@ -81,23 +81,7 @@ const JobPeopleView = () => {
     }],
     currentRoleIndex: 0, // Currently at Klarna
     engagementRate: 85,
-    tags: ['AI sourced'],
-    documents: [{
-      id: '1',
-      name: 'Sarah_Chapman_CV_2025.pdf',
-      type: 'PDF Document',
-      url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-    }, {
-      id: '2',
-      name: 'Portfolio_Presentation.pdf',
-      type: 'PDF Document',
-      url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-    }],
-    notes: [{
-      id: '1',
-      content: 'Great cultural fit, very enthusiastic about our mission. Mentioned interest in leading design systems work.',
-      date: '2025-01-15T10:30:00Z'
-    }]
+    tags: ['AI sourced']
   }, {
     id: 2,
     name: "Marcus Andersson",
