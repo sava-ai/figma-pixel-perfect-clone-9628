@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, X, ArrowDown, ArrowUp } from 'lucide-react';
+import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, X, ArrowDown, ArrowUp, ChevronRight as ChevronRightIcon } from 'lucide-react';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import { InviteDialog } from '@/components/InviteDialog';
+import { PublishingPlatformsDialog } from '@/components/PublishingPlatformsDialog';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
 
@@ -11,6 +12,7 @@ const Job = () => {
   const [activeTab, setActiveTab] = useState<'job' | 'people' | 'pipeline'>('job');
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
+  const [platformsDialogOpen, setPlatformsDialogOpen] = useState(false);
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
   const [chatMode, setChatMode] = useState<'personal' | 'team'>('personal');
   const [showThinking, setShowThinking] = useState(true);
@@ -390,17 +392,30 @@ Qualifications
                   </div>
                 ) : <div />}
                 
-                <button
-                  onClick={handlePublish}
-                  disabled={isPublished}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    isPublished
-                      ? 'bg-green-50 text-green-700 border border-green-200 cursor-default'
-                      : 'bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-md hover:shadow-lg border border-gray-700'
-                  }`}
-                >
-                  {isPublished ? 'Published' : 'Publish'}
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={handlePublish}
+                    disabled={isPublished}
+                    className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                      isPublished
+                        ? 'bg-green-50 text-green-700 border border-green-200 cursor-default'
+                        : 'bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-md hover:shadow-lg border border-gray-700'
+                    }`}
+                  >
+                    {isPublished ? 'Published' : 'Publish'}
+                  </button>
+                  
+                  {isPublished && (
+                    <button
+                      onClick={() => setPlatformsDialogOpen(true)}
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md border border-gray-200"
+                    >
+                      <span>View</span>
+                      <ChevronRightIcon className="w-4 h-4" />
+                      <span className="text-xs">(9)</span>
+                    </button>
+                  )}
+                </div>
               </div>
               
               <div 
@@ -667,6 +682,7 @@ Qualifications
       </ResizablePanelGroup>
 
       <InviteDialog open={inviteDialogOpen} onOpenChange={setInviteDialogOpen} />
+      <PublishingPlatformsDialog open={platformsDialogOpen} onOpenChange={setPlatformsDialogOpen} />
     </div>
   );
 };
