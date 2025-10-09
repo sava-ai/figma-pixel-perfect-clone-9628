@@ -412,7 +412,7 @@ Qualifications
                     >
                       <span>View</span>
                       <ChevronRightIcon className="w-4 h-4" />
-                      <span className="text-xs">(9)</span>
+                      <span>(9)</span>
                     </button>
                   )}
                 </div>
