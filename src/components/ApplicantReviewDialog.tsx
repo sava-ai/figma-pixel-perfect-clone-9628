@@ -212,7 +212,7 @@ Looking forward to connecting!`);
                     <div className="rounded-lg p-4 border space-y-4">
                       <div className="flex items-center gap-2">
                         <Sparkles className="w-4 h-4 text-primary" />
-                        <h5 className="text-sm font-semibold">AI CV Analysis</h5>
+                        <h5 className="text-sm font-semibold">CV Analysis</h5>
                       </div>
 
                       {/* Culture Fit */}
