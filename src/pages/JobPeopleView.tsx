@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronDown, MoreVertical, ChevronLeft, Search, Filter } from 'lucide-react';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import { ProfileDialog } from '@/components/ProfileDialog';
+import { ApplicantReviewDialog } from '@/components/ApplicantReviewDialog';
 import { RejectionDialog } from '@/components/RejectionDialog';
 import { InviteDialog } from '@/components/InviteDialog';
 import { JobChatPanel } from '@/components/JobChatPanel';
@@ -40,6 +41,7 @@ const JobPeopleView = () => {
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState<typeof bestCandidates[0] | null>(null);
   const [profileDialogOpen, setProfileDialogOpen] = useState(false);
+  const [applicantReviewDialogOpen, setApplicantReviewDialogOpen] = useState(false);
   const [rejectionDialogOpen, setRejectionDialogOpen] = useState(false);
   const [bulkContactDialogOpen, setBulkContactDialogOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
@@ -228,7 +230,13 @@ const JobPeopleView = () => {
     }],
     currentRoleIndex: 0, // Currently at Tobii
     engagementRate: 76,
-    tags: ['Applicant']
+    tags: ['Applicant'],
+    documents: [
+      { id: 1, name: 'Alexander_Berg_CV.pdf', type: 'PDF Document', url: '#' },
+      { id: 2, name: 'Portfolio_2025.pdf', type: 'PDF Document', url: '#' },
+      { id: 3, name: 'Cover_Letter.pdf', type: 'PDF Document', url: '#' }
+    ],
+    notes: []
   }];
 
   const filteredCandidates = selectedTags.length === 0 
@@ -388,7 +396,16 @@ const JobPeopleView = () => {
                         <p className="text-sm text-slate-950">Applicants</p>
                       </div>
                       <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">{applicantsCount}</p>
-                      <button className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors">
+                      <button 
+                        onClick={() => {
+                          const applicant = bestCandidates.find(c => c.tags.includes('Applicant'));
+                          if (applicant) {
+                            setSelectedCandidate(applicant);
+                            setApplicantReviewDialogOpen(true);
+                          }
+                        }}
+                        className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
+                      >
                         <span className="text-gray-950">Review now</span>
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -699,6 +716,38 @@ const JobPeopleView = () => {
             setSelectedCandidate(bestCandidates[currentIndex + 1]);
           } else {
             setProfileDialogOpen(false);
+          }
+        }}
+      />
+
+      {/* Applicant Review Dialog */}
+      <ApplicantReviewDialog
+        candidate={selectedCandidate}
+        open={applicantReviewDialogOpen}
+        onOpenChange={setApplicantReviewDialogOpen}
+        onPrevious={() => {
+          const applicants = bestCandidates.filter(c => c.tags.includes('Applicant'));
+          const currentIndex = applicants.findIndex(c => c.id === selectedCandidate?.id);
+          if (currentIndex > 0) {
+            setSelectedCandidate(applicants[currentIndex - 1]);
+          }
+        }}
+        onNext={() => {
+          const applicants = bestCandidates.filter(c => c.tags.includes('Applicant'));
+          const currentIndex = applicants.findIndex(c => c.id === selectedCandidate?.id);
+          if (currentIndex < applicants.length - 1) {
+            setSelectedCandidate(applicants[currentIndex + 1]);
+          } else {
+            setApplicantReviewDialogOpen(false);
+          }
+        }}
+        onSkip={() => {
+          const applicants = bestCandidates.filter(c => c.tags.includes('Applicant'));
+          const currentIndex = applicants.findIndex(c => c.id === selectedCandidate?.id);
+          if (currentIndex < applicants.length - 1) {
+            setSelectedCandidate(applicants[currentIndex + 1]);
+          } else {
+            setApplicantReviewDialogOpen(false);
           }
         }}
       />
