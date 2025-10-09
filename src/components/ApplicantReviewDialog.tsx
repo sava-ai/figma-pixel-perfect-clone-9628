@@ -274,6 +274,121 @@ Looking forward to connecting!`);
                     </div>
                     <Separator className="my-4" />
 
+                    {/* Overall AI Analysis */}
+                    <div className="rounded-lg p-4 border space-y-4" style={{ backgroundColor: '#F8FAFC' }}>
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-primary" />
+                        <h5 className="text-sm font-semibold">Overall AI Analysis</h5>
+                      </div>
+
+                      {/* Online Presence Score */}
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <h6 className="text-xs font-semibold">Digital Footprint Score</h6>
+                          <span className="text-xs font-medium text-primary">92/100</span>
+                        </div>
+                        <div className="h-2 bg-muted rounded-full overflow-hidden">
+                          <div className="h-full bg-gradient-to-r from-primary to-primary/80 w-[92%] transition-all" />
+                        </div>
+                      </div>
+
+                      {/* Internet Projects Analysis */}
+                      <div className="space-y-2">
+                        <h6 className="text-xs font-semibold">Internet Projects & Portfolio</h6>
+                        <div className="rounded-lg p-3 bg-white border space-y-2">
+                          <div className="flex items-start gap-2">
+                            <div className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                            <p className="text-xs leading-relaxed">
+                              <span className="font-medium">GitHub Activity:</span> 847 contributions last year. Active maintainer of 3 open-source design system projects with 2.3k+ stars combined.
+                            </p>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <div className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                            <p className="text-xs leading-relaxed">
+                              <span className="font-medium">Portfolio Website:</span> Professional portfolio showcasing 12 case studies with detailed UX process documentation. Strong emphasis on data-driven design decisions.
+                            </p>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <div className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                            <p className="text-xs leading-relaxed">
+                              <span className="font-medium">Dribbble & Behance:</span> 15k+ followers combined. Consistent posting of high-quality work. Featured in "Top Designers 2024" collection.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Online Reputation */}
+                      <div className="space-y-2">
+                        <h6 className="text-xs font-semibold">Community & Thought Leadership</h6>
+                        <div className="rounded-lg p-3 bg-white border space-y-2">
+                          <div className="flex items-start gap-2">
+                            <div className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                            <p className="text-xs leading-relaxed">
+                              Speaker at 2 major design conferences (Config 2024, UX Copenhagen 2023)
+                            </p>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <div className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                            <p className="text-xs leading-relaxed">
+                              Published 8 articles on Medium about AI-driven design tools (avg. 3.2k views)
+                            </p>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <div className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                            <p className="text-xs leading-relaxed">
+                              Active mentor on ADPList with 4.9/5 rating from 47 mentees
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Comprehensive Assessment */}
+                      <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="comprehensive" className="border rounded-lg bg-white">
+                          <AccordionTrigger className="px-3 py-2 hover:no-underline">
+                            <div className="flex items-center gap-2">
+                              <Sparkles className="w-3 h-3 text-primary" />
+                              <span className="text-xs">Full Profile Assessment</span>
+                            </div>
+                          </AccordionTrigger>
+                          <AccordionContent className="px-3 pb-3">
+                            <div className="space-y-3">
+                              <div>
+                                <h6 className="text-xs font-semibold mb-1">Technical Skills</h6>
+                                <p className="text-xs text-muted-foreground leading-relaxed">
+                                  Demonstrates advanced proficiency in Figma, Framer, and Adobe Creative Suite. Strong understanding of modern web technologies (React, TypeScript) evident from GitHub contributions.
+                                </p>
+                              </div>
+                              <Separator />
+                              <div>
+                                <h6 className="text-xs font-semibold mb-1">Industry Recognition</h6>
+                                <p className="text-xs text-muted-foreground leading-relaxed">
+                                  Forbes 30 Under 30 (2024). Featured in 3 major design publications. Projects have been awarded by Awwwards and CSS Design Awards.
+                                </p>
+                              </div>
+                              <Separator />
+                              <div>
+                                <h6 className="text-xs font-semibold mb-1">Cultural Alignment</h6>
+                                <p className="text-xs text-muted-foreground leading-relaxed">
+                                  Strong advocate for inclusive design and accessibility. Volunteers time teaching design to underrepresented communities. Values align perfectly with company mission.
+                                </p>
+                              </div>
+                              <Separator />
+                              <div>
+                                <h6 className="text-xs font-semibold mb-1">Overall Recommendation</h6>
+                                <div className="rounded p-2 bg-primary/5 border border-primary/20">
+                                  <p className="text-xs font-medium text-primary leading-relaxed">
+                                    Exceptional candidate with proven track record both in traditional work experience and online presence. Strong community engagement and thought leadership position them as an ideal culture fit. Highly recommend proceeding to interview stage.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
+                    </div>
+                    <Separator className="my-4" />
+
                     {/* Experience */}
                     <div className="space-y-3">
                       <h5 className="text-sm font-semibold">Experience</h5>
