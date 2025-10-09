@@ -418,11 +418,11 @@ const JobPipeline = () => {
 
   // Sample rejected candidates for mass rejection
   const rejectedCandidates = [
-    { id: 1, name: "Michael Johnson", email: "michael.j@email.com", image: profile1, appliedDate: "2024-01-15" },
+    { id: 1, name: "Michael Johnson", email: ["michael.j@email.com", "m.johnson@work.com"], image: profile1, appliedDate: "2024-01-15" },
     { id: 2, name: "Sarah Williams", email: "sarah.w@email.com", image: profile2, appliedDate: "2024-01-16" },
-    { id: 3, name: "David Brown", email: "david.b@email.com", image: profile3, appliedDate: "2024-01-17" },
+    { id: 3, name: "David Brown", email: ["david.b@email.com", "d.brown@personal.com", "david@freelance.com"], image: profile3, appliedDate: "2024-01-17" },
     { id: 4, name: "Emily Davis", email: "emily.d@email.com", image: profile4, appliedDate: "2024-01-18" },
-    { id: 5, name: "James Wilson", email: "james.w@email.com", image: profile5, appliedDate: "2024-01-19" },
+    { id: 5, name: "James Wilson", email: ["james.w@email.com", "j.wilson@company.com"], image: profile5, appliedDate: "2024-01-19" },
     { id: 6, name: "Lisa Anderson", email: "lisa.a@email.com", image: profile6, appliedDate: "2024-01-20" },
   ];
 

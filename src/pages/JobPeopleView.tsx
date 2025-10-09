@@ -275,11 +275,11 @@ const JobPeopleView = () => {
   }];
 
   const rejectedCandidates = [
-    { id: 1, name: "Michael Johnson", email: "michael.j@email.com", image: profile9, appliedDate: "2024-01-15" },
+    { id: 1, name: "Michael Johnson", email: ["michael.j@email.com", "m.johnson@work.com"], image: profile9, appliedDate: "2024-01-15" },
     { id: 2, name: "Sarah Williams", email: "sarah.w@email.com", image: profile10, appliedDate: "2024-01-16" },
-    { id: 3, name: "David Brown", email: "david.b@email.com", image: profile11, appliedDate: "2024-01-17" },
+    { id: 3, name: "David Brown", email: ["david.b@email.com", "d.brown@personal.com", "david@freelance.com"], image: profile11, appliedDate: "2024-01-17" },
     { id: 4, name: "Emily Davis", email: "emily.d@email.com", image: profile12, appliedDate: "2024-01-18" },
-    { id: 5, name: "James Wilson", email: "james.w@email.com", image: profile13, appliedDate: "2024-01-19" },
+    { id: 5, name: "James Wilson", email: ["james.w@email.com", "j.wilson@company.com"], image: profile13, appliedDate: "2024-01-19" },
     { id: 6, name: "Lisa Anderson", email: "lisa.a@email.com", image: profile14, appliedDate: "2024-01-20" },
     { id: 7, name: "Robert Taylor", email: "robert.t@email.com", image: profile15, appliedDate: "2024-01-21" },
     { id: 8, name: "Jennifer Thomas", email: "jennifer.t@email.com", image: profile16, appliedDate: "2024-01-22" },

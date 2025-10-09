@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { CheckCircle2, Sparkles, MessageSquare, ChevronDown } from 'lucide-react';
 import { AskAIPopover } from '@/components/AskAIPopover';
 import { useAIPersonalize } from '@/hooks/useAIPersonalize';
@@ -13,7 +14,7 @@ import { useAIPersonalize } from '@/hooks/useAIPersonalize';
 interface RejectedCandidate {
   id: number;
   name: string;
-  email: string;
+  email: string | string[];
   image: string;
   appliedDate: string;
 }
@@ -48,6 +49,7 @@ const templates = [
 export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDialogProps) {
   const [step, setStep] = useState(1);
   const [selectedCandidates, setSelectedCandidates] = useState<Set<number>>(new Set());
+  const [selectedEmails, setSelectedEmails] = useState<Map<number, string>>(new Map());
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
   const { isPersonalizing, personalizeText } = useAIPersonalize();
@@ -70,14 +72,34 @@ export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDia
     }
   };
 
-  const toggleCandidate = (id: number) => {
+  const toggleCandidate = (id: number, email?: string) => {
     const newSelected = new Set(selectedCandidates);
+    const newEmails = new Map(selectedEmails);
+    
     if (newSelected.has(id)) {
       newSelected.delete(id);
+      newEmails.delete(id);
     } else {
       newSelected.add(id);
+      if (email) {
+        newEmails.set(id, email);
+      } else {
+        // Set default email
+        const candidate = candidates.find(c => c.id === id);
+        if (candidate) {
+          const defaultEmail = Array.isArray(candidate.email) ? candidate.email[0] : candidate.email;
+          newEmails.set(id, defaultEmail);
+        }
+      }
     }
     setSelectedCandidates(newSelected);
+    setSelectedEmails(newEmails);
+  };
+
+  const selectEmail = (candidateId: number, email: string) => {
+    const newEmails = new Map(selectedEmails);
+    newEmails.set(candidateId, email);
+    setSelectedEmails(newEmails);
   };
 
   const selectedList = candidates.filter(c => selectedCandidates.has(c.id));
@@ -106,6 +128,7 @@ export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDia
       setTimeout(() => {
         setStep(1);
         setSelectedCandidates(new Set());
+        setSelectedEmails(new Map());
         setSubject('');
         setBody('');
         setSendingProgress(0);
@@ -148,28 +171,68 @@ export function RejectionDialog({ open, onOpenChange, candidates }: RejectionDia
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {candidates.map((candidate) => (
-                      <TableRow key={candidate.id}>
-                        <TableCell>
-                          <Checkbox
-                            checked={selectedCandidates.has(candidate.id)}
-                            onCheckedChange={() => toggleCandidate(candidate.id)}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-3">
-                            <img 
-                              src={candidate.image} 
-                              alt={candidate.name}
-                              className="w-8 h-8 rounded-full object-cover"
+                    {candidates.map((candidate) => {
+                      const emails = Array.isArray(candidate.email) ? candidate.email : [candidate.email];
+                      const hasMultipleEmails = emails.length > 1;
+                      const selectedEmail = selectedEmails.get(candidate.id) || emails[0];
+                      
+                      return (
+                        <TableRow key={candidate.id}>
+                          <TableCell>
+                            <Checkbox
+                              checked={selectedCandidates.has(candidate.id)}
+                              onCheckedChange={() => toggleCandidate(candidate.id)}
                             />
-                            <span className="font-medium">{candidate.name}</span>
-                          </div>
-                        </TableCell>
-                        <TableCell className="text-muted-foreground">{candidate.email}</TableCell>
-                        <TableCell className="text-muted-foreground">{candidate.appliedDate}</TableCell>
-                      </TableRow>
-                    ))}
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-3">
+                              <img 
+                                src={candidate.image} 
+                                alt={candidate.name}
+                                className="w-8 h-8 rounded-full object-cover"
+                              />
+                              <span className="font-medium">{candidate.name}</span>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            {hasMultipleEmails ? (
+                              <Accordion type="single" collapsible className="w-full">
+                                <AccordionItem value="emails" className="border-none">
+                                  <AccordionTrigger className="py-0 hover:no-underline">
+                                    <div className="flex items-center gap-2 text-muted-foreground">
+                                      <span>{selectedEmail}</span>
+                                      <span className="text-xs bg-muted px-1.5 py-0.5 rounded">
+                                        +{emails.length - 1}
+                                      </span>
+                                    </div>
+                                  </AccordionTrigger>
+                                  <AccordionContent className="pb-2">
+                                    <div className="space-y-1 mt-2">
+                                      {emails.map((email, index) => (
+                                        <button
+                                          key={index}
+                                          onClick={() => selectEmail(candidate.id, email)}
+                                          className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                                            selectedEmail === email
+                                              ? 'bg-primary/10 text-primary font-medium'
+                                              : 'hover:bg-muted text-muted-foreground'
+                                          }`}
+                                        >
+                                          {email}
+                                        </button>
+                                      ))}
+                                    </div>
+                                  </AccordionContent>
+                                </AccordionItem>
+                              </Accordion>
+                            ) : (
+                              <span className="text-muted-foreground">{emails[0]}</span>
+                            )}
+                          </TableCell>
+                          <TableCell className="text-muted-foreground">{candidate.appliedDate}</TableCell>
+                        </TableRow>
+                      );
+                    })}
                   </TableBody>
                 </Table>
               </div>
