@@ -390,97 +390,123 @@ Looking forward to connecting!`);
                     <Separator className="my-4" />
 
                     {/* Experience */}
-                    <div className="space-y-3">
-                      <h5 className="text-sm font-semibold">Experience</h5>
-                      <div className="space-y-3">
-                        {candidate.roles.map((role, idx) => (
-                          <div key={idx} className="flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden bg-white border">
-                              <img 
-                                src={companyLogos[role.company] || aresLogo} 
-                                alt={role.company}
-                                className="w-full h-full object-contain p-1"
-                              />
-                            </div>
-                            <div>
-                              <p className="font-medium text-sm">{role.role}</p>
-                              <p className="text-xs text-muted-foreground">{role.company}</p>
-                            </div>
+                    <Accordion type="single" collapsible className="w-full">
+                      <AccordionItem value="experience" className="border rounded-lg">
+                        <AccordionTrigger className="px-3 py-2 hover:no-underline">
+                          <h5 className="text-sm font-semibold">Experience</h5>
+                        </AccordionTrigger>
+                        <AccordionContent className="px-3 pb-3">
+                          <div className="space-y-3">
+                            {candidate.roles.map((role, idx) => (
+                              <div key={idx} className="flex items-start gap-3">
+                                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden bg-white border">
+                                  <img 
+                                    src={companyLogos[role.company] || aresLogo} 
+                                    alt={role.company}
+                                    className="w-full h-full object-contain p-1"
+                                  />
+                                </div>
+                                <div>
+                                  <p className="font-medium text-sm">{role.role}</p>
+                                  <p className="text-xs text-muted-foreground">{role.company}</p>
+                                </div>
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </div>
-                      <Separator className="my-4" />
-                    </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                    <Separator className="my-4" />
 
                     {/* Contact Info */}
-                    <div className="space-y-3">
-                      <h5 className="text-sm font-semibold">Contact Information</h5>
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-sm">
-                          <Phone className="w-4 h-4 text-muted-foreground" />
-                          <span>+46 70 123 45 67</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                          <Mail className="w-4 h-4 text-muted-foreground" />
-                          <span>{candidate.name.toLowerCase().replace(' ', '.')}@email.com</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                          <Linkedin className="w-4 h-4 text-muted-foreground" />
-                          <a href="#" className="text-primary hover:underline">linkedin.com/in/{candidate.name.toLowerCase().replace(' ', '-')}</a>
-                        </div>
-                      </div>
-                      <Separator className="my-4" />
-                    </div>
+                    <Accordion type="single" collapsible className="w-full">
+                      <AccordionItem value="contact" className="border rounded-lg">
+                        <AccordionTrigger className="px-3 py-2 hover:no-underline">
+                          <h5 className="text-sm font-semibold">Contact Information</h5>
+                        </AccordionTrigger>
+                        <AccordionContent className="px-3 pb-3">
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2 text-sm">
+                              <Phone className="w-4 h-4 text-muted-foreground" />
+                              <span>+46 70 123 45 67</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm">
+                              <Mail className="w-4 h-4 text-muted-foreground" />
+                              <span>{candidate.name.toLowerCase().replace(' ', '.')}@email.com</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm">
+                              <Linkedin className="w-4 h-4 text-muted-foreground" />
+                              <a href="#" className="text-primary hover:underline">linkedin.com/in/{candidate.name.toLowerCase().replace(' ', '-')}</a>
+                            </div>
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                    <Separator className="my-4" />
 
                     {/* Achievements & Links */}
-                    <div className="space-y-3">
-                      <h5 className="text-sm font-semibold">Achievements & Portfolio</h5>
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-sm">
-                          <Award className="w-4 h-4 text-muted-foreground" />
-                          <span>UX Hackathon Winner 2025</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                          <FileText className="w-4 h-4 text-muted-foreground" />
-                          <a href="#" className="text-primary hover:underline flex items-center gap-1">
-                            Portfolio
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                          <LinkIcon className="w-4 h-4 text-muted-foreground" />
-                          <a href="#" className="text-primary hover:underline flex items-center gap-1">
-                            Dribbble Profile
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
+                    <Accordion type="single" collapsible className="w-full">
+                      <AccordionItem value="achievements" className="border rounded-lg">
+                        <AccordionTrigger className="px-3 py-2 hover:no-underline">
+                          <h5 className="text-sm font-semibold">Achievements & Portfolio</h5>
+                        </AccordionTrigger>
+                        <AccordionContent className="px-3 pb-3">
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2 text-sm">
+                              <Award className="w-4 h-4 text-muted-foreground" />
+                              <span>UX Hackathon Winner 2025</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm">
+                              <FileText className="w-4 h-4 text-muted-foreground" />
+                              <a href="#" className="text-primary hover:underline flex items-center gap-1">
+                                Portfolio
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm">
+                              <LinkIcon className="w-4 h-4 text-muted-foreground" />
+                              <a href="#" className="text-primary hover:underline flex items-center gap-1">
+                                Dribbble Profile
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            </div>
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
 
                     <Separator className="my-4" />
 
                     {/* CV/Documents Section */}
                     {candidate.documents && candidate.documents.length > 0 && (
-                      <div className="space-y-3">
-                        <h5 className="text-sm font-semibold">Documents</h5>
-                        <div className="space-y-2">
-                          {candidate.documents.map((doc) => (
-                            <button
-                              key={doc.id}
-                              onClick={() => handleOpenDocument(doc)}
-                              className="w-full flex items-center gap-3 p-3 bg-muted/30 rounded-lg hover:bg-muted transition-colors text-left border"
-                            >
-                              <FileText className="w-4 h-4 text-primary" />
-                              <div className="flex-1">
-                                <p className="text-sm font-medium">{doc.name}</p>
-                                <p className="text-xs text-muted-foreground">{doc.type}</p>
+                      <>
+                        <Accordion type="single" collapsible className="w-full">
+                          <AccordionItem value="documents" className="border rounded-lg">
+                            <AccordionTrigger className="px-3 py-2 hover:no-underline">
+                              <h5 className="text-sm font-semibold">Documents</h5>
+                            </AccordionTrigger>
+                            <AccordionContent className="px-3 pb-3">
+                              <div className="space-y-2">
+                                {candidate.documents.map((doc) => (
+                                  <button
+                                    key={doc.id}
+                                    onClick={() => handleOpenDocument(doc)}
+                                    className="w-full flex items-center gap-3 p-3 bg-muted/30 rounded-lg hover:bg-muted transition-colors text-left border"
+                                  >
+                                    <FileText className="w-4 h-4 text-primary" />
+                                    <div className="flex-1">
+                                      <p className="text-sm font-medium">{doc.name}</p>
+                                      <p className="text-xs text-muted-foreground">{doc.type}</p>
+                                    </div>
+                                    <ExternalLink className="w-3 h-3 text-muted-foreground" />
+                                  </button>
+                                ))}
                               </div>
-                              <ExternalLink className="w-3 h-3 text-muted-foreground" />
-                            </button>
-                          ))}
-                        </div>
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Accordion>
                         <Separator className="my-4" />
-                      </div>
+                      </>
                     )}
 
                     {/* Notes Section */}
