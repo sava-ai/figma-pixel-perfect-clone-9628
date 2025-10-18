@@ -123,3 +123,8 @@ All colors MUST be HSL.
     transform: translateX(-50%);
   }
 }
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+  will-change: transform;
+}
