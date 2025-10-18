@@ -502,8 +502,8 @@ const JobPeople = () => {
                     </h3>
                     <span className="text-xs text-gray-500">{bestMatches.length} profiles</span>
                   </div>
-                  <div className="p-4 flex items-center gap-2 overflow-x-hidden">
-                    {bestMatches.slice(0, Math.min(7, visibleMatches)).map((match, index) => (
+                  <div className="p-4 flex items-center gap-2">
+                    {bestMatches.slice(0, Math.min(visibleMatches, bestMatches.length)).map((match, index) => (
                       <div
                         key={index}
                         className="w-12 h-12 rounded-md overflow-hidden animate-fade-in border border-gray-200 hover:border-gray-400 transition-colors cursor-pointer flex-shrink-0"
@@ -512,9 +512,9 @@ const JobPeople = () => {
                         <img src={match.image} alt={match.name} className="w-full h-full object-cover" />
                       </div>
                     ))}
-                    {visibleMatches >= 7 && bestMatches.length > 7 && (
+                    {visibleMatches >= bestMatches.length && (
                       <div className="w-12 h-12 rounded-md bg-gray-700 flex items-center justify-center text-white font-semibold text-sm animate-fade-in border border-gray-700 hover:bg-gray-800 transition-colors cursor-pointer flex-shrink-0">
-                        +{bestMatches.length - 7}
+                        +12
                       </div>
                     )}
                   </div>
