@@ -276,15 +276,15 @@ const JobPeople = () => {
 
                 {/* External Sources */}
                 {showExternalSources && (
-                <div className="bg-white rounded-lg border border-gray-200 animate-fade-in overflow-hidden flex-shrink-0">
+                <div className="bg-white rounded-lg border border-gray-200 animate-fade-in flex-shrink-0">
                   <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
                     <h3 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                       External Sources
                     </h3>
                     <span className="text-xs text-gray-500">13 platforms</span>
                   </div>
-                  <div className="relative overflow-hidden bg-gray-50 h-16 w-full">
-                    <div className="flex gap-3 animate-scroll absolute top-0 left-0 whitespace-nowrap py-3 px-4">
+                  <div className="relative bg-gray-50 h-16 w-full overflow-hidden">
+                    <div className="flex gap-3 animate-scroll absolute top-3 left-0 whitespace-nowrap px-4">
                       <div className="flex gap-3 items-center">
                         {/* LinkedIn */}
                         <div className="w-10 h-10 rounded-md bg-[#0A66C2] flex items-center justify-center flex-shrink-0">
@@ -500,21 +500,21 @@ const JobPeople = () => {
                     <h3 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                       Best Matches
                     </h3>
-                    <span className="text-xs text-gray-500">{visibleMatches >= 17 ? '29' : visibleMatches} profiles</span>
+                    <span className="text-xs text-gray-500">{bestMatches.length} profiles</span>
                   </div>
-                  <div className="p-4 flex flex-wrap gap-2">
-                    {bestMatches.slice(0, visibleMatches).map((match, index) => (
+                  <div className="p-4 flex items-center gap-2 overflow-x-hidden">
+                    {bestMatches.slice(0, Math.min(7, visibleMatches)).map((match, index) => (
                       <div
                         key={index}
-                        className="w-12 h-12 rounded-md overflow-hidden animate-fade-in border border-gray-200 hover:border-gray-400 transition-colors cursor-pointer"
+                        className="w-12 h-12 rounded-md overflow-hidden animate-fade-in border border-gray-200 hover:border-gray-400 transition-colors cursor-pointer flex-shrink-0"
                         title={match.name}
                       >
                         <img src={match.image} alt={match.name} className="w-full h-full object-cover" />
                       </div>
                     ))}
-                    {visibleMatches >= 17 && (
-                      <div className="w-12 h-12 rounded-md bg-gray-700 flex items-center justify-center text-white font-semibold text-xs animate-fade-in border border-gray-700 hover:bg-gray-800 transition-colors cursor-pointer">
-                        +12
+                    {visibleMatches >= 7 && bestMatches.length > 7 && (
+                      <div className="w-12 h-12 rounded-md bg-gray-700 flex items-center justify-center text-white font-semibold text-sm animate-fade-in border border-gray-700 hover:bg-gray-800 transition-colors cursor-pointer flex-shrink-0">
+                        +{bestMatches.length - 7}
                       </div>
                     )}
                   </div>
