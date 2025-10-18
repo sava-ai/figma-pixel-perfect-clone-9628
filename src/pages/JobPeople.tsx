@@ -50,18 +50,18 @@ const JobPeople = () => {
 
   // Staged animation - show sections progressively
   useEffect(() => {
-    // Stage 1: Show external sources after 2s
-    const timer1 = setTimeout(() => setShowExternalSources(true), 2000);
+    // Stage 1: Show external sources after 3s
+    const timer1 = setTimeout(() => setShowExternalSources(true), 3000);
     
-    // Stage 2: Show internal sources after 5s
-    const timer2 = setTimeout(() => setShowInternalSources(true), 5000);
+    // Stage 2: Show internal sources after 7s
+    const timer2 = setTimeout(() => setShowInternalSources(true), 7000);
     
-    // Stage 3: Show people found after 8s and start counting
+    // Stage 3: Show people found after 11s and start counting
     const timer3 = setTimeout(() => {
       setShowPeopleFound(true);
       
       // Start counting people
-      const duration = 7000; // 7 seconds
+      const duration = 9000; // 9 seconds
       const targetCount = 548;
       const incrementTime = 50;
       const steps = duration / incrementTime;
@@ -77,18 +77,18 @@ const JobPeople = () => {
           setPeopleCount(Math.floor(currentCount));
         }
       }, incrementTime);
-    }, 8000);
+    }, 11000);
     
-    // Stage 4: Show best matches after 13s and stop searching indicator
+    // Stage 4: Show best matches after 20s and stop searching indicator
     const timer4 = setTimeout(() => {
       setShowBestMatches(true);
       setIsSearching(false);
-    }, 13000);
+    }, 20000);
 
-    // Stage 5: Navigate to view page 3 seconds after search completes
+    // Stage 5: Navigate to view page 4 seconds after search completes
     const timer5 = setTimeout(() => {
       navigate('/job/people/view');
-    }, 16000);
+    }, 24000);
 
     return () => {
       clearTimeout(timer1);
@@ -105,13 +105,13 @@ const JobPeople = () => {
     
     const matchInterval = setInterval(() => {
       setVisibleMatches(prev => {
-        if (prev >= 17) {
+        if (prev >= 10) {
           clearInterval(matchInterval);
-          return 17;
+          return 10;
         }
         return prev + 1;
       });
-    }, 200);
+    }, 300);
 
     return () => clearInterval(matchInterval);
   }, [showBestMatches]);
@@ -502,8 +502,8 @@ const JobPeople = () => {
                     </h3>
                     <span className="text-xs text-gray-500">{bestMatches.length} profiles</span>
                   </div>
-                  <div className="p-4 flex items-center gap-2">
-                    {bestMatches.slice(0, Math.min(visibleMatches, bestMatches.length)).map((match, index) => (
+                  <div className="p-4 flex items-center gap-2 overflow-hidden">
+                    {bestMatches.slice(0, Math.min(9, visibleMatches)).map((match, index) => (
                       <div
                         key={index}
                         className="w-12 h-12 rounded-md overflow-hidden animate-fade-in border border-gray-200 hover:border-gray-400 transition-colors cursor-pointer flex-shrink-0"
@@ -512,9 +512,9 @@ const JobPeople = () => {
                         <img src={match.image} alt={match.name} className="w-full h-full object-cover" />
                       </div>
                     ))}
-                    {visibleMatches >= bestMatches.length && (
+                    {visibleMatches >= 10 && (
                       <div className="w-12 h-12 rounded-md bg-gray-700 flex items-center justify-center text-white font-semibold text-sm animate-fade-in border border-gray-700 hover:bg-gray-800 transition-colors cursor-pointer flex-shrink-0">
-                        +12
+                        +{bestMatches.length - 9}
                       </div>
                     )}
                   </div>
