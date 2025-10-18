@@ -50,18 +50,18 @@ const JobPeople = () => {
 
   // Staged animation - show sections progressively
   useEffect(() => {
-    // Stage 1: Show external sources after 1s
-    const timer1 = setTimeout(() => setShowExternalSources(true), 1000);
+    // Stage 1: Show external sources after 2s
+    const timer1 = setTimeout(() => setShowExternalSources(true), 2000);
     
-    // Stage 2: Show internal sources after 3s
-    const timer2 = setTimeout(() => setShowInternalSources(true), 3000);
+    // Stage 2: Show internal sources after 5s
+    const timer2 = setTimeout(() => setShowInternalSources(true), 5000);
     
-    // Stage 3: Show people found after 5s and start counting
+    // Stage 3: Show people found after 8s and start counting
     const timer3 = setTimeout(() => {
       setShowPeopleFound(true);
       
       // Start counting people
-      const duration = 5000; // 5 seconds
+      const duration = 7000; // 7 seconds
       const targetCount = 548;
       const incrementTime = 50;
       const steps = duration / incrementTime;
@@ -77,18 +77,18 @@ const JobPeople = () => {
           setPeopleCount(Math.floor(currentCount));
         }
       }, incrementTime);
-    }, 5000);
+    }, 8000);
     
-    // Stage 4: Show best matches after 8s and stop searching indicator
+    // Stage 4: Show best matches after 13s and stop searching indicator
     const timer4 = setTimeout(() => {
       setShowBestMatches(true);
       setIsSearching(false);
-    }, 8000);
+    }, 13000);
 
-    // Stage 5: Navigate to view page 2 seconds after search completes
+    // Stage 5: Navigate to view page 3 seconds after search completes
     const timer5 = setTimeout(() => {
       navigate('/job/people/view');
-    }, 10000);
+    }, 16000);
 
     return () => {
       clearTimeout(timer1);
@@ -111,7 +111,7 @@ const JobPeople = () => {
         }
         return prev + 1;
       });
-    }, 300);
+    }, 200);
 
     return () => clearInterval(matchInterval);
   }, [showBestMatches]);
@@ -283,7 +283,7 @@ const JobPeople = () => {
                     </h3>
                     <span className="text-xs text-gray-500">7 platforms</span>
                   </div>
-                  <div className="relative overflow-hidden bg-gray-50 p-4">
+                  <div className="relative overflow-hidden bg-gray-50 h-16 flex items-center px-4">
                     <div className="flex gap-3 animate-scroll absolute whitespace-nowrap">
                       <div className="flex gap-3 items-center">
                         {/* LinkedIn */}
