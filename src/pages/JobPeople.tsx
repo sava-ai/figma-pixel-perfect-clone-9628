@@ -29,6 +29,8 @@ import profile20 from '@/assets/profile-20.jpg';
 
 const JobPeople = () => {
   const navigate = useNavigate();
+  const bestMatchesRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState<'job' | 'people' | 'pipeline'>('people');
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
@@ -98,6 +100,18 @@ const JobPeople = () => {
       clearTimeout(timer5);
     };
   }, [navigate]);
+
+  // Auto-scroll to Best Matches when they appear
+  useEffect(() => {
+    if (showBestMatches && bestMatchesRef.current && scrollContainerRef.current) {
+      setTimeout(() => {
+        bestMatchesRef.current?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center'
+        });
+      }, 300);
+    }
+  }, [showBestMatches]);
 
   // Gradually show more matches
   useEffect(() => {
@@ -260,7 +274,7 @@ const JobPeople = () => {
         {/* Left side - Search Animation */}
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
           <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
-            <div className={`flex-1 overflow-y-auto bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
+            <div ref={scrollContainerRef} className={`flex-1 overflow-y-auto bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
               <div className="p-6 max-w-[1200px] mx-auto">
                 <div className="space-y-6">
                 {/* Searching Status */}
@@ -496,7 +510,7 @@ const JobPeople = () => {
 
                 {/* Best Matches */}
                 {showBestMatches && (
-                <div className="bg-white rounded-lg border border-gray-200 animate-fade-in overflow-hidden">
+                <div ref={bestMatchesRef} className="bg-white rounded-lg border border-gray-200 animate-fade-in overflow-hidden">
                   <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
                     <h3 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                       Best Matches
