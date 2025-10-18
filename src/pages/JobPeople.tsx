@@ -385,7 +385,7 @@ const JobPeople = () => {
                     <h3 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                       Internal Sources
                     </h3>
-                    <span className="text-xs text-gray-500">2 sources</span>
+                    <span className="text-xs text-gray-500">3 sources</span>
                   </div>
                   <div className="p-4 flex gap-2">
                     <div className="flex-1 flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-md border border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer">
@@ -401,6 +401,14 @@ const JobPeople = () => {
                         <img src={profile1} alt="" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
                       </div>
                       <span className="text-sm font-medium text-gray-700">Applied</span>
+                    </div>
+                    <div className="flex-1 flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-md border border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer">
+                      <div className="w-6 h-6 rounded-full bg-blue-100 border-2 border-white flex items-center justify-center">
+                        <svg className="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                        </svg>
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">Database</span>
                     </div>
                   </div>
                 </div>
