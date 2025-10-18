@@ -283,8 +283,8 @@ const JobPeople = () => {
                     </h3>
                     <span className="text-xs text-gray-500">13 platforms</span>
                   </div>
-                  <div className="relative overflow-hidden bg-gray-50 h-16">
-                    <div className="flex gap-3 animate-scroll absolute whitespace-nowrap py-3 px-4">
+                  <div className="relative overflow-hidden bg-gray-50 h-16 w-full">
+                    <div className="flex gap-3 animate-scroll absolute top-0 left-0 whitespace-nowrap py-3 px-4">
                       <div className="flex gap-3 items-center">
                         {/* LinkedIn */}
                         <div className="w-10 h-10 rounded-md bg-[#0A66C2] flex items-center justify-center flex-shrink-0">
