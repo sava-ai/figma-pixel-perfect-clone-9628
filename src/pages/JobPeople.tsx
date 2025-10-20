@@ -6,6 +6,7 @@ import { InviteDialog } from '@/components/InviteDialog';
 import { JobChatPanel } from '@/components/JobChatPanel';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
+import starryBackground from '@/assets/starry-background.jpg';
 import profile1 from '@/assets/profile-1.jpg';
 import profile2 from '@/assets/profile-2.jpg';
 import profile3 from '@/assets/profile-3.jpg';
@@ -273,7 +274,12 @@ const JobPeople = () => {
       <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden">
         {/* Left side - Search Animation */}
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
-          <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
+          <div className="h-full flex flex-col py-6 pb-8 relative" style={{ 
+            backgroundImage: `url(${starryBackground})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}>
             <div ref={scrollContainerRef} className={`flex-1 overflow-y-auto bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
               <div className="p-6 max-w-[1200px] mx-auto">
                 <div className="space-y-6">
