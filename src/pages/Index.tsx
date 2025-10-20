@@ -240,7 +240,7 @@ const Index = () => {
           }`}>
             {/* Search section */}
             <div className="text-center mb-8">
-              <h1 className={`font-hedvig text-[rgba(21,52,61,1)] mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px] transition-all duration-[1500ms] ${
+              <h1 className={`font-instrument text-white mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px] transition-all duration-[1500ms] ${
                 isChatMode ? 'opacity-0' : 'opacity-100'
               }`}>
                 Describe who you want to hire
