@@ -82,8 +82,17 @@ const Index = () => {
     setConversationStep(0);
   };
   const jobs = Array(9).fill(jobData);
-  return <main className="min-h-screen w-full relative overflow-hidden">
-      <img src={backgroundImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
+  return <main 
+      className="min-h-screen w-full relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center top',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+        imageRendering: 'auto',
+      }}
+    >
 
       <div className="relative z-10 flex flex-col items-center pt-8 pb-20 px-4 overflow-hidden">
         {/* Logo - left sidebar */}
