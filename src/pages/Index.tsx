@@ -86,7 +86,7 @@ const Index = () => {
       className="min-h-screen w-full relative overflow-hidden"
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: '100% 100%',
+        backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
