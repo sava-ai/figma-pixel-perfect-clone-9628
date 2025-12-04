@@ -87,7 +87,7 @@ const Index = () => {
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center top',
         backgroundRepeat: 'no-repeat',
       }}
     >
