@@ -38,8 +38,8 @@ export const JobCard: React.FC<JobCardProps> = ({
   return (
     <article className="bg-[#FFFFFF] rounded-lg p-6 border border-[#EEEDEC] flex flex-col h-full">
       <header className="flex items-center justify-between mb-6">
-        <div className="w-9 h-9 bg-[#292524] rounded-lg flex items-center justify-center">
-          <img src={jobIcon} alt="Job" className="w-5 h-5" />
+        <div className="w-6 h-6 bg-[#292524] rounded-md flex items-center justify-center">
+          <img src={jobIcon} alt="Job" className="w-3.5 h-3.5" />
         </div>
         <div className="flex items-center gap-1.5 text-[10px] text-foreground">
           <div className="w-2 h-2 rounded-full bg-[#292524]" />
