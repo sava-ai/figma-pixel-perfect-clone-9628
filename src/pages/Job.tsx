@@ -260,7 +260,7 @@ Qualifications
         <div className="flex items-center gap-3">
           <button 
             onClick={() => navigate('/')}
-            className="w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
+            className="w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
           >
             <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -271,7 +271,7 @@ Qualifications
           <div className="relative">
             <button
               onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all bg-white hover:bg-gray-50 border border-gray-200"
             >
               <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded" />
               <span className="font-medium text-gray-700">Senior product designer</span>
@@ -301,7 +301,7 @@ Qualifications
             onClick={() => setActiveTab('job')}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all ${
               activeTab === 'job' 
-                ? 'bg-gradient-to-b from-white to-gray-100 shadow-md border border-gray-200 text-gray-700 font-medium' 
+                ? 'bg-white border border-gray-200 text-gray-700 font-medium' 
                 : 'text-foreground hover:text-foreground'
             }`}
           >
@@ -317,7 +317,7 @@ Qualifications
             }}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all ${
               activeTab === 'people' 
-                ? 'bg-gradient-to-b from-white to-gray-100 shadow-md border border-gray-200 text-gray-700 font-medium' 
+                ? 'bg-white border border-gray-200 text-gray-700 font-medium' 
                 : 'text-foreground hover:text-foreground'
             }`}
           >
@@ -330,7 +330,7 @@ Qualifications
             onClick={() => navigate('/job/pipeline')}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all ${
               activeTab === 'pipeline' 
-                ? 'bg-gradient-to-b from-white to-gray-100 shadow-md border border-gray-200 text-gray-700 font-medium' 
+                ? 'bg-white border border-gray-200 text-gray-700 font-medium' 
                 : 'text-foreground hover:text-foreground'
             }`}
           >
@@ -346,15 +346,15 @@ Qualifications
           <img 
             src={userAvatarImage} 
             alt="Profile" 
-            className="w-9 h-9 rounded-full object-cover shadow-md border-2 border-gray-200"
+            className="w-9 h-9 rounded-full object-cover border-2 border-gray-200"
           />
           <button 
             onClick={() => setInviteDialogOpen(true)}
-            className="px-3 py-1.5 rounded-lg font-medium transition-all bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-md hover:shadow-lg border border-gray-700"
+            className="px-3 py-1.5 rounded-lg font-medium transition-all bg-gray-800 text-white hover:bg-gray-700 border border-gray-700"
           >
             Invite
           </button>
-          <button className="w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200">
+          <button className="w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200">
             <MoreVertical className="w-5 h-5 text-gray-700" />
           </button>
         </div>
