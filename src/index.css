@@ -96,15 +96,24 @@ All colors MUST be HSL.
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border box-border;
+    margin: 0;
+    padding: 0;
   }
 
-  html, body, #root {
-    @apply min-h-screen w-full m-0 p-0;
+  html {
+    @apply h-full w-full;
+    overflow-x: hidden;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-h-full w-full;
+    margin: 0;
+    padding: 0;
+  }
+
+  #root {
+    @apply min-h-full w-full;
   }
 }
 
