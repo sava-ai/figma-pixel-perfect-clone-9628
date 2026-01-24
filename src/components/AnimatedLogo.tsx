@@ -19,10 +19,10 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) =>
       const deltaX = e.clientX - centerX;
       const deltaY = e.clientY - centerY;
 
-      // Limit pupil movement (max 4px)
-      const maxMove = 4;
+      // Much more pronounced movement (max 12px)
+      const maxMove = 12;
       const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-      const normalizedDistance = Math.min(distance / 200, 1);
+      const normalizedDistance = Math.min(distance / 100, 1);
       
       const moveX = (deltaX / (distance || 1)) * maxMove * normalizedDistance;
       const moveY = (deltaY / (distance || 1)) * maxMove * normalizedDistance;
@@ -33,6 +33,12 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) =>
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  // Calculate individual pupil positions
+  const leftPupilX = 123.852 + pupilOffset.x;
+  const leftPupilY = 69.0703 + pupilOffset.y;
+  const rightPupilX = 188.43 + pupilOffset.x;
+  const rightPupilY = 69.08 + pupilOffset.y;
 
   return (
     <svg 
@@ -55,16 +61,27 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) =>
       <path d="M152.108 96.1379C147.888 121.731 154.792 144.181 167.529 146.282C180.266 148.384 194.013 129.34 198.233 103.747C202.453 78.1537 195.549 55.7033 182.812 53.6022C170.075 51.5011 156.328 70.545 152.108 96.1379Z" fill="#121212"/>
       <path d="M88.3796 97.2369C84.3873 121.447 90.8088 142.666 102.722 144.631C114.636 146.597 127.53 128.564 131.522 104.354C135.515 80.1437 129.093 58.9245 117.18 56.9592C105.266 54.9939 92.3718 73.0269 88.3796 97.2369Z" fill="#121212"/>
       
-      {/* Animated pupils (white highlights) - these follow the cursor */}
-      <g style={{ 
-        transform: `translate(${pupilOffset.x}px, ${pupilOffset.y}px)`,
-        transition: 'transform 0.08s ease-out'
-      }}>
-        <path d="M132.852 69.0703C132.852 74.8693 129.651 79.5703 123.852 79.5703C118.053 79.5703 113.352 74.8693 113.352 69.0703C113.352 63.2713 118.053 58.5703 123.852 58.5703C129.651 58.5703 132.852 63.2713 132.852 69.0703Z" fill="#FCFCFC"/>
-        <path d="M198.852 67.5703C199.767 73.9942 197.582 79.6801 191.207 80.588C184.833 81.4959 178.924 77.0242 178.009 70.6003C177.094 64.1764 181.52 58.2328 187.894 57.3249C194.268 56.417 197.937 61.1464 198.852 67.5703Z" fill="#FCFCFC"/>
-      </g>
+      {/* Animated left pupil */}
+      <ellipse 
+        cx={leftPupilX} 
+        cy={leftPupilY} 
+        rx="9.5" 
+        ry="10.5" 
+        fill="#FCFCFC"
+        style={{ transition: 'cx 0.08s ease-out, cy 0.08s ease-out' }}
+      />
       
-      {/* Magnifying glass and other elements */}
+      {/* Animated right pupil */}
+      <ellipse 
+        cx={rightPupilX} 
+        cy={rightPupilY} 
+        rx="10.5" 
+        ry="11.5" 
+        fill="#FCFCFC"
+        style={{ transition: 'cx 0.08s ease-out, cy 0.08s ease-out' }}
+      />
+      
+      {/* Magnifying glass */}
       <path d="M88.761 93C92.37 93 95.97 93.3684 99.5041 94.0996L103.133 94.8506C106.967 95.6439 110.695 96.8875 114.238 98.5547L114.422 98.6406C116.524 99.6298 118.55 100.774 120.483 102.062C125.648 105.506 130.08 109.938 133.524 115.104L134.428 116.46L134.438 116.476C137.139 120.864 139.257 125.587 140.738 130.522L141.544 133.213L141.56 133.267L141.57 133.321L142.839 140.3C143.336 143.034 143.586 145.809 143.586 148.588C143.586 151.249 143.357 153.905 142.901 156.526L142.861 156.761C141.989 161.773 140.342 166.62 137.982 171.127L136.464 174.023L199.921 202.604C201.047 203.111 201.449 204.508 200.764 205.536L186.994 226.189C186.365 227.134 185.077 227.366 184.157 226.7L127.522 185.688L114.082 193.368L114.031 193.397L113.976 193.421L110.91 194.718C104.231 197.544 97.0517 199 89.7991 199H88.5032C84.1516 199 79.822 198.372 75.6497 197.136C70.6777 195.663 65.9957 193.346 61.8088 190.286L60.6487 189.438C56.8254 186.645 53.39 183.355 50.4319 179.657L49.9846 179.099C47.8319 176.408 45.927 173.527 44.2932 170.493L43.1311 168.335C40.8104 164.025 39.2436 159.35 38.4993 154.512C37.887 150.532 37.8375 146.486 38.3528 142.492L38.6213 140.414C39.2786 135.32 40.6127 130.337 42.5881 125.596L42.9358 124.761C44.1068 121.95 45.513 119.243 47.1389 116.669L47.2668 116.467C49.6187 112.743 52.4318 109.331 55.6389 106.312L55.7981 106.163C58.2427 103.862 60.9125 101.813 63.7668 100.046L64.6018 99.5283C68.3049 97.236 72.331 95.5115 76.5452 94.4121C80.1385 93.4747 83.8374 93.0001 87.551 93H88.761ZM90.5862 107C70.1518 107 53.5862 123.566 53.5862 144C53.5862 164.434 70.1518 181 90.5862 181C111.021 181 127.586 164.435 127.586 144C127.586 123.565 111.021 107 90.5862 107Z" fill="#B8A88A"/>
       <circle cx="90.5862" cy="144" r="37" fill="white" fillOpacity="0.5"/>
       
