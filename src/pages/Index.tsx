@@ -272,9 +272,9 @@ const Index = () => {
                 />
                 <button
                   type="submit"
-                  className="absolute right-4 bottom-4 w-12 h-12 bg-[#292524] rounded-full flex items-center justify-center hover:bg-[#292524]/90 transition-colors"
+                  className="absolute right-4 bottom-4 w-[34px] h-[34px] bg-[#292524] rounded-full flex items-center justify-center hover:bg-[#292524]/90 transition-colors"
                 >
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </button>
