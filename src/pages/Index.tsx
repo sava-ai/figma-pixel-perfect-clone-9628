@@ -21,7 +21,6 @@ const Index = () => {
   const [chatButtonPosition, setChatButtonPosition] = useState({ top: 0, right: 0 });
   const [isSearchHidden, setIsSearchHidden] = useState(false);
   const chatButtonRef = useRef<HTMLButtonElement>(null);
-  const lastScrollY = useRef(0);
 
   useEffect(() => {
     if (chatButtonRef.current) {
@@ -31,18 +30,31 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        // Scrolling down and past threshold
-        setIsSearchHidden(true);
-      } else if (currentScrollY < lastScrollY.current) {
-        // Scrolling up
-        setIsSearchHidden(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const scrollDelta = currentScrollY - lastScrollY;
+          
+          // Only trigger if scroll delta is significant (prevents micro-movements)
+          if (Math.abs(scrollDelta) > 5) {
+            if (scrollDelta > 0 && currentScrollY > 100) {
+              // Scrolling down and past threshold
+              setIsSearchHidden(true);
+            } else if (scrollDelta < 0) {
+              // Scrolling up
+              setIsSearchHidden(false);
+            }
+            lastScrollY = currentScrollY;
+          }
+          
+          ticking = false;
+        });
+        ticking = true;
       }
-      
-      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -241,10 +253,8 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Spacer for fixed search section - animates with header */}
-            <div className={`transition-all duration-500 ease-out ${
-              isSearchHidden && !isChatMode ? 'h-0' : 'h-[320px]'
-            }`} />
+            {/* Spacer for fixed search section */}
+            <div className="h-[320px]" />
 
             {/* Jobs section */}
             <section className={`bg-[#FFFFFF] rounded-lg border border-[#EEEDEC] p-8 mt-12 transition-all duration-[2500ms] ease-in-out ${
