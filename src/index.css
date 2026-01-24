@@ -99,6 +99,10 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html, body, #root {
+    @apply min-h-screen w-full m-0 p-0;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
