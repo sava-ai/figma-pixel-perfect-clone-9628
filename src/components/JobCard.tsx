@@ -38,16 +38,16 @@ export const JobCard: React.FC<JobCardProps> = ({
   return (
     <article className="bg-[#FFFFFF] rounded-lg p-6 border border-[#EEEDEC] flex flex-col h-full">
       <header className="flex items-center justify-between mb-6">
-        <div className="bg-[rgba(21,52,61,1)] rounded-lg w-9 h-9 flex items-center justify-center">
+        <div className="bg-[#292524] rounded-lg w-9 h-9 flex items-center justify-center">
           <img src={jobIcon} alt="Job" className="w-5 h-5" />
         </div>
         <div className="flex items-center gap-1.5 text-[10px] text-foreground">
-          <div className="w-2 h-2 rounded-full bg-[rgba(21,52,61,1)]" />
+          <div className="w-2 h-2 rounded-full bg-[#292524]" />
           <span>{isPublished ? 'Published' : 'Draft'}</span>
         </div>
       </header>
 
-      <h3 className="text-[rgba(21,52,61,1)] text-lg font-medium mb-4" style={{ fontFamily: 'CustomHeading, sans-serif' }}>
+      <h3 className="text-[#292524] text-lg font-medium mb-4" style={{ fontFamily: 'CustomHeading, sans-serif' }}>
         {title}
       </h3>
 
@@ -59,22 +59,22 @@ export const JobCard: React.FC<JobCardProps> = ({
       <div className="grid grid-cols-4 gap-4 mb-6">
         <div className="flex flex-col items-center">
           <img src={starIcon} alt="Found" className="w-5 h-5 mb-1" />
-          <div className="text-base font-medium text-[rgba(21,52,61,1)]">{stats.found}</div>
+          <div className="text-base font-medium text-[#292524]">{stats.found}</div>
           <div className="text-[10px] text-muted-foreground">Found</div>
         </div>
         <div className="flex flex-col items-center">
           <img src={savedIcon} alt="Saved" className="w-5 h-5 mb-1" />
-          <div className="text-base font-medium text-[rgba(21,52,61,1)]">{stats.saved}</div>
+          <div className="text-base font-medium text-[#292524]">{stats.saved}</div>
           <div className="text-[10px] text-muted-foreground">Saved</div>
         </div>
         <div className="flex flex-col items-center">
           <img src={contactedIcon} alt="Contacted" className="w-5 h-5 mb-1" />
-          <div className="text-base font-medium text-[rgba(21,52,61,1)]">{stats.contacted}</div>
+          <div className="text-base font-medium text-[#292524]">{stats.contacted}</div>
           <div className="text-[10px] text-muted-foreground">Contacted</div>
         </div>
         <div className="flex flex-col items-center">
           <img src={interviewedIcon} alt="Interviewed" className="w-5 h-5 mb-1" />
-          <div className="text-base font-medium text-[rgba(21,52,61,1)]">{stats.interviewed}</div>
+          <div className="text-base font-medium text-[#292524]">{stats.interviewed}</div>
           <div className="text-[10px] text-muted-foreground">Interviewed</div>
         </div>
       </div>

@@ -255,7 +255,7 @@ const Index = () => {
               <div className="flex justify-center">
                 <AnimatedLogo className="mb-2" />
               </div>
-              <h1 className={`text-white mb-6 max-w-[600px] mx-auto leading-tight text-[2.5rem] pt-[18px] transition-all duration-[1500ms] ${
+              <h1 className={`text-[#292524] mb-6 max-w-[600px] mx-auto leading-tight text-[2.5rem] pt-[18px] transition-all duration-[1500ms] ${
                 isChatMode ? 'opacity-0' : 'opacity-100'
               }`} style={{ fontFamily: 'CustomHeading, sans-serif' }}>
                 Describe who you want to hire
@@ -268,11 +268,11 @@ const Index = () => {
                   onChange={e => setSearchQuery(e.target.value)}
                   placeholder="For example: find a user experience designer in Warsaw"
                   rows={4}
-                  className="w-full bg-white rounded-lg shadow-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none"
+                  className="w-full bg-white rounded-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#292524] resize-none border border-[#EEEDEC]"
                 />
                 <button
                   type="submit"
-                  className="absolute right-4 bottom-4 w-12 h-12 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors"
+                  className="absolute right-4 bottom-4 w-12 h-12 bg-[#292524] rounded-full flex items-center justify-center hover:bg-[#292524]/90 transition-colors"
                 >
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -287,7 +287,7 @@ const Index = () => {
             }`}>
             {/* Filters with Jobs title */}
             <div className="flex items-center gap-4 mb-8 flex-wrap">
-              <h2 className="text-[45px] font-hedvig font-normal text-[rgba(21,52,61,1)] tracking-tight mr-auto">
+              <h2 className="text-[45px] font-hedvig font-normal text-[#292524] tracking-tight mr-auto">
                 Jobs
               </h2>
               
@@ -295,7 +295,7 @@ const Index = () => {
                 <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-                <input type="text" placeholder="Search jobs..." className="w-full bg-white border border-[#EEEDEC] rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)]" />
+                <input type="text" placeholder="Search jobs..." className="w-full bg-white border border-[#EEEDEC] rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#292524]" />
               </div>
 
               <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EEEDEC] rounded-lg text-sm font-medium hover:bg-accent transition-colors">
