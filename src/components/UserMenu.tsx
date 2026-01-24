@@ -4,7 +4,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Settings, Users, Link2, FileText, BookOpen, LogOut } from 'lucide-react';
+import { Settings, LogOut } from 'lucide-react';
 import { UserAvatar } from '@/components/UserAvatar';
 
 interface UserMenuProps {
@@ -15,10 +15,6 @@ interface UserMenuProps {
 export const UserMenu: React.FC<UserMenuProps> = ({ initials = "TW", src }) => {
   const menuItems = [
     { label: "Settings", icon: Settings },
-    { label: "Team", icon: Users },
-    { label: "Integrations", icon: Link2 },
-    { label: "Templates", icon: FileText },
-    { label: "Knowledge", icon: BookOpen },
     { label: "Logout", icon: LogOut },
   ];
 
