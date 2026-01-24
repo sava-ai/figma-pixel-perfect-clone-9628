@@ -2,7 +2,7 @@ import React from 'react';
 import { UserAvatar } from './UserAvatar';
 import { JobStatsExtended } from './JobStats';
 import { ActionButtons } from './ActionButtons';
-import jobIcon from '@/assets/job-icon-new.svg';
+import jobIcon from '@/assets/job-icon-new.png';
 import starIcon from '@/assets/star-icon.svg';
 import savedIcon from '@/assets/saved-icon.svg';
 import contactedIcon from '@/assets/contacted-icon.svg';
@@ -38,8 +38,8 @@ export const JobCard: React.FC<JobCardProps> = ({
   return (
     <article className="bg-[#FFFFFF] rounded-lg p-6 border border-[#EEEDEC] flex flex-col h-full">
       <header className="flex items-center justify-between mb-6">
-        <div className="bg-[#292524] rounded-lg w-9 h-9 flex items-center justify-center">
-          <img src={jobIcon} alt="Job" className="w-5 h-5" />
+        <div className="w-12 h-12 flex items-center justify-center">
+          <img src={jobIcon} alt="Job" className="w-12 h-12 object-contain" />
         </div>
         <div className="flex items-center gap-1.5 text-[10px] text-foreground">
           <div className="w-2 h-2 rounded-full bg-[#292524]" />
