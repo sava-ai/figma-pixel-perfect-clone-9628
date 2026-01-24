@@ -28,7 +28,7 @@ const Index = () => {
     }
   }, []);
   const jobData = {
-    title: "labil",
+    title: "Chief Operations Officer",
     userName: "Mateusz Budka",
     userAvatar: userAvatarImage,
     stats: {

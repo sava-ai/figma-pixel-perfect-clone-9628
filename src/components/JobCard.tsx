@@ -47,7 +47,7 @@ export const JobCard: React.FC<JobCardProps> = ({
         </div>
       </header>
 
-      <h3 className="text-[rgba(21,52,61,1)] text-lg font-medium mb-4">
+      <h3 className="text-[rgba(21,52,61,1)] text-lg font-medium mb-4" style={{ fontFamily: 'CustomHeading, sans-serif' }}>
         {title}
       </h3>
 
