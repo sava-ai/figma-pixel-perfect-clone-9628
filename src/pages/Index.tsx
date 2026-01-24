@@ -110,7 +110,7 @@ const Index = () => {
         />
 
         {/* Right sidebar */}
-        <aside className="fixed right-4 top-8 flex flex-col gap-4">
+        <aside className="fixed right-8 top-8 flex flex-col gap-4">
           <UserMenu initials="TW" />
         </aside>
 
