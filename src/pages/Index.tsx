@@ -6,7 +6,7 @@ import { JobCard } from '@/components/JobCard';
 import { AIChatOverlay } from '@/components/AIChatOverlay';
 import { MessagesOverlay } from '@/components/MessagesOverlay';
 import { AnimatedLogo } from '@/components/AnimatedLogo';
-import backgroundImage from '@/assets/background-main-new.png';
+import backgroundImage from '@/assets/background-main-new.jpg';
 import userAvatarImage from '@/assets/user-avatar.png';
 import logoIcon from '@/assets/logo-icon.svg';
 const Index = () => {
