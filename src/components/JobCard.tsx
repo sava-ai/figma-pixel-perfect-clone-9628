@@ -36,7 +36,7 @@ export const JobCard: React.FC<JobCardProps> = ({
   onActionClick,
 }) => {
   return (
-    <article className="bg-white rounded-xl p-6 shadow-sm border border-border flex flex-col h-full">
+    <article className="bg-white rounded-lg p-6 shadow-sm border border-border flex flex-col h-full">
       <header className="flex items-center justify-between mb-6">
         <div className="bg-[rgba(21,52,61,1)] rounded-lg w-9 h-9 flex items-center justify-center">
           <img src={jobIcon} alt="Job" className="w-5 h-5" />
