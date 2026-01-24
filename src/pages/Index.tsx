@@ -281,13 +281,13 @@ const Index = () => {
             <section className={`bg-white rounded-lg shadow-xl p-8 mt-12 transition-all duration-[2500ms] ease-in-out ${
               isChatMode ? 'translate-y-[150vh] opacity-0' : 'translate-y-0 opacity-100'
             }`}>
-            <h2 className="text-[45px] font-hedvig font-normal text-[rgba(21,52,61,1)] tracking-tight mb-8">
-              Jobs
-            </h2>
-
-            {/* Filters */}
+            {/* Filters with Jobs title */}
             <div className="flex items-center gap-4 mb-8 flex-wrap">
-              <div className="relative flex-1 min-w-[200px]">
+              <h2 className="text-[45px] font-hedvig font-normal text-[rgba(21,52,61,1)] tracking-tight mr-auto">
+                Jobs
+              </h2>
+              
+              <div className="relative min-w-[200px]">
                 <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
