@@ -397,13 +397,7 @@ const JobPeopleView = () => {
                       </div>
                       <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">{applicantsCount}</p>
                       <button 
-                        onClick={() => {
-                          const applicant = bestCandidates.find(c => c.tags.includes('Applicant'));
-                          if (applicant) {
-                            setSelectedCandidate(applicant);
-                            setApplicantReviewDialogOpen(true);
-                          }
-                        }}
+                        onClick={() => navigate('/job/applicants')}
                         className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
                       >
                         <span className="text-gray-950">Review now</span>
