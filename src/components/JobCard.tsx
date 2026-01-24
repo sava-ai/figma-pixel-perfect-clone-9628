@@ -2,7 +2,7 @@ import React from 'react';
 import { UserAvatar } from './UserAvatar';
 import { JobStatsExtended } from './JobStats';
 import { ActionButtons } from './ActionButtons';
-import jobIcon from '@/assets/job-icon.svg';
+import jobIcon from '@/assets/job-icon-new.svg';
 import starIcon from '@/assets/star-icon.svg';
 import savedIcon from '@/assets/saved-icon.svg';
 import contactedIcon from '@/assets/contacted-icon.svg';
