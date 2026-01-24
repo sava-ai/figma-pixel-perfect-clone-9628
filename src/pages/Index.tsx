@@ -278,7 +278,7 @@ const Index = () => {
             </div>
 
             {/* Jobs section */}
-            <section className={`bg-white rounded-3xl shadow-xl p-8 mt-12 transition-all duration-[2500ms] ease-in-out ${
+            <section className={`bg-white rounded-lg shadow-xl p-8 mt-12 transition-all duration-[2500ms] ease-in-out ${
               isChatMode ? 'translate-y-[150vh] opacity-0' : 'translate-y-0 opacity-100'
             }`}>
             <h2 className="text-[45px] font-hedvig font-normal text-[rgba(21,52,61,1)] tracking-tight mb-8">
