@@ -38,7 +38,7 @@ export const JobCard: React.FC<JobCardProps> = ({
   return (
     <article className="bg-[#FFFFFF] rounded-lg p-6 border border-[#EEEDEC] flex flex-col h-full">
       <div className="mb-2">
-        <span className={`px-2 py-0.5 text-[10px] font-medium rounded-full ${
+        <span className={`px-2 py-0.5 text-[10px] font-medium rounded-sm ${
           isPublished 
             ? 'bg-green-100 text-green-700' 
             : 'bg-gray-100 text-gray-600'
