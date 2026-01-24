@@ -276,9 +276,9 @@ const Index = () => {
             }`}>
             {/* Filters with Jobs title */}
             <div className="flex items-center gap-4 mb-8 flex-wrap">
-              <h2 className="text-[45px] font-hedvig font-normal text-[#292524] tracking-tight mr-auto">
+              <h1 className="text-[45px] font-normal text-[#292524] tracking-tight mr-auto" style={{ fontFamily: 'CustomHeading, sans-serif' }}>
                 Jobs
-              </h2>
+              </h1>
               
               <div className="relative min-w-[320px]">
                 <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
