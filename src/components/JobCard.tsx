@@ -37,7 +37,7 @@ export const JobCard: React.FC<JobCardProps> = ({
 }) => {
   return (
     <article className="bg-[#FFFFFF] rounded-lg p-6 border border-[#EEEDEC] flex flex-col h-full">
-      <header className="flex items-center justify-end mb-6">
+      <header className="flex items-center justify-end mb-2">
         <div className="flex items-center gap-1.5 text-[10px] text-foreground">
           <div className="w-2 h-2 rounded-full bg-[#292524]" />
           <span>{isPublished ? 'Published' : 'Draft'}</span>
