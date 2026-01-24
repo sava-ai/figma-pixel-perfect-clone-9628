@@ -365,7 +365,7 @@ Qualifications
         {/* Left side - Job Description Editor */}
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
           <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#F6F5F3' }}>
-            <div className={`flex-1 overflow-y-auto bg-background rounded-lg relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
+            <div className={`flex-1 overflow-y-auto bg-background rounded-lg border border-[#F3F3F3] relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
               {/* AI Suggestions Tracker & Publish Button - Sticky at top */}
               <div className="sticky top-0 z-10 bg-background pt-6 pb-4 pl-12 pr-12 flex items-center justify-between">
                 {activeSuggestions.length > 0 ? (
