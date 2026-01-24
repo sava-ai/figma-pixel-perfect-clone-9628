@@ -282,7 +282,7 @@ const Index = () => {
             </div>
 
             {/* Jobs section */}
-            <section className={`bg-[#FFFFFF] rounded-lg shadow-xl p-8 mt-12 transition-all duration-[2500ms] ease-in-out ${
+            <section className={`bg-[#FFFFFF] rounded-lg border border-[#EEEDEC] p-8 mt-12 transition-all duration-[2500ms] ease-in-out ${
               isChatMode ? 'translate-y-[150vh] opacity-0' : 'translate-y-0 opacity-100'
             }`}>
             {/* Filters with Jobs title */}
