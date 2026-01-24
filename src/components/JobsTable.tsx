@@ -108,76 +108,85 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
   };
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow className="hover:bg-transparent border-[#EEEDEC]">
-          <TableHead className="text-xs font-medium text-muted-foreground">Job Title</TableHead>
-          <TableHead className="text-xs font-medium text-muted-foreground">Owner</TableHead>
-          <TableHead className="text-xs font-medium text-muted-foreground text-center">Found</TableHead>
-          <TableHead className="text-xs font-medium text-muted-foreground text-center">Saved</TableHead>
-          <TableHead className="text-xs font-medium text-muted-foreground text-center">Contacted</TableHead>
-          <TableHead className="text-xs font-medium text-muted-foreground text-center">Interviewed</TableHead>
-          <TableHead className="text-xs font-medium text-muted-foreground">Status</TableHead>
-          <TableHead className="text-xs font-medium text-muted-foreground w-10"></TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
+    <div className="flex flex-col gap-2">
+      <Table>
+        <TableHeader>
+          <TableRow className="hover:bg-transparent border-none">
+            <TableHead className="text-xs font-medium text-muted-foreground pl-4">Job Title</TableHead>
+            <TableHead className="text-xs font-medium text-muted-foreground">Owner</TableHead>
+            <TableHead className="text-xs font-medium text-muted-foreground text-center">Found</TableHead>
+            <TableHead className="text-xs font-medium text-muted-foreground text-center">Saved</TableHead>
+            <TableHead className="text-xs font-medium text-muted-foreground text-center">Contacted</TableHead>
+            <TableHead className="text-xs font-medium text-muted-foreground text-center">Interviewed</TableHead>
+            <TableHead className="text-xs font-medium text-muted-foreground">Status</TableHead>
+            <TableHead className="text-xs font-medium text-muted-foreground w-10 pr-4"></TableHead>
+          </TableRow>
+        </TableHeader>
+      </Table>
+      
+      <div className="flex flex-col gap-3">
         {jobs.map((job, index) => (
-          <TableRow 
-            key={index} 
-            className="hover:bg-accent/50 cursor-pointer border-[#EEEDEC]"
+          <div
+            key={index}
+            className="bg-white border border-[#EEEDEC] rounded-lg hover:bg-accent/30 cursor-pointer transition-colors"
             onClick={() => navigate('/job')}
           >
-            <TableCell className="font-medium text-[#292524] max-w-[300px]">
-              <span className="line-clamp-1" style={{ fontFamily: 'CustomHeading, sans-serif' }}>
-                {job.title}
-              </span>
-            </TableCell>
-            <TableCell>
-              <div className="flex items-center gap-2">
-                <UserAvatar src={job.userAvatar} size="sm" />
-                <span className="text-sm text-foreground">{job.userName}</span>
-              </div>
-            </TableCell>
-            <TableCell className="text-center">
-              <div className="flex items-center justify-center gap-1.5">
-                <img src={starIcon} alt="" className="w-4 h-4" />
-                <span className="text-sm font-medium">{job.stats.found}</span>
-              </div>
-            </TableCell>
-            <TableCell className="text-center">
-              <div className="flex items-center justify-center gap-1.5">
-                <img src={savedIcon} alt="" className="w-4 h-4" />
-                <span className="text-sm font-medium">{job.stats.saved}</span>
-              </div>
-            </TableCell>
-            <TableCell className="text-center">
-              <div className="flex items-center justify-center gap-1.5">
-                <img src={contactedIcon} alt="" className="w-4 h-4" />
-                <span className="text-sm font-medium">{job.stats.contacted}</span>
-              </div>
-            </TableCell>
-            <TableCell className="text-center">
-              <div className="flex items-center justify-center gap-1.5">
-                <img src={interviewedIcon} alt="" className="w-4 h-4" />
-                <span className="text-sm font-medium">{job.stats.interviewed}</span>
-              </div>
-            </TableCell>
-            <TableCell>
-              <span className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize ${getStatusBadge(job.status)}`}>
-                {job.status}
-              </span>
-            </TableCell>
-            <TableCell onClick={(e) => e.stopPropagation()}>
-              <JobRowMenu 
-                onEdit={() => console.log('Edit', index)}
-                onArchive={() => console.log('Archive', index)}
-                onDelete={() => console.log('Delete', index)}
-              />
-            </TableCell>
-          </TableRow>
+            <Table>
+              <TableBody>
+                <TableRow className="border-none hover:bg-transparent">
+                  <TableCell className="font-medium text-[#292524] max-w-[300px] pl-4 py-4">
+                    <span className="line-clamp-1" style={{ fontFamily: 'CustomHeading, sans-serif' }}>
+                      {job.title}
+                    </span>
+                  </TableCell>
+                  <TableCell className="py-4">
+                    <div className="flex items-center gap-2">
+                      <UserAvatar src={job.userAvatar} size="sm" />
+                      <span className="text-sm text-foreground">{job.userName}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-center py-4">
+                    <div className="flex items-center justify-center gap-1.5">
+                      <img src={starIcon} alt="" className="w-4 h-4" />
+                      <span className="text-sm font-medium">{job.stats.found}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-center py-4">
+                    <div className="flex items-center justify-center gap-1.5">
+                      <img src={savedIcon} alt="" className="w-4 h-4" />
+                      <span className="text-sm font-medium">{job.stats.saved}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-center py-4">
+                    <div className="flex items-center justify-center gap-1.5">
+                      <img src={contactedIcon} alt="" className="w-4 h-4" />
+                      <span className="text-sm font-medium">{job.stats.contacted}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-center py-4">
+                    <div className="flex items-center justify-center gap-1.5">
+                      <img src={interviewedIcon} alt="" className="w-4 h-4" />
+                      <span className="text-sm font-medium">{job.stats.interviewed}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="py-4">
+                    <span className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize ${getStatusBadge(job.status)}`}>
+                      {job.status}
+                    </span>
+                  </TableCell>
+                  <TableCell className="pr-4 py-4" onClick={(e) => e.stopPropagation()}>
+                    <JobRowMenu 
+                      onEdit={() => console.log('Edit', index)}
+                      onArchive={() => console.log('Archive', index)}
+                      onDelete={() => console.log('Delete', index)}
+                    />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
         ))}
-      </TableBody>
-    </Table>
+      </div>
+    </div>
   );
 };
