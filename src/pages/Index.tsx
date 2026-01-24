@@ -207,7 +207,7 @@ const Index = () => {
               : 'opacity-0 translate-y-full pointer-events-none absolute w-full max-w-[1200px]'
           }`}>
             {/* Search section */}
-            <div className={`fixed top-0 left-0 right-0 z-20 bg-[#F6F5F3] pt-8 pb-4 px-4 transition-transform duration-300 ease-in-out ${
+            <div className={`fixed top-0 left-0 right-0 z-20 bg-[#F6F5F3] pt-8 pb-4 px-4 transition-transform duration-500 ease-out ${
               isSearchHidden && !isChatMode ? '-translate-y-full' : 'translate-y-0'
             }`}>
               <div className="text-center max-w-[1200px] mx-auto">
@@ -241,8 +241,10 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Spacer for fixed search section */}
-            <div className="h-[320px]" />
+            {/* Spacer for fixed search section - animates with header */}
+            <div className={`transition-all duration-500 ease-out ${
+              isSearchHidden && !isChatMode ? 'h-0' : 'h-[320px]'
+            }`} />
 
             {/* Jobs section */}
             <section className={`bg-[#FFFFFF] rounded-lg border border-[#EEEDEC] p-8 mt-12 transition-all duration-[2500ms] ease-in-out ${
