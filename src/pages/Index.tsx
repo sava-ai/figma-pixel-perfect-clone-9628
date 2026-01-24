@@ -252,7 +252,9 @@ const Index = () => {
           }`}>
             {/* Search section */}
             <div className="text-center mb-8">
-              <AnimatedLogo className="mb-4" />
+              <div className="flex justify-center">
+                <AnimatedLogo className="mb-4" />
+              </div>
               <h1 className={`text-white mb-6 max-w-[750px] mx-auto leading-tight text-5xl pt-[30px] transition-all duration-[1500ms] ${
                 isChatMode ? 'opacity-0' : 'opacity-100'
               }`} style={{ fontFamily: 'CustomHeading, sans-serif' }}>
