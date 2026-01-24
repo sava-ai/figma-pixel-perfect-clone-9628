@@ -98,33 +98,6 @@ const Index = () => {
       <main className="min-h-screen w-full relative">
 
       <div className="relative z-10 flex flex-col items-center pt-8 pb-20 px-4 overflow-hidden">
-        {/* Logo - left sidebar */}
-        <aside className="fixed left-4 top-8">
-          <button 
-            onClick={isChatMode ? handleBackToSearch : () => setIsAIChatOpen(true)}
-            className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm hover:bg-accent transition-all duration-300 cursor-pointer"
-          >
-            <div className="relative w-6 h-6">
-              <img 
-                src={logoIcon} 
-                alt="Logo" 
-                className={`absolute inset-0 w-6 h-6 transition-all duration-1000 ${
-                  isChatMode ? 'opacity-0 scale-50 rotate-180' : 'opacity-100 scale-100 rotate-0'
-                }`}
-              />
-              <svg 
-                className={`absolute inset-0 w-6 h-6 transition-all duration-1000 ${
-                  isChatMode ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-50 -rotate-180'
-                }`}
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-            </div>
-          </button>
-        </aside>
 
         {/* AI Chat Overlay */}
         <AIChatOverlay open={isAIChatOpen} onOpenChange={setIsAIChatOpen} />
@@ -139,26 +112,6 @@ const Index = () => {
         {/* Right sidebar */}
         <aside className="fixed right-4 top-8 flex flex-col gap-4">
           <UserMenu initials="TW" />
-          <button 
-            ref={chatButtonRef}
-            onClick={() => setIsMessagesOpen(true)}
-            className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow relative"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-semibold">
-              3
-            </span>
-          </button>
-          <button className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition-shadow relative">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-            </svg>
-            <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-semibold">
-              5
-            </span>
-          </button>
         </aside>
 
         {/* Main content */}
