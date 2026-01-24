@@ -45,7 +45,6 @@ export const JobChatPanel = ({
   placeholder = "Ask anything about the candidates...",
   onCollapse
 }: JobChatPanelProps) => {
-  const [chatMode, setChatMode] = useState<'personal' | 'team'>('personal');
   const [messages, setMessages] = useState<Message[]>(defaultMessages);
   const [inputValue, setInputValue] = useState('');
   const [isThinking, setIsThinking] = useState(false);
@@ -166,35 +165,11 @@ export const JobChatPanel = ({
       <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
         <div className="flex flex-col h-full py-6 pr-6 pl-2.5 pb-8">
           {/* Chat Header */}
-          <div className="flex items-center justify-between gap-6 mb-12 flex-shrink-0 relative">
-            {/* Left side - Personal/Team Switch */}
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg shadow-sm">
-              <button
-                onClick={() => setChatMode('personal')}
-                className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                  chatMode === 'personal' 
-                    ? 'bg-gray-900 text-white' 
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                Personal
-              </button>
-              <button
-                onClick={() => setChatMode('team')}
-                className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                  chatMode === 'team' 
-                    ? 'bg-gray-900 text-white' 
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                Team
-              </button>
-            </div>
-
+          <div className="flex items-center justify-end gap-6 mb-12 flex-shrink-0 relative">
             {/* Right side - Collapse Button */}
             <button
               onClick={onCollapse}
-              className="w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
+              className="w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
             >
               <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ transform: 'rotate(180deg)' }}>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -204,71 +179,46 @@ export const JobChatPanel = ({
 
           {/* Chat Messages - Scrollable */}
           <div className="flex-1 overflow-y-auto mb-6 space-y-4">
-            {chatMode === 'personal' ? (
-              <>
-                {messages.map((message, index) => (
-                  <div key={index}>
-                    <div className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}>
-                      <div
-                        className={`max-w-[80%] ${
-                          message.isUser
-                            ? 'bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl'
-                            : 'text-foreground px-6 py-4'
-                        }`}
-                      >
-                        {message.text}
-                      </div>
-                    </div>
-                    {message.action && !message.isUser && (
-                      <div className="flex justify-start mt-3">
-                        <Button
-                          onClick={handleCheckCandidates}
-                          variant="outline"
-                          size="sm"
-                          className="ml-6"
-                        >
-                          Check candidates
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                ))}
-                {isThinking && (
-                  <div className="flex justify-start">
-                    <div className="bg-transparent text-foreground px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <div className="flex gap-1">
-                          <div className="w-2 h-2 bg-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                          <div className="w-2 h-2 bg-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                          <div className="w-2 h-2 bg-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                        </div>
-                        <span className="text-sm">Thinking...</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </>
-            ) : (
-              <>
-                {/* Team Chat View */}
-                <div className="space-y-6">
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2 px-2">
-                      <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-medium">
-                        SM
-                      </div>
-                      <span className="text-sm font-medium text-muted-foreground">Sarah Miller</span>
-                      <span className="text-xs text-muted-foreground">30m ago</span>
-                    </div>
-                    <div className="bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl ml-8">
-                      Compare Emma and Oliver for the senior role
-                    </div>
-                    <div className="text-foreground px-6 py-4 ml-8">
-                      Both are excellent candidates. Emma has stronger Figma skills, while Oliver excels in accessibility design.
-                    </div>
+            {messages.map((message, index) => (
+              <div key={index}>
+                <div className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}>
+                  <div
+                    className={`max-w-[80%] ${
+                      message.isUser
+                        ? 'bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl'
+                        : 'text-foreground px-6 py-4'
+                    }`}
+                  >
+                    {message.text}
                   </div>
                 </div>
-              </>
+                {message.action && !message.isUser && (
+                  <div className="flex justify-start mt-3">
+                    <Button
+                      onClick={handleCheckCandidates}
+                      variant="outline"
+                      size="sm"
+                      className="ml-6"
+                    >
+                      Check candidates
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ))}
+            {isThinking && (
+              <div className="flex justify-start">
+                <div className="bg-transparent text-foreground px-6 py-4">
+                  <div className="flex items-center gap-2">
+                    <div className="flex gap-1">
+                      <div className="w-2 h-2 bg-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <div className="w-2 h-2 bg-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <div className="w-2 h-2 bg-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
+                    <span className="text-sm">Thinking...</span>
+                  </div>
+                </div>
+              </div>
             )}
             <div ref={messagesEndRef} />
           </div>
