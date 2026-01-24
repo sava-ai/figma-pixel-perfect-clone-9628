@@ -5,7 +5,7 @@ interface AnimatedLogoProps {
 }
 
 export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) => {
-  const [offset, setOffset] = useState({ x: 0, y: 0, angle: 0 });
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
   const logoRef = useRef<SVGSVGElement>(null);
 
   // Center positions of the black irises
@@ -27,9 +27,6 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) =>
       const deltaX = e.clientX - centerX;
       const deltaY = e.clientY - centerY;
 
-      // Calculate angle for magnifier rotation (in degrees)
-      const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-
       // Normalize to -1 to 1 range
       const maxDistance = 300;
       const normalizedX = Math.max(-1, Math.min(1, deltaX / maxDistance));
@@ -37,8 +34,7 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) =>
 
       setOffset({ 
         x: normalizedX * maxMoveX, 
-        y: normalizedY * maxMoveY,
-        angle: angle
+        y: normalizedY * maxMoveY
       });
     };
 
@@ -53,14 +49,12 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) =>
   const rightPupilY = rightIrisCenter.y + offset.y;
 
   // Eyebrow animation (subtle tilt and position based on cursor)
-  const eyebrowTilt = offset.x * 0.3; // Subtle rotation
-  const eyebrowLift = -offset.y * 0.15; // Lift when looking up
+  const eyebrowTilt = offset.x * 0.15; // Subtle rotation
+  const eyebrowLift = -offset.y * 0.1; // Lift when looking up
 
-  // Magnifier rotation (points toward cursor)
-  // Base angle is around 45 degrees (bottom-right), so we adjust from there
-  const magnifierRotation = (offset.angle - 45) * 0.15; // Subtle rotation toward cursor
-  const magnifierTranslateX = offset.x * 0.5;
-  const magnifierTranslateY = offset.y * 0.5;
+  // Magnifier - only subtle translation, no rotation to avoid bugs
+  const magnifierTranslateX = offset.x * 0.3;
+  const magnifierTranslateY = offset.y * 0.3;
 
   return (
     <svg 
@@ -103,12 +97,11 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) =>
         style={{ transition: 'all 0.1s ease-out' }}
       />
       
-      {/* Animated Magnifying glass + hand group */}
+      {/* Animated Magnifying glass + hand group - subtle movement only */}
       <g 
         style={{ 
-          transform: `translate(${magnifierTranslateX}px, ${magnifierTranslateY}px) rotate(${magnifierRotation}deg)`,
-          transformOrigin: '90px 144px',
-          transition: 'all 0.15s ease-out'
+          transform: `translate(${magnifierTranslateX}px, ${magnifierTranslateY}px)`,
+          transition: 'transform 0.15s ease-out'
         }}
       >
         <path d="M88.761 93C92.37 93 95.97 93.3684 99.5041 94.0996L103.133 94.8506C106.967 95.6439 110.695 96.8875 114.238 98.5547L114.422 98.6406C116.524 99.6298 118.55 100.774 120.483 102.062C125.648 105.506 130.08 109.938 133.524 115.104L134.428 116.46L134.438 116.476C137.139 120.864 139.257 125.587 140.738 130.522L141.544 133.213L141.56 133.267L141.57 133.321L142.839 140.3C143.336 143.034 143.586 145.809 143.586 148.588C143.586 151.249 143.357 153.905 142.901 156.526L142.861 156.761C141.989 161.773 140.342 166.62 137.982 171.127L136.464 174.023L199.921 202.604C201.047 203.111 201.449 204.508 200.764 205.536L186.994 226.189C186.365 227.134 185.077 227.366 184.157 226.7L127.522 185.688L114.082 193.368L114.031 193.397L113.976 193.421L110.91 194.718C104.231 197.544 97.0517 199 89.7991 199H88.5032C84.1516 199 79.822 198.372 75.6497 197.136C70.6777 195.663 65.9957 193.346 61.8088 190.286L60.6487 189.438C56.8254 186.645 53.39 183.355 50.4319 179.657L49.9846 179.099C47.8319 176.408 45.927 173.527 44.2932 170.493L43.1311 168.335C40.8104 164.025 39.2436 159.35 38.4993 154.512C37.887 150.532 37.8375 146.486 38.3528 142.492L38.6213 140.414C39.2786 135.32 40.6127 130.337 42.5881 125.596L42.9358 124.761C44.1068 121.95 45.513 119.243 47.1389 116.669L47.2668 116.467C49.6187 112.743 52.4318 109.331 55.6389 106.312L55.7981 106.163C58.2427 103.862 60.9125 101.813 63.7668 100.046L64.6018 99.5283C68.3049 97.236 72.331 95.5115 76.5452 94.4121C80.1385 93.4747 83.8374 93.0001 87.551 93H88.761ZM90.5862 107C70.1518 107 53.5862 123.566 53.5862 144C53.5862 164.434 70.1518 181 90.5862 181C111.021 181 127.586 164.435 127.586 144C127.586 123.565 111.021 107 90.5862 107Z" fill="#B8A88A"/>
@@ -122,9 +115,9 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) =>
       {/* Animated Eyebrows/antennae */}
       <g
         style={{
-          transform: `translate(${offset.x * 0.3}px, ${eyebrowLift}px) rotate(${eyebrowTilt}deg)`,
+          transform: `translate(${offset.x * 0.2}px, ${eyebrowLift}px) rotate(${eyebrowTilt}deg)`,
           transformOrigin: '152px 20px',
-          transition: 'all 0.12s ease-out'
+          transition: 'transform 0.12s ease-out'
         }}
       >
         <path d="M159 27.5L161.331 22.2542C162.434 19.7726 163.985 17.5153 165.905 15.595L166.959 14.5413C168.307 13.1935 169.905 12.1228 171.665 11.3897L172.195 11.1689C174.037 10.4012 176.039 10.0944 178.027 10.2751C179.659 10.4235 181.245 10.8974 182.691 11.6687L185.142 12.9758C187.04 13.988 188.805 15.2318 190.397 16.6787L193.5 19.5M144.5 26.5L141.813 21.1252C141.272 20.0434 140.647 19.0056 139.944 18.0214L137.554 14.6752C136.539 13.2549 135.139 12.1555 133.518 11.5072C131.875 10.85 130.076 10.6848 128.341 11.0319L128.08 11.084C126.708 11.3583 125.41 11.9166 124.267 12.7231L120.305 15.5203C118.44 16.8365 116.717 18.3431 115.164 20.0156L111 24.5" stroke="black" strokeWidth="6"/>
