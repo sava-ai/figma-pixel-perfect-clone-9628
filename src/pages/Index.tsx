@@ -6,8 +6,9 @@ import { JobCard } from '@/components/JobCard';
 import { AIChatOverlay } from '@/components/AIChatOverlay';
 import { MessagesOverlay } from '@/components/MessagesOverlay';
 import { AnimatedLogo } from '@/components/AnimatedLogo';
+import backgroundImage from '@/assets/background-main-new.jpg';
 import userAvatarImage from '@/assets/user-avatar.png';
-
+import logoIcon from '@/assets/logo-icon.svg';
 const Index = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
@@ -19,7 +20,6 @@ const Index = () => {
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
   const [chatButtonPosition, setChatButtonPosition] = useState({ top: 0, right: 0 });
-  const [isSearchHidden, setIsSearchHidden] = useState(false);
   const chatButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -27,38 +27,6 @@ const Index = () => {
       const rect = chatButtonRef.current.getBoundingClientRect();
       setChatButtonPosition({ top: rect.top, right: window.innerWidth - rect.right });
     }
-  }, []);
-
-  useEffect(() => {
-    let lastScrollY = window.scrollY;
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY;
-          const scrollDelta = currentScrollY - lastScrollY;
-          
-          // Only trigger if scroll delta is significant (prevents micro-movements)
-          if (Math.abs(scrollDelta) > 5) {
-            if (scrollDelta > 0 && currentScrollY > 100) {
-              // Scrolling down and past threshold
-              setIsSearchHidden(true);
-            } else if (scrollDelta < 0) {
-              // Scrolling up
-              setIsSearchHidden(false);
-            }
-            lastScrollY = currentScrollY;
-          }
-          
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   const jobData = {
     title: "Chief Commercial Officer in East/North Asia and Pacific Ocean",
@@ -219,42 +187,35 @@ const Index = () => {
               : 'opacity-0 translate-y-full pointer-events-none absolute w-full max-w-[1200px]'
           }`}>
             {/* Search section */}
-            <div className={`fixed top-0 left-0 right-0 z-20 bg-[#F6F5F3] pt-8 pb-4 px-4 transition-transform duration-500 ease-out ${
-              isSearchHidden && !isChatMode ? '-translate-y-full' : 'translate-y-0'
-            }`}>
-              <div className="text-center max-w-[1200px] mx-auto">
-                <div className="flex justify-center">
-                  <AnimatedLogo className="mb-2" />
-                </div>
-                <h1 className={`text-[#292524] mb-6 max-w-[600px] mx-auto leading-tight text-[3rem] pt-[18px] transition-all duration-[1500ms] ${
-                  isChatMode ? 'opacity-0' : 'opacity-100'
-                }`} style={{ fontFamily: 'CustomHeading, sans-serif' }}>
-                  Who can I find for you?
-                </h1>
-                <form onSubmit={handleSearch} className={`relative max-w-[600px] mx-auto transition-all duration-[4500ms] ease-in-out ${
-                  isChatMode ? 'translate-y-[55vh] opacity-0' : 'translate-y-0 opacity-100'
-                }`}>
-                  <textarea
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                    placeholder="For example: find a user experience designer in Warsaw"
-                    rows={4}
-                    className="w-full bg-white rounded-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#292524] resize-none border border-[#EEEDEC]"
-                  />
-                  <button
-                    type="submit"
-                    className="absolute right-4 bottom-4 w-[34px] h-[34px] bg-[#292524] rounded-full flex items-center justify-center hover:bg-[#292524]/90 transition-colors"
-                  >
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </button>
-                </form>
+            <div className="text-center mb-8">
+              <div className="flex justify-center">
+                <AnimatedLogo className="mb-2" />
               </div>
+              <h1 className={`text-[#292524] mb-6 max-w-[600px] mx-auto leading-tight text-[3rem] pt-[18px] transition-all duration-[1500ms] ${
+                isChatMode ? 'opacity-0' : 'opacity-100'
+              }`} style={{ fontFamily: 'CustomHeading, sans-serif' }}>
+                Who can I find for you?
+              </h1>
+              <form onSubmit={handleSearch} className={`relative max-w-[600px] mx-auto transition-all duration-[4500ms] ease-in-out ${
+                isChatMode ? 'translate-y-[55vh] opacity-0' : 'translate-y-0 opacity-100'
+              }`}>
+                <textarea
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  placeholder="For example: find a user experience designer in Warsaw"
+                  rows={4}
+                  className="w-full bg-white rounded-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#292524] resize-none border border-[#EEEDEC]"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-4 bottom-4 w-[34px] h-[34px] bg-[#292524] rounded-full flex items-center justify-center hover:bg-[#292524]/90 transition-colors"
+                >
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </form>
             </div>
-
-            {/* Spacer for fixed search section */}
-            <div className="h-[320px]" />
 
             {/* Jobs section */}
             <section className={`bg-[#FFFFFF] rounded-lg border border-[#EEEDEC] p-8 mt-12 transition-all duration-[2500ms] ease-in-out ${
