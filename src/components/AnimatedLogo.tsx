@@ -8,6 +8,14 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) =>
   const [pupilOffset, setPupilOffset] = useState({ x: 0, y: 0 });
   const logoRef = useRef<SVGSVGElement>(null);
 
+  // Center positions of the black irises
+  const leftIrisCenter = { x: 110, y: 100 };
+  const rightIrisCenter = { x: 175, y: 100 };
+  
+  // Maximum movement range within the black iris (pixels in SVG units)
+  const maxMoveX = 18;
+  const maxMoveY = 25;
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!logoRef.current) return;
@@ -19,26 +27,28 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) =>
       const deltaX = e.clientX - centerX;
       const deltaY = e.clientY - centerY;
 
-      // Much more pronounced movement (max 12px)
-      const maxMove = 12;
+      // Normalize to -1 to 1 range based on distance
       const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-      const normalizedDistance = Math.min(distance / 100, 1);
+      const maxDistance = 300; // pixels from center to reach max movement
       
-      const moveX = (deltaX / (distance || 1)) * maxMove * normalizedDistance;
-      const moveY = (deltaY / (distance || 1)) * maxMove * normalizedDistance;
+      const normalizedX = Math.max(-1, Math.min(1, deltaX / maxDistance));
+      const normalizedY = Math.max(-1, Math.min(1, deltaY / maxDistance));
 
-      setPupilOffset({ x: moveX, y: moveY });
+      setPupilOffset({ 
+        x: normalizedX * maxMoveX, 
+        y: normalizedY * maxMoveY 
+      });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Calculate individual pupil positions
-  const leftPupilX = 123.852 + pupilOffset.x;
-  const leftPupilY = 69.0703 + pupilOffset.y;
-  const rightPupilX = 188.43 + pupilOffset.x;
-  const rightPupilY = 69.08 + pupilOffset.y;
+  // Calculate pupil positions (moving within the black iris)
+  const leftPupilX = leftIrisCenter.x + pupilOffset.x;
+  const leftPupilY = leftIrisCenter.y + pupilOffset.y;
+  const rightPupilX = rightIrisCenter.x + pupilOffset.x;
+  const rightPupilY = rightIrisCenter.y + pupilOffset.y;
 
   return (
     <svg 
@@ -61,24 +71,24 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) =>
       <path d="M152.108 96.1379C147.888 121.731 154.792 144.181 167.529 146.282C180.266 148.384 194.013 129.34 198.233 103.747C202.453 78.1537 195.549 55.7033 182.812 53.6022C170.075 51.5011 156.328 70.545 152.108 96.1379Z" fill="#121212"/>
       <path d="M88.3796 97.2369C84.3873 121.447 90.8088 142.666 102.722 144.631C114.636 146.597 127.53 128.564 131.522 104.354C135.515 80.1437 129.093 58.9245 117.18 56.9592C105.266 54.9939 92.3718 73.0269 88.3796 97.2369Z" fill="#121212"/>
       
-      {/* Animated left pupil */}
+      {/* Animated left pupil - moves within the black iris */}
       <ellipse 
         cx={leftPupilX} 
         cy={leftPupilY} 
-        rx="9.5" 
-        ry="10.5" 
+        rx="8" 
+        ry="9" 
         fill="#FCFCFC"
-        style={{ transition: 'cx 0.08s ease-out, cy 0.08s ease-out' }}
+        style={{ transition: 'all 0.1s ease-out' }}
       />
       
-      {/* Animated right pupil */}
+      {/* Animated right pupil - moves within the black iris */}
       <ellipse 
         cx={rightPupilX} 
         cy={rightPupilY} 
-        rx="10.5" 
-        ry="11.5" 
+        rx="9" 
+        ry="10" 
         fill="#FCFCFC"
-        style={{ transition: 'cx 0.08s ease-out, cy 0.08s ease-out' }}
+        style={{ transition: 'all 0.1s ease-out' }}
       />
       
       {/* Magnifying glass */}
