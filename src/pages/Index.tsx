@@ -255,7 +255,7 @@ const Index = () => {
               <div className="flex justify-center">
                 <AnimatedLogo className="mb-2" />
               </div>
-              <h1 className={`text-white mb-6 max-w-[600px] mx-auto leading-tight text-5xl pt-[18px] transition-all duration-[1500ms] ${
+              <h1 className={`text-white mb-6 max-w-[600px] mx-auto leading-tight text-[2.5rem] pt-[18px] transition-all duration-[1500ms] ${
                 isChatMode ? 'opacity-0' : 'opacity-100'
               }`} style={{ fontFamily: 'CustomHeading, sans-serif' }}>
                 Describe who you want to hire
