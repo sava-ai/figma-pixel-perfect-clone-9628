@@ -134,7 +134,7 @@ const Index = () => {
                       className={`max-w-[600px] px-6 py-4 rounded-2xl shadow-lg ${
                         message.isUser
                           ? 'bg-white text-foreground'
-                          : 'bg-[rgba(21,52,61,1)] text-white'
+                          : 'bg-[rgb(41,37,36)] text-white'
                       }`}
                       style={{
                         animation: message.isUser ? 'slideFromCenter 0.8s ease-out' : 'none'
