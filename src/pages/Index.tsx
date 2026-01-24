@@ -38,6 +38,10 @@ const Index = () => {
       contacted: 55,
       interviewed: 55
     },
+    newStats: {
+      saved: 3,
+      contacted: 2
+    },
     actionsNeeded: 4
   };
   const handleSearch = (e: React.FormEvent) => {
