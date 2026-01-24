@@ -82,16 +82,19 @@ const Index = () => {
     setConversationStep(0);
   };
   const jobs = Array(9).fill(jobData);
-  return <main 
-      className="min-h-screen w-full relative"
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
-      }}
-    >
+  return (
+    <>
+      {/* Fixed background layer */}
+      <div 
+        className="fixed inset-0 w-screen h-screen -z-10"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <main className="min-h-screen w-full relative">
 
       <div className="relative z-10 flex flex-col items-center pt-8 pb-20 px-4 overflow-hidden">
         {/* Logo - left sidebar */}
@@ -315,6 +318,8 @@ const Index = () => {
             </div>
           </div>
         </div>
-      </main>;
+      </main>
+    </>
+  );
 };
 export default Index;
