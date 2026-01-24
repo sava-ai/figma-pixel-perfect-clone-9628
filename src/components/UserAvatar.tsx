@@ -24,20 +24,20 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
       <img
         src={src}
         alt="User avatar"
-        className={`aspect-[1] object-contain rounded-[1px] ${sizeClasses[size]} ${className}`}
+        className={`aspect-[1] object-contain ${sizeClasses[size]} ${className}`}
       />
     );
   }
 
   if (initials) {
     return (
-      <div className={`bg-[rgba(21,52,61,1)] flex flex-col items-center justify-center text-white font-normal whitespace-nowrap rounded-[1px] ${sizeClasses[size]} ${className}`}>
+      <div className={`bg-[rgba(21,52,61,1)] flex flex-col items-center justify-center text-white font-normal whitespace-nowrap ${sizeClasses[size]} ${className}`}>
         <div>{initials}</div>
       </div>
     );
   }
 
   return (
-    <div className={`bg-white rounded-[1px] ${sizeClasses[size]} ${className}`} />
+    <div className={`bg-white ${sizeClasses[size]} ${className}`} />
   );
 };
