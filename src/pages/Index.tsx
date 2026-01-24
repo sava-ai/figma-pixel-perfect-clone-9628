@@ -87,13 +87,7 @@ const Index = () => {
     <>
       {/* Fixed background layer */}
       <div 
-        className="fixed inset-0 w-screen h-screen -z-10"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
+        className="fixed inset-0 w-screen h-screen -z-10 bg-[#F6F5F3]"
       />
       <main className="min-h-screen w-full relative">
 
