@@ -41,10 +41,13 @@ export const JobCard: React.FC<JobCardProps> = ({
         <h3 className="text-[#292524] text-lg font-medium" style={{ fontFamily: 'CustomHeading, sans-serif' }}>
           {title}
         </h3>
-        <div className="flex items-center gap-1.5 text-[10px] text-foreground">
-          <div className="w-2 h-2 rounded-full bg-[#292524]" />
-          <span>{isPublished ? 'Published' : 'Draft'}</span>
-        </div>
+        <span className={`px-2 py-0.5 text-[10px] font-medium rounded-full ${
+          isPublished 
+            ? 'bg-green-100 text-green-700' 
+            : 'bg-gray-100 text-gray-600'
+        }`}>
+          {isPublished ? 'Published' : 'Draft'}
+        </span>
       </header>
 
       <div className="flex items-center gap-2 text-xs mb-6">
