@@ -6,7 +6,7 @@ interface AnimatedLogoProps {
 }
 
 export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) => {
-  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
   const logoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,15 +21,12 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) =>
       const deltaX = e.clientX - centerX;
       const deltaY = e.clientY - centerY;
 
-      // Limit the rotation amount (max ~15 degrees)
-      const maxRotation = 15;
-      const distanceX = Math.min(Math.max(deltaX / 30, -maxRotation), maxRotation);
-      const distanceY = Math.min(Math.max(deltaY / 30, -maxRotation), maxRotation);
+      // Move the logo towards the cursor (max 20px movement)
+      const maxMove = 20;
+      const moveX = Math.min(Math.max(deltaX / 25, -maxMove), maxMove);
+      const moveY = Math.min(Math.max(deltaY / 25, -maxMove), maxMove);
 
-      setRotation({
-        x: -distanceY * 0.5, // Invert Y for natural tilt
-        y: distanceX * 0.5
-      });
+      setOffset({ x: moveX, y: moveY });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -39,15 +36,16 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ className = '' }) =>
   return (
     <div
       ref={logoRef}
-      className={`inline-block transition-transform duration-150 ease-out ${className}`}
+      className={`inline-block ${className}`}
       style={{
-        transform: `perspective(500px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
+        transform: `translate(${offset.x}px, ${offset.y}px)`,
+        transition: 'transform 0.1s ease-out',
       }}
     >
       <img 
         src={logoSearch} 
         alt="Search Logo" 
-        className="w-[180px] h-auto"
+        className="w-[90px] h-auto"
         draggable={false}
       />
     </div>
