@@ -2,13 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserAvatar } from '@/components/UserAvatar';
 import { UserMenu } from '@/components/UserMenu';
-import { JobCard } from '@/components/JobCard';
+import { JobsTable } from '@/components/JobsTable';
 import { AIChatOverlay } from '@/components/AIChatOverlay';
 import { MessagesOverlay } from '@/components/MessagesOverlay';
 import { AnimatedLogo } from '@/components/AnimatedLogo';
-import backgroundImage from '@/assets/background-main-new.jpg';
 import userAvatarImage from '@/assets/user-avatar.png';
-import logoIcon from '@/assets/logo-icon.svg';
 const Index = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
@@ -253,10 +251,8 @@ const Index = () => {
               </button>
             </div>
 
-                {/* Job cards grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {jobs.map((job, index) => <JobCard key={index} {...job} onMenuClick={() => console.log('Menu clicked', index)} onActionClick={() => console.log('Action clicked', index)} />)}
-                </div>
+                {/* Jobs table */}
+                <JobsTable jobs={jobs} />
               </section>
             </div>
           </div>
