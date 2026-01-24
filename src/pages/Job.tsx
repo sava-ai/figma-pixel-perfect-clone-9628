@@ -296,7 +296,7 @@ Qualifications
         </div>
 
         {/* Center - Tabs */}
-        <div className="flex items-center gap-1 p-1 rounded-lg" style={{ backgroundColor: '#FAF8F4' }}>
+        <div className="flex items-center gap-1 p-1 rounded-lg" style={{ backgroundColor: '#F6F5F3' }}>
           <button
             onClick={() => setActiveTab('job')}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all ${
@@ -364,8 +364,8 @@ Qualifications
       <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden">
         {/* Left side - Job Description Editor */}
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
-          <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
-            <div className={`flex-1 overflow-y-auto bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
+          <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#F6F5F3' }}>
+            <div className={`flex-1 overflow-y-auto bg-background rounded-lg relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
               {/* AI Suggestions Tracker & Publish Button - Sticky at top */}
               <div className="sticky top-0 z-10 bg-background pt-6 pb-4 pl-12 pr-12 flex items-center justify-between">
                 {activeSuggestions.length > 0 ? (
@@ -446,7 +446,7 @@ Qualifications
         {/* Right side - Chat Interface */}
         {!isChatCollapsed && (
           <ResizablePanel defaultSize={35} minSize={30}>
-            <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
+            <div className="h-full flex flex-col" style={{ backgroundColor: '#F6F5F3' }}>
               <div className="flex flex-col h-full py-6 pr-8 pl-2.5 pb-8">
                 {/* Chat Header */}
                 <div className="flex items-center justify-between gap-6 mb-12 flex-shrink-0 relative">
@@ -497,7 +497,7 @@ Qualifications
                         <div
                           className={`max-w-[80%] ${
                             message.isUser
-                              ? 'bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl'
+                              ? 'bg-white shadow-sm text-foreground px-6 py-4 rounded-lg'
                               : 'text-foreground px-6 py-4'
                           }`}
                         >
@@ -611,7 +611,7 @@ Qualifications
                           <span className="text-sm font-medium text-muted-foreground">Sarah Miller</span>
                           <span className="text-xs text-muted-foreground">2h ago</span>
                         </div>
-                        <div className="bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl ml-8">
+                        <div className="bg-white shadow-sm text-foreground px-6 py-4 rounded-lg ml-8">
                           Find frontend developers with React experience in Berlin
                         </div>
                         <div className="text-foreground px-6 py-4 ml-8">
@@ -628,7 +628,7 @@ Qualifications
                           <span className="text-sm font-medium text-muted-foreground">Mike Chen</span>
                           <span className="text-xs text-muted-foreground">5h ago</span>
                         </div>
-                        <div className="bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl ml-8">
+                        <div className="bg-white shadow-sm text-foreground px-6 py-4 rounded-lg ml-8">
                           Update the UX Designer job description to include Figma as a requirement
                         </div>
                         <div className="text-foreground px-6 py-4 ml-8">
@@ -645,7 +645,7 @@ Qualifications
                           <span className="text-sm font-medium text-muted-foreground">Alex Rivera</span>
                           <span className="text-xs text-muted-foreground">1d ago</span>
                         </div>
-                        <div className="bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl ml-8">
+                        <div className="bg-white shadow-sm text-foreground px-6 py-4 rounded-lg ml-8">
                           Show me analytics for the Marketing Manager position
                         </div>
                         <div className="text-foreground px-6 py-4 ml-8">
@@ -664,7 +664,7 @@ Qualifications
                 <textarea
                   placeholder="Ask anything about this job description..."
                   rows={3}
-                  className="w-full bg-white rounded-2xl px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none min-h-[80px] shadow-sm"
+                  className="w-full bg-white rounded-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none min-h-[80px] shadow-sm"
                 />
                 <button
                   type="submit"
