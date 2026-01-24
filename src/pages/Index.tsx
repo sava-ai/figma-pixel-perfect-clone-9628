@@ -38,7 +38,8 @@ const Index = () => {
       contacted: 55,
       interviewed: 55
     },
-    actionsNeeded: 4
+    actionsNeeded: 4,
+    status: 'published' as const
   };
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,6 +84,8 @@ const Index = () => {
     setConversationStep(0);
   };
   const jobs = Array(9).fill(jobData);
+  const publishedCount = jobs.filter(job => job.status === 'published').length;
+  
   return (
     <>
       {/* Fixed background layer */}
@@ -224,7 +227,7 @@ const Index = () => {
             {/* Filters with Jobs title */}
             <div className="flex items-center gap-4 mb-8 flex-wrap">
               <h1 className="text-[45px] font-normal text-[#292524] tracking-tight mr-auto" style={{ fontFamily: 'CustomHeading, sans-serif' }}>
-                Jobs
+                Jobs ({publishedCount})
               </h1>
               
               <div className="relative min-w-[320px]">
