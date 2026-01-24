@@ -29,7 +29,7 @@ const Index = () => {
     }
   }, []);
   const jobData = {
-    title: "Chief Operations Officer",
+    title: "Chief Commercial Officer in East/North Asia and Pacific Ocean",
     userName: "Mateusz Budka",
     userAvatar: userAvatarImage,
     stats: {
