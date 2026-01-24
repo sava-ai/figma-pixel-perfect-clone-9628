@@ -83,13 +83,13 @@ const Index = () => {
   };
   const jobs = Array(9).fill(jobData);
   return <main 
-      className="min-h-screen w-full relative overflow-hidden"
+      className="min-h-screen w-full relative"
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: '100% auto',
-        backgroundPosition: 'top center',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        backgroundColor: '#8fa5a8',
+        backgroundAttachment: 'fixed',
       }}
     >
 
