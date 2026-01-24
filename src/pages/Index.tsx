@@ -264,7 +264,7 @@ const Index = () => {
                   onChange={e => setSearchQuery(e.target.value)}
                   placeholder="For example: find a user experience designer in Warsaw"
                   rows={4}
-                  className="w-full bg-white rounded-2xl shadow-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none"
+                  className="w-full bg-white rounded-lg shadow-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[rgba(21,52,61,1)] resize-none"
                 />
                 <button
                   type="submit"
