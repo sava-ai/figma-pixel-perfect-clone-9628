@@ -113,7 +113,7 @@ const Index = () => {
         />
 
         {/* Right sidebar */}
-        <aside className="fixed top-8 flex flex-col gap-4" style={{ right: 'calc(25vw - 315px)' }}>
+        <aside className="fixed top-8 right-6 flex flex-col gap-4">
           <UserMenu initials="TW" />
         </aside>
 
