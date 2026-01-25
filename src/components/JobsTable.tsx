@@ -108,82 +108,69 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
   };
 
   return (
-    <div className="flex flex-col gap-2">
-      <Table>
-        <TableHeader>
-          <TableRow className="hover:bg-transparent border-none">
-            <TableHead className="text-xs font-medium text-muted-foreground pl-4">Job Title</TableHead>
-            <TableHead className="text-xs font-medium text-muted-foreground">Owner</TableHead>
-            <TableHead className="text-xs font-medium text-muted-foreground text-center">Found</TableHead>
-            <TableHead className="text-xs font-medium text-muted-foreground text-center">Saved</TableHead>
-            <TableHead className="text-xs font-medium text-muted-foreground text-center">Contacted</TableHead>
-            <TableHead className="text-xs font-medium text-muted-foreground text-center">Interviewed</TableHead>
-            <TableHead className="text-xs font-medium text-muted-foreground">Status</TableHead>
-            <TableHead className="text-xs font-medium text-muted-foreground w-10 pr-4"></TableHead>
-          </TableRow>
-        </TableHeader>
-      </Table>
+    <div className="flex flex-col">
+      {/* Header row with icons */}
+      <div className="grid grid-cols-[1fr_180px_80px_80px_80px_80px_100px_48px] items-center px-4 pb-3 text-xs font-medium text-muted-foreground">
+        <span>Job Title</span>
+        <span>Owner</span>
+        <div className="flex flex-col items-center gap-1">
+          <img src={starIcon} alt="" className="w-4 h-4" />
+          <span>Found</span>
+        </div>
+        <div className="flex flex-col items-center gap-1">
+          <img src={savedIcon} alt="" className="w-4 h-4" />
+          <span>Saved</span>
+        </div>
+        <div className="flex flex-col items-center gap-1">
+          <img src={contactedIcon} alt="" className="w-4 h-4" />
+          <span>Contacted</span>
+        </div>
+        <div className="flex flex-col items-center gap-1">
+          <img src={interviewedIcon} alt="" className="w-4 h-4" />
+          <span>Interviewed</span>
+        </div>
+        <span>Status</span>
+        <span></span>
+      </div>
       
-      <div className="flex flex-col gap-3">
+      {/* Job rows */}
+      <div className="flex flex-col gap-4">
         {jobs.map((job, index) => (
           <div
             key={index}
-            className="bg-white border border-[#EEEDEC] rounded-lg hover:bg-accent/30 cursor-pointer transition-colors"
+            className="grid grid-cols-[1fr_180px_80px_80px_80px_80px_100px_48px] items-center bg-white border border-[#EEEDEC] rounded-lg px-4 py-5 hover:bg-accent/30 cursor-pointer transition-colors"
             onClick={() => navigate('/job')}
           >
-            <Table>
-              <TableBody>
-                <TableRow className="border-none hover:bg-transparent">
-                  <TableCell className="font-medium text-[#292524] max-w-[300px] pl-4 py-4">
-                    <span className="line-clamp-1" style={{ fontFamily: 'CustomHeading, sans-serif' }}>
-                      {job.title}
-                    </span>
-                  </TableCell>
-                  <TableCell className="py-4">
-                    <div className="flex items-center gap-2">
-                      <UserAvatar src={job.userAvatar} size="sm" />
-                      <span className="text-sm text-foreground">{job.userName}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-center py-4">
-                    <div className="flex items-center justify-center gap-1.5">
-                      <img src={starIcon} alt="" className="w-4 h-4" />
-                      <span className="text-sm font-medium">{job.stats.found}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-center py-4">
-                    <div className="flex items-center justify-center gap-1.5">
-                      <img src={savedIcon} alt="" className="w-4 h-4" />
-                      <span className="text-sm font-medium">{job.stats.saved}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-center py-4">
-                    <div className="flex items-center justify-center gap-1.5">
-                      <img src={contactedIcon} alt="" className="w-4 h-4" />
-                      <span className="text-sm font-medium">{job.stats.contacted}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-center py-4">
-                    <div className="flex items-center justify-center gap-1.5">
-                      <img src={interviewedIcon} alt="" className="w-4 h-4" />
-                      <span className="text-sm font-medium">{job.stats.interviewed}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="py-4">
-                    <span className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize ${getStatusBadge(job.status)}`}>
-                      {job.status}
-                    </span>
-                  </TableCell>
-                  <TableCell className="pr-4 py-4" onClick={(e) => e.stopPropagation()}>
-                    <JobRowMenu 
-                      onEdit={() => console.log('Edit', index)}
-                      onArchive={() => console.log('Archive', index)}
-                      onDelete={() => console.log('Delete', index)}
-                    />
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+            {/* Title */}
+            <span className="font-medium text-[#292524] line-clamp-1 pr-4" style={{ fontFamily: 'CustomHeading, sans-serif' }}>
+              {job.title}
+            </span>
+            
+            {/* Owner */}
+            <div className="flex items-center gap-2">
+              <UserAvatar src={job.userAvatar} size="sm" />
+              <span className="text-sm text-foreground">{job.userName}</span>
+            </div>
+            
+            {/* Stats - numbers only, centered */}
+            <span className="text-sm font-medium text-center">{job.stats.found}</span>
+            <span className="text-sm font-medium text-center">{job.stats.saved}</span>
+            <span className="text-sm font-medium text-center">{job.stats.contacted}</span>
+            <span className="text-sm font-medium text-center">{job.stats.interviewed}</span>
+            
+            {/* Status */}
+            <span className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize w-fit ${getStatusBadge(job.status)}`}>
+              {job.status}
+            </span>
+            
+            {/* Actions */}
+            <div onClick={(e) => e.stopPropagation()}>
+              <JobRowMenu 
+                onEdit={() => console.log('Edit', index)}
+                onArchive={() => console.log('Archive', index)}
+                onDelete={() => console.log('Delete', index)}
+              />
+            </div>
           </div>
         ))}
       </div>
