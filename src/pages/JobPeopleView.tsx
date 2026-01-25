@@ -506,70 +506,72 @@ const JobPeopleView = () => {
         }}>
             <div className={`flex-1 overflow-y-auto relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
               <div className="p-6 max-w-[1200px] mx-auto">
-                {/* Header with stats */}
-                <div className="mb-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h1 className="text-lg font-medium text-foreground">{bestMatchesCount} of 230 people</h1>
-                    <div className="flex items-center gap-2">
-                      <button className="flex items-center gap-2 px-3 py-1.5 text-xs bg-muted/50 rounded-lg hover:bg-muted transition-colors">
-                        <Search className="w-3.5 h-3.5" />
-                        <span className="text-muted-foreground">Searches (6)</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Applicants and Rejections */}
-                  <div className="grid grid-cols-2 gap-4 mb-8">
-                    <div className="bg-white border border-[#EEEDEC] rounded-xl p-5 relative">
-                      <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full"></div>
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
-                          <svg className="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                            <circle cx="9" cy="7" r="4" />
-                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                          </svg>
-                        </div>
-                        <p className="text-sm text-slate-950">Applicants</p>
+              {/* Header with stats - hide when profile is selected */}
+                {!selectedBestMatch && (
+                  <div className="mb-6 animate-fade-in">
+                    <div className="flex items-center justify-between mb-4">
+                      <h1 className="text-lg font-medium text-foreground">{bestMatchesCount} of 230 people</h1>
+                      <div className="flex items-center gap-2">
+                        <button className="flex items-center gap-2 px-3 py-1.5 text-xs bg-muted/50 rounded-lg hover:bg-muted transition-colors">
+                          <Search className="w-3.5 h-3.5" />
+                          <span className="text-muted-foreground">Searches (6)</span>
+                        </button>
                       </div>
-                      <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">{applicantsCount}</p>
-                      <button 
-                        onClick={() => navigate('/job/applicants')}
-                        className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
-                      >
-                        <span className="text-gray-950">Review now</span>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </button>
                     </div>
 
-                    <div className="bg-white border border-[#EEEDEC] rounded-xl p-5 relative">
-                      <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full"></div>
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-7 h-7 rounded-lg bg-destructive/10 flex items-center justify-center">
-                          <svg className="w-5 h-5 text-destructive" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="m15 9-6 6" />
-                            <path d="m9 9 6 6" />
-                          </svg>
+                    {/* Applicants and Rejections */}
+                    <div className="grid grid-cols-2 gap-4 mb-8">
+                      <div className="bg-white border border-[#EEEDEC] rounded-xl p-5 relative">
+                        <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full"></div>
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
+                            <svg className="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                              <circle cx="9" cy="7" r="4" />
+                              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                          </div>
+                          <p className="text-sm text-slate-950">Applicants</p>
                         </div>
-                        <p className="text-sm text-gray-950">Rejections</p>
+                        <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">{applicantsCount}</p>
+                        <button 
+                          onClick={() => navigate('/job/applicants')}
+                          className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
+                        >
+                          <span className="text-gray-950">Review now</span>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
                       </div>
-                      <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">{rejectionsCount}</p>
-                      <button 
-                        onClick={() => setRejectionDialogOpen(true)}
-                        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        <span className="text-gray-950">Review now</span>
-                        <svg fill="none" stroke="black" viewBox="0 0 24 24" className="w-4 h-4">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </button>
+
+                      <div className="bg-white border border-[#EEEDEC] rounded-xl p-5 relative">
+                        <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full"></div>
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-7 h-7 rounded-lg bg-destructive/10 flex items-center justify-center">
+                            <svg className="w-5 h-5 text-destructive" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <circle cx="12" cy="12" r="10" />
+                              <path d="m15 9-6 6" />
+                              <path d="m9 9 6 6" />
+                            </svg>
+                          </div>
+                          <p className="text-sm text-gray-950">Rejections</p>
+                        </div>
+                        <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">{rejectionsCount}</p>
+                        <button 
+                          onClick={() => setRejectionDialogOpen(true)}
+                          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          <span className="text-gray-950">Review now</span>
+                          <svg fill="none" stroke="black" viewBox="0 0 24 24" className="w-4 h-4">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
 
                 {/* Best matches section */}
                 <div className="mb-4">
