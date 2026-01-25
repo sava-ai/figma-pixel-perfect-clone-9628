@@ -553,7 +553,7 @@ const JobPeopleView = () => {
                     </div>
 
                     {/* Applicants and Rejections */}
-                    <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="grid grid-cols-2 gap-4 mb-4">
                       <div className="bg-white border border-[#EEEDEC] rounded-xl p-5 relative">
                         <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full"></div>
                         <div className="flex items-center gap-3 mb-3">
