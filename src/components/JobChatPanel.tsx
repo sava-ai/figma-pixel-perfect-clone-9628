@@ -183,7 +183,7 @@ export const JobChatPanel = ({
               <div key={index}>
                 <div className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}>
                   <div
-                    className={`max-w-[90%] text-[1rem] leading-relaxed ${
+                    className={`max-w-[90%] text-[0.875rem] leading-relaxed ${
                       message.isUser
                         ? 'bg-white shadow-sm text-foreground px-5 py-3 rounded-2xl'
                         : 'text-foreground px-5 py-3'

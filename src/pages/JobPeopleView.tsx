@@ -633,7 +633,7 @@ const JobPeopleView = () => {
                   // Split view: single column list + detail panel - full height when stats are hidden
                   <div className="flex gap-4 h-[calc(100vh-180px)] animate-content-expand">
                     {/* Single column candidate list */}
-                    <div className="w-1/2 overflow-y-auto space-y-3 pr-2">
+                    <div className="w-[40%] overflow-y-auto space-y-3 pr-2">
                       {filteredCandidates.map(candidate => (
                         <div
                           key={candidate.id}
@@ -723,7 +723,7 @@ const JobPeopleView = () => {
                     </div>
 
                     {/* Detail Panel */}
-                    <div className="w-1/2 bg-white border border-[#EEEDEC] rounded-xl overflow-hidden">
+                    <div className="w-[60%] bg-white border border-[#EEEDEC] rounded-xl overflow-hidden">
                       <CandidateDetailPanel
                         candidate={selectedBestMatch}
                         onClose={() => setSelectedBestMatch(null)}
