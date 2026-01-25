@@ -1,9 +1,8 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical, Clock, MoreHorizontal, Calendar, MessageSquare, User, Trash2, XCircle } from 'lucide-react';
+import { ChevronDown, MoreVertical, Clock, MoreHorizontal, Calendar, MessageSquare, User, Trash2, XCircle, ChevronLeft } from 'lucide-react';
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, closestCorners, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import { InviteDialog } from '@/components/InviteDialog';
 import { JobChatPanel } from '@/components/JobChatPanel';
 import { RejectionDialog } from '@/components/RejectionDialog';
@@ -607,7 +606,7 @@ const JobPipeline = () => {
           </button>
         </div>
 
-        {/* Right side - Profile, Invite, More */}
+        {/* Right side - Profile, Invite, More, Chat Toggle */}
         <div className="flex items-center gap-2">
           <img 
             src={userAvatarImage} 
@@ -623,15 +622,22 @@ const JobPipeline = () => {
           <button className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200">
             <MoreVertical className="w-4 h-4 text-gray-700" />
           </button>
+          <button 
+            onClick={() => setIsChatCollapsed(!isChatCollapsed)}
+            className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
+            title={isChatCollapsed ? "Open AI Chat" : "Close AI Chat"}
+          >
+            <ChevronLeft className={`w-4 h-4 text-gray-700 transition-transform ${isChatCollapsed ? '' : 'rotate-180'}`} />
+          </button>
         </div>
       </header>
 
-      {/* Main Content with Resizable Panels */}
-      <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden">
+      {/* Main Content - Flex layout without resizable */}
+      <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
         {/* Left Panel - Pipeline View */}
-        <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
-          <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#FBFAF9' }}>
-            <div className={`flex-1 overflow-hidden bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-6'}`}>
+        <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
+          <div className={`h-full flex flex-col pt-6 pb-3 relative ${isChatCollapsed ? 'w-full max-w-[1400px]' : 'w-full'}`}>
+            <div className={`flex-1 overflow-hidden bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
               <DndContext 
                 sensors={sensors}
                 collisionDetection={closestCorners}
@@ -703,33 +709,20 @@ const JobPipeline = () => {
                 </DragOverlay>
               </DndContext>
 
-              {isChatCollapsed && (
-                <button
-                  onClick={() => setIsChatCollapsed(false)}
-                  className="fixed bottom-8 right-8 flex items-center gap-2 px-4 py-3 rounded-full transition-all bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-lg hover:shadow-xl border border-gray-700 z-50"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                  <span className="font-medium">AI</span>
-                </button>
-              )}
             </div>
           </div>
-        </ResizablePanel>
+        </div>
 
-        {!isChatCollapsed && <ResizableHandle className="w-0 bg-transparent" />}
-
-        {/* Right side - Chat Interface */}
+        {/* Right Panel - Chat - Fixed width */}
         {!isChatCollapsed && (
-          <ResizablePanel defaultSize={35} minSize={30}>
+          <div className="w-[380px] flex-shrink-0">
             <JobChatPanel 
               defaultMessages={[{ text: 'I can help you manage your pipeline and suggest the best candidates for each stage.', isUser: false }]}
               placeholder="Ask anything about the pipeline..."
             />
-          </ResizablePanel>
+          </div>
         )}
-      </ResizablePanelGroup>
+      </div>
 
       <InviteDialog open={inviteDialogOpen} onOpenChange={setInviteDialogOpen} />
       <RejectionDialog 
