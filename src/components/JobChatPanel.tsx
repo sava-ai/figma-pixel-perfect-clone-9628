@@ -321,36 +321,6 @@ export const JobChatPanel = ({
               </div>
             )}
 
-            {/* Action Buttons */}
-            <div className="flex gap-2 mb-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  setFindSimilarOpen(false);
-                  setCompareOpen(!compareOpen);
-                  setSearchQuery('');
-                }}
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
-              >
-                <Users className="w-4 h-4" />
-                <span>Compare</span>
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  setCompareOpen(false);
-                  setFindSimilarOpen(!findSimilarOpen);
-                  setSearchQuery('');
-                }}
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
-              >
-                <SearchIcon className="w-4 h-4" />
-                <span>Find similar</span>
-              </Button>
-            </div>
-
             {/* Input Form */}
             <form onSubmit={handleSubmit} className="relative">
               <textarea
@@ -365,14 +335,42 @@ export const JobChatPanel = ({
                 placeholder={placeholder}
                 rows={3}
                 disabled={isThinking}
-                className="w-full bg-white rounded-2xl px-6 py-5 pr-16 text-[0.875rem] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none min-h-[80px] border border-border"
+                className="w-full bg-white rounded-2xl px-6 pt-5 pb-12 pr-14 text-[0.875rem] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none min-h-[100px] border border-border"
               />
+              {/* Action Buttons - Inside input at bottom left */}
+              <div className="absolute bottom-3 left-4 flex gap-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFindSimilarOpen(false);
+                    setCompareOpen(!compareOpen);
+                    setSearchQuery('');
+                  }}
+                  className="flex items-center gap-1.5 px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
+                >
+                  <Users className="w-3.5 h-3.5" />
+                  <span>Compare</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCompareOpen(false);
+                    setFindSimilarOpen(!findSimilarOpen);
+                    setSearchQuery('');
+                  }}
+                  className="flex items-center gap-1.5 px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
+                >
+                  <SearchIcon className="w-3.5 h-3.5" />
+                  <span>Find similar</span>
+                </button>
+              </div>
+              {/* Submit button - 30% smaller */}
               <button
                 type="submit"
                 disabled={isThinking || !inputValue.trim()}
-                className="absolute right-4 bottom-4 w-10 h-10 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="absolute right-3 bottom-3 w-7 h-7 bg-[rgba(21,52,61,1)] rounded-full flex items-center justify-center hover:bg-[rgba(21,52,61,0.9)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </button>
