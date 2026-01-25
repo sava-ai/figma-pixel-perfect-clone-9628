@@ -109,10 +109,10 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
 
   return (
     <div className="overflow-x-auto">
-      <div className="flex flex-col min-w-[920px]">
+      <div className="flex flex-col min-w-[1000px]">
         {/* Header row with icons */}
         <div 
-          className="grid grid-cols-[minmax(180px,1fr)_140px_64px_64px_64px_64px_72px_120px_40px] items-center px-5 pb-3 text-xs font-medium text-muted-foreground"
+          className="grid grid-cols-[minmax(180px,1fr)_140px_80px_70px_90px_95px_80px_120px_40px] gap-x-2 items-center px-5 pb-3 text-xs font-medium text-muted-foreground"
           style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
         >
           <span>Job Title</span>
@@ -146,7 +146,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           {jobs.map((job, index) => (
             <div
               key={index}
-              className="grid grid-cols-[minmax(180px,1fr)_140px_64px_64px_64px_64px_72px_120px_40px] items-center bg-white border border-[#EEEDEC] rounded-lg px-5 py-4 hover:bg-accent/30 cursor-pointer transition-colors"
+              className="grid grid-cols-[minmax(180px,1fr)_140px_80px_70px_90px_95px_80px_120px_40px] gap-x-2 items-center bg-white border border-[#EEEDEC] rounded-lg px-5 py-4 hover:bg-accent/30 cursor-pointer transition-colors"
               onClick={() => navigate('/job')}
             >
               {/* Title */}
