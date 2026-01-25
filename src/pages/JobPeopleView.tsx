@@ -33,6 +33,40 @@ import profile17 from '@/assets/profile-17.jpg';
 import profile18 from '@/assets/profile-18.jpg';
 import profile19 from '@/assets/profile-19.jpg';
 import profile20 from '@/assets/profile-20.jpg';
+// Company icon configurations
+const companyIcons: Record<string, { bg: string; text: string; letter: string }> = {
+  'Klarna': { bg: '#FFB3C7', text: '#000', letter: 'K' },
+  'Spotify': { bg: '#1DB954', text: '#fff', letter: 'S' },
+  'Tink': { bg: '#000', text: '#fff', letter: 'T' },
+  'Asseco': { bg: '#0066B3', text: '#fff', letter: 'A' },
+  'H&M': { bg: '#E50010', text: '#fff', letter: 'H' },
+  'Ericsson': { bg: '#0082CE', text: '#fff', letter: 'E' },
+  'Bambora': { bg: '#5E2CA5', text: '#fff', letter: 'B' },
+  'iZettle': { bg: '#FF6B00', text: '#fff', letter: 'i' },
+  'King': { bg: '#FF5E00', text: '#fff', letter: 'K' },
+  'Northmill': { bg: '#00C4B4', text: '#fff', letter: 'N' },
+  'Delivery Hero': { bg: '#D41A11', text: '#fff', letter: 'D' },
+  'Trustly': { bg: '#0A2540', text: '#fff', letter: 'T' },
+  'Schibsted': { bg: '#FF6200', text: '#fff', letter: 'S' },
+  'Avanza': { bg: '#00C281', text: '#fff', letter: 'A' },
+  'Collector Bank': { bg: '#002855', text: '#fff', letter: 'C' },
+  'Tetra Pak': { bg: '#0033A0', text: '#fff', letter: 'TP' },
+  'Sony Mobile': { bg: '#000', text: '#fff', letter: 'S' },
+  'Axis': { bg: '#00A3E0', text: '#fff', letter: 'A' },
+  'Tobii': { bg: '#00A3E0', text: '#fff', letter: 'T' },
+  'Mojang': { bg: '#8B0000', text: '#fff', letter: 'M' },
+  'Paradox': { bg: '#E03C31', text: '#fff', letter: 'P' },
+};
+
+const getCompanyIcon = (company: string) => {
+  const icon = companyIcons[company];
+  if (icon) return icon;
+  // Generate consistent random color based on company name
+  const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'];
+  const index = company.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % colors.length;
+  return { bg: colors[index], text: '#fff', letter: company.charAt(0) };
+};
+
 const JobPeopleView = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'job' | 'people' | 'pipeline'>('people');
@@ -680,20 +714,26 @@ const JobPeopleView = () => {
 
                           {/* Roles */}
                           <div className="space-y-2 mb-3">
-                            {candidate.roles.slice(0, 2).map((role, idx) => (
-                              <div key={idx} className="flex items-center gap-2 text-xs">
-                                {/* Company icon */}
-                                <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-muted">
-                                  <span className="text-[10px] font-bold">{role.company.charAt(0)}</span>
+                            {candidate.roles.slice(0, 2).map((role, idx) => {
+                              const icon = getCompanyIcon(role.company);
+                              return (
+                                <div key={idx} className="flex items-center gap-2 text-xs">
+                                  {/* Company icon */}
+                                  <div 
+                                    className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0"
+                                    style={{ backgroundColor: icon.bg }}
+                                  >
+                                    <span className="text-[10px] font-bold" style={{ color: icon.text }}>{icon.letter}</span>
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <p className="font-medium text-foreground truncate">{role.role}</p>
+                                    <p className="text-muted-foreground truncate">
+                                      {role.company} · Jun 2023 − Present · 6m
+                                    </p>
+                                  </div>
                                 </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className="font-medium text-foreground truncate">{role.role}</p>
-                                  <p className="text-muted-foreground truncate">
-                                    {role.company} · Jun 2023 − Present · 6m
-                                  </p>
-                                </div>
-                              </div>
-                            ))}
+                              );
+                            })}
                           </div>
 
                           {/* Education */}
