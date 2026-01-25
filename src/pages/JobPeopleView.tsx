@@ -966,7 +966,7 @@ const JobPeopleView = () => {
                         {candidate.education && (
                           <div>
                             <p className="text-xs text-muted-foreground mb-2">Education</p>
-                            <div className="flex items-center gap-2 px-2.5 py-1.5 bg-muted/50 rounded-lg text-xs">
+                            <div className="flex items-center gap-2 px-2.5 py-1.5 bg-[#F6F5F3] rounded-lg text-xs">
                               <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#8B0000]">
                                 <svg className="w-3 h-3" viewBox="0 0 24 24" fill="white">
                                   <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z" />
