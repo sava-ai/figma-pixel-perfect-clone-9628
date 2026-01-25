@@ -8,6 +8,7 @@ import { RejectionDialog } from '@/components/RejectionDialog';
 import { InviteDialog } from '@/components/InviteDialog';
 import { JobChatPanel } from '@/components/JobChatPanel';
 import { BulkContactDialog } from '@/components/BulkContactDialog';
+import CandidateDetailPanel from '@/components/CandidateDetailPanel';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
@@ -40,6 +41,7 @@ const JobPeopleView = () => {
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState<typeof bestCandidates[0] | null>(null);
+  const [selectedBestMatch, setSelectedBestMatch] = useState<typeof bestCandidates[0] | null>(null);
   const [profileDialogOpen, setProfileDialogOpen] = useState(false);
   const [applicantReviewDialogOpen, setApplicantReviewDialogOpen] = useState(false);
   const [rejectionDialogOpen, setRejectionDialogOpen] = useState(false);
@@ -489,152 +491,233 @@ const JobPeopleView = () => {
                   </div>
                 </div>
 
-                {/* Candidates grid */}
-                <div className="grid grid-cols-2 gap-4">
-                  {filteredCandidates.map(candidate => <div
-                      key={candidate.id} 
-                      className="bg-white border border-[#EEEDEC] rounded-xl p-5 hover:border-primary/50 transition-all cursor-pointer group relative"
-                      style={candidate.isNew ? { backgroundColor: '#FAF8F4' } : {}}
-                      onClick={() => {
-                        setSelectedCandidate(candidate);
-                        setProfileDialogOpen(true);
-                      }}
-                    >
-                      {candidate.isNew && (
-                        <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2 py-1 bg-primary text-primary-foreground rounded-full text-[10px] font-semibold">
-                          <span className="w-1.5 h-1.5 bg-primary-foreground rounded-full"></span>
-                          NEW
-                        </div>
-                      )}
-                      {/* Candidate header */}
-                      <div className="flex items-start gap-3 mb-4">
-                        <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
-                          <img src={candidate.image} alt={candidate.name} className="w-full h-full object-cover" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="text-sm font-medium text-foreground mb-0.5 truncate">
-                            {candidate.name}
-                          </h3>
-                          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
-                            <span>{candidate.city}</span>
-                            <span>•</span>
-                            <span className="font-medium text-lime-800">{candidate.match} Match</span>
+                {/* Best Matches Content */}
+                {selectedBestMatch ? (
+                  // Split view: single column list + detail panel
+                  <div className="flex gap-4 h-[calc(100vh-320px)]">
+                    {/* Single column candidate list */}
+                    <div className="w-1/2 overflow-y-auto space-y-3 pr-2">
+                      {filteredCandidates.map(candidate => (
+                        <div
+                          key={candidate.id}
+                          className={`bg-white border rounded-xl p-4 hover:border-primary/50 transition-all cursor-pointer ${
+                            selectedBestMatch.id === candidate.id ? 'border-primary' : 'border-[#EEEDEC]'
+                          }`}
+                          onClick={() => setSelectedBestMatch(candidate)}
+                        >
+                          {/* Candidate header */}
+                          <div className="flex items-start gap-3 mb-3">
+                            <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
+                              <img src={candidate.image} alt={candidate.name} className="w-full h-full object-cover" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between mb-0.5">
+                                <h3 className="text-sm font-medium text-foreground truncate">
+                                  {candidate.name}
+                                </h3>
+                                <div className="flex items-center gap-2">
+                                  {candidate.isNew && (
+                                    <span className="w-2 h-2 bg-primary rounded-full"></span>
+                                  )}
+                                  <svg className="w-4 h-4 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                                    <path d="m3 7 9 6 9-6" />
+                                  </svg>
+                                  <span className="text-xs text-muted-foreground">+5</span>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                <span>{candidate.city}</span>
+                                <span>•</span>
+                                <span className="font-medium text-lime-800">{candidate.match} match</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Description */}
+                          <p className="text-xs text-muted-foreground leading-relaxed mb-3 line-clamp-2">
+                            {candidate.description}
+                          </p>
+
+                          {/* Experience summary */}
+                          <p className="text-xs text-muted-foreground mb-2">
+                            Experience · {8 + (candidate.id % 3)} yrs total
+                          </p>
+
+                          {/* Roles */}
+                          <div className="space-y-2">
+                            {candidate.roles.slice(0, 3).map((role, idx) => (
+                              <div key={idx} className="flex items-center gap-2 text-xs">
+                                {/* Company icon */}
+                                <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-muted">
+                                  <span className="text-[10px] font-bold">{role.company.charAt(0)}</span>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="font-medium text-foreground truncate">{role.role}</p>
+                                  <p className="text-muted-foreground truncate">
+                                    {role.company} · Jun 2023 − Present · 6m
+                                  </p>
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         </div>
-                      </div>
+                      ))}
+                    </div>
+
+                    {/* Detail Panel */}
+                    <div className="w-1/2 bg-white border border-[#EEEDEC] rounded-xl overflow-hidden">
+                      <CandidateDetailPanel
+                        candidate={selectedBestMatch}
+                        onClose={() => setSelectedBestMatch(null)}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  // Default grid view
+                  <div className="grid grid-cols-2 gap-4">
+                    {filteredCandidates.map(candidate => <div
+                        key={candidate.id} 
+                        className="bg-white border border-[#EEEDEC] rounded-xl p-5 hover:border-primary/50 transition-all cursor-pointer group relative"
+                        style={candidate.isNew ? { backgroundColor: '#FAF8F4' } : {}}
+                        onClick={() => setSelectedBestMatch(candidate)}
+                      >
+                        {candidate.isNew && (
+                          <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2 py-1 bg-primary text-primary-foreground rounded-full text-[10px] font-semibold">
+                            <span className="w-1.5 h-1.5 bg-primary-foreground rounded-full"></span>
+                            NEW
+                          </div>
+                        )}
+                        {/* Candidate header */}
+                        <div className="flex items-start gap-3 mb-4">
+                          <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
+                            <img src={candidate.image} alt={candidate.name} className="w-full h-full object-cover" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-sm font-medium text-foreground mb-0.5 truncate">
+                              {candidate.name}
+                            </h3>
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+                              <span>{candidate.city}</span>
+                              <span>•</span>
+                              <span className="font-medium text-lime-800">{candidate.match} Match</span>
+                            </div>
+                          </div>
+                        </div>
 
 
-                      {/* Description */}
-                      <p className="text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-4">
-                        {candidate.description}
-                      </p>
+                        {/* Description */}
+                        <p className="text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-4">
+                          {candidate.description}
+                        </p>
 
-                      {/* Roles */}
-                      <div className="flex flex-wrap gap-2">
-                        {candidate.roles.map((role, idx) => {
-                          const isCurrent = candidate.currentRoleIndex === idx;
-                          return (
-                            <div 
-                              key={idx} 
-                              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-muted/50 rounded-lg text-xs"
-                            >
-                                {role.company === 'Klarna' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FFB3C7]">
-                                    <span className="text-[10px] font-bold" style={{
-                              color: '#000'
-                            }}>K</span>
-                                  </div>}
-                                {role.company === 'Spotify' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#1DB954]">
-                                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="white">
-                                      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
-                                    </svg>
-                                  </div>}
-                                {role.company === 'Tink' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-black">
-                                    <span className="text-[10px] font-bold text-white">T</span>
-                                  </div>}
-                                {role.company === 'Asseco' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#0066B3]">
-                                    <span className="text-[10px] font-bold text-white">A</span>
-                                  </div>}
-                                {role.company === 'H&M' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#E50010]">
-                                    <span className="text-[8px] font-bold text-white">H&M</span>
-                                  </div>}
-                                {role.company === 'Ericsson' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#0082CE]">
-                                    <span className="text-[10px] font-bold text-white">E</span>
-                                  </div>}
-                                {role.company === 'Bambora' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#5E2CA5]">
-                                    <span className="text-[10px] font-bold text-white">B</span>
-                                  </div>}
-                                {role.company === 'iZettle' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#2DBECD]">
-                                    <span className="text-[10px] font-bold text-white">iZ</span>
-                                  </div>}
-                                {role.company === 'King' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FF6C00]">
-                                    <svg className="w-3 h-3" viewBox="0 0 24 24" fill="white">
-                                      <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-                                    </svg>
-                                  </div>}
-                                {role.company === 'Northmill' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00C896]">
-                                    <span className="text-[10px] font-bold text-white">N</span>
-                                  </div>}
-                                {role.company === 'Delivery Hero' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#D61F26]">
-                                    <span className="text-[10px] font-bold text-white">DH</span>
-                                  </div>}
-                                {role.company === 'Trustly' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#0EE06E]">
-                                    <span className="text-[10px] font-bold text-black">T</span>
-                                  </div>}
-                                {role.company === 'Lunar' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-black">
-                                    <span className="text-[10px] font-bold text-white">L</span>
-                                  </div>}
-                                {role.company === 'Wrapp' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FF6C00]">
-                                    <span className="text-[10px] font-bold text-white">W</span>
-                                  </div>}
-                                {role.company === 'Zimpler' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00B67A]">
-                                    <span className="text-[10px] font-bold text-white">Z</span>
-                                  </div>}
-                                {role.company === 'Schibsted' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FF6200]">
-                                    <span className="text-[10px] font-bold text-white">S</span>
-                                  </div>}
-                                {role.company === 'Avanza' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00C281]">
-                                    <span className="text-[10px] font-bold text-white">A</span>
-                                  </div>}
-                                {role.company === 'Collector Bank' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#002855]">
-                                    <span className="text-[10px] font-bold text-white">C</span>
-                                  </div>}
-                                {role.company === 'Tetra Pak' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#0033A0]">
-                                    <span className="text-[10px] font-bold text-white">TP</span>
-                                  </div>}
-                                {role.company === 'Sony Mobile' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-black">
-                                    <span className="text-[10px] font-bold text-white">S</span>
-                                  </div>}
-                                {role.company === 'Axis' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00A3E0]">
-                                    <span className="text-[10px] font-bold text-white">A</span>
-                                  </div>}
-                                {role.company === 'Tobii' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00A3E0]">
-                                    <span className="text-[10px] font-bold text-white">T</span>
-                                  </div>}
-                                {role.company === 'Mojang' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#8B0000]">
-                                    <svg className="w-3 h-3" viewBox="0 0 24 24" fill="white">
-                                      <rect x="4" y="4" width="6" height="6" />
-                                      <rect x="14" y="4" width="6" height="6" />
-                                      <rect x="4" y="14" width="6" height="6" />
-                                      <rect x="14" y="14" width="6" height="6" />
-                                    </svg>
-                                  </div>}
-                                {role.company === 'Paradox' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#E03C31]">
-                                    <span className="text-[10px] font-bold text-white">P</span>
-                                  </div>}
-                                <span className="text-muted-foreground truncate">
-                                  {role.role}
-                                </span>
-                                {isCurrent && (
-                                  <span className="ml-auto pl-1.5 text-[9px] font-semibold text-primary uppercase tracking-wider">
-                                    Current
+                        {/* Roles */}
+                        <div className="flex flex-wrap gap-2">
+                          {candidate.roles.map((role, idx) => {
+                            const isCurrent = candidate.currentRoleIndex === idx;
+                            return (
+                              <div 
+                                key={idx} 
+                                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-muted/50 rounded-lg text-xs"
+                              >
+                                  {role.company === 'Klarna' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FFB3C7]">
+                                      <span className="text-[10px] font-bold" style={{
+                                color: '#000'
+                              }}>K</span>
+                                    </div>}
+                                  {role.company === 'Spotify' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#1DB954]">
+                                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="white">
+                                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
+                                      </svg>
+                                    </div>}
+                                  {role.company === 'Tink' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-black">
+                                      <span className="text-[10px] font-bold text-white">T</span>
+                                    </div>}
+                                  {role.company === 'Asseco' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#0066B3]">
+                                      <span className="text-[10px] font-bold text-white">A</span>
+                                    </div>}
+                                  {role.company === 'H&M' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#E50010]">
+                                      <span className="text-[8px] font-bold text-white">H&M</span>
+                                    </div>}
+                                  {role.company === 'Ericsson' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#0082CE]">
+                                      <span className="text-[10px] font-bold text-white">E</span>
+                                    </div>}
+                                  {role.company === 'Bambora' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#5E2CA5]">
+                                      <span className="text-[10px] font-bold text-white">B</span>
+                                    </div>}
+                                  {role.company === 'iZettle' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#2DBECD]">
+                                      <span className="text-[10px] font-bold text-white">iZ</span>
+                                    </div>}
+                                  {role.company === 'King' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FF6C00]">
+                                      <svg className="w-3 h-3" viewBox="0 0 24 24" fill="white">
+                                        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
+                                      </svg>
+                                    </div>}
+                                  {role.company === 'Northmill' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00C896]">
+                                      <span className="text-[10px] font-bold text-white">N</span>
+                                    </div>}
+                                  {role.company === 'Delivery Hero' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#D61F26]">
+                                      <span className="text-[10px] font-bold text-white">DH</span>
+                                    </div>}
+                                  {role.company === 'Trustly' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#0EE06E]">
+                                      <span className="text-[10px] font-bold text-black">T</span>
+                                    </div>}
+                                  {role.company === 'Lunar' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-black">
+                                      <span className="text-[10px] font-bold text-white">L</span>
+                                    </div>}
+                                  {role.company === 'Wrapp' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FF6C00]">
+                                      <span className="text-[10px] font-bold text-white">W</span>
+                                    </div>}
+                                  {role.company === 'Zimpler' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00B67A]">
+                                      <span className="text-[10px] font-bold text-white">Z</span>
+                                    </div>}
+                                  {role.company === 'Schibsted' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FF6200]">
+                                      <span className="text-[10px] font-bold text-white">S</span>
+                                    </div>}
+                                  {role.company === 'Avanza' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00C281]">
+                                      <span className="text-[10px] font-bold text-white">A</span>
+                                    </div>}
+                                  {role.company === 'Collector Bank' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#002855]">
+                                      <span className="text-[10px] font-bold text-white">C</span>
+                                    </div>}
+                                  {role.company === 'Tetra Pak' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#0033A0]">
+                                      <span className="text-[10px] font-bold text-white">TP</span>
+                                    </div>}
+                                  {role.company === 'Sony Mobile' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-black">
+                                      <span className="text-[10px] font-bold text-white">S</span>
+                                    </div>}
+                                  {role.company === 'Axis' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00A3E0]">
+                                      <span className="text-[10px] font-bold text-white">A</span>
+                                    </div>}
+                                  {role.company === 'Tobii' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#00A3E0]">
+                                      <span className="text-[10px] font-bold text-white">T</span>
+                                    </div>}
+                                  {role.company === 'Mojang' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#8B0000]">
+                                      <svg className="w-3 h-3" viewBox="0 0 24 24" fill="white">
+                                        <rect x="4" y="4" width="6" height="6" />
+                                        <rect x="14" y="4" width="6" height="6" />
+                                        <rect x="4" y="14" width="6" height="6" />
+                                        <rect x="14" y="14" width="6" height="6" />
+                                      </svg>
+                                    </div>}
+                                  {role.company === 'Paradox' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#E03C31]">
+                                      <span className="text-[10px] font-bold text-white">P</span>
+                                    </div>}
+                                  <span className="text-muted-foreground truncate">
+                                    {role.role}
                                   </span>
-                                )}
-                              </div>
-                            );
-                          })}
-                      </div>
-                    </div>)}
-                </div>
+                                  {isCurrent && (
+                                    <span className="ml-auto pl-1.5 text-[9px] font-semibold text-primary uppercase tracking-wider">
+                                      Current
+                                    </span>
+                                  )}
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>)}
+                  </div>
+                )}
               </div>
 
               {isChatCollapsed && <button onClick={() => setIsChatCollapsed(false)} className="absolute top-6 right-6 w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200 z-10">
