@@ -123,7 +123,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
             <span>Found</span>
           </div>
           <div className="flex flex-col items-center justify-center gap-1">
-            <FileCheck className="w-4 h-4" />
+            <FileCheck className="w-4 h-4 text-[#111111]" />
             <span>Applied</span>
           </div>
           <div className="flex flex-col items-center justify-center gap-1">
@@ -139,7 +139,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
             <span>Interviewed</span>
           </div>
           <div className="flex flex-col items-center justify-center gap-1">
-            <Circle className="w-4 h-4" />
+            <Circle className="w-4 h-4 text-[#111111]" />
             <span>Status</span>
           </div>
           <span className="text-center">Actions</span>
@@ -219,7 +219,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
               <div className="flex justify-center">
                 {job.actionsNeeded && job.actionsNeeded > 0 ? (
                   <button 
-                    className="px-3 py-1.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100 transition-colors whitespace-nowrap"
+                    className="px-3 py-1.5 text-xs font-medium bg-[#FBFAF9] border border-[#EFEEED] text-[#111111] rounded-md hover:bg-[#F5F4F2] transition-colors whitespace-nowrap"
                     onClick={(e) => { e.stopPropagation(); navigate('/job'); }}
                     style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
                   >
