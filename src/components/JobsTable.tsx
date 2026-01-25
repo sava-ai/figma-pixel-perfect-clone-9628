@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Pencil, Archive, Trash2, Circle } from 'lucide-react';
+import { Pencil, Archive, Trash2, Circle, FileCheck } from 'lucide-react';
 import { UserAvatar } from './UserAvatar';
 import {
   Table,
@@ -22,6 +22,7 @@ interface Job {
   status: 'published' | 'draft' | 'archived';
   stats: {
     found: number;
+    applied: number;
     saved: number;
     contacted: number;
     interviewed: number;
@@ -109,10 +110,10 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
 
   return (
     <div className="overflow-x-auto">
-      <div className="flex flex-col min-w-[1000px]">
+      <div className="flex flex-col min-w-[1080px]">
         {/* Header row with icons */}
         <div 
-          className="grid grid-cols-[minmax(180px,1fr)_140px_80px_70px_90px_95px_80px_120px_40px] gap-x-2 items-center px-5 pb-3 text-xs font-medium text-muted-foreground"
+          className="grid grid-cols-[minmax(180px,1fr)_140px_80px_75px_70px_90px_95px_80px_120px_40px] gap-x-2 items-center px-5 pb-3 text-xs font-medium text-muted-foreground"
           style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
         >
           <span>Job Title</span>
@@ -120,6 +121,10 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           <div className="flex flex-col items-center justify-center gap-1">
             <img src={starIcon} alt="" className="w-4 h-4" />
             <span>Found</span>
+          </div>
+          <div className="flex flex-col items-center justify-center gap-1">
+            <FileCheck className="w-4 h-4" />
+            <span>Applied</span>
           </div>
           <div className="flex flex-col items-center justify-center gap-1">
             <img src={savedIcon} alt="" className="w-4 h-4" />
@@ -146,7 +151,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           {jobs.map((job, index) => (
             <div
               key={index}
-              className="grid grid-cols-[minmax(180px,1fr)_140px_80px_70px_90px_95px_80px_120px_40px] gap-x-2 items-center bg-white border border-[#EEEDEC] rounded-lg px-5 py-4 hover:bg-accent/30 cursor-pointer transition-colors"
+              className="grid grid-cols-[minmax(180px,1fr)_140px_80px_75px_70px_90px_95px_80px_120px_40px] gap-x-2 items-center bg-white border border-[#EEEDEC] rounded-lg px-5 py-4 hover:bg-accent/30 cursor-pointer transition-colors"
               onClick={() => navigate('/job')}
             >
               {/* Title */}
@@ -174,6 +179,12 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
                 style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
               >
                 {job.stats.found}
+              </span>
+              <span 
+                className="text-sm font-medium text-center"
+                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+              >
+                {job.stats.applied}
               </span>
               <span 
                 className="text-sm font-medium text-center"

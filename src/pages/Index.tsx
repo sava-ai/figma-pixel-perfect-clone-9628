@@ -33,6 +33,7 @@ const Index = () => {
     userAvatar: userAvatarImage,
     stats: {
       found: 55,
+      applied: 12,
       saved: 55,
       contacted: 55,
       interviewed: 55
