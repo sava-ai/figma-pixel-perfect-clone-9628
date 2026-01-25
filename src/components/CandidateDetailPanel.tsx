@@ -1,32 +1,22 @@
 import React, { useState } from 'react';
-import { X, MoreHorizontal, Share2, Mail, MapPin, Briefcase, GraduationCap, Clock, ChevronDown, Check, Sparkles } from 'lucide-react';
+import { X, MoreHorizontal, Share2, Mail, MapPin, Briefcase, GraduationCap, Clock, ChevronDown, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 interface CriteriaItem {
   icon: 'location' | 'briefcase' | 'graduation' | 'clock' | 'sparkles';
   label: string;
   status: 'full' | 'partial' | 'none' | 'unknown';
   required?: boolean;
 }
-
 interface CandidateRole {
   company: string;
   role: string;
 }
-
 interface CandidateEducation {
   school: string;
   degree: string;
   graduationDate: string;
 }
-
 interface Candidate {
   id: number;
   name: string;
@@ -46,32 +36,36 @@ interface Candidate {
   coreCriteria?: CriteriaItem[];
   softSkills?: CriteriaItem[];
 }
-
 interface CandidateDetailPanelProps {
   candidate: Candidate | null;
   onClose: () => void;
 }
-
-const CandidateDetailPanel = ({ candidate, onClose }: CandidateDetailPanelProps) => {
+const CandidateDetailPanel = ({
+  candidate,
+  onClose
+}: CandidateDetailPanelProps) => {
   const [showDetails, setShowDetails] = useState(false);
   const [criteriaStatuses, setCriteriaStatuses] = useState<Record<string, string>>({});
-
   if (!candidate) return null;
 
   // Parse match score
   const [matchScore, matchTotal] = candidate.match.split('/').map(Number);
-
   const getIconComponent = (iconType: string) => {
     switch (iconType) {
-      case 'location': return MapPin;
-      case 'briefcase': return Briefcase;
-      case 'graduation': return GraduationCap;
-      case 'clock': return Clock;
-      case 'sparkles': return Sparkles;
-      default: return Briefcase;
+      case 'location':
+        return MapPin;
+      case 'briefcase':
+        return Briefcase;
+      case 'graduation':
+        return GraduationCap;
+      case 'clock':
+        return Clock;
+      case 'sparkles':
+        return Sparkles;
+      default:
+        return Briefcase;
     }
   };
-
   const getStatusStyle = (status: string) => {
     switch (status) {
       case 'full':
@@ -86,42 +80,59 @@ const CandidateDetailPanel = ({ candidate, onClose }: CandidateDetailPanelProps)
         return 'bg-[#F5F5F5] text-[#666666]';
     }
   };
-
-  const defaultCoreCriteria: CriteriaItem[] = candidate.coreCriteria || [
-    { icon: 'location', label: `Located in ${candidate.city}`, status: 'full', required: true },
-    { icon: 'briefcase', label: 'Senior Product Designer', status: matchScore >= 9 ? 'full' : 'partial', required: true },
-    { icon: 'clock', label: '5+ Years of Design Experience', status: matchScore >= 10 ? 'full' : 'partial', required: true },
-    { icon: 'graduation', label: "Bachelor's Degree or Higher", status: 'full', required: false },
-  ];
-
-  const defaultSoftSkills: CriteriaItem[] = candidate.softSkills || [
-    { icon: 'sparkles', label: 'Fluent English', status: 'full', required: false },
-    { icon: 'sparkles', label: 'Team collaboration', status: 'unknown', required: false },
-    { icon: 'sparkles', label: 'Leadership experience', status: 'partial', required: false },
-  ];
-
+  const defaultCoreCriteria: CriteriaItem[] = candidate.coreCriteria || [{
+    icon: 'location',
+    label: `Located in ${candidate.city}`,
+    status: 'full',
+    required: true
+  }, {
+    icon: 'briefcase',
+    label: 'Senior Product Designer',
+    status: matchScore >= 9 ? 'full' : 'partial',
+    required: true
+  }, {
+    icon: 'clock',
+    label: '5+ Years of Design Experience',
+    status: matchScore >= 10 ? 'full' : 'partial',
+    required: true
+  }, {
+    icon: 'graduation',
+    label: "Bachelor's Degree or Higher",
+    status: 'full',
+    required: false
+  }];
+  const defaultSoftSkills: CriteriaItem[] = candidate.softSkills || [{
+    icon: 'sparkles',
+    label: 'Fluent English',
+    status: 'full',
+    required: false
+  }, {
+    icon: 'sparkles',
+    label: 'Team collaboration',
+    status: 'unknown',
+    required: false
+  }, {
+    icon: 'sparkles',
+    label: 'Leadership experience',
+    status: 'partial',
+    required: false
+  }];
   const defaultTags = candidate.tags || ['Sourced'];
   const defaultSkillTags = candidate.skillTags || ['Award winner', 'UX Strategy', 'Fintech Experience'];
-  const defaultSummary = candidate.summary || candidate.description || 
-    `Senior Product Designer with leadership experience. Worked several years in fintech, at high-growth companies, which is aligned with your company.`;
-
+  const defaultSummary = candidate.summary || candidate.description || `Senior Product Designer with leadership experience. Worked several years in fintech, at high-growth companies, which is aligned with your company.`;
   const handleStatusChange = (criteriaLabel: string, newStatus: string) => {
     setCriteriaStatuses(prev => ({
       ...prev,
       [criteriaLabel]: newStatus
     }));
   };
-
   const getEffectiveStatus = (item: CriteriaItem) => {
     return (criteriaStatuses[item.label] || item.status) as 'full' | 'partial' | 'none' | 'unknown';
   };
-
   const renderCriteriaItem = (item: CriteriaItem, index: number) => {
     const IconComponent = getIconComponent(item.icon);
     const effectiveStatus = getEffectiveStatus(item);
-    
-    return (
-      <div key={index} className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3] last:border-b-0">
+    return <div key={index} className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3] last:border-b-0">
         <div className="flex items-center gap-2.5 flex-1 min-w-0">
           <IconComponent size={16} className="text-[#666666] flex-shrink-0" />
           <span className="text-sm text-[#292524] truncate">
@@ -129,13 +140,8 @@ const CandidateDetailPanel = ({ candidate, onClose }: CandidateDetailPanelProps)
             {item.required && <span className="text-[#D32F2F] ml-0.5">*</span>}
           </span>
         </div>
-        <Select
-          value={effectiveStatus}
-          onValueChange={(value) => handleStatusChange(item.label, value)}
-        >
-          <SelectTrigger 
-            className={`h-7 w-auto min-w-[100px] border-0 text-xs font-medium px-2.5 gap-1 ${getStatusStyle(effectiveStatus)}`}
-          >
+        <Select value={effectiveStatus} onValueChange={value => handleStatusChange(item.label, value)}>
+          <SelectTrigger className={`h-7 w-auto min-w-[100px] border-0 text-xs font-medium px-2.5 gap-1 ${getStatusStyle(effectiveStatus)}`}>
             <SelectValue />
           </SelectTrigger>
           <SelectContent className="bg-white border border-[#EEEDEC] shadow-lg z-50">
@@ -165,12 +171,9 @@ const CandidateDetailPanel = ({ candidate, onClose }: CandidateDetailPanelProps)
             </SelectItem>
           </SelectContent>
         </Select>
-      </div>
-    );
+      </div>;
   };
-
-  return (
-    <div className="h-full flex flex-col bg-white">
+  return <div className="h-full flex flex-col bg-white">
       {/* Header */}
       <div className="flex items-center justify-end gap-2 p-4 border-b border-[#EEEDEC]">
         <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
@@ -179,10 +182,7 @@ const CandidateDetailPanel = ({ candidate, onClose }: CandidateDetailPanelProps)
         <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
           <Share2 className="w-4 h-4 text-muted-foreground" />
         </button>
-        <button 
-          onClick={onClose}
-          className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors"
-        >
+        <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
           <X className="w-4 h-4 text-muted-foreground" />
         </button>
       </div>
@@ -191,11 +191,7 @@ const CandidateDetailPanel = ({ candidate, onClose }: CandidateDetailPanelProps)
       <div className="flex-1 overflow-y-auto scrollbar-hide">
         {/* Profile Section - Centered */}
         <div className="flex flex-col items-center pt-6 pb-6 border-b border-[#EEEDEC]">
-          <img 
-            src={candidate.image} 
-            alt={candidate.name}
-            className="w-20 h-20 rounded-sm object-cover mb-3"
-          />
+          <img src={candidate.image} alt={candidate.name} className="w-20 h-20 rounded-sm object-cover mb-3" />
           <h2 className="text-lg font-semibold text-[#292524] font-['LabilGrotesk'] mb-1">
             {candidate.name}
           </h2>
@@ -205,14 +201,9 @@ const CandidateDetailPanel = ({ candidate, onClose }: CandidateDetailPanelProps)
 
           {/* Tags Row */}
           <div className="flex items-center gap-2 flex-wrap justify-center mb-4">
-            {defaultTags.map((tag, index) => (
-              <span 
-                key={index}
-                className="px-2.5 py-1 bg-[#F6F5F3] text-[#666666] text-xs rounded-full"
-              >
+            {defaultTags.map((tag, index) => <span key={index} className="px-2.5 py-1 bg-[#F6F5F3] text-[#666666] text-xs rounded-full">
                 {tag}
-              </span>
-            ))}
+              </span>)}
             <button className="p-1 hover:bg-[#F6F5F3] rounded transition-colors">
               <MoreHorizontal size={14} className="text-[#999999]" />
             </button>
@@ -221,11 +212,11 @@ const CandidateDetailPanel = ({ candidate, onClose }: CandidateDetailPanelProps)
           {/* Match Score */}
           <div className="flex flex-col items-center">
             <div className="flex items-center gap-1.5 text-[#2D7A2D]">
-              <Check size={18} strokeWidth={2.5} />
+              
               <span className="text-2xl font-semibold font-['LabilGrotesk']">
                 {matchScore}/{matchTotal}
               </span>
-              <Check size={18} strokeWidth={2.5} />
+              
             </div>
             <span className="text-xs text-[#666666] mt-0.5">Match</span>
           </div>
@@ -254,10 +245,7 @@ const CandidateDetailPanel = ({ candidate, onClose }: CandidateDetailPanelProps)
           </div>
 
           {/* Show Details Button */}
-          <button 
-            onClick={() => setShowDetails(!showDetails)}
-            className="w-full py-2.5 text-sm text-[#666666] hover:text-[#292524] transition-colors flex items-center justify-center gap-1"
-          >
+          <button onClick={() => setShowDetails(!showDetails)} className="w-full py-2.5 text-sm text-[#666666] hover:text-[#292524] transition-colors flex items-center justify-center gap-1">
             {showDetails ? 'Hide details' : 'Show details'}
             <ChevronDown size={14} className={`transition-transform ${showDetails ? 'rotate-180' : ''}`} />
           </button>
@@ -274,14 +262,9 @@ const CandidateDetailPanel = ({ candidate, onClose }: CandidateDetailPanelProps)
 
           {/* Skill Tags */}
           <div className="flex flex-wrap gap-2">
-            {defaultSkillTags.map((tag, index) => (
-              <span 
-                key={index}
-                className="px-3 py-1.5 bg-[#F0EDE8] text-[#555555] text-xs rounded-full font-medium"
-              >
+            {defaultSkillTags.map((tag, index) => <span key={index} className="px-3 py-1.5 bg-[#F0EDE8] text-[#555555] text-xs rounded-full font-medium">
                 {tag}
-              </span>
-            ))}
+              </span>)}
           </div>
         </div>
       </div>
@@ -305,8 +288,6 @@ const CandidateDetailPanel = ({ candidate, onClose }: CandidateDetailPanelProps)
           Save to job
         </Button>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default CandidateDetailPanel;
