@@ -111,7 +111,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
     <div className="flex flex-col">
       {/* Header row with icons */}
       <div 
-        className="grid grid-cols-[30%_1fr_60px_60px_80px_90px_70px_100px_48px] items-end px-4 pb-3 text-xs font-medium text-muted-foreground"
+        className="grid grid-cols-[30%_150px_60px_60px_80px_90px_70px_1fr_48px] items-end px-4 pb-3 text-xs font-medium text-muted-foreground"
         style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
       >
         <span>Job Title</span>
@@ -145,7 +145,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
         {jobs.map((job, index) => (
           <div
             key={index}
-            className="grid grid-cols-[30%_1fr_60px_60px_80px_90px_70px_100px_48px] items-center bg-white border border-[#EEEDEC] rounded-lg px-4 py-5 hover:bg-accent/30 cursor-pointer transition-colors"
+            className="grid grid-cols-[30%_150px_60px_60px_80px_90px_70px_1fr_48px] items-center bg-white border border-[#EEEDEC] rounded-lg px-4 py-5 hover:bg-accent/30 cursor-pointer transition-colors"
             onClick={() => navigate('/job')}
           >
             {/* Title */}
