@@ -609,7 +609,7 @@ const JobPeopleView = () => {
                 {/* Best Matches Content */}
                 {selectedBestMatch ? (
                   // Split view: header + list on left, detail panel on right - aligned at top
-                  <div className="flex gap-3 h-[calc(100vh-90px)] animate-content-expand">
+                  <div className="flex gap-2 h-[calc(100vh-90px)] animate-content-expand">
                     {/* Left side: header + candidate list */}
                     <div className="w-[40%] flex flex-col min-h-0">
                       {/* Best matches header */}
@@ -664,7 +664,7 @@ const JobPeopleView = () => {
                         </Popover>
                       </div>
                       {/* Candidate list */}
-                      <div className="flex-1 overflow-y-auto space-y-3 pr-2">
+                      <div className="flex-1 overflow-y-auto space-y-3">
                       {filteredCandidates.map(candidate => (
                         <div
                           key={candidate.id}
