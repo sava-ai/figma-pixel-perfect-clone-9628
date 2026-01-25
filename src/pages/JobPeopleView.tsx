@@ -530,23 +530,6 @@ const JobPeopleView = () => {
                         </div>
                       </div>
 
-                      {/* Source Tags and Open to Work */}
-                      <div className="flex flex-wrap gap-1.5 mb-3">
-                        {candidate.tags.map((tag, idx) => (
-                          <span 
-                            key={idx}
-                            className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-primary/10 text-primary"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                        {candidate.isOpenToWork && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-green-50 text-green-700 border border-green-200">
-                            <span className="w-1 h-1 bg-green-500 rounded-full"></span>
-                            Open to work
-                          </span>
-                        )}
-                      </div>
 
                       {/* Description */}
                       <p className="text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-4">
