@@ -486,9 +486,6 @@ const JobPeopleView = () => {
                         </PopoverContent>
                       </Popover>
                     </div>
-                    <Button onClick={() => setBulkContactDialogOpen(true)}>
-                      Mass contact
-                    </Button>
                   </div>
                 </div>
 
