@@ -508,7 +508,7 @@ const JobPeopleView = () => {
               <div className="p-6 max-w-[1200px] mx-auto">
               {/* Header with stats - hide when profile is selected */}
                 {!selectedBestMatch && (
-                  <div className="mb-6 animate-fade-in">
+                  <div className="mb-6 animate-slide-down-fade-in overflow-hidden">
                     <div className="flex items-center justify-between mb-4">
                       <h1 className="text-lg font-medium text-foreground">{bestMatchesCount} of 230 people</h1>
                       <div className="flex items-center gap-2">
@@ -631,8 +631,8 @@ const JobPeopleView = () => {
 
                 {/* Best Matches Content */}
                 {selectedBestMatch ? (
-                  // Split view: single column list + detail panel
-                  <div className="flex gap-4 h-[calc(100vh-320px)]">
+                  // Split view: single column list + detail panel - full height when stats are hidden
+                  <div className="flex gap-4 h-[calc(100vh-180px)] animate-content-expand">
                     {/* Single column candidate list */}
                     <div className="w-1/2 overflow-y-auto space-y-3 pr-2">
                       {filteredCandidates.map(candidate => (
