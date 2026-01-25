@@ -162,7 +162,7 @@ export const JobChatPanel = ({
 
   return (
     <>
-      <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
+      <div className="h-full flex flex-col" style={{ backgroundColor: '#FBFAF9' }}>
         <div className="flex flex-col h-full py-6 pr-6 pl-2.5 pb-2">
           {/* Chat Header - Reduced margin to align with Best Matches */}
           <div className="flex items-center justify-end gap-6 mb-4 flex-shrink-0 relative">
@@ -365,7 +365,7 @@ export const JobChatPanel = ({
                 placeholder={placeholder}
                 rows={3}
                 disabled={isThinking}
-                className="w-full bg-white rounded-2xl px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none min-h-[80px] border border-border"
+                className="w-full bg-white rounded-2xl px-6 py-5 pr-16 text-[0.875rem] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none min-h-[80px] border border-border"
               />
               <button
                 type="submit"
