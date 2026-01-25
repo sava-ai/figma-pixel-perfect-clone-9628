@@ -538,7 +538,7 @@ const JobPeopleView = () => {
           backgroundColor: '#FBFAF9'
         }}>
             <div className={`flex-1 overflow-y-auto relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2'}`}>
-              <div className={`${selectedBestMatch ? 'pl-6 pr-0' : 'px-6'} max-w-[1200px] mx-auto`}>
+              <div className={`${selectedBestMatch ? 'pl-2 pr-0' : 'px-6'} max-w-[1200px] mx-auto`}>
               {/* Header with stats - hide when profile is selected */}
                 {!selectedBestMatch && (
                   <div className="mb-6 animate-slide-down-fade-in overflow-hidden">
