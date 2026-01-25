@@ -726,7 +726,6 @@ const JobPipeline = () => {
             <JobChatPanel 
               defaultMessages={[{ text: 'I can help you manage your pipeline and suggest the best candidates for each stage.', isUser: false }]}
               placeholder="Ask anything about the pipeline..."
-              onCollapse={() => setIsChatCollapsed(true)}
             />
           </ResizablePanel>
         )}

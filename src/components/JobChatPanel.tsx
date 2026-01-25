@@ -37,13 +37,11 @@ interface Candidate {
 interface JobChatPanelProps {
   defaultMessages?: Message[];
   placeholder?: string;
-  onCollapse: () => void;
 }
 
 export const JobChatPanel = ({ 
   defaultMessages = [], 
-  placeholder = "Ask anything about the candidates...",
-  onCollapse
+  placeholder = "Ask anything about the candidates..."
 }: JobChatPanelProps) => {
   const [messages, setMessages] = useState<Message[]>(defaultMessages);
   const [inputValue, setInputValue] = useState('');
@@ -164,18 +162,6 @@ export const JobChatPanel = ({
     <>
       <div className="h-full flex flex-col" style={{ backgroundColor: '#FBFAF9' }}>
         <div className="flex flex-col h-full py-6 pr-4 pl-0 pb-2">
-          {/* Chat Header - Reduced margin to align with Best Matches */}
-          <div className="flex items-center justify-end gap-6 mb-4 flex-shrink-0 relative">
-            {/* Right side - Collapse Button */}
-            <button
-              onClick={onCollapse}
-              className="w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
-            >
-              <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ transform: 'rotate(180deg)' }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-            </button>
-          </div>
 
           {/* Chat Messages - Scrollable */}
           <div className="flex-1 overflow-y-auto mb-6 space-y-4 scrollbar-hide">
