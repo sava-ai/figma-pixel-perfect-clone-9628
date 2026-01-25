@@ -215,14 +215,25 @@ const Index = () => {
                   rows={4}
                   className="w-full bg-white rounded-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#292524] resize-none border border-[#EEEDEC]"
                 />
-                <button
-                  type="submit"
-                  className="absolute right-4 bottom-4 w-[34px] h-[34px] bg-[#292524] rounded-full flex items-center justify-center hover:bg-[#292524]/90 transition-colors"
-                >
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </button>
+                <div className="absolute right-4 bottom-4 flex items-center gap-2">
+                  <button
+                    type="button"
+                    className="flex items-center gap-1.5 px-3 py-2 bg-white border border-[#EEEDEC] rounded-full text-sm text-[#292524] hover:bg-[#F5F5F4] transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                    </svg>
+                    Upload
+                  </button>
+                  <button
+                    type="submit"
+                    className="w-[34px] h-[34px] bg-[#292524] rounded-full flex items-center justify-center hover:bg-[#292524]/90 transition-colors"
+                  >
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </button>
+                </div>
               </form>
             </div>
 
