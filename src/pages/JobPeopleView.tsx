@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronDown, MoreVertical, ChevronLeft, Search, Filter } from 'lucide-react';
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import { ProfileDialog } from '@/components/ProfileDialog';
 import { ApplicantReviewDialog } from '@/components/ApplicantReviewDialog';
 import { RejectionDialog } from '@/components/RejectionDialog';
@@ -497,15 +496,15 @@ const JobPeopleView = () => {
         </div>
       </header>
 
-      {/* Main Content with Resizable Panels */}
-      <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden">
+      {/* Main Content - Flex layout without resizable */}
+      <div className="flex-1 flex overflow-hidden">
         {/* Left Panel - Candidates View */}
-        <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
+        <div className={`flex-1 ${!isChatCollapsed ? 'mr-0' : ''}`}>
           <div className="h-full flex flex-col py-6 pb-8 relative" style={{
           backgroundColor: '#FBFAF9'
         }}>
             <div className={`flex-1 overflow-y-auto relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
-              <div className="p-6 max-w-[1200px] mx-auto">
+              <div className="p-6 pt-0 max-w-[1200px] mx-auto">
               {/* Header with stats - hide when profile is selected */}
                 {!selectedBestMatch && (
                   <div className="mb-6 animate-slide-down-fade-in overflow-hidden">
@@ -902,19 +901,19 @@ const JobPeopleView = () => {
                 </button>}
             </div>
           </div>
-        </ResizablePanel>
+        </div>
 
-        {!isChatCollapsed && <ResizableHandle className="w-0 bg-transparent" />}
-
-        {/* Right Panel - Chat */}
-        {!isChatCollapsed && <ResizablePanel defaultSize={35} minSize={30}>
+        {/* Right Panel - Chat - Fixed width, no resize handle */}
+        {!isChatCollapsed && (
+          <div className="w-[380px] flex-shrink-0">
             <JobChatPanel 
               defaultMessages={[{ text: 'I\'ve found 100 candidates matching your criteria. The search covered external sources (LinkedIn, GitHub, Dribbble) and internal sources (Network, Applied). The best matches are displayed based on their skills, experience, and cultural fit.', isUser: false }]}
               placeholder="Ask anything about the candidates..."
               onCollapse={() => setIsChatCollapsed(true)}
             />
-          </ResizablePanel>}
-      </ResizablePanelGroup>
+          </div>
+        )}
+      </div>
 
       {/* Profile Dialog */}
       <ProfileDialog 

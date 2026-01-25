@@ -164,8 +164,8 @@ export const JobChatPanel = ({
     <>
       <div className="h-full flex flex-col" style={{ backgroundColor: '#FAF8F4' }}>
         <div className="flex flex-col h-full py-6 pr-6 pl-2.5 pb-8">
-          {/* Chat Header */}
-          <div className="flex items-center justify-end gap-6 mb-12 flex-shrink-0 relative">
+          {/* Chat Header - Reduced margin to align with Best Matches */}
+          <div className="flex items-center justify-end gap-6 mb-4 flex-shrink-0 relative">
             {/* Right side - Collapse Button */}
             <button
               onClick={onCollapse}
@@ -183,10 +183,10 @@ export const JobChatPanel = ({
               <div key={index}>
                 <div className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}>
                   <div
-                    className={`max-w-[80%] ${
+                    className={`max-w-[90%] text-[1rem] leading-relaxed ${
                       message.isUser
-                        ? 'bg-white shadow-sm text-foreground px-6 py-4 rounded-2xl'
-                        : 'text-foreground px-6 py-4'
+                        ? 'bg-white shadow-sm text-foreground px-5 py-3 rounded-2xl'
+                        : 'text-foreground px-5 py-3'
                     }`}
                   >
                     {message.text}
