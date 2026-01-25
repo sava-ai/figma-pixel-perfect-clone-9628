@@ -633,11 +633,11 @@ const JobPipeline = () => {
       </header>
 
       {/* Main Content - Flex layout without resizable */}
-      <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
+      <div className="flex-1 flex overflow-hidden px-4" style={{ backgroundColor: '#FBFAF9' }}>
         {/* Left Panel - Pipeline View */}
-        <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
+        <div className={`flex-1 min-w-0 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
           <div className={`h-full flex flex-col pt-6 pb-3 relative ${isChatCollapsed ? 'w-full max-w-[1400px]' : 'w-full'}`}>
-            <div className={`flex-1 overflow-hidden bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
+            <div className={`flex-1 overflow-hidden bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-2' : ''}`}>
               <DndContext 
                 sensors={sensors}
                 collisionDetection={closestCorners}
@@ -715,7 +715,7 @@ const JobPipeline = () => {
 
         {/* Right Panel - Chat - Fixed width */}
         {!isChatCollapsed && (
-          <div className="w-[380px] flex-shrink-0 mr-4">
+          <div className="w-[380px] flex-shrink-0 pl-4">
             <JobChatPanel 
               defaultMessages={[{ text: 'I can help you manage your pipeline and suggest the best candidates for each stage.', isUser: false }]}
               placeholder="Ask anything about the pipeline..."
