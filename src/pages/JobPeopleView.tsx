@@ -546,7 +546,7 @@ const JobPeopleView = () => {
               <div className={`${selectedBestMatch ? 'pl-0 pr-0' : 'pl-0 pr-0'} ${isChatCollapsed ? '' : 'max-w-[1200px]'}`}>
               {/* Header with stats - hide when profile is selected */}
                 {!selectedBestMatch && (
-                  <div className="mb-6 animate-slide-down-fade-in overflow-hidden">
+                  <div className="mb-5 animate-slide-down-fade-in overflow-hidden">
                     <div className="flex items-center justify-between mb-4">
                       <h1 className="text-lg font-medium text-foreground">{bestMatchesCount} of 230 people</h1>
                       <div className="flex items-center gap-2">
