@@ -118,7 +118,7 @@ const Index = () => {
         </aside>
 
         {/* Main content */}
-        <div className="w-full max-w-[1200px]">
+        <div className="w-full max-w-[1380px]">
           {/* Chat Mode */}
           <div className={`transition-all duration-[2000ms] ease-in-out ${
             isChatMode 
