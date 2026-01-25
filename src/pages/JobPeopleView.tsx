@@ -853,7 +853,7 @@ const JobPeopleView = () => {
 
 
                         {/* Description */}
-                        <p className="text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-4">
+                        <p className="text-base text-muted-foreground leading-relaxed mb-4 line-clamp-4">
                           {candidate.description}
                         </p>
 
