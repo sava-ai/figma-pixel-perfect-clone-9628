@@ -110,7 +110,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
   return (
     <div className="flex flex-col">
       {/* Header row with icons */}
-      <div className="grid grid-cols-[2fr_180px_70px_70px_80px_80px_80px_48px] items-end px-4 pb-3 text-xs font-medium text-muted-foreground">
+      <div className="grid grid-cols-[30%_180px_70px_70px_80px_80px_80px_48px] items-end px-4 pb-3 text-xs font-medium text-muted-foreground">
         <span>Job Title</span>
         <span>Owner</span>
         <div className="flex flex-col items-center gap-1">
@@ -141,11 +141,14 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
         {jobs.map((job, index) => (
           <div
             key={index}
-            className="grid grid-cols-[2fr_180px_70px_70px_80px_80px_80px_48px] items-center bg-white border border-[#EEEDEC] rounded-lg px-4 py-5 hover:bg-accent/30 cursor-pointer transition-colors"
+            className="grid grid-cols-[30%_180px_70px_70px_80px_80px_80px_48px] items-center bg-white border border-[#EEEDEC] rounded-lg px-4 py-5 hover:bg-accent/30 cursor-pointer transition-colors"
             onClick={() => navigate('/job')}
           >
             {/* Title */}
-            <span className="text-sm text-[#292524] line-clamp-1 pr-4">
+            <span 
+              className="text-sm text-[#292524] truncate pr-4"
+              style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+            >
               {job.title}
             </span>
             
