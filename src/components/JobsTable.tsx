@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Pencil, Archive, Trash2 } from 'lucide-react';
+import { Pencil, Archive, Trash2, Circle } from 'lucide-react';
 import { UserAvatar } from './UserAvatar';
 import {
   Table,
@@ -110,7 +110,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
   return (
     <div className="flex flex-col">
       {/* Header row with icons */}
-      <div className="grid grid-cols-[1fr_180px_80px_80px_80px_80px_100px_48px] items-center px-4 pb-3 text-xs font-medium text-muted-foreground">
+      <div className="grid grid-cols-[2fr_180px_70px_70px_80px_80px_80px_48px] items-end px-4 pb-3 text-xs font-medium text-muted-foreground">
         <span>Job Title</span>
         <span>Owner</span>
         <div className="flex flex-col items-center gap-1">
@@ -129,7 +129,10 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           <img src={interviewedIcon} alt="" className="w-4 h-4" />
           <span>Interviewed</span>
         </div>
-        <span>Status</span>
+        <div className="flex flex-col items-center gap-1">
+          <Circle className="w-4 h-4" />
+          <span>Status</span>
+        </div>
         <span></span>
       </div>
       
@@ -138,11 +141,11 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
         {jobs.map((job, index) => (
           <div
             key={index}
-            className="grid grid-cols-[1fr_180px_80px_80px_80px_80px_100px_48px] items-center bg-white border border-[#EEEDEC] rounded-lg px-4 py-5 hover:bg-accent/30 cursor-pointer transition-colors"
+            className="grid grid-cols-[2fr_180px_70px_70px_80px_80px_80px_48px] items-center bg-white border border-[#EEEDEC] rounded-lg px-4 py-5 hover:bg-accent/30 cursor-pointer transition-colors"
             onClick={() => navigate('/job')}
           >
             {/* Title */}
-            <span className="font-medium text-[#292524] line-clamp-1 pr-4" style={{ fontFamily: 'CustomHeading, sans-serif' }}>
+            <span className="text-sm text-[#292524] line-clamp-1 pr-4">
               {job.title}
             </span>
             
@@ -159,9 +162,11 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
             <span className="text-sm font-medium text-center">{job.stats.interviewed}</span>
             
             {/* Status */}
-            <span className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize w-fit ${getStatusBadge(job.status)}`}>
-              {job.status}
-            </span>
+            <div className="flex justify-center">
+              <span className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize ${getStatusBadge(job.status)}`}>
+                {job.status}
+              </span>
+            </div>
             
             {/* Actions */}
             <div onClick={(e) => e.stopPropagation()}>
