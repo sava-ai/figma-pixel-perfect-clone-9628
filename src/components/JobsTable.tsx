@@ -147,7 +147,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
         </div>
         
         {/* Job rows */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-[14px]">
           {jobs.map((job, index) => (
             <div
               key={index}
