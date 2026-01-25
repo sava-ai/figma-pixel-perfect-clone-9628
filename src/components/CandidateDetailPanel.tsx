@@ -175,7 +175,7 @@ const CandidateDetailPanel = ({
   };
   return <div className="h-full flex flex-col bg-white">
       {/* Header */}
-      <div className="flex items-center justify-end gap-2 p-4 border-b border-[#EEEDEC]">
+      <div className="flex items-center justify-end gap-2 p-4">
         <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
           <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
         </button>
