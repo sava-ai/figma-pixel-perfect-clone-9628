@@ -110,7 +110,10 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
   return (
     <div className="flex flex-col">
       {/* Header row with icons */}
-      <div className="grid grid-cols-[30%_180px_70px_70px_80px_80px_80px_48px] items-end px-4 pb-3 text-xs font-medium text-muted-foreground">
+      <div 
+        className="grid grid-cols-[30%_1fr_60px_60px_80px_90px_70px_100px_48px] items-end px-4 pb-3 text-xs font-medium text-muted-foreground"
+        style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+      >
         <span>Job Title</span>
         <span>Owner</span>
         <div className="flex flex-col items-center gap-1">
@@ -133,6 +136,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           <Circle className="w-4 h-4" />
           <span>Status</span>
         </div>
+        <span className="text-center">Actions</span>
         <span></span>
       </div>
       
@@ -141,7 +145,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
         {jobs.map((job, index) => (
           <div
             key={index}
-            className="grid grid-cols-[30%_180px_70px_70px_80px_80px_80px_48px] items-center bg-white border border-[#EEEDEC] rounded-lg px-4 py-5 hover:bg-accent/30 cursor-pointer transition-colors"
+            className="grid grid-cols-[30%_1fr_60px_60px_80px_90px_70px_100px_48px] items-center bg-white border border-[#EEEDEC] rounded-lg px-4 py-5 hover:bg-accent/30 cursor-pointer transition-colors"
             onClick={() => navigate('/job')}
           >
             {/* Title */}
@@ -155,7 +159,12 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
             {/* Owner */}
             <div className="flex items-center gap-2">
               <UserAvatar src={job.userAvatar} size="sm" />
-              <span className="text-sm text-foreground">{job.userName}</span>
+              <span 
+                className="text-sm text-foreground"
+                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+              >
+                {job.userName}
+              </span>
             </div>
             
             {/* Stats - numbers only, centered */}
@@ -171,7 +180,20 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
               </span>
             </div>
             
-            {/* Actions */}
+            {/* Actions Needed */}
+            {job.actionsNeeded && job.actionsNeeded > 0 ? (
+              <button 
+                className="px-3 py-1.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100 transition-colors"
+                onClick={(e) => { e.stopPropagation(); navigate('/job'); }}
+                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+              >
+                {job.actionsNeeded} actions needed
+              </button>
+            ) : (
+              <span></span>
+            )}
+            
+            {/* Menu */}
             <div onClick={(e) => e.stopPropagation()}>
               <JobRowMenu 
                 onEdit={() => console.log('Edit', index)}
