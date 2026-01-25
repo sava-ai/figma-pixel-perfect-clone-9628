@@ -108,101 +108,128 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
   };
 
   return (
-    <div className="flex flex-col">
-      {/* Header row with icons */}
-      <div 
-        className="grid grid-cols-[30%_150px_60px_60px_80px_90px_70px_1fr_48px] items-end px-4 pb-3 text-xs font-medium text-muted-foreground"
-        style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
-      >
-        <span>Job Title</span>
-        <span>Owner</span>
-        <div className="flex flex-col items-center gap-1">
-          <img src={starIcon} alt="" className="w-4 h-4" />
-          <span>Found</span>
-        </div>
-        <div className="flex flex-col items-center gap-1">
-          <img src={savedIcon} alt="" className="w-4 h-4" />
-          <span>Saved</span>
-        </div>
-        <div className="flex flex-col items-center gap-1">
-          <img src={contactedIcon} alt="" className="w-4 h-4" />
-          <span>Contacted</span>
-        </div>
-        <div className="flex flex-col items-center gap-1">
-          <img src={interviewedIcon} alt="" className="w-4 h-4" />
-          <span>Interviewed</span>
-        </div>
-        <div className="flex flex-col items-center gap-1">
-          <Circle className="w-4 h-4" />
-          <span>Status</span>
-        </div>
-        <span className="text-center">Actions</span>
-        <span></span>
-      </div>
-      
-      {/* Job rows */}
-      <div className="flex flex-col gap-4">
-        {jobs.map((job, index) => (
-          <div
-            key={index}
-            className="grid grid-cols-[30%_150px_60px_60px_80px_90px_70px_1fr_48px] items-center bg-white border border-[#EEEDEC] rounded-lg px-4 py-5 hover:bg-accent/30 cursor-pointer transition-colors"
-            onClick={() => navigate('/job')}
-          >
-            {/* Title */}
-            <span 
-              className="text-sm text-[#292524] truncate pr-4"
-              style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
-            >
-              {job.title}
-            </span>
-            
-            {/* Owner */}
-            <div className="flex items-center gap-2">
-              <UserAvatar src={job.userAvatar} size="sm" />
-              <span 
-                className="text-sm text-foreground"
-                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
-              >
-                {job.userName}
-              </span>
-            </div>
-            
-            {/* Stats - numbers only, centered */}
-            <span className="text-sm font-medium text-center">{job.stats.found}</span>
-            <span className="text-sm font-medium text-center">{job.stats.saved}</span>
-            <span className="text-sm font-medium text-center">{job.stats.contacted}</span>
-            <span className="text-sm font-medium text-center">{job.stats.interviewed}</span>
-            
-            {/* Status */}
-            <div className="flex justify-center">
-              <span className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize ${getStatusBadge(job.status)}`}>
-                {job.status}
-              </span>
-            </div>
-            
-            {/* Actions Needed */}
-            {job.actionsNeeded && job.actionsNeeded > 0 ? (
-              <button 
-                className="px-3 py-1.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100 transition-colors"
-                onClick={(e) => { e.stopPropagation(); navigate('/job'); }}
-                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
-              >
-                {job.actionsNeeded} actions needed
-              </button>
-            ) : (
-              <span></span>
-            )}
-            
-            {/* Menu */}
-            <div onClick={(e) => e.stopPropagation()}>
-              <JobRowMenu 
-                onEdit={() => console.log('Edit', index)}
-                onArchive={() => console.log('Archive', index)}
-                onDelete={() => console.log('Delete', index)}
-              />
-            </div>
+    <div className="overflow-x-auto">
+      <div className="flex flex-col min-w-[920px]">
+        {/* Header row with icons */}
+        <div 
+          className="grid grid-cols-[minmax(180px,1fr)_140px_64px_64px_64px_64px_72px_120px_40px] items-center px-5 pb-3 text-xs font-medium text-muted-foreground"
+          style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+        >
+          <span>Job Title</span>
+          <span>Owner</span>
+          <div className="flex flex-col items-center justify-center gap-1">
+            <img src={starIcon} alt="" className="w-4 h-4" />
+            <span>Found</span>
           </div>
-        ))}
+          <div className="flex flex-col items-center justify-center gap-1">
+            <img src={savedIcon} alt="" className="w-4 h-4" />
+            <span>Saved</span>
+          </div>
+          <div className="flex flex-col items-center justify-center gap-1">
+            <img src={contactedIcon} alt="" className="w-4 h-4" />
+            <span>Contacted</span>
+          </div>
+          <div className="flex flex-col items-center justify-center gap-1">
+            <img src={interviewedIcon} alt="" className="w-4 h-4" />
+            <span>Interviewed</span>
+          </div>
+          <div className="flex flex-col items-center justify-center gap-1">
+            <Circle className="w-4 h-4" />
+            <span>Status</span>
+          </div>
+          <span className="text-center">Actions</span>
+          <span></span>
+        </div>
+        
+        {/* Job rows */}
+        <div className="flex flex-col gap-3">
+          {jobs.map((job, index) => (
+            <div
+              key={index}
+              className="grid grid-cols-[minmax(180px,1fr)_140px_64px_64px_64px_64px_72px_120px_40px] items-center bg-white border border-[#EEEDEC] rounded-lg px-5 py-4 hover:bg-accent/30 cursor-pointer transition-colors"
+              onClick={() => navigate('/job')}
+            >
+              {/* Title */}
+              <span 
+                className="text-sm text-[#292524] truncate pr-3 min-w-0"
+                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+              >
+                {job.title}
+              </span>
+              
+              {/* Owner */}
+              <div className="flex items-center gap-2 min-w-0">
+                <UserAvatar src={job.userAvatar} size="sm" />
+                <span 
+                  className="text-sm text-foreground truncate"
+                  style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+                >
+                  {job.userName}
+                </span>
+              </div>
+              
+              {/* Stats - numbers only, centered */}
+              <span 
+                className="text-sm font-medium text-center"
+                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+              >
+                {job.stats.found}
+              </span>
+              <span 
+                className="text-sm font-medium text-center"
+                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+              >
+                {job.stats.saved}
+              </span>
+              <span 
+                className="text-sm font-medium text-center"
+                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+              >
+                {job.stats.contacted}
+              </span>
+              <span 
+                className="text-sm font-medium text-center"
+                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+              >
+                {job.stats.interviewed}
+              </span>
+              
+              {/* Status */}
+              <div className="flex justify-center">
+                <span 
+                  className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize ${getStatusBadge(job.status)}`}
+                  style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+                >
+                  {job.status}
+                </span>
+              </div>
+              
+              {/* Actions Needed */}
+              <div className="flex justify-center">
+                {job.actionsNeeded && job.actionsNeeded > 0 ? (
+                  <button 
+                    className="px-3 py-1.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100 transition-colors whitespace-nowrap"
+                    onClick={(e) => { e.stopPropagation(); navigate('/job'); }}
+                    style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+                  >
+                    {job.actionsNeeded} actions needed
+                  </button>
+                ) : (
+                  <span></span>
+                )}
+              </div>
+              
+              {/* Menu */}
+              <div className="flex justify-center" onClick={(e) => e.stopPropagation()}>
+                <JobRowMenu 
+                  onEdit={() => console.log('Edit', index)}
+                  onArchive={() => console.log('Archive', index)}
+                  onDelete={() => console.log('Delete', index)}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
