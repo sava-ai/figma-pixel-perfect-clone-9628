@@ -178,7 +178,7 @@ export const JobChatPanel = ({
           </div>
 
           {/* Chat Messages - Scrollable */}
-          <div className="flex-1 overflow-y-auto mb-6 space-y-4">
+          <div className="flex-1 overflow-y-auto mb-6 space-y-4 scrollbar-hide">
             {messages.map((message, index) => (
               <div key={index}>
                 <div className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}>
