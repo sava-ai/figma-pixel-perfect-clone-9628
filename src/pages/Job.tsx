@@ -366,35 +366,6 @@ Qualifications
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
           <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#F6F5F3' }}>
             <div className={`flex-1 overflow-y-auto bg-background rounded-lg border border-[#F3F3F3] relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
-              {/* AI Suggestions Tracker & Publish Button - Sticky at top */}
-              <div className="sticky top-0 z-10 bg-background pt-6 pb-4 pl-12 pr-12 flex items-center justify-between">
-                <div />
-                
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={handlePublish}
-                    disabled={isPublished}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                      isPublished
-                        ? 'bg-green-50 text-green-700 border border-green-200 cursor-default'
-                        : 'bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-md hover:shadow-lg border border-gray-700'
-                    }`}
-                  >
-                    {isPublished ? 'Published' : 'Publish'}
-                  </button>
-                  
-                  {isPublished && (
-                    <button
-                      onClick={() => setPlatformsDialogOpen(true)}
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md border border-gray-200"
-                    >
-                      <span>View</span>
-                      <ChevronRightIcon className="w-4 h-4" />
-                      <span>(9)</span>
-                    </button>
-                  )}
-                </div>
-              </div>
               
               <div 
                 contentEditable
