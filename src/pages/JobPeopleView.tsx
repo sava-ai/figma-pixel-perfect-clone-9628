@@ -669,7 +669,7 @@ const JobPeopleView = () => {
                           </div>
 
                           {/* Description */}
-                          <p className="text-xs text-muted-foreground leading-relaxed mb-3 line-clamp-2">
+                          <p className="text-xs text-muted-foreground leading-relaxed mb-3 line-clamp-3">
                             {candidate.description}
                           </p>
 
