@@ -188,7 +188,7 @@ const CandidateDetailPanel = ({ candidate, onClose }: CandidateDetailPanelProps)
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto scrollbar-hide">
         {/* Profile Section - Centered */}
         <div className="flex flex-col items-center pt-6 pb-6 border-b border-[#EEEDEC]">
           <img 
