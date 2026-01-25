@@ -558,7 +558,6 @@ const JobPeople = () => {
             <JobChatPanel 
               defaultMessages={defaultMessages}
               placeholder="Ask anything about this job description..."
-              onCollapse={() => setIsChatCollapsed(true)}
             />
           </ResizablePanel>
         )}

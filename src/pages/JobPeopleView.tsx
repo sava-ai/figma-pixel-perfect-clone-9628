@@ -527,15 +527,13 @@ const JobPeopleView = () => {
           <button className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200">
             <MoreVertical className="w-4 h-4 text-gray-700" />
           </button>
-          {isChatCollapsed && (
-            <button 
-              onClick={() => setIsChatCollapsed(false)}
-              className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
-              title="Open AI Chat"
-            >
-              <ChevronLeft className="w-4 h-4 text-gray-700" />
-            </button>
-          )}
+          <button 
+            onClick={() => setIsChatCollapsed(!isChatCollapsed)}
+            className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
+            title={isChatCollapsed ? "Open AI Chat" : "Close AI Chat"}
+          >
+            <ChevronLeft className={`w-4 h-4 text-gray-700 transition-transform ${isChatCollapsed ? '' : 'rotate-180'}`} />
+          </button>
         </div>
       </header>
 
@@ -1008,7 +1006,6 @@ const JobPeopleView = () => {
             <JobChatPanel 
               defaultMessages={[{ text: 'I\'ve found 100 candidates matching your criteria. The search covered external sources (LinkedIn, GitHub, Dribbble) and internal sources (Network, Applied). The best matches are displayed based on their skills, experience, and cultural fit.', isUser: false }]}
               placeholder="Ask anything about the candidates..."
-              onCollapse={() => setIsChatCollapsed(true)}
             />
           </div>
         )}
