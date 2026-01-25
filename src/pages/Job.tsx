@@ -398,32 +398,8 @@ Qualifications
             <div className="h-full flex flex-col" style={{ backgroundColor: '#F6F5F3' }}>
               <div className="flex flex-col h-full py-6 pr-8 pl-2.5 pb-8">
                 {/* Chat Header */}
-                <div className="flex items-center justify-between gap-6 mb-12 flex-shrink-0 relative">
-                  {/* Left side - Personal/Team Switch */}
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg shadow-sm">
-                    <button
-                      onClick={() => setChatMode('personal')}
-                      className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                        chatMode === 'personal' 
-                          ? 'bg-gray-900 text-white' 
-                          : 'text-gray-600 hover:text-gray-900'
-                      }`}
-                    >
-                      Personal
-                    </button>
-                    <button
-                      onClick={() => setChatMode('team')}
-                      className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                        chatMode === 'team' 
-                          ? 'bg-gray-900 text-white' 
-                          : 'text-gray-600 hover:text-gray-900'
-                      }`}
-                    >
-                      Team
-                    </button>
-                  </div>
-
-                  {/* Right side - Collapse Button */}
+                <div className="flex items-center justify-end mb-12 flex-shrink-0 relative">
+                  {/* Collapse Button */}
                   <button
                     onClick={() => setIsChatCollapsed(true)}
                     className="w-9 h-9 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-md hover:shadow-lg border border-gray-200"
