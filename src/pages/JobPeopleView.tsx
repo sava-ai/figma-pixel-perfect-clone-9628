@@ -542,7 +542,7 @@ const JobPeopleView = () => {
         {/* Left Panel - Candidates View */}
         <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
           <div className={`h-full flex flex-col pt-6 pb-3 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
-            <div className={`flex-1 overflow-y-auto relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-2'}`}>
+            <div className={`flex-1 overflow-y-auto relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
               <div className={`${selectedBestMatch ? 'pl-0 pr-0' : 'pl-0 pr-0'} ${isChatCollapsed ? '' : 'max-w-[1200px]'}`}>
               {/* Header with stats - hide when profile is selected */}
                 {!selectedBestMatch && (
