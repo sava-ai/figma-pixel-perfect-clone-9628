@@ -572,68 +572,65 @@ const JobPeopleView = () => {
                   </div>
                 )}
 
-                {/* Best matches section */}
-                <div className="mb-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <h2 className="font-hedvig font-medium text-foreground text-xl">
-                        Best matches ({filteredCandidates.length})
-                      </h2>
-                      <Popover open={filterOpen} onOpenChange={setFilterOpen}>
-                        <PopoverTrigger asChild>
-                          <Button variant="outline" size="sm" className="h-8 gap-2">
-                            <Filter className="w-3.5 h-3.5" />
-                            Filter
-                            {selectedTags.length > 0 && (
-                              <span className="ml-1 px-1.5 py-0.5 bg-primary text-primary-foreground rounded-full text-xs">
-                                {selectedTags.length}
-                              </span>
-                            )}
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-56" align="start">
-                          <div className="space-y-3">
-                            <h4 className="font-medium text-sm">Filter by tags</h4>
-                            <div className="space-y-2">
-                              {allTags.map(tag => (
-                                <div key={tag} className="flex items-center space-x-2">
-                                  <Checkbox
-                                    id={tag}
-                                    checked={selectedTags.includes(tag)}
-                                    onCheckedChange={() => toggleTag(tag)}
-                                  />
-                                  <label
-                                    htmlFor={tag}
-                                    className="text-sm cursor-pointer"
-                                  >
-                                    {tag}
-                                  </label>
-                                </div>
-                              ))}
-                            </div>
-                            {selectedTags.length > 0 && (
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="w-full"
-                                onClick={() => setSelectedTags([])}
-                              >
-                                Clear filters
-                              </Button>
-                            )}
-                          </div>
-                        </PopoverContent>
-                      </Popover>
-                    </div>
-                  </div>
-                </div>
-
                 {/* Best Matches Content */}
                 {selectedBestMatch ? (
-                  // Split view: single column list + detail panel - full height when stats are hidden
+                  // Split view: header + list on left, detail panel on right - aligned at top
                   <div className="flex gap-4 h-[calc(100vh-180px)] animate-content-expand">
-                    {/* Single column candidate list */}
-                    <div className="w-[40%] overflow-y-auto space-y-3 pr-2">
+                    {/* Left side: header + candidate list */}
+                    <div className="w-[40%] flex flex-col">
+                      {/* Best matches header */}
+                      <div className="flex items-center gap-3 mb-4 flex-shrink-0">
+                        <h2 className="font-hedvig font-medium text-foreground text-xl">
+                          Best matches ({filteredCandidates.length})
+                        </h2>
+                        <Popover open={filterOpen} onOpenChange={setFilterOpen}>
+                          <PopoverTrigger asChild>
+                            <Button variant="outline" size="sm" className="h-8 gap-2">
+                              <Filter className="w-3.5 h-3.5" />
+                              Filter
+                              {selectedTags.length > 0 && (
+                                <span className="ml-1 px-1.5 py-0.5 bg-primary text-primary-foreground rounded-full text-xs">
+                                  {selectedTags.length}
+                                </span>
+                              )}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-56" align="start">
+                            <div className="space-y-3">
+                              <h4 className="font-medium text-sm">Filter by tags</h4>
+                              <div className="space-y-2">
+                                {allTags.map(tag => (
+                                  <div key={tag} className="flex items-center space-x-2">
+                                    <Checkbox
+                                      id={tag}
+                                      checked={selectedTags.includes(tag)}
+                                      onCheckedChange={() => toggleTag(tag)}
+                                    />
+                                    <label
+                                      htmlFor={tag}
+                                      className="text-sm cursor-pointer"
+                                    >
+                                      {tag}
+                                    </label>
+                                  </div>
+                                ))}
+                              </div>
+                              {selectedTags.length > 0 && (
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="w-full"
+                                  onClick={() => setSelectedTags([])}
+                                >
+                                  Clear filters
+                                </Button>
+                              )}
+                            </div>
+                          </PopoverContent>
+                        </Popover>
+                      </div>
+                      {/* Candidate list */}
+                      <div className="flex-1 overflow-y-auto space-y-3 pr-2">
                       {filteredCandidates.map(candidate => (
                         <div
                           key={candidate.id}
@@ -720,6 +717,7 @@ const JobPeopleView = () => {
                           )}
                         </div>
                       ))}
+                      </div>
                     </div>
 
                     {/* Detail Panel */}
@@ -731,8 +729,60 @@ const JobPeopleView = () => {
                     </div>
                   </div>
                 ) : (
-                  // Default grid view
-                  <div className="grid grid-cols-2 gap-4">
+                  // Default grid view with header
+                  <>
+                    {/* Best matches header */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <h2 className="font-hedvig font-medium text-foreground text-xl">
+                        Best matches ({filteredCandidates.length})
+                      </h2>
+                      <Popover open={filterOpen} onOpenChange={setFilterOpen}>
+                        <PopoverTrigger asChild>
+                          <Button variant="outline" size="sm" className="h-8 gap-2">
+                            <Filter className="w-3.5 h-3.5" />
+                            Filter
+                            {selectedTags.length > 0 && (
+                              <span className="ml-1 px-1.5 py-0.5 bg-primary text-primary-foreground rounded-full text-xs">
+                                {selectedTags.length}
+                              </span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-56" align="start">
+                          <div className="space-y-3">
+                            <h4 className="font-medium text-sm">Filter by tags</h4>
+                            <div className="space-y-2">
+                              {allTags.map(tag => (
+                                <div key={tag} className="flex items-center space-x-2">
+                                  <Checkbox
+                                    id={`grid-${tag}`}
+                                    checked={selectedTags.includes(tag)}
+                                    onCheckedChange={() => toggleTag(tag)}
+                                  />
+                                  <label
+                                    htmlFor={`grid-${tag}`}
+                                    className="text-sm cursor-pointer"
+                                  >
+                                    {tag}
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                            {selectedTags.length > 0 && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="w-full"
+                                onClick={() => setSelectedTags([])}
+                              >
+                                Clear filters
+                              </Button>
+                            )}
+                          </div>
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
                     {filteredCandidates.map(candidate => <div
                         key={candidate.id} 
                         className="bg-white border border-[#EEEDEC] rounded-xl p-5 hover:border-primary/50 transition-all cursor-pointer group relative"
@@ -890,7 +940,8 @@ const JobPeopleView = () => {
                           </div>
                         )}
                       </div>)}
-                  </div>
+                    </div>
+                  </>
                 )}
               </div>
 
