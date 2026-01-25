@@ -62,7 +62,7 @@ const JobRowMenu: React.FC<{ onEdit?: () => void; onArchive?: () => void; onDele
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-[#FBFAF9] transition-colors text-muted-foreground"
+        className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-[#FBFAF9] hover:border hover:border-[#EFEEED] transition-colors text-muted-foreground"
       >
         •••
       </button>
