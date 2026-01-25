@@ -609,7 +609,7 @@ const JobPeopleView = () => {
                 {/* Best Matches Content */}
                 {selectedBestMatch ? (
                   // Split view: header + list on left, detail panel on right - aligned at top
-                  <div className="flex gap-4 h-[calc(100vh-90px)] animate-content-expand">
+                  <div className="flex gap-5 h-[calc(100vh-90px)] animate-content-expand">
                     {/* Left side: header + candidate list */}
                     <div className="w-[40%] flex flex-col min-h-0">
                       {/* Best matches header */}
