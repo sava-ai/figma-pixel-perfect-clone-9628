@@ -500,11 +500,11 @@ const JobPeopleView = () => {
       <div className="flex-1 flex overflow-hidden">
         {/* Left Panel - Candidates View */}
         <div className={`flex-1 ${!isChatCollapsed ? 'mr-0' : ''}`}>
-          <div className="h-full flex flex-col py-6 pb-3 relative" style={{
+          <div className="h-full flex flex-col pt-6 pb-3 relative" style={{
           backgroundColor: '#FBFAF9'
         }}>
             <div className={`flex-1 overflow-y-auto relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
-              <div className="p-6 pt-0 pb-2 max-w-[1200px] mx-auto">
+              <div className="px-6 max-w-[1200px] mx-auto h-full flex flex-col">
               {/* Header with stats - hide when profile is selected */}
                 {!selectedBestMatch && (
                   <div className="mb-6 animate-slide-down-fade-in overflow-hidden">
@@ -575,9 +575,9 @@ const JobPeopleView = () => {
                 {/* Best Matches Content */}
                 {selectedBestMatch ? (
                   // Split view: header + list on left, detail panel on right - aligned at top
-                  <div className="flex gap-4 h-[calc(100vh-110px)] animate-content-expand">
+                  <div className="flex gap-4 h-[calc(100vh-90px)] animate-content-expand">
                     {/* Left side: header + candidate list */}
-                    <div className="w-[40%] flex flex-col">
+                    <div className="w-[40%] flex flex-col min-h-0">
                       {/* Best matches header */}
                       <div className="flex items-center gap-3 mb-4 flex-shrink-0">
                         <h2 className="font-hedvig font-medium text-foreground text-xl">
