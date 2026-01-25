@@ -715,7 +715,7 @@ const JobPipeline = () => {
 
         {/* Right Panel - Chat - Fixed width */}
         {!isChatCollapsed && (
-          <div className="w-[380px] flex-shrink-0 pr-4">
+          <div className="w-[380px] flex-shrink-0 mr-4">
             <JobChatPanel 
               defaultMessages={[{ text: 'I can help you manage your pipeline and suggest the best candidates for each stage.', isUser: false }]}
               placeholder="Ask anything about the pipeline..."
