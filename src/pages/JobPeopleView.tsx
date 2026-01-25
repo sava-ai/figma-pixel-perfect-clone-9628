@@ -520,13 +520,6 @@ const JobPeopleView = () => {
                             <span>•</span>
                             <span className="font-medium text-lime-800">{candidate.match} Match</span>
                           </div>
-                          <div className="text-xs">
-                            {candidate.engagementRate > 0 ? (
-                              <span className="font-medium text-primary">Engagement: {candidate.engagementRate}%</span>
-                            ) : (
-                              <span className="text-muted-foreground">Not engaged</span>
-                            )}
-                          </div>
                         </div>
                       </div>
 
