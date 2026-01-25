@@ -826,7 +826,6 @@ const JobPeopleView = () => {
                     {filteredCandidates.map(candidate => <div
                         key={candidate.id} 
                         className="bg-white border border-[#EEEDEC] rounded-xl p-5 hover:border-primary/50 transition-all cursor-pointer group relative"
-                        style={candidate.isNew ? { backgroundColor: '#FAF8F4' } : {}}
                         onClick={() => setSelectedBestMatch(candidate)}
                       >
                         {candidate.isNew && (
