@@ -377,7 +377,7 @@ Qualifications
                 contentEditable
                 suppressContentEditableWarning
                 onInput={(e) => setJobDescription(e.currentTarget.textContent || '')}
-                className={`text-foreground whitespace-pre-wrap outline-none ${activeSuggestions.length > 0 ? 'px-12' : 'p-12'}`}
+                className={`text-foreground whitespace-pre-wrap outline-none ${activeSuggestions.length > 0 ? 'px-[72px] py-12' : 'px-[72px] py-12'}`}
               >
                 {formatJobDescription(jobDescription)}
               </div>
