@@ -113,7 +113,7 @@ const Index = () => {
         />
 
         {/* Right sidebar */}
-        <aside className="fixed right-8 top-8 flex flex-col gap-4">
+        <aside className="fixed top-8 flex flex-col gap-4" style={{ right: 'calc(25vw - 315px)' }}>
           <UserMenu initials="TW" />
         </aside>
 
@@ -223,7 +223,7 @@ const Index = () => {
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                     </svg>
-                    Upload
+                    Upload job
                   </button>
                   <button
                     type="submit"
