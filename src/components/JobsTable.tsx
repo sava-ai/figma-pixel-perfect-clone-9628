@@ -169,7 +169,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
                   className="text-sm text-foreground truncate"
                   style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
                 >
-                  {job.userName}
+                  {job.userName.split(' ')[0]} {job.userName.split(' ')[1]?.[0]}.
                 </span>
               </div>
               
