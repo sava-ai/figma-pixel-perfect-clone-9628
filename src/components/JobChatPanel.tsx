@@ -163,7 +163,7 @@ export const JobChatPanel = ({
   return (
     <>
       <div className="h-full flex flex-col" style={{ backgroundColor: '#FBFAF9' }}>
-        <div className="flex flex-col h-full py-6 pr-6 pl-0 pb-2">
+        <div className="flex flex-col h-full py-6 pr-4 pl-0 pb-2">
           {/* Chat Header - Reduced margin to align with Best Matches */}
           <div className="flex items-center justify-end gap-6 mb-4 flex-shrink-0 relative">
             {/* Right side - Collapse Button */}
