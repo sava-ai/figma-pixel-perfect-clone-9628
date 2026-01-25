@@ -151,7 +151,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           {jobs.map((job, index) => (
             <div
               key={index}
-              className="grid grid-cols-[minmax(180px,1fr)_140px_80px_75px_70px_90px_95px_80px_120px_40px] gap-x-2 items-center bg-white border border-[#EEEDEC] rounded-lg px-5 py-4 hover:bg-accent/30 cursor-pointer transition-colors"
+              className="grid grid-cols-[minmax(180px,1fr)_140px_80px_75px_70px_90px_95px_80px_120px_40px] gap-x-2 items-center bg-white border border-[#EEEDEC] rounded-lg px-6 py-[18px] hover:bg-accent/30 cursor-pointer transition-colors"
               onClick={() => navigate('/job')}
             >
               {/* Title */}
