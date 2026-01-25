@@ -664,7 +664,7 @@ const JobPeopleView = () => {
                         </Popover>
                       </div>
                       {/* Candidate list */}
-                      <div className="flex-1 overflow-y-auto space-y-3 scrollbar-hide">
+                      <div className="flex-1 overflow-y-auto space-y-4 scrollbar-hide">
                       {filteredCandidates.map(candidate => (
                         <div
                           key={candidate.id}
