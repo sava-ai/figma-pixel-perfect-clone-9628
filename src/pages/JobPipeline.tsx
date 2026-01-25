@@ -630,7 +630,7 @@ const JobPipeline = () => {
       <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden">
         {/* Left Panel - Pipeline View */}
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
-          <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#FAF8F4' }}>
+          <div className="h-full flex flex-col py-6 pb-8 relative" style={{ backgroundColor: '#FBFAF9' }}>
             <div className={`flex-1 overflow-hidden bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-6'}`}>
               <DndContext 
                 sensors={sensors}
@@ -669,7 +669,7 @@ const JobPipeline = () => {
                         </div>
                         <div 
                           className="flex-1 rounded-xl p-3 overflow-y-auto"
-                          style={{ minHeight: '200px', backgroundColor: '#FAF8F4' }}
+                          style={{ minHeight: '200px', backgroundColor: '#FBFAF9' }}
                         >
                           <SortableContext
                             items={column.candidates.map(c => c.id)}

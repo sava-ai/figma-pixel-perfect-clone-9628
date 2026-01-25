@@ -364,7 +364,7 @@ const JobPeopleView = () => {
         {/* Left Panel - Candidates View */}
         <ResizablePanel defaultSize={isChatCollapsed ? 100 : 65} minSize={30}>
           <div className="h-full flex flex-col py-6 pb-8 relative" style={{
-          backgroundColor: '#FAF8F4'
+          backgroundColor: '#FBFAF9'
         }}>
             <div className={`flex-1 overflow-y-auto relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
               <div className="p-6 max-w-[1200px] mx-auto">
