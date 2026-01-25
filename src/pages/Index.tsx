@@ -7,6 +7,7 @@ import { AIChatOverlay } from '@/components/AIChatOverlay';
 import { MessagesOverlay } from '@/components/MessagesOverlay';
 import { AnimatedLogo } from '@/components/AnimatedLogo';
 import userAvatarImage from '@/assets/user-avatar.png';
+import backgroundImage from '@/assets/background-landscape.png';
 const Index = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
@@ -88,7 +89,13 @@ const Index = () => {
     <>
       {/* Fixed background layer */}
       <div 
-        className="fixed inset-0 w-screen h-screen -z-10 bg-[#F6F5F3]"
+        className="fixed inset-0 w-screen h-screen -z-10"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       />
       <main className="min-h-screen w-full relative">
 
