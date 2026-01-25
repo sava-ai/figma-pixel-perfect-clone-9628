@@ -726,7 +726,7 @@ const JobPeopleView = () => {
                                     <span className="text-[10px] font-bold" style={{ color: icon.text }}>{icon.letter}</span>
                                   </div>
                                   <div className="flex-1 min-w-0">
-                                    <p className="text-foreground truncate">{role.role}</p>
+                                    <p className="text-sm text-foreground truncate">{role.role}</p>
                                     <p className="text-muted-foreground truncate">
                                       {role.company} · Jun 2023 − Present · 6m
                                     </p>
