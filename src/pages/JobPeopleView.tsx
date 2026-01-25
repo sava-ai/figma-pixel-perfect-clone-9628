@@ -366,7 +366,7 @@ const JobPeopleView = () => {
           <div className="h-full flex flex-col py-6 pb-8 relative" style={{
           backgroundColor: '#FAF8F4'
         }}>
-            <div className={`flex-1 overflow-y-auto bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
+            <div className={`flex-1 overflow-y-auto relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
               <div className="p-6 max-w-[1200px] mx-auto">
                 {/* Header with stats */}
                 <div className="mb-6">
@@ -382,7 +382,7 @@ const JobPeopleView = () => {
 
                   {/* Applicants and Rejections */}
                   <div className="grid grid-cols-2 gap-4 mb-8">
-                    <div className="bg-card border border-border/40 rounded-xl p-5 relative">
+                    <div className="bg-white border border-[#EEEDEC] rounded-xl p-5 relative">
                       <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full"></div>
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -407,7 +407,7 @@ const JobPeopleView = () => {
                       </button>
                     </div>
 
-                    <div className="bg-card border border-border/40 rounded-xl p-5 relative">
+                    <div className="bg-white border border-[#EEEDEC] rounded-xl p-5 relative">
                       <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full"></div>
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-7 h-7 rounded-lg bg-destructive/10 flex items-center justify-center">
@@ -496,7 +496,7 @@ const JobPeopleView = () => {
                 <div className="grid grid-cols-2 gap-4">
                   {filteredCandidates.map(candidate => <div
                       key={candidate.id} 
-                      className="bg-card border border-border/40 rounded-xl p-5 hover:border-primary/50 transition-all cursor-pointer group relative"
+                      className="bg-white border border-[#EEEDEC] rounded-xl p-5 hover:border-primary/50 transition-all cursor-pointer group relative"
                       style={candidate.isNew ? { backgroundColor: '#FAF8F4' } : {}}
                       onClick={() => {
                         setSelectedCandidate(candidate);
