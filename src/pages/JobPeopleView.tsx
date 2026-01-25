@@ -747,7 +747,7 @@ const JobPeopleView = () => {
                                   </svg>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-foreground truncate">{candidate.education.degree}</p>
+                                  <p className="text-sm text-foreground truncate">{candidate.education.degree}</p>
                                   <p className="text-muted-foreground truncate">
                                     {candidate.education.school} · {candidate.education.graduationDate}
                                   </p>
