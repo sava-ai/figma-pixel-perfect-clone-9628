@@ -515,7 +515,7 @@ const JobPeopleView = () => {
           </button>
         </div>
 
-        {/* Right side - Profile, Invite, More */}
+        {/* Right side - Profile, Invite, More, Expand Chat */}
         <div className="flex items-center gap-2">
           <img src={userAvatarImage} alt="Profile" className="w-7 h-7 rounded-full object-cover border-2 border-gray-200" />
           <button 
@@ -527,6 +527,15 @@ const JobPeopleView = () => {
           <button className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200">
             <MoreVertical className="w-4 h-4 text-gray-700" />
           </button>
+          {isChatCollapsed && (
+            <button 
+              onClick={() => setIsChatCollapsed(false)}
+              className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
+              title="Open AI Chat"
+            >
+              <ChevronLeft className="w-4 h-4 text-gray-700" />
+            </button>
+          )}
         </div>
       </header>
 
