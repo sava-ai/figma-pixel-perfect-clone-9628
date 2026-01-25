@@ -370,9 +370,6 @@ Qualifications
               <div className="sticky top-0 z-10 bg-background pt-6 pb-4 pl-12 pr-12 flex items-center justify-between">
                 {activeSuggestions.length > 0 ? (
                   <div className="flex items-center gap-3">
-                    <span className="text-base font-semibold text-gray-700">
-                      AI Suggestions: {appliedCount}/{totalSuggestions} applied
-                    </span>
                     <div className="flex gap-1">
                       <button
                         onClick={navigateToPrevSuggestion}
