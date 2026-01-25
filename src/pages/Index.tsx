@@ -243,13 +243,6 @@ const Index = () => {
                 <input type="text" placeholder="Search jobs..." className="w-full bg-white border border-[#EEEDEC] rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#292524]" />
               </div>
 
-              <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EEEDEC] rounded-lg text-sm font-medium hover:bg-accent transition-colors">
-                <UserAvatar initials="TW" size="sm" />
-                <span>Show only my positions</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
 
               <button className="flex items-center gap-2 px-6 py-2.5 bg-white border border-[#EEEDEC] rounded-lg text-sm font-medium hover:bg-accent transition-colors">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
