@@ -368,26 +368,7 @@ Qualifications
             <div className={`flex-1 overflow-y-auto bg-background rounded-lg border border-[#F3F3F3] relative ${isChatCollapsed ? 'mx-6' : 'ml-6 mr-2.5'}`}>
               {/* AI Suggestions Tracker & Publish Button - Sticky at top */}
               <div className="sticky top-0 z-10 bg-background pt-6 pb-4 pl-12 pr-12 flex items-center justify-between">
-                {activeSuggestions.length > 0 ? (
-                  <div className="flex items-center gap-3">
-                    <div className="flex gap-1">
-                      <button
-                        onClick={navigateToPrevSuggestion}
-                        className="w-7 h-7 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md border border-gray-200"
-                        title="Previous suggestion"
-                      >
-                        <ArrowUp className="w-4 h-4 text-gray-700" />
-                      </button>
-                      <button
-                        onClick={navigateToNextSuggestion}
-                        className="w-7 h-7 rounded-lg flex items-center justify-center transition-all bg-gradient-to-b from-white to-gray-100 shadow-sm hover:shadow-md border border-gray-200"
-                        title="Next suggestion"
-                      >
-                        <ArrowDown className="w-4 h-4 text-gray-700" />
-                      </button>
-                    </div>
-                  </div>
-                ) : <div />}
+                <div />
                 
                 <div className="flex items-center gap-3">
                   <button
