@@ -239,11 +239,11 @@ const JobPeople = () => {
       {/* Main Content - Flex layout */}
       <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
         {/* Left Panel - Search Animation */}
-        <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
-          <div className={`h-full flex flex-col pt-6 pb-3 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
-            <div ref={scrollContainerRef} className={`flex-1 overflow-y-auto relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
-              <div className={`${isChatCollapsed ? '' : 'max-w-[1200px]'}`}>
-                <div className="space-y-6">
+        <div className={`flex-1 min-w-0 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
+          <div className={`h-full flex flex-col pt-6 pb-3 relative w-full ${isChatCollapsed ? 'max-w-[1200px]' : ''}`}>
+              <div ref={scrollContainerRef} className={`flex-1 overflow-y-auto overflow-x-hidden relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
+                <div className="w-full">
+                  <div className="space-y-6">
                 {/* Searching Status */}
                 <div className="bg-white rounded-lg border border-[#EEEDEC] px-4 py-3 animate-fade-in">
                   <div className="flex items-center gap-2.5">
@@ -258,14 +258,14 @@ const JobPeople = () => {
 
                 {/* External Sources */}
                 {showExternalSources && (
-                <div className="bg-white rounded-lg border border-gray-200 animate-fade-in flex-shrink-0">
+                <div className="bg-white rounded-lg border border-gray-200 animate-fade-in flex-shrink-0 overflow-hidden">
                   <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
                     <h3 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                       External Sources
                     </h3>
                     <span className="text-xs text-gray-500">13 platforms</span>
                   </div>
-                  <div className="relative bg-gray-50 h-16 w-full overflow-hidden">
+                  <div className="relative bg-gray-50 h-16 overflow-hidden">
                     <div className="flex gap-3 animate-scroll absolute top-3 left-0 whitespace-nowrap px-4">
                       <div className="flex gap-3 items-center">
                         {/* LinkedIn */}
@@ -429,22 +429,22 @@ const JobPeople = () => {
                     </h3>
                     <span className="text-xs text-gray-500">3 sources</span>
                   </div>
-                  <div className="p-4 flex gap-2">
-                    <div className="flex-1 flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-md border border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer">
+                  <div className="p-4 flex gap-2 flex-wrap sm:flex-nowrap">
+                    <div className="flex-1 min-w-0 flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-md border border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer">
                       <div className="flex -space-x-1.5">
                         <img src={profile18} alt="" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
                         <img src={profile19} alt="" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
                       </div>
                       <span className="text-sm font-medium text-gray-700">Network</span>
                     </div>
-                    <div className="flex-1 flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-md border border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer">
+                    <div className="flex-1 min-w-0 flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-md border border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer">
                       <div className="flex -space-x-1.5">
                         <img src={profile20} alt="" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
                         <img src={profile1} alt="" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
                       </div>
                       <span className="text-sm font-medium text-gray-700">Applied</span>
                     </div>
-                    <div className="flex-1 flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-md border border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer">
+                    <div className="flex-1 min-w-0 flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-md border border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer">
                       <div className="w-6 h-6 rounded-full bg-blue-100 border-2 border-white flex items-center justify-center">
                         <svg className="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
