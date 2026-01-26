@@ -3,6 +3,7 @@ import { X, MoreHorizontal, Share2, Mail, MapPin, Briefcase, GraduationCap, Cloc
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 interface CriteriaItem {
   icon: 'location' | 'briefcase' | 'graduation' | 'clock' | 'sparkles' | 'award' | 'code' | 'building' | 'globe' | 'heart' | 'users';
   label: string;
@@ -132,19 +133,31 @@ const CandidateDetailPanel = ({
     required: false
   }];
   
-  // Extended criteria for the dialog
-  const dialogCoreCriteria: CriteriaItem[] = [
-    { icon: 'briefcase', label: 'Leadership experience', status: 'full', required: true },
-    { icon: 'code', label: 'Frontend development', status: 'partial', required: true },
-    { icon: 'building', label: 'FAANG company', status: 'none', required: false },
-    ...defaultCoreCriteria
+  // Extended criteria for the dialog with reasoning
+  interface DialogCriteriaItem {
+    icon: 'location' | 'briefcase' | 'graduation' | 'clock' | 'sparkles' | 'award' | 'code' | 'building' | 'globe' | 'heart' | 'users';
+    label: string;
+    status: 'full' | 'partial' | 'none' | 'unknown';
+    required?: boolean;
+    reasoning: string;
+  }
+
+  const dialogCoreCriteria: DialogCriteriaItem[] = [
+    { icon: 'briefcase', label: 'Leadership experience', status: 'full', required: true, reasoning: 'Has led design teams of 5+ people at two previous companies. Managed cross-functional projects and mentored junior designers.' },
+    { icon: 'code', label: 'Frontend development', status: 'partial', required: true, reasoning: 'Familiar with HTML/CSS and basic React concepts. Has worked closely with developers but limited hands-on coding experience.' },
+    { icon: 'building', label: 'FAANG company', status: 'none', required: false, reasoning: 'No experience at FAANG companies. Previous employers include mid-size startups and agencies.' },
+    { icon: 'location', label: `Located in ${candidate.city}`, status: 'full', required: true, reasoning: `Currently based in ${candidate.city}, Sweden. Open to hybrid work arrangements.` },
+    { icon: 'briefcase', label: 'Senior Product Designer', status: matchScore >= 9 ? 'full' : 'partial', required: true, reasoning: 'Currently holds Senior Product Designer title with 6+ years of experience in product design roles.' },
+    { icon: 'clock', label: '5+ Years of Design Experience', status: matchScore >= 10 ? 'full' : 'partial', required: true, reasoning: 'Over 7 years of professional design experience spanning UX, UI, and product design.' },
+    { icon: 'graduation', label: "Bachelor's Degree or Higher", status: 'full', required: false, reasoning: "Holds a Bachelor's degree in Graphic Design from a reputable design school." },
   ];
 
-  const dialogSoftSkills: CriteriaItem[] = [
-    { icon: 'users', label: 'Effective communication and teamwork', status: 'full', required: false },
-    { icon: 'heart', label: 'Emotional intelligence and conflict resolution', status: 'partial', required: false },
-    { icon: 'globe', label: 'Fluent english', status: 'full', required: false },
-    ...defaultSoftSkills
+  const dialogSoftSkills: DialogCriteriaItem[] = [
+    { icon: 'users', label: 'Effective communication and teamwork', status: 'full', required: false, reasoning: 'Strong track record of collaborating with product managers, engineers, and stakeholders. Excellent presentation skills demonstrated in portfolio reviews.' },
+    { icon: 'heart', label: 'Emotional intelligence and conflict resolution', status: 'partial', required: false, reasoning: 'Shows empathy in user research. Limited evidence of conflict resolution experience from available information.' },
+    { icon: 'globe', label: 'Fluent English', status: 'full', required: false, reasoning: 'Native-level English proficiency. All portfolio materials and previous work conducted in English.' },
+    { icon: 'sparkles', label: 'Team collaboration', status: 'unknown', required: false, reasoning: 'Unable to assess from available information. Recommend asking about collaboration style in interview.' },
+    { icon: 'sparkles', label: 'Problem-solving mindset', status: 'full', required: false, reasoning: 'Portfolio demonstrates strong analytical approach to design challenges with clear problem-solution frameworks.' },
   ];
 
   const highlightItems = [
@@ -291,29 +304,29 @@ const CandidateDetailPanel = ({
 
           {/* Details Dialog */}
           <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
-            <DialogContent className="max-w-[750px] p-0 gap-0 overflow-hidden">
-              <div className="grid grid-cols-[1fr_1.5fr]">
+            <DialogContent className="max-w-[900px] p-0 gap-0 overflow-hidden">
+              <div className="grid grid-cols-[1fr_1.8fr]">
                 {/* Left Column - Match Score */}
-                <div className="p-6 bg-[#FAFAF9] border-r border-[#EEEDEC] flex flex-col items-center">
+                <div className="p-8 bg-[#FAFAF9] border-r border-[#EEEDEC] flex flex-col items-center">
                   <div className="flex items-center gap-3 mb-2">
-                    <Leaf size={20} className="text-[#2D7A2D] rotate-[-45deg]" />
-                    <span className="text-4xl font-semibold text-[#2D7A2D] font-['LabilGrotesk']">
+                    <Leaf size={24} className="text-[#2D7A2D] rotate-[-45deg]" />
+                    <span className="text-5xl font-semibold text-[#2D7A2D] font-['LabilGrotesk']">
                       {matchScore}/{matchTotal}
                     </span>
-                    <Leaf size={20} className="text-[#2D7A2D] rotate-[135deg]" />
+                    <Leaf size={24} className="text-[#2D7A2D] rotate-[135deg]" />
                   </div>
-                  <span className="text-sm text-[#666666] mb-6">Match</span>
+                  <span className="text-sm text-[#666666] mb-8">Match</span>
                   
-                  <p className="text-sm text-[#444444] leading-relaxed mb-6 text-center">
+                  <p className="text-sm text-[#444444] leading-relaxed mb-8 text-center">
                     {defaultSummary}
                   </p>
                   
-                  <div className="w-full space-y-3">
+                  <div className="w-full space-y-4">
                     {highlightItems.map((item, index) => {
                       const IconComponent = getIconComponent(item.icon);
                       return (
-                        <div key={index} className="flex items-center gap-2.5 text-sm text-[#444444]">
-                          <IconComponent size={16} className="text-[#2D7A2D]" />
+                        <div key={index} className="flex items-center gap-3 text-sm text-[#444444]">
+                          <IconComponent size={18} className="text-[#2D7A2D]" />
                           <span>{item.label}</span>
                         </div>
                       );
@@ -321,16 +334,43 @@ const CandidateDetailPanel = ({
                   </div>
                 </div>
 
-                {/* Right Column - Criteria */}
-                <div className="p-6 max-h-[500px] overflow-y-auto scrollbar-hide">
+                {/* Right Column - Criteria with Accordions */}
+                <div className="p-6 max-h-[600px] overflow-y-auto scrollbar-hide">
                   {/* Core Criteria */}
-                  <div className="mb-5">
+                  <div className="mb-6">
                     <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-3">
                       Core Criteria
                     </h3>
-                    <div className="space-y-0">
-                      {dialogCoreCriteria.map((item, index) => renderCriteriaItem(item, index))}
-                    </div>
+                    <Accordion type="multiple" className="space-y-2">
+                      {dialogCoreCriteria.map((item, index) => {
+                        const IconComponent = getIconComponent(item.icon);
+                        const statusColor = item.status === 'full' ? 'text-[#2D7A2D]' : 
+                                           item.status === 'partial' ? 'text-[#B8860B]' : 
+                                           item.status === 'none' ? 'text-[#D32F2F]' : 'text-[#999999]';
+                        const statusDot = item.status === 'full' ? 'bg-[#2D7A2D]' : 
+                                         item.status === 'partial' ? 'bg-[#B8860B]' : 
+                                         item.status === 'none' ? 'bg-[#D32F2F]' : 'bg-[#CCCCCC]';
+                        return (
+                          <AccordionItem key={index} value={`core-${index}`} className="border border-[#EEEDEC] rounded-lg px-4 data-[state=open]:bg-[#FAFAF9]">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <div className="flex items-center gap-3 flex-1">
+                                <span className={`w-2 h-2 rounded-full ${statusDot}`}></span>
+                                <IconComponent size={16} className="text-[#666666]" />
+                                <span className="text-sm text-[#292524]">
+                                  {item.label}
+                                  {item.required && <span className="text-[#D32F2F] ml-0.5">*</span>}
+                                </span>
+                              </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="pb-4 pt-0">
+                              <p className="text-sm text-[#666666] leading-relaxed pl-8">
+                                {item.reasoning}
+                              </p>
+                            </AccordionContent>
+                          </AccordionItem>
+                        );
+                      })}
+                    </Accordion>
                   </div>
 
                   {/* Soft Skills */}
@@ -338,9 +378,30 @@ const CandidateDetailPanel = ({
                     <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-3">
                       Soft Skills
                     </h3>
-                    <div className="space-y-0">
-                      {dialogSoftSkills.map((item, index) => renderCriteriaItem(item, index))}
-                    </div>
+                    <Accordion type="multiple" className="space-y-2">
+                      {dialogSoftSkills.map((item, index) => {
+                        const IconComponent = getIconComponent(item.icon);
+                        const statusDot = item.status === 'full' ? 'bg-[#2D7A2D]' : 
+                                         item.status === 'partial' ? 'bg-[#B8860B]' : 
+                                         item.status === 'none' ? 'bg-[#D32F2F]' : 'bg-[#CCCCCC]';
+                        return (
+                          <AccordionItem key={index} value={`soft-${index}`} className="border border-[#EEEDEC] rounded-lg px-4 data-[state=open]:bg-[#FAFAF9]">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <div className="flex items-center gap-3 flex-1">
+                                <span className={`w-2 h-2 rounded-full ${statusDot}`}></span>
+                                <IconComponent size={16} className="text-[#666666]" />
+                                <span className="text-sm text-[#292524]">{item.label}</span>
+                              </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="pb-4 pt-0">
+                              <p className="text-sm text-[#666666] leading-relaxed pl-8">
+                                {item.reasoning}
+                              </p>
+                            </AccordionContent>
+                          </AccordionItem>
+                        );
+                      })}
+                    </Accordion>
                   </div>
                 </div>
               </div>
