@@ -241,9 +241,9 @@ const JobPeople = () => {
         {/* Left Panel - Search Animation */}
         <div className={`flex-1 min-w-0 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
           <div className={`h-full flex flex-col pt-6 pb-3 relative w-full ${isChatCollapsed ? 'max-w-[1200px]' : ''}`}>
-              <div ref={scrollContainerRef} className={`flex-1 overflow-y-auto overflow-x-hidden relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
-                <div className="w-full">
-                  <div className="space-y-4">
+              <div ref={scrollContainerRef} className={`flex-1 overflow-y-auto overflow-x-hidden relative scrollbar-hide flex flex-col ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
+                <div className="w-full h-full flex flex-col">
+                  <div className="space-y-4 flex-1 flex flex-col">
                 {/* Searching Status */}
                 <div className="bg-white rounded-lg border border-[#EEEDEC] px-4 py-3 animate-fade-in">
                   <div className="flex items-center gap-2.5">
@@ -477,14 +477,14 @@ const JobPeople = () => {
 
                 {/* Best Matches */}
                 {showBestMatches && (
-                <div ref={bestMatchesRef} className="bg-white rounded-lg border border-gray-200 animate-fade-in overflow-hidden">
+                <div ref={bestMatchesRef} className="bg-white rounded-lg border border-gray-200 animate-fade-in overflow-hidden flex-1 flex flex-col min-h-[120px]">
                   <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
                     <h3 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                       Best Matches
                     </h3>
                     <span className="text-xs text-gray-500">{bestMatches.length} profiles</span>
                   </div>
-                  <div className="p-4 flex items-center gap-2 overflow-hidden">
+                  <div className="p-4 flex items-start gap-2 overflow-hidden flex-1">
                     {bestMatches.slice(0, Math.min(9, visibleMatches)).map((match, index) => (
                       <div
                         key={index}
