@@ -869,7 +869,7 @@ const JobPeopleView = () => {
                             return (
                               <div 
                                 key={idx} 
-                                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-[#F6F5F3] rounded-lg text-xs"
+                                className="flex items-center gap-1.5 px-2.5 py-1.5 border border-border rounded-lg text-xs"
                               >
                                   {role.company === 'Klarna' && <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 bg-[#FFB3C7]">
                                       <span className="text-[10px] font-bold" style={{
