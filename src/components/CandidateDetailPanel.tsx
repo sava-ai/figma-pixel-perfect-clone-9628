@@ -341,7 +341,7 @@ const CandidateDetailPanel = ({
                     <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-3">
                       Core Criteria
                     </h3>
-                    <Accordion type="multiple" className="space-y-2">
+                    <Accordion type="multiple" className="divide-y divide-[#EEEDEC]">
                       {dialogCoreCriteria.map((item, index) => {
                         const IconComponent = getIconComponent(item.icon);
                         const statusColor = item.status === 'full' ? 'text-[#2D7A2D]' : 
@@ -351,7 +351,7 @@ const CandidateDetailPanel = ({
                                          item.status === 'partial' ? 'bg-[#B8860B]' : 
                                          item.status === 'none' ? 'bg-[#D32F2F]' : 'bg-[#CCCCCC]';
                         return (
-                          <AccordionItem key={index} value={`core-${index}`} className="border-b border-[#EEEDEC] mx-4 data-[state=open]:bg-[#FAFAF9]">
+                          <AccordionItem key={index} value={`core-${index}`} className="border-0 data-[state=open]:bg-[#FAFAF9]">
                             <AccordionTrigger className="py-3 hover:no-underline">
                               <div className="flex items-center gap-3 flex-1">
                                 <span className={`w-2 h-2 rounded-full ${statusDot}`}></span>
@@ -378,14 +378,14 @@ const CandidateDetailPanel = ({
                     <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-3">
                       Soft Skills
                     </h3>
-                    <Accordion type="multiple" className="space-y-2">
+                    <Accordion type="multiple" className="divide-y divide-[#EEEDEC]">
                       {dialogSoftSkills.map((item, index) => {
                         const IconComponent = getIconComponent(item.icon);
                         const statusDot = item.status === 'full' ? 'bg-[#2D7A2D]' : 
                                          item.status === 'partial' ? 'bg-[#B8860B]' : 
                                          item.status === 'none' ? 'bg-[#D32F2F]' : 'bg-[#CCCCCC]';
                         return (
-                          <AccordionItem key={index} value={`soft-${index}`} className="border-b border-[#EEEDEC] mx-4 data-[state=open]:bg-[#FAFAF9]">
+                          <AccordionItem key={index} value={`soft-${index}`} className="border-0 data-[state=open]:bg-[#FAFAF9]">
                             <AccordionTrigger className="py-3 hover:no-underline">
                               <div className="flex items-center gap-3 flex-1">
                                 <span className={`w-2 h-2 rounded-full ${statusDot}`}></span>
