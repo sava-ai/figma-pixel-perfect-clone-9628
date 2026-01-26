@@ -352,7 +352,7 @@ const CandidateDetailPanel = ({
                                          item.status === 'none' ? 'bg-[#D32F2F]' : 'bg-[#CCCCCC]';
                         return (
                           <AccordionItem key={index} value={`core-${index}`} className="border-0">
-                            <AccordionTrigger className="py-3 hover:no-underline">
+                            <AccordionTrigger className="py-4 hover:no-underline">
                               <div className="flex items-center gap-3 flex-1">
                                 <span className={`w-2 h-2 rounded-full ${statusDot}`}></span>
                                 <IconComponent size={16} className="text-[#666666]" />
@@ -386,7 +386,7 @@ const CandidateDetailPanel = ({
                                          item.status === 'none' ? 'bg-[#D32F2F]' : 'bg-[#CCCCCC]';
                         return (
                           <AccordionItem key={index} value={`soft-${index}`} className="border-0">
-                            <AccordionTrigger className="py-3 hover:no-underline">
+                            <AccordionTrigger className="py-4 hover:no-underline">
                               <div className="flex items-center gap-3 flex-1">
                                 <span className={`w-2 h-2 rounded-full ${statusDot}`}></span>
                                 <IconComponent size={16} className="text-[#666666]" />
