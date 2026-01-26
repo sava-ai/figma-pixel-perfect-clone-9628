@@ -37,11 +37,13 @@ interface Candidate {
 interface JobChatPanelProps {
   defaultMessages?: Message[];
   placeholder?: string;
+  hideActionButtons?: boolean;
 }
 
 export const JobChatPanel = ({ 
   defaultMessages = [], 
-  placeholder = "Ask anything about the candidates..."
+  placeholder = "Ask anything about the candidates...",
+  hideActionButtons = false
 }: JobChatPanelProps) => {
   const [messages, setMessages] = useState<Message[]>(defaultMessages);
   const [inputValue, setInputValue] = useState('');
@@ -324,32 +326,34 @@ export const JobChatPanel = ({
                 className="w-full bg-white rounded-2xl px-6 pt-5 pb-12 pr-14 text-[0.875rem] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none min-h-[100px] border border-border"
               />
               {/* Action Buttons - Inside input at bottom left */}
-              <div className="absolute bottom-3 left-4 flex gap-1">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setFindSimilarOpen(false);
-                    setCompareOpen(!compareOpen);
-                    setSearchQuery('');
-                  }}
-                  className="flex items-center gap-1.5 px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
-                >
-                  <Users className="w-3.5 h-3.5" />
-                  <span>Compare</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setCompareOpen(false);
-                    setFindSimilarOpen(!findSimilarOpen);
-                    setSearchQuery('');
-                  }}
-                  className="flex items-center gap-1.5 px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
-                >
-                  <SearchIcon className="w-3.5 h-3.5" />
-                  <span>Find similar</span>
-                </button>
-              </div>
+              {!hideActionButtons && (
+                <div className="absolute bottom-3 left-4 flex gap-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFindSimilarOpen(false);
+                      setCompareOpen(!compareOpen);
+                      setSearchQuery('');
+                    }}
+                    className="flex items-center gap-1.5 px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
+                  >
+                    <Users className="w-3.5 h-3.5" />
+                    <span>Compare</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCompareOpen(false);
+                      setFindSimilarOpen(!findSimilarOpen);
+                      setSearchQuery('');
+                    }}
+                    className="flex items-center gap-1.5 px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
+                  >
+                    <SearchIcon className="w-3.5 h-3.5" />
+                    <span>Find similar</span>
+                  </button>
+                </div>
+              )}
               {/* Submit button - 30% smaller */}
               <button
                 type="submit"
