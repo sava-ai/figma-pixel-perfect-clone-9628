@@ -163,7 +163,7 @@ export const JobChatPanel = ({
   return (
     <>
       <div className="h-full flex flex-col" style={{ backgroundColor: '#FBFAF9' }}>
-        <div className="flex flex-col h-full py-6 pr-4 pl-0 pb-2">
+        <div className="flex flex-col h-full py-6 pr-4 pl-0 pb-5">
 
           {/* Chat Messages - Scrollable */}
           <div className="flex-1 overflow-y-auto mb-6 space-y-4 scrollbar-hide">
