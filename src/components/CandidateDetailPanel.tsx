@@ -351,7 +351,7 @@ const CandidateDetailPanel = ({
                                          item.status === 'partial' ? 'bg-[#B8860B]' : 
                                          item.status === 'none' ? 'bg-[#D32F2F]' : 'bg-[#CCCCCC]';
                         return (
-                          <AccordionItem key={index} value={`core-${index}`} className="border-y border-[#EEEDEC] px-0 data-[state=open]:bg-[#FAFAF9] -mt-px first:mt-0">
+                          <AccordionItem key={index} value={`core-${index}`} className="border-b border-[#EEEDEC] px-0 data-[state=open]:bg-[#FAFAF9]">
                             <AccordionTrigger className="py-3 hover:no-underline">
                               <div className="flex items-center gap-3 flex-1">
                                 <span className={`w-2 h-2 rounded-full ${statusDot}`}></span>
@@ -385,7 +385,7 @@ const CandidateDetailPanel = ({
                                          item.status === 'partial' ? 'bg-[#B8860B]' : 
                                          item.status === 'none' ? 'bg-[#D32F2F]' : 'bg-[#CCCCCC]';
                         return (
-                          <AccordionItem key={index} value={`soft-${index}`} className="border-y border-[#EEEDEC] px-0 data-[state=open]:bg-[#FAFAF9] -mt-px first:mt-0">
+                          <AccordionItem key={index} value={`soft-${index}`} className="border-b border-[#EEEDEC] px-0 data-[state=open]:bg-[#FAFAF9]">
                             <AccordionTrigger className="py-3 hover:no-underline">
                               <div className="flex items-center gap-3 flex-1">
                                 <span className={`w-2 h-2 rounded-full ${statusDot}`}></span>
