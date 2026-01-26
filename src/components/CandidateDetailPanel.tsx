@@ -229,7 +229,7 @@ const CandidateDetailPanel = ({
             <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-2">
               Core Criteria
             </h3>
-            <div className="bg-[#FAFAF9] rounded-lg px-3">
+            <div className="bg-white rounded-lg px-3 border border-[#EEEDEC]">
               {defaultCoreCriteria.map((item, index) => renderCriteriaItem(item, index))}
             </div>
           </div>
@@ -239,7 +239,7 @@ const CandidateDetailPanel = ({
             <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-2">
               Soft Skills
             </h3>
-            <div className="bg-[#FAFAF9] rounded-lg px-3">
+            <div className="bg-white rounded-lg px-3 border border-[#EEEDEC]">
               {defaultSoftSkills.map((item, index) => renderCriteriaItem(item, index))}
             </div>
           </div>
