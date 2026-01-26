@@ -304,7 +304,7 @@ const CandidateDetailPanel = ({
 
           {/* Details Dialog */}
           <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
-            <DialogContent className="max-w-[900px] p-0 gap-0 overflow-hidden">
+            <DialogContent className="max-w-[1100px] p-0 gap-0 overflow-hidden">
               <div className="grid grid-cols-[1fr_1.8fr]">
                 {/* Left Column - Match Score */}
                 <div className="p-8 bg-[#FAFAF9] border-r border-[#EEEDEC] flex flex-col items-center">
@@ -335,7 +335,7 @@ const CandidateDetailPanel = ({
                 </div>
 
                 {/* Right Column - Criteria with Accordions */}
-                <div className="p-6 max-h-[600px] overflow-y-auto scrollbar-hide">
+                <div className="p-8 max-h-[700px] overflow-y-auto scrollbar-hide">
                   {/* Core Criteria */}
                   <div className="mb-6">
                     <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-3">
