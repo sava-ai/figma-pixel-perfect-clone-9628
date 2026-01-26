@@ -241,7 +241,7 @@ const JobPeople = () => {
         {/* Left Panel - Search Animation */}
         <div className={`flex-1 min-w-0 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
           <div className={`h-full flex flex-col pt-6 pb-3 relative w-full ${isChatCollapsed ? 'max-w-[1200px]' : ''}`}>
-              <div ref={scrollContainerRef} className={`flex-1 overflow-y-auto overflow-x-hidden relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4'}`}>
+              <div ref={scrollContainerRef} className={`flex-1 overflow-y-auto overflow-x-hidden relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
                 <div className="w-full">
                   <div className="space-y-6">
                 {/* Searching Status */}
@@ -519,7 +519,7 @@ const JobPeople = () => {
 
         {/* Right Panel - Chat - Fixed width */}
         {!isChatCollapsed && (
-          <div className="w-[380px] flex-shrink-0 pr-4">
+          <div className="w-[380px] flex-shrink-0 pr-4 pt-6 pb-3">
             <JobChatPanel 
               defaultMessages={defaultMessages}
               placeholder="Ask anything about the candidates..."
