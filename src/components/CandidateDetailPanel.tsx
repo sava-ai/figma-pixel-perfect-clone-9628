@@ -304,7 +304,7 @@ const CandidateDetailPanel = ({
 
           {/* Details Dialog */}
           <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
-            <DialogContent className="max-w-[1100px] p-0 gap-0 overflow-hidden">
+            <DialogContent className="max-w-[1265px] p-0 gap-0 overflow-hidden">
               <div className="grid grid-cols-[1fr_1.8fr]">
                 {/* Left Column - Match Score */}
                 <div className="p-8 bg-[#FAFAF9] border-r border-[#EEEDEC] flex flex-col items-center">
