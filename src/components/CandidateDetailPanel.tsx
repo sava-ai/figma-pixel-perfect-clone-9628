@@ -351,12 +351,12 @@ const CandidateDetailPanel = ({
                                          item.status === 'partial' ? 'bg-[#B8860B]' : 
                                          item.status === 'none' ? 'bg-[#D32F2F]' : 'bg-[#CCCCCC]';
                         return (
-                          <AccordionItem key={index} value={`core-${index}`} className="border-0 data-[state=open]:bg-[#FAFAF9]">
+                          <AccordionItem key={index} value={`core-${index}`} className="border-0">
                             <AccordionTrigger className="py-3 hover:no-underline">
                               <div className="flex items-center gap-3 flex-1">
                                 <span className={`w-2 h-2 rounded-full ${statusDot}`}></span>
                                 <IconComponent size={16} className="text-[#666666]" />
-                                <span className="text-sm text-[#292524]">
+                                <span className="text-sm text-[#292524] font-normal">
                                   {item.label}
                                   {item.required && <span className="text-[#D32F2F] ml-0.5">*</span>}
                                 </span>
@@ -385,12 +385,12 @@ const CandidateDetailPanel = ({
                                          item.status === 'partial' ? 'bg-[#B8860B]' : 
                                          item.status === 'none' ? 'bg-[#D32F2F]' : 'bg-[#CCCCCC]';
                         return (
-                          <AccordionItem key={index} value={`soft-${index}`} className="border-0 data-[state=open]:bg-[#FAFAF9]">
+                          <AccordionItem key={index} value={`soft-${index}`} className="border-0">
                             <AccordionTrigger className="py-3 hover:no-underline">
                               <div className="flex items-center gap-3 flex-1">
                                 <span className={`w-2 h-2 rounded-full ${statusDot}`}></span>
                                 <IconComponent size={16} className="text-[#666666]" />
-                                <span className="text-sm text-[#292524]">{item.label}</span>
+                                <span className="text-sm text-[#292524] font-normal">{item.label}</span>
                               </div>
                             </AccordionTrigger>
                             <AccordionContent className="pb-4 pt-0">
