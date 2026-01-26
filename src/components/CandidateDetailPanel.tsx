@@ -69,15 +69,15 @@ const CandidateDetailPanel = ({
   const getStatusStyle = (status: string) => {
     switch (status) {
       case 'full':
-        return 'bg-transparent border border-[#2D7A2D] text-[#2D7A2D]';
+        return 'bg-[#E8F5E8] text-[#2D7A2D]';
       case 'partial':
-        return 'bg-transparent border border-[#999999] text-[#666666]';
+        return 'bg-[#F5F5F5] text-[#666666]';
       case 'none':
-        return 'bg-transparent border border-[#D32F2F] text-[#D32F2F]';
+        return 'bg-[#FDEAEA] text-[#D32F2F]';
       case 'unknown':
-        return 'bg-transparent border border-[#CCCCCC] text-[#999999]';
+        return 'bg-[#F0F0F0] text-[#999999]';
       default:
-        return 'bg-transparent border border-[#EEEDEC] text-[#666666]';
+        return 'bg-[#F5F5F5] text-[#666666]';
     }
   };
   const defaultCoreCriteria: CriteriaItem[] = candidate.coreCriteria || [{
