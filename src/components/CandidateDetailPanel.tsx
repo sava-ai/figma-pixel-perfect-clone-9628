@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { X, MoreHorizontal, Share2, Mail, MapPin, Briefcase, GraduationCap, Clock, ChevronDown, Sparkles } from 'lucide-react';
+import { X, MoreHorizontal, Share2, Mail, MapPin, Briefcase, GraduationCap, Clock, ChevronDown, Sparkles, Award, Code, Building2, Globe, Heart, Users, Leaf } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 interface CriteriaItem {
-  icon: 'location' | 'briefcase' | 'graduation' | 'clock' | 'sparkles';
+  icon: 'location' | 'briefcase' | 'graduation' | 'clock' | 'sparkles' | 'award' | 'code' | 'building' | 'globe' | 'heart' | 'users';
   label: string;
   status: 'full' | 'partial' | 'none' | 'unknown';
   required?: boolean;
@@ -45,6 +46,7 @@ const CandidateDetailPanel = ({
   onClose
 }: CandidateDetailPanelProps) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [showDetailsDialog, setShowDetailsDialog] = useState(false);
   const [criteriaStatuses, setCriteriaStatuses] = useState<Record<string, string>>({});
   if (!candidate) return null;
 
@@ -62,6 +64,18 @@ const CandidateDetailPanel = ({
         return Clock;
       case 'sparkles':
         return Sparkles;
+      case 'award':
+        return Award;
+      case 'code':
+        return Code;
+      case 'building':
+        return Building2;
+      case 'globe':
+        return Globe;
+      case 'heart':
+        return Heart;
+      case 'users':
+        return Users;
       default:
         return Briefcase;
     }
@@ -117,6 +131,28 @@ const CandidateDetailPanel = ({
     status: 'partial',
     required: false
   }];
+  
+  // Extended criteria for the dialog
+  const dialogCoreCriteria: CriteriaItem[] = [
+    { icon: 'briefcase', label: 'Leadership experience', status: 'full', required: true },
+    { icon: 'code', label: 'Frontend development', status: 'partial', required: true },
+    { icon: 'building', label: 'FAANG company', status: 'none', required: false },
+    ...defaultCoreCriteria
+  ];
+
+  const dialogSoftSkills: CriteriaItem[] = [
+    { icon: 'users', label: 'Effective communication and teamwork', status: 'full', required: false },
+    { icon: 'heart', label: 'Emotional intelligence and conflict resolution', status: 'partial', required: false },
+    { icon: 'globe', label: 'Fluent english', status: 'full', required: false },
+    ...defaultSoftSkills
+  ];
+
+  const highlightItems = [
+    { icon: 'award', label: 'Award winning designer' },
+    { icon: 'clock', label: '5 yrs average tenure' },
+    { icon: 'building', label: 'Worked for top companies' },
+  ];
+  
   const defaultTags = candidate.tags || ['Sourced'];
   const defaultSkillTags = candidate.skillTags || ['Award winner', 'UX Strategy', 'Fintech Experience'];
   const defaultSummary = candidate.summary || candidate.description || `Senior Product Designer with leadership experience. Worked several years in fintech, at high-growth companies, which is aligned with your company.`;
@@ -245,10 +281,71 @@ const CandidateDetailPanel = ({
           </div>
 
           {/* Show Details Button */}
-          <button onClick={() => setShowDetails(!showDetails)} className="w-full py-2.5 text-sm text-[#666666] hover:text-[#292524] transition-colors flex items-center justify-center gap-1">
-            {showDetails ? 'Hide details' : 'Show details'}
-            <ChevronDown size={14} className={`transition-transform ${showDetails ? 'rotate-180' : ''}`} />
+          <button 
+            onClick={() => setShowDetailsDialog(true)} 
+            className="w-full py-3 text-sm text-[#666666] hover:text-[#292524] bg-[#F6F5F3] hover:bg-[#EEEDEC] rounded-lg transition-colors flex items-center justify-center gap-2 border border-[#EEEDEC]"
+          >
+            Show details
+            <ChevronDown size={14} />
           </button>
+
+          {/* Details Dialog */}
+          <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
+            <DialogContent className="max-w-[750px] p-0 gap-0 overflow-hidden">
+              <div className="grid grid-cols-[1fr_1.5fr]">
+                {/* Left Column - Match Score */}
+                <div className="p-6 bg-[#FAFAF9] border-r border-[#EEEDEC] flex flex-col items-center">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Leaf size={20} className="text-[#2D7A2D] rotate-[-45deg]" />
+                    <span className="text-4xl font-semibold text-[#2D7A2D] font-['LabilGrotesk']">
+                      {matchScore}/{matchTotal}
+                    </span>
+                    <Leaf size={20} className="text-[#2D7A2D] rotate-[135deg]" />
+                  </div>
+                  <span className="text-sm text-[#666666] mb-6">Match</span>
+                  
+                  <p className="text-sm text-[#444444] leading-relaxed mb-6 text-center">
+                    {defaultSummary}
+                  </p>
+                  
+                  <div className="w-full space-y-3">
+                    {highlightItems.map((item, index) => {
+                      const IconComponent = getIconComponent(item.icon);
+                      return (
+                        <div key={index} className="flex items-center gap-2.5 text-sm text-[#444444]">
+                          <IconComponent size={16} className="text-[#2D7A2D]" />
+                          <span>{item.label}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Right Column - Criteria */}
+                <div className="p-6 max-h-[500px] overflow-y-auto scrollbar-hide">
+                  {/* Core Criteria */}
+                  <div className="mb-5">
+                    <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-3">
+                      Core Criteria
+                    </h3>
+                    <div className="space-y-0">
+                      {dialogCoreCriteria.map((item, index) => renderCriteriaItem(item, index))}
+                    </div>
+                  </div>
+
+                  {/* Soft Skills */}
+                  <div>
+                    <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-3">
+                      Soft Skills
+                    </h3>
+                    <div className="space-y-0">
+                      {dialogSoftSkills.map((item, index) => renderCriteriaItem(item, index))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
 
           {/* Summary Section */}
           <div className="mb-5 pt-3 border-t border-[#F3F3F3]">
