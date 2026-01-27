@@ -12,6 +12,7 @@ import JobApplicants from "./pages/JobApplicants";
 import Calendar from "./pages/Calendar";
 import Messages from "./pages/Messages";
 import NotFound from "./pages/NotFound";
+import { EmbedScaleWrapper } from "./components/EmbedScaleWrapper";
 
 const queryClient = new QueryClient();
 
@@ -21,18 +22,20 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/job" element={<Job />} />
-          <Route path="/job/people" element={<JobPeople />} />
-          <Route path="/job/people/view" element={<JobPeopleView />} />
-          <Route path="/job/applicants" element={<JobApplicants />} />
-          <Route path="/job/pipeline" element={<JobPipeline />} />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/messages" element={<Messages />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <EmbedScaleWrapper>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/job" element={<Job />} />
+            <Route path="/job/people" element={<JobPeople />} />
+            <Route path="/job/people/view" element={<JobPeopleView />} />
+            <Route path="/job/applicants" element={<JobApplicants />} />
+            <Route path="/job/pipeline" element={<JobPipeline />} />
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/messages" element={<Messages />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </EmbedScaleWrapper>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
