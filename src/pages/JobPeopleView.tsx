@@ -203,33 +203,67 @@ const JobPeopleView = () => {
                       </div>
                     </div>
 
-                    {/* Navigation Tabs */}
-                    <div className="flex items-center gap-0.5 p-0.5 rounded-md mb-4" style={{ backgroundColor: '#FAF8F4' }}>
+                    {/* Navigation Cards */}
+                    <div className="grid grid-cols-3 gap-4 mb-4">
+                      {/* Job & Company Card */}
                       <button 
                         onClick={() => navigate('/job')} 
-                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all text-sm text-foreground hover:text-foreground"
+                        className="bg-white border border-[#EEEDEC] rounded-xl p-5 text-left hover:bg-gray-50 transition-colors"
                       >
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        Job & Company
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center">
+                            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                          </div>
+                          <p className="text-sm text-gray-950">Job & Company</p>
+                        </div>
+                        <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">Details</p>
+                        <div className="flex items-center gap-2 text-sm text-gray-950">
+                          <span>View details</span>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
                       </button>
-                      <button 
-                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all text-sm bg-white border border-gray-200 text-gray-700 font-medium"
-                      >
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                        Candidates (230)
-                      </button>
+
+                      {/* Candidates Card - Active */}
+                      <div className="bg-white border-2 border-gray-300 rounded-xl p-5 relative">
+                        <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full"></div>
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
+                            <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                          </div>
+                          <p className="text-sm text-gray-950">Candidates</p>
+                        </div>
+                        <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">{bestMatchesCount}</p>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span>Currently viewing</span>
+                        </div>
+                      </div>
+
+                      {/* Shortlist Card */}
                       <button 
                         onClick={() => navigate('/job/pipeline')} 
-                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all text-sm text-foreground hover:text-foreground"
+                        className="bg-white border border-[#EEEDEC] rounded-xl p-5 text-left hover:bg-gray-50 transition-colors"
                       >
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
-                        </svg>
-                        Shortlist (18)
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-7 h-7 rounded-lg bg-amber-100 flex items-center justify-center">
+                            <svg className="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+                            </svg>
+                          </div>
+                          <p className="text-sm text-gray-950">Shortlist</p>
+                        </div>
+                        <p className="font-hedvig text-3xl font-semibold text-foreground mb-4">18</p>
+                        <div className="flex items-center gap-2 text-sm text-gray-950">
+                          <span>View pipeline</span>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
                       </button>
                     </div>
                   </div>
