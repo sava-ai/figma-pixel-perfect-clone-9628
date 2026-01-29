@@ -8,6 +8,7 @@ import { InviteDialog } from '@/components/InviteDialog';
 import { JobChatPanel } from '@/components/JobChatPanel';
 import { BulkContactDialog } from '@/components/BulkContactDialog';
 import CandidateDetailPanel from '@/components/CandidateDetailPanel';
+import InitialsAvatar from '@/components/InitialsAvatar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
@@ -325,9 +326,7 @@ const JobPeopleView = () => {
                         >
                           {/* Candidate header */}
                           <div className="flex items-start gap-3 mb-3">
-                            <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
-                              <img src={candidate.image} alt={candidate.name} className="w-full h-full object-cover" />
-                            </div>
+                            <InitialsAvatar name={candidate.name} size="md" className="rounded-xl flex-shrink-0" />
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between mb-0.5">
                                 <h3 className="text-sm font-medium text-foreground truncate">
@@ -486,9 +485,7 @@ const JobPeopleView = () => {
                         )}
                         {/* Candidate header */}
                         <div className="flex items-start gap-3 mb-4">
-                          <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
-                            <img src={candidate.image} alt={candidate.name} className="w-full h-full object-cover" />
-                          </div>
+                          <InitialsAvatar name={candidate.name} size="md" className="rounded-xl flex-shrink-0" />
                           <div className="flex-1 min-w-0">
                             <h3 className="text-sm font-medium text-foreground mb-0.5 truncate">
                               {candidate.name}
