@@ -266,10 +266,11 @@ Qualifications
             </svg>
           </button>
 
-          {/* Job title and company - static text */}
-          <div className="flex flex-col -space-y-0.5">
+          {/* Job title and company - inline */}
+          <div className="flex items-center gap-2">
             <span className="font-medium text-sm text-gray-700">BD Representative / Sales Manager</span>
-            <span className="text-xs text-gray-500">PriceMind</span>
+            <span className="text-xs text-gray-400">•</span>
+            <span className="text-sm text-gray-500">PriceMind</span>
           </div>
         </div>
 
