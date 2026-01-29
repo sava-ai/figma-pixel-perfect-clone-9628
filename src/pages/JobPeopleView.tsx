@@ -142,15 +142,6 @@ const JobPeopleView = () => {
         <div className="flex items-center gap-2">
           <img src={userAvatarImage} alt="Profile" className="w-7 h-7 rounded-full object-cover border-2 border-gray-200" />
           <button 
-            onClick={() => setInviteDialogOpen(true)}
-            className="px-2.5 py-1 rounded-md text-sm font-medium transition-all bg-gray-800 text-white hover:bg-gray-700 border border-gray-700"
-          >
-            Invite
-          </button>
-          <button className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200">
-            <MoreVertical className="w-4 h-4 text-gray-700" />
-          </button>
-          <button 
             onClick={() => setIsChatCollapsed(!isChatCollapsed)}
             className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
             title={isChatCollapsed ? "Open AI Chat" : "Close AI Chat"}
