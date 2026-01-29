@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import InitialsAvatar from '@/components/InitialsAvatar';
+import CandidateFeedbackDialog from '@/components/CandidateFeedbackDialog';
 interface CriteriaItem {
   icon: 'location' | 'briefcase' | 'graduation' | 'clock' | 'sparkles' | 'award' | 'code' | 'building' | 'globe' | 'heart' | 'users';
   label: string;
@@ -51,6 +52,8 @@ const CandidateDetailPanel = ({
   const [showDetails, setShowDetails] = useState(false);
   const [showDetailsDialog, setShowDetailsDialog] = useState(false);
   const [criteriaStatuses, setCriteriaStatuses] = useState<Record<string, string>>({});
+  const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
+  const [feedbackActionType, setFeedbackActionType] = useState<'not-a-good-fit' | 'save-to-job'>('not-a-good-fit');
   if (!candidate) return null;
 
   // Parse match score
@@ -251,6 +254,27 @@ const CandidateDetailPanel = ({
   const defaultTags = candidate.tags || ['Sourced'];
   const defaultSkillTags = candidate.skillTags || ['Award winner', 'UX Strategy', 'Fintech Experience'];
   const defaultSummary = candidate.summary || candidate.description || `Senior Product Designer with leadership experience. Worked several years in fintech, at high-growth companies, which is aligned with your company.`;
+  
+  const handleNotAGoodFitClick = () => {
+    setFeedbackActionType('not-a-good-fit');
+    setFeedbackDialogOpen(true);
+  };
+
+  const handleSaveToJobClick = () => {
+    setFeedbackActionType('save-to-job');
+    setFeedbackDialogOpen(true);
+  };
+
+  const handleFeedbackSubmit = (feedback: string, rating: number | null) => {
+    console.log('Feedback submitted:', { action: feedbackActionType, feedback, rating, candidateId: candidate.id });
+    // Handle the action after feedback
+  };
+
+  const handleFeedbackSkip = () => {
+    console.log('Feedback skipped for:', feedbackActionType);
+    // Handle the action without feedback
+  };
+
   const handleStatusChange = (criteriaLabel: string, newStatus: string) => {
     setCriteriaStatuses(prev => ({
       ...prev,
@@ -519,7 +543,10 @@ const CandidateDetailPanel = ({
 
       {/* Footer Actions */}
       <div className="p-4 border-t border-[#EEEDEC] flex items-center gap-3">
-        <button className="flex items-center gap-2 text-sm text-[#D32F2F] hover:text-[#D32F2F]/80 transition-colors">
+        <button 
+          onClick={handleNotAGoodFitClick}
+          className="flex items-center gap-2 text-sm text-[#D32F2F] hover:text-[#D32F2F]/80 transition-colors"
+        >
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17" />
           </svg>
@@ -529,13 +556,26 @@ const CandidateDetailPanel = ({
         <button className="w-10 h-10 rounded-lg border border-[#EEEDEC] flex items-center justify-center hover:bg-muted transition-colors">
           <Mail className="w-4 h-4 text-muted-foreground" />
         </button>
-        <Button className="bg-[#1A1A1A] hover:bg-[#2A2A2A] text-white px-4 h-10 rounded-lg">
+        <Button 
+          onClick={handleSaveToJobClick}
+          className="bg-[#1A1A1A] hover:bg-[#2A2A2A] text-white px-4 h-10 rounded-lg"
+        >
           <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
           </svg>
           Save to job
         </Button>
       </div>
+
+      {/* Feedback Dialog */}
+      <CandidateFeedbackDialog
+        open={feedbackDialogOpen}
+        onOpenChange={setFeedbackDialogOpen}
+        actionType={feedbackActionType}
+        candidateName={candidate.name}
+        onSubmit={handleFeedbackSubmit}
+        onSkip={handleFeedbackSkip}
+      />
     </div>;
 };
 export default CandidateDetailPanel;
