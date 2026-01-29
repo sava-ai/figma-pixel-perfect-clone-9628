@@ -141,7 +141,7 @@ const JobBrain = () => {
           {/* Right Panel - Context Accordions */}
           <div className="flex-1 overflow-y-auto p-6">
             {/* Company Context Section */}
-            <div className="bg-white border border-[#EEEDEC] rounded-xl p-6 mb-4">
+            <div className="mb-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
                   <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,7 +236,7 @@ const JobBrain = () => {
             </div>
 
             {/* Job Context Section */}
-            <div className="bg-white border border-[#EEEDEC] rounded-xl p-6">
+            <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center">
                   <svg className="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
