@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical, ChevronLeft } from 'lucide-react';
+import { ChevronDown, MoreVertical } from 'lucide-react';
 import { InviteDialog } from '@/components/InviteDialog';
-import { JobChatPanel } from '@/components/JobChatPanel';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
 import profile1 from '@/assets/profile-1.jpg';
@@ -33,7 +32,6 @@ const JobPeople = () => {
   const [activeTab, setActiveTab] = useState<'job' | 'people' | 'pipeline'>('people');
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
-  const [isChatCollapsed, setIsChatCollapsed] = useState(false);
   const [peopleCount, setPeopleCount] = useState(0);
   const [visibleMatches, setVisibleMatches] = useState(0);
   const [isSearching, setIsSearching] = useState(true);
@@ -155,13 +153,6 @@ const JobPeople = () => {
     { id: 3, title: 'Frontend Developer' }
   ];
 
-  const defaultMessages = [
-    { text: 'Find me a senior product designer based in Stockholm.', isUser: true },
-    { text: 'Okay! How much experience should the candidates have?', isUser: false },
-    { text: '5+ years', isUser: true },
-    { text: 'For sure! Is there anything else I should keep in mind?', isUser: false },
-    { text: 'They should have strong Figma skills', isUser: true }
-  ];
 
   return (
     <div className="h-screen w-full flex flex-col bg-background overflow-hidden">
@@ -226,22 +217,15 @@ const JobPeople = () => {
           <button className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200">
             <MoreVertical className="w-4 h-4 text-gray-700" />
           </button>
-          <button 
-            onClick={() => setIsChatCollapsed(!isChatCollapsed)}
-            className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
-            title={isChatCollapsed ? "Open AI Chat" : "Close AI Chat"}
-          >
-            <ChevronLeft className={`w-4 h-4 text-gray-700 transition-transform ${isChatCollapsed ? '' : 'rotate-180'}`} />
-          </button>
         </div>
       </header>
 
-      {/* Main Content - Flex layout */}
-      <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
-        {/* Left Panel - Search Animation */}
-        <div className={`flex-1 min-w-0 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
-          <div className={`h-full flex flex-col pt-6 relative w-full ${isChatCollapsed ? 'max-w-[1200px]' : ''}`}>
-              <div ref={scrollContainerRef} className={`flex-1 overflow-y-auto overflow-x-hidden relative scrollbar-hide flex flex-col pb-5 ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
+      {/* Main Content - Full width */}
+      <div className="flex-1 flex overflow-hidden justify-center" style={{ backgroundColor: '#FBFAF9' }}>
+        {/* Main Panel - Search Animation */}
+        <div className="flex-1 min-w-0 max-w-[1200px]">
+          <div className="h-full flex flex-col pt-6 relative w-full">
+              <div ref={scrollContainerRef} className="flex-1 overflow-y-auto overflow-x-hidden relative scrollbar-hide flex flex-col pb-5 mx-6">
                 <div className="w-full h-full flex flex-col">
                   <div className="space-y-4 flex-1 flex flex-col">
                 {/* Searching Status */}
@@ -504,29 +488,9 @@ const JobPeople = () => {
                 )}
                 </div>
               </div>
-
-              {isChatCollapsed && (
-                <button
-                  onClick={() => setIsChatCollapsed(false)}
-                  className="absolute top-6 right-6 w-8 h-8 rounded-md flex items-center justify-center transition-colors bg-white border border-gray-200 hover:bg-gray-50 z-10"
-                >
-                  <ChevronLeft className="w-4 h-4 text-gray-700" />
-                </button>
-              )}
             </div>
           </div>
         </div>
-
-        {/* Right Panel - Chat - Fixed width */}
-        {!isChatCollapsed && (
-          <div className="w-[380px] flex-shrink-0 pr-4 pt-6">
-            <JobChatPanel 
-              defaultMessages={defaultMessages}
-              placeholder="Ask anything about the candidates..."
-              hideActionButtons={true}
-            />
-          </div>
-        )}
       </div>
 
       <InviteDialog open={inviteDialogOpen} onOpenChange={setInviteDialogOpen} />
