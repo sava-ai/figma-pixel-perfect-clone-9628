@@ -35,27 +35,27 @@ import profile19 from '@/assets/profile-19.jpg';
 import profile20 from '@/assets/profile-20.jpg';
 // Company icon configurations
 const companyIcons: Record<string, { bg: string; text: string; letter: string }> = {
+  'Salesforce': { bg: '#00A1E0', text: '#fff', letter: 'S' },
+  'HubSpot': { bg: '#FF7A59', text: '#fff', letter: 'H' },
+  'Oracle': { bg: '#F80000', text: '#fff', letter: 'O' },
+  'SAP': { bg: '#0070F2', text: '#fff', letter: 'S' },
+  'Microsoft': { bg: '#00A4EF', text: '#fff', letter: 'M' },
+  'Zendesk': { bg: '#03363D', text: '#fff', letter: 'Z' },
+  'Gartner': { bg: '#0033A0', text: '#fff', letter: 'G' },
+  'McKinsey': { bg: '#0077B5', text: '#fff', letter: 'M' },
+  'BCG': { bg: '#00A36C', text: '#fff', letter: 'B' },
+  'Bain': { bg: '#CC0000', text: '#fff', letter: 'B' },
   'Klarna': { bg: '#FFB3C7', text: '#000', letter: 'K' },
-  'Spotify': { bg: '#1DB954', text: '#fff', letter: 'S' },
-  'Tink': { bg: '#000', text: '#fff', letter: 'T' },
-  'Asseco': { bg: '#0066B3', text: '#fff', letter: 'A' },
-  'H&M': { bg: '#E50010', text: '#fff', letter: 'H' },
-  'Ericsson': { bg: '#0082CE', text: '#fff', letter: 'E' },
-  'Bambora': { bg: '#5E2CA5', text: '#fff', letter: 'B' },
-  'iZettle': { bg: '#FF6B00', text: '#fff', letter: 'i' },
-  'King': { bg: '#FF5E00', text: '#fff', letter: 'K' },
-  'Northmill': { bg: '#00C4B4', text: '#fff', letter: 'N' },
-  'Delivery Hero': { bg: '#D41A11', text: '#fff', letter: 'D' },
-  'Trustly': { bg: '#0A2540', text: '#fff', letter: 'T' },
-  'Schibsted': { bg: '#FF6200', text: '#fff', letter: 'S' },
-  'Avanza': { bg: '#00C281', text: '#fff', letter: 'A' },
-  'Collector Bank': { bg: '#002855', text: '#fff', letter: 'C' },
-  'Tetra Pak': { bg: '#0033A0', text: '#fff', letter: 'TP' },
-  'Sony Mobile': { bg: '#000', text: '#fff', letter: 'S' },
-  'Axis': { bg: '#00A3E0', text: '#fff', letter: 'A' },
-  'Tobii': { bg: '#00A3E0', text: '#fff', letter: 'T' },
-  'Mojang': { bg: '#8B0000', text: '#fff', letter: 'M' },
-  'Paradox': { bg: '#E03C31', text: '#fff', letter: 'P' },
+  'Stripe': { bg: '#635BFF', text: '#fff', letter: 'S' },
+  'Square': { bg: '#000', text: '#fff', letter: 'S' },
+  'Adyen': { bg: '#0ABF53', text: '#fff', letter: 'A' },
+  'Worldline': { bg: '#E42313', text: '#fff', letter: 'W' },
+  'Pricefx': { bg: '#FF6B00', text: '#fff', letter: 'P' },
+  'PROS': { bg: '#0066B3', text: '#fff', letter: 'P' },
+  'Vendavo': { bg: '#5E2CA5', text: '#fff', letter: 'V' },
+  'Zilliant': { bg: '#00C4B4', text: '#fff', letter: 'Z' },
+  'Competera': { bg: '#FF5E00', text: '#fff', letter: 'C' },
+  'Dynamic Pricing': { bg: '#1DB954', text: '#fff', letter: 'D' },
 };
 
 const getCompanyIcon = (company: string) => {
@@ -100,226 +100,226 @@ const JobPeopleView = () => {
 
   const bestCandidates = [{
     id: 1,
-    name: "Sarah Chapman",
+    name: "Erik Lindqvist",
     image: profile1,
     city: "Stockholm",
-    match: "10/12",
+    match: "11/12",
     isNew: true,
-    description: "A seasoned Senior Product Designer with extensive leadership experience in fintech. Sarah has dedicated over 8 years to building world-class products, contributing to high-growth companies. Her expertise lies in creating intuitive user experiences while driving product strategy and mentoring design teams.",
+    description: "A driven Business Development Manager with 7+ years of experience in B2B SaaS sales, specializing in pricing software and revenue optimization solutions. Erik has consistently exceeded quotas and built strategic partnerships with enterprise clients across the Nordics and DACH regions.",
     roles: [{
-      company: "Klarna",
-      role: "Senior UX/UI Designer"
+      company: "Pricefx",
+      role: "Senior Account Executive"
     }, {
-      company: "Spotify",
-      role: "Product Designer"
+      company: "Salesforce",
+      role: "Business Development Representative"
     }, {
-      company: "Tink",
-      role: "Product Design Intern"
+      company: "HubSpot",
+      role: "Sales Development Rep"
     }],
     currentRoleIndex: 0,
-    engagementRate: 85,
+    engagementRate: 92,
     tags: ['AI sourced'],
     education: {
-      school: "Royal Institute of Technology",
-      degree: "Master of Science in Design",
-      graduationDate: "Jun 2015"
+      school: "Stockholm School of Economics",
+      degree: "MSc in Business & Economics",
+      graduationDate: "Jun 2017"
     },
-    summary: "Senior Product Designer with leadership experience. Worked several years in fintech, at high-growth companies, which is aligned with your company.",
-    skillTags: ['Award winner', 'UX Strategy', 'Fintech Experience'],
+    summary: "Senior BD professional with deep expertise in pricing software. Strong track record of enterprise sales and partnership building in B2B SaaS.",
+    skillTags: ['Enterprise Sales', 'Pricing Software', 'B2B SaaS'],
     coreCriteria: [
       { icon: 'location' as const, label: 'Located in Stockholm', status: 'full' as const, required: true },
-      { icon: 'briefcase' as const, label: 'Senior Product Designer', status: 'full' as const, required: true },
-      { icon: 'clock' as const, label: '5+ Years of Design Experience', status: 'full' as const, required: true },
+      { icon: 'briefcase' as const, label: 'BD/Sales Experience', status: 'full' as const, required: true },
+      { icon: 'clock' as const, label: '3+ Years in B2B Sales', status: 'full' as const, required: true },
       { icon: 'graduation' as const, label: "Bachelor's Degree or Higher", status: 'full' as const, required: false },
     ],
     softSkills: [
       { icon: 'sparkles' as const, label: 'Fluent English', status: 'full' as const, required: false },
-      { icon: 'sparkles' as const, label: 'Team collaboration', status: 'full' as const, required: false },
+      { icon: 'sparkles' as const, label: 'Entrepreneurial mindset', status: 'full' as const, required: false },
     ],
   }, {
     id: 2,
-    name: "Marcus Andersson",
-    image: profile2,
+    name: "Sofia Bergman",
+    image: profile3,
     city: "Gothenburg",
-    match: "9/12",
+    match: "10/12",
     isNew: true,
-    description: "Marcus is a Senior Designer at Asseco with 10 years of experience, having multiple projects on Dribbble displaying potential of exponential product understanding. He specializes in design systems and has led transformation initiatives across enterprise platforms, bringing consistency and scalability to complex products.",
+    description: "Sofia is a results-oriented Sales Manager with extensive experience in AI and pricing technology startups. She has led outbound sales teams, implemented CRM strategies, and closed deals worth millions in ARR. Passionate about revenue optimization and dynamic pricing solutions.",
     roles: [{
-      company: "Asseco",
-      role: "Senior Designer"
+      company: "Competera",
+      role: "Regional Sales Manager"
     }, {
-      company: "H&M",
-      role: "UX Designer"
+      company: "PROS",
+      role: "Account Executive"
     }, {
-      company: "Ericsson",
-      role: "UI Designer"
+      company: "Oracle",
+      role: "Sales Representative"
     }],
     isOpenToWork: true,
-    engagementRate: 0,
+    engagementRate: 88,
     tags: ['Sourced'],
     education: {
       school: "Chalmers University",
-      degree: "Bachelor of Arts in Design",
-      graduationDate: "May 2014"
+      degree: "Bachelor in Industrial Engineering",
+      graduationDate: "May 2016"
     },
-    summary: "Senior Designer specializing in design systems and enterprise platforms. Expert in creating scalable design solutions.",
-    skillTags: ['Design Systems', 'Enterprise', 'Dribbble Featured'],
+    summary: "Sales leader with AI pricing expertise. Proven ability to lead teams and close enterprise deals in competitive markets.",
+    skillTags: ['AI Pricing', 'Team Leadership', 'Enterprise Deals'],
     coreCriteria: [
       { icon: 'location' as const, label: 'Located in Gothenburg', status: 'full' as const, required: true },
-      { icon: 'briefcase' as const, label: 'Senior Product Designer', status: 'full' as const, required: true },
-      { icon: 'clock' as const, label: '5+ Years of Design Experience', status: 'full' as const, required: true },
+      { icon: 'briefcase' as const, label: 'BD/Sales Experience', status: 'full' as const, required: true },
+      { icon: 'clock' as const, label: '3+ Years in B2B Sales', status: 'full' as const, required: true },
       { icon: 'graduation' as const, label: "Bachelor's Degree or Higher", status: 'full' as const, required: false },
     ],
     softSkills: [
-      { icon: 'sparkles' as const, label: 'Fluent English', status: 'partial' as const, required: false },
+      { icon: 'sparkles' as const, label: 'Fluent English', status: 'full' as const, required: false },
       { icon: 'sparkles' as const, label: 'Team collaboration', status: 'full' as const, required: false },
     ],
   }, {
     id: 3,
-    name: "Emma Lundberg",
-    image: profile3,
+    name: "Marcus Holm",
+    image: profile2,
     city: "Malmö",
-    match: "11/12",
+    match: "9/12",
     isNew: false,
-    description: "Emma is an innovative Senior Product Designer known for her data-driven approach and exceptional prototyping skills. With 9 years in the industry, she has crafted user experiences for both B2B and B2C products, always focusing on measurable impact and user satisfaction metrics.",
+    description: "Marcus brings a unique blend of technical knowledge and sales expertise, having worked extensively in fintech and payment solutions. His 5 years of experience span B2B SaaS, e-commerce optimization, and revenue management platforms with a focus on Nordic and European markets.",
     roles: [{
-      company: "Bambora",
-      role: "Lead Product Designer"
+      company: "Adyen",
+      role: "Business Development Manager"
     }, {
-      company: "iZettle",
-      role: "Product Designer"
+      company: "Klarna",
+      role: "Partner Sales Executive"
     }, {
-      company: "King",
-      role: "Senior UI Designer"
+      company: "Stripe",
+      role: "Account Development"
     }],
     currentRoleIndex: 0,
-    engagementRate: 88,
+    engagementRate: 85,
     tags: ['Referred'],
     education: {
       school: "Lund University",
-      degree: "Master of Fine Arts",
-      graduationDate: "Jun 2016"
+      degree: "MSc in Marketing",
+      graduationDate: "Jun 2019"
     },
-    summary: "Data-driven Product Designer with exceptional prototyping skills. Focus on measurable impact and user satisfaction.",
-    skillTags: ['Data-driven', 'Prototyping', 'B2B/B2C'],
+    summary: "Fintech sales professional with strong partnership skills. Experience in payment solutions and revenue optimization.",
+    skillTags: ['Fintech', 'Partnerships', 'Revenue Management'],
     coreCriteria: [
       { icon: 'location' as const, label: 'Located in Malmö', status: 'full' as const, required: true },
-      { icon: 'briefcase' as const, label: 'Senior Product Designer', status: 'full' as const, required: true },
-      { icon: 'clock' as const, label: '5+ Years of Design Experience', status: 'full' as const, required: true },
+      { icon: 'briefcase' as const, label: 'BD/Sales Experience', status: 'full' as const, required: true },
+      { icon: 'clock' as const, label: '3+ Years in B2B Sales', status: 'full' as const, required: true },
       { icon: 'graduation' as const, label: "Bachelor's Degree or Higher", status: 'full' as const, required: false },
     ],
     softSkills: [
       { icon: 'sparkles' as const, label: 'Fluent English', status: 'full' as const, required: false },
-      { icon: 'sparkles' as const, label: 'Leadership experience', status: 'full' as const, required: false },
+      { icon: 'sparkles' as const, label: 'Relationship building', status: 'full' as const, required: false },
     ],
   }, {
     id: 4,
-    name: "Oliver Karlsson",
-    image: profile4,
+    name: "Anna Petersson",
+    image: profile5,
     city: "Stockholm",
     match: "10/12",
     isNew: true,
-    description: "Oliver brings a unique blend of technical knowledge and design excellence, having worked extensively with cross-functional teams in agile environments. His 7 years of experience span fintech, e-commerce, and SaaS products, with a strong focus on accessibility and inclusive design practices.",
+    description: "Anna is an ambitious Sales Development Representative transitioning into a full sales role. With 3 years of experience in tech startups, she excels at prospecting, lead qualification, and building pipeline. Known for her data-driven approach and exceptional communication skills.",
     roles: [{
-      company: "Northmill",
-      role: "Senior Product Designer"
+      company: "Zendesk",
+      role: "Senior SDR"
     }, {
-      company: "Delivery Hero",
-      role: "Product Designer"
+      company: "HubSpot",
+      role: "Business Development Rep"
     }, {
-      company: "Trustly",
-      role: "UX Designer"
+      company: "Gartner",
+      role: "Research Associate"
     }],
     isOpenToWork: true,
     engagementRate: 79,
     tags: ['Database'],
     education: {
-      school: "Stockholm University",
-      degree: "Bachelor of Science in HCI",
-      graduationDate: "Jan 2017"
+      school: "Uppsala University",
+      degree: "Bachelor in Business Administration",
+      graduationDate: "Jan 2021"
     },
-    summary: "Technical designer with strong accessibility focus. Experience across fintech, e-commerce, and SaaS products.",
-    skillTags: ['Accessibility', 'Technical', 'Agile'],
+    summary: "High-performing SDR ready for the next step. Data-driven approach with strong prospecting and qualification skills.",
+    skillTags: ['Prospecting', 'Pipeline Building', 'Data-Driven'],
     coreCriteria: [
       { icon: 'location' as const, label: 'Located in Stockholm', status: 'full' as const, required: true },
-      { icon: 'briefcase' as const, label: 'Senior Product Designer', status: 'full' as const, required: true },
-      { icon: 'clock' as const, label: '5+ Years of Design Experience', status: 'partial' as const, required: true },
+      { icon: 'briefcase' as const, label: 'BD/Sales Experience', status: 'full' as const, required: true },
+      { icon: 'clock' as const, label: '3+ Years in B2B Sales', status: 'partial' as const, required: true },
       { icon: 'graduation' as const, label: "Bachelor's Degree or Higher", status: 'full' as const, required: false },
     ],
     softSkills: [
       { icon: 'sparkles' as const, label: 'Fluent English', status: 'full' as const, required: false },
-      { icon: 'sparkles' as const, label: 'Team collaboration', status: 'full' as const, required: false },
+      { icon: 'sparkles' as const, label: 'Self-motivated', status: 'full' as const, required: false },
     ],
   }, {
     id: 5,
-    name: "Linnea Bergström",
-    image: profile5,
+    name: "Johan Nilsson",
+    image: profile4,
     city: "Uppsala",
     match: "9/12",
     isNew: false,
-    description: "Linnea excels at transforming complex requirements into elegant, user-friendly interfaces. With 6 years specializing in fintech and payment solutions, she has a proven track record of improving conversion rates and reducing user friction through thoughtful design iterations and rigorous testing.",
+    description: "Johan excels at transforming complex technical solutions into compelling value propositions. With 6 years in enterprise software sales, he has a proven track record of managing full sales cycles from prospecting to close, with deal sizes ranging from €50K to €500K ARR.",
     roles: [{
-      company: "Lunar",
-      role: "Product Designer"
+      company: "SAP",
+      role: "Enterprise Account Executive"
     }, {
-      company: "Wrapp",
-      role: "UX/UI Designer"
+      company: "Microsoft",
+      role: "Solution Sales Specialist"
     }, {
-      company: "Zimpler",
-      role: "Junior Designer"
+      company: "Oracle",
+      role: "Inside Sales Rep"
     }],
     currentRoleIndex: 0,
-    engagementRate: 0,
+    engagementRate: 82,
     tags: ['AI sourced'],
     education: {
-      school: "Uppsala University",
-      degree: "Bachelor of Arts in Design",
+      school: "KTH Royal Institute",
+      degree: "MSc in Industrial Economics",
       graduationDate: "May 2018"
     },
-    summary: "Fintech specialist with strong focus on conversion optimization. Expert in payment solutions design.",
-    skillTags: ['Fintech', 'Payments', 'Conversion'],
+    summary: "Enterprise software sales expert with full-cycle experience. Strong at translating technical features into business value.",
+    skillTags: ['Enterprise', 'Full-Cycle Sales', 'Technical'],
     coreCriteria: [
       { icon: 'location' as const, label: 'Located in Uppsala', status: 'full' as const, required: true },
-      { icon: 'briefcase' as const, label: 'Senior Product Designer', status: 'partial' as const, required: true },
-      { icon: 'clock' as const, label: '5+ Years of Design Experience', status: 'full' as const, required: true },
+      { icon: 'briefcase' as const, label: 'BD/Sales Experience', status: 'full' as const, required: true },
+      { icon: 'clock' as const, label: '3+ Years in B2B Sales', status: 'full' as const, required: true },
       { icon: 'graduation' as const, label: "Bachelor's Degree or Higher", status: 'full' as const, required: false },
     ],
     softSkills: [
       { icon: 'sparkles' as const, label: 'Fluent English', status: 'full' as const, required: false },
-      { icon: 'sparkles' as const, label: 'Team collaboration', status: 'unknown' as const, required: false },
+      { icon: 'sparkles' as const, label: 'Solution selling', status: 'full' as const, required: false },
     ],
   }, {
     id: 6,
-    name: "Filip Johansson",
-    image: profile6,
+    name: "Lisa Eriksson",
+    image: profile7,
     city: "Stockholm",
-    match: "10/12",
+    match: "11/12",
     isNew: false,
-    description: "Filip is a creative problem-solver with extensive experience in building design systems and leading design sprints. His 8 years in the field have equipped him with deep expertise in user research, interaction design, and visual design, making him a versatile asset to any product team.",
+    description: "Lisa is a strategic Business Development professional with deep expertise in AI and machine learning solutions. Her 8 years in the field have equipped her with exceptional skills in consultative selling, stakeholder management, and building long-term client relationships.",
     roles: [{
-      company: "Schibsted",
-      role: "Senior Product Designer"
+      company: "Vendavo",
+      role: "Director of Business Development"
     }, {
-      company: "Avanza",
-      role: "Lead Designer"
+      company: "Zilliant",
+      role: "Senior Account Executive"
     }, {
-      company: "Collector Bank",
-      role: "Product Designer"
+      company: "Pricefx",
+      role: "Account Manager"
     }],
     currentRoleIndex: 0,
-    engagementRate: 81,
+    engagementRate: 94,
     tags: ['Sourced'],
     education: {
-      school: "Konstfack",
-      degree: "Master of Fine Arts",
+      school: "Handelshögskolan",
+      degree: "MBA",
       graduationDate: "Jun 2016"
     },
-    summary: "Design systems expert with strong user research skills. Experienced in leading design sprints and workshops.",
-    skillTags: ['Design Systems', 'Research', 'Workshops'],
+    summary: "BD Director with pricing software expertise. Exceptional at consultative selling and stakeholder management.",
+    skillTags: ['Pricing Software', 'Consultative Sales', 'Strategic'],
     coreCriteria: [
       { icon: 'location' as const, label: 'Located in Stockholm', status: 'full' as const, required: true },
-      { icon: 'briefcase' as const, label: 'Senior Product Designer', status: 'full' as const, required: true },
-      { icon: 'clock' as const, label: '5+ Years of Design Experience', status: 'full' as const, required: true },
+      { icon: 'briefcase' as const, label: 'BD/Sales Experience', status: 'full' as const, required: true },
+      { icon: 'clock' as const, label: '3+ Years in B2B Sales', status: 'full' as const, required: true },
       { icon: 'graduation' as const, label: "Bachelor's Degree or Higher", status: 'full' as const, required: false },
     ],
     softSkills: [
@@ -328,36 +328,36 @@ const JobPeopleView = () => {
     ],
   }, {
     id: 7,
-    name: "Isabella Nilsson",
-    image: profile7,
+    name: "Oscar Johansson",
+    image: profile6,
     city: "Lund",
-    match: "11/12",
+    match: "10/12",
     isNew: false,
-    description: "Isabella combines strategic thinking with exceptional execution skills, having delivered award-winning products throughout her 9-year career. She specializes in end-to-end product design, from initial research and concept development to final implementation and post-launch optimization.",
+    description: "Oscar combines strategic thinking with exceptional execution skills, having successfully launched new market entries throughout his 7-year career. He specializes in end-to-end sales processes, from market research and lead generation to closing and customer success handoff.",
     roles: [{
-      company: "Tetra Pak",
-      role: "Senior UX Designer"
+      company: "PROS",
+      role: "Senior Sales Manager"
     }, {
-      company: "Sony Mobile",
-      role: "Product Designer"
+      company: "Salesforce",
+      role: "Account Executive"
     }, {
-      company: "Axis",
-      role: "Interaction Designer"
+      company: "HubSpot",
+      role: "Sales Development Manager"
     }],
     isOpenToWork: true,
-    engagementRate: 93,
+    engagementRate: 87,
     tags: ['Referred'],
     education: {
       school: "Lund University",
-      degree: "Master of Science in Design",
-      graduationDate: "Jun 2015"
+      degree: "MSc in International Business",
+      graduationDate: "Jun 2017"
     },
-    summary: "Award-winning designer with end-to-end expertise. Strong strategic thinking and execution skills.",
-    skillTags: ['Award winner', 'Strategic', 'End-to-end'],
+    summary: "Sales Manager with market expansion experience. Strong end-to-end sales process expertise and customer success focus.",
+    skillTags: ['Market Expansion', 'End-to-End Sales', 'Customer Success'],
     coreCriteria: [
       { icon: 'location' as const, label: 'Located in Lund', status: 'full' as const, required: true },
-      { icon: 'briefcase' as const, label: 'Senior Product Designer', status: 'full' as const, required: true },
-      { icon: 'clock' as const, label: '5+ Years of Design Experience', status: 'full' as const, required: true },
+      { icon: 'briefcase' as const, label: 'BD/Sales Experience', status: 'full' as const, required: true },
+      { icon: 'clock' as const, label: '3+ Years in B2B Sales', status: 'full' as const, required: true },
       { icon: 'graduation' as const, label: "Bachelor's Degree or Higher", status: 'full' as const, required: false },
     ],
     softSkills: [
@@ -366,45 +366,45 @@ const JobPeopleView = () => {
     ],
   }, {
     id: 8,
-    name: "Alexander Berg",
+    name: "Elin Sundberg",
     image: profile8,
     city: "Stockholm",
     match: "9/12",
     isNew: false,
-    description: "Alexander is passionate about creating delightful user experiences through animation and micro-interactions. His 7 years of experience include work on mobile apps, web platforms, and emerging technologies, always pushing the boundaries of what's possible in digital product design.",
+    description: "Elin is passionate about technology and revenue optimization. Her 5 years of experience include work in pricing analytics, e-commerce, and retail tech, always focusing on driving measurable business outcomes through innovative pricing strategies.",
     roles: [{
-      company: "Tobii",
-      role: "Senior Product Designer"
+      company: "Dynamic Pricing",
+      role: "Business Development Lead"
     }, {
-      company: "Mojang",
-      role: "UI/UX Designer"
+      company: "Competera",
+      role: "Sales Executive"
     }, {
-      company: "Paradox",
-      role: "Product Designer"
+      company: "McKinsey",
+      role: "Business Analyst"
     }],
     currentRoleIndex: 0,
     engagementRate: 76,
     tags: ['Applicant'],
     education: {
-      school: "Hyper Island",
-      degree: "Digital Media Creative",
-      graduationDate: "Dec 2017"
+      school: "Stockholm University",
+      degree: "MSc in Economics",
+      graduationDate: "Dec 2019"
     },
-    summary: "Animation and micro-interaction specialist. Experience across mobile, web, and emerging technologies.",
-    skillTags: ['Animation', 'Motion', 'Mobile'],
+    summary: "BD professional with pricing and analytics background. Consulting experience with focus on driving business outcomes.",
+    skillTags: ['Pricing Analytics', 'E-commerce', 'Consulting'],
     coreCriteria: [
       { icon: 'location' as const, label: 'Located in Stockholm', status: 'full' as const, required: true },
-      { icon: 'briefcase' as const, label: 'Senior Product Designer', status: 'full' as const, required: true },
-      { icon: 'clock' as const, label: '5+ Years of Design Experience', status: 'partial' as const, required: true },
-      { icon: 'graduation' as const, label: "Bachelor's Degree or Higher", status: 'partial' as const, required: false },
+      { icon: 'briefcase' as const, label: 'BD/Sales Experience', status: 'full' as const, required: true },
+      { icon: 'clock' as const, label: '3+ Years in B2B Sales', status: 'partial' as const, required: true },
+      { icon: 'graduation' as const, label: "Bachelor's Degree or Higher", status: 'full' as const, required: false },
     ],
     softSkills: [
       { icon: 'sparkles' as const, label: 'Fluent English', status: 'full' as const, required: false },
-      { icon: 'sparkles' as const, label: 'Team collaboration', status: 'full' as const, required: false },
+      { icon: 'sparkles' as const, label: 'Analytical mindset', status: 'full' as const, required: false },
     ],
     documents: [
-      { id: 1, name: 'Alexander_Berg_CV.pdf', type: 'PDF Document', url: '#' },
-      { id: 2, name: 'Portfolio_2025.pdf', type: 'PDF Document', url: '#' },
+      { id: 1, name: 'Elin_Sundberg_CV.pdf', type: 'PDF Document', url: '#' },
+      { id: 2, name: 'Sales_Track_Record.pdf', type: 'PDF Document', url: '#' },
       { id: 3, name: 'Cover_Letter.pdf', type: 'PDF Document', url: '#' }
     ],
     notes: []
@@ -444,7 +444,7 @@ const JobPeopleView = () => {
   }, []);
   const jobs = [{
     id: 1,
-    title: 'Senior Product Designer'
+    title: 'BD Representative / Sales Manager'
   }, {
     id: 2,
     title: 'Chief Operations Officer'
@@ -478,7 +478,7 @@ const JobPeopleView = () => {
           <div className="relative">
             <button onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)} className="flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all bg-white hover:bg-gray-50 border border-gray-200">
               <img src={jobDropdownIcon} alt="Job" className="w-4 h-4 rounded" />
-              <span className="font-medium text-sm text-gray-700">Senior product designer</span>
+              <span className="font-medium text-sm text-gray-700">BD Representative / Sales Manager</span>
               <ChevronDown className="w-3.5 h-3.5 text-gray-700" />
             </button>
             
