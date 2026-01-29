@@ -255,10 +255,10 @@ Qualifications
     <div className="h-screen w-full flex flex-col bg-background overflow-hidden">
       {/* Header */}
       <header className="h-[54px] bg-background flex items-center justify-between px-5 flex-shrink-0">
-        {/* Left side - Back button and Jobs dropdown */}
-        <div className="flex items-center gap-2">
+        {/* Left side - Back button and Job title */}
+        <div className="flex items-center gap-4">
           <button 
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/job/people/view')}
             className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
           >
             <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -267,7 +267,7 @@ Qualifications
           </button>
 
           {/* Job title and company - static text */}
-          <div className="flex flex-col">
+          <div className="flex flex-col -space-y-0.5">
             <span className="font-medium text-sm text-gray-700">BD Representative / Sales Manager</span>
             <span className="text-xs text-gray-500">PriceMind</span>
           </div>
