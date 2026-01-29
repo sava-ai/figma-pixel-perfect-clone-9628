@@ -166,27 +166,27 @@ const JobPeopleView = () => {
                     {/* Rate Candidates Banner */}
                     <button
                       onClick={() => setSelectedBestMatch(filteredCandidates[0])}
-                      className="w-full bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20 rounded-xl p-6 text-left hover:border-primary/40 hover:from-primary/15 transition-all group mb-4"
+                      className="w-full bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20 rounded-xl py-12 px-8 text-left hover:border-primary/40 hover:from-primary/15 transition-all group mb-4"
                     >
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                            <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="flex items-center gap-6">
+                          <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center">
+                            <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                             </svg>
                           </div>
                           <div>
-                            <h2 className="font-hedvig text-xl font-semibold text-foreground mb-1">
+                            <h2 className="font-hedvig text-2xl font-semibold text-foreground mb-2">
                               Rate matched candidates ({filteredCandidates.length})
                             </h2>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-base text-muted-foreground">
                               We have found {filteredCandidates.length} matches for BD Representative / Sales Manager. Review and rate them now.
                             </p>
                           </div>
                         </div>
                         <div className="flex items-center gap-2 text-primary group-hover:translate-x-1 transition-transform">
-                          <span className="text-sm font-medium">Start reviewing</span>
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <span className="text-base font-medium">Start reviewing</span>
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
