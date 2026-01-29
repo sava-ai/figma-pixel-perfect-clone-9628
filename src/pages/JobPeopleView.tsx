@@ -109,7 +109,8 @@ const JobPeopleView = () => {
     { id: 7, name: "Robert Taylor", email: "robert.t@email.com", image: profile15, appliedDate: "2024-01-21" },
     { id: 8, name: "Jennifer Thomas", email: "jennifer.t@email.com", image: profile16, appliedDate: "2024-01-22" },
   ];
-  return <div className="h-screen w-full flex flex-col bg-background overflow-hidden">
+  return (
+    <div className="h-screen w-full flex flex-col bg-background overflow-hidden">
       {/* Header */}
       <header className="h-[54px] bg-background flex items-center justify-between px-5 flex-shrink-0">
         {/* Left side - Back button and Jobs dropdown */}
