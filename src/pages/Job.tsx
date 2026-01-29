@@ -266,31 +266,10 @@ Qualifications
             </svg>
           </button>
 
-          {/* Jobs dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all bg-white hover:bg-gray-50 border border-gray-200"
-            >
-              <img src={jobDropdownIcon} alt="Job" className="w-4 h-4 rounded" />
-              <span className="font-medium text-sm text-gray-700">Senior product designer</span>
-              <ChevronDown className="w-3.5 h-3.5 text-gray-700" />
-            </button>
-            
-            {jobsDropdownOpen && (
-              <div className="absolute top-full left-0 mt-2 w-64 bg-white border rounded-lg shadow-lg z-50">
-                {jobs.map((job) => (
-                  <button
-                    key={job.id}
-                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-accent transition-colors text-left"
-                    onClick={() => setJobsDropdownOpen(false)}
-                  >
-                    <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded" />
-                    <span className="text-sm">{job.title}</span>
-                  </button>
-                ))}
-              </div>
-            )}
+          {/* Job title and company - static text */}
+          <div className="flex flex-col">
+            <span className="font-medium text-sm text-gray-700">BD Representative / Sales Manager</span>
+            <span className="text-xs text-gray-500">PriceMind</span>
           </div>
         </div>
 
