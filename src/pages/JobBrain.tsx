@@ -62,7 +62,7 @@ const JobBrain = () => {
     <div className="min-h-screen bg-[#FBFAF9]">
       {/* Header */}
       <header className="bg-white border-b border-[#EEEDEC] px-6 py-4">
-        <div className="flex items-center justify-between">
+        <div className="max-w-[1260px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button 
               onClick={() => navigate('/job/people/view')} 
@@ -99,47 +99,47 @@ const JobBrain = () => {
         </div>
       </header>
 
-      {/* Main Content */}
-      <div className="flex h-[calc(100vh-73px)]">
-        {/* Left Panel - Versions */}
-        <div className="w-64 bg-white border-r border-[#EEEDEC] flex flex-col">
-          <div className="p-4 border-b border-[#EEEDEC]">
-            <h2 className="text-sm font-semibold text-gray-900">Versions</h2>
-          </div>
-          <ScrollArea className="flex-1">
-            <div className="p-2">
-              {versions.map(version => (
-                <button
-                  key={version.id}
-                  onClick={() => setSelectedVersion(version)}
-                  className={`w-full text-left px-3 py-3 rounded-lg transition-colors mb-1 ${
-                    selectedVersion.id === version.id
-                      ? 'bg-violet-50 border border-violet-200'
-                      : 'hover:bg-gray-50'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className={`text-sm font-medium ${
-                      selectedVersion.id === version.id ? 'text-violet-700' : 'text-gray-900'
-                    }`}>
-                      {version.label}
-                    </span>
-                    {version.active && (
-                      <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full">
-                        Active
-                      </span>
-                    )}
-                  </div>
-                  <span className="text-xs text-gray-500">{version.date}</span>
-                </button>
-              ))}
+      {/* Main Content - Centered Container */}
+      <div className="max-w-[1260px] mx-auto p-6">
+        <div className="bg-white border border-[#EEEDEC] rounded-xl overflow-hidden flex h-[calc(100vh-130px)]">
+          {/* Left Panel - Versions */}
+          <div className="w-56 border-r border-[#EEEDEC] flex flex-col flex-shrink-0">
+            <div className="p-4 border-b border-[#EEEDEC]">
+              <h2 className="text-sm font-semibold text-gray-900">Versions</h2>
             </div>
-          </ScrollArea>
-        </div>
+            <ScrollArea className="flex-1">
+              <div className="p-2">
+                {versions.map(version => (
+                  <button
+                    key={version.id}
+                    onClick={() => setSelectedVersion(version)}
+                    className={`w-full text-left px-3 py-3 rounded-lg transition-colors mb-1 ${
+                      selectedVersion.id === version.id
+                        ? 'bg-violet-50 border border-violet-200'
+                        : 'hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className={`text-sm font-medium ${
+                        selectedVersion.id === version.id ? 'text-violet-700' : 'text-gray-900'
+                      }`}>
+                        {version.label}
+                      </span>
+                      {version.active && (
+                        <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full">
+                          Active
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-xs text-gray-500">{version.date}</span>
+                  </button>
+                ))}
+              </div>
+            </ScrollArea>
+          </div>
 
-        {/* Right Panel - Context Accordions */}
-        <div className="flex-1 overflow-y-auto">
-          <div className="max-w-3xl mx-auto p-6">
+          {/* Right Panel - Context Accordions */}
+          <div className="flex-1 overflow-y-auto p-6">
             {/* Company Context Section */}
             <div className="bg-white border border-[#EEEDEC] rounded-xl p-6 mb-4">
               <div className="flex items-center gap-3 mb-4">
@@ -328,11 +328,11 @@ const JobBrain = () => {
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
-            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   );
 };
 
