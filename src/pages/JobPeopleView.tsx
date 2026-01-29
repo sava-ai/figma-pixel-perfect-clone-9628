@@ -234,13 +234,16 @@ const JobPeopleView = () => {
                         onClick={() => navigate('/job/pipeline')} 
                         className="bg-white border border-[#EEEDEC] rounded-xl p-5 text-left hover:bg-gray-50 transition-colors"
                       >
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-7 h-7 rounded-lg bg-amber-100 flex items-center justify-center">
-                            <svg className="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                            </svg>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-3">
+                            <div className="w-7 h-7 rounded-lg bg-amber-100 flex items-center justify-center">
+                              <svg className="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                              </svg>
+                            </div>
+                            <p className="text-sm font-medium text-gray-950">Shortlist</p>
                           </div>
-                          <p className="text-sm font-medium text-gray-950">Shortlist</p>
+                          <span className="text-sm font-semibold text-gray-950">50</span>
                         </div>
                         <p className="text-sm text-gray-600 mb-4">View best matches</p>
                         <div className="flex items-center gap-2 text-sm text-gray-950">
@@ -255,13 +258,16 @@ const JobPeopleView = () => {
                       <button 
                         className="bg-white border border-[#EEEDEC] rounded-xl p-5 text-left hover:bg-gray-50 transition-colors"
                       >
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center">
-                            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-3">
+                            <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center">
+                              <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                              </svg>
+                            </div>
+                            <p className="text-sm font-medium text-gray-950">Outreach</p>
                           </div>
-                          <p className="text-sm font-medium text-gray-950">Outreach</p>
+                          <span className="text-sm font-semibold text-gray-950">40</span>
                         </div>
                         <p className="text-sm text-gray-600 mb-4">Reach out to shortlisted</p>
                         <div className="flex items-center gap-2 text-sm text-gray-950">
@@ -276,13 +282,16 @@ const JobPeopleView = () => {
                       <button 
                         className="bg-white border border-[#EEEDEC] rounded-xl p-5 text-left hover:bg-gray-50 transition-colors"
                       >
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center">
-                            <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-3">
+                            <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center">
+                              <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                            </div>
+                            <p className="text-sm font-medium text-gray-950">Interview</p>
                           </div>
-                          <p className="text-sm font-medium text-gray-950">Interview</p>
+                          <span className="text-sm font-semibold text-gray-950">25</span>
                         </div>
                         <p className="text-sm text-gray-600 mb-4">Candidates ready to schedule</p>
                         <div className="flex items-center gap-2 text-sm text-gray-950">
