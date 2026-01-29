@@ -200,11 +200,53 @@ const CandidateDetailPanel = ({
     reasoning: getReasoningForCriteria(item.label, item.status)
   }));
 
-  const highlightItems = [
-    { icon: 'award', label: 'Award winning designer' },
-    { icon: 'clock', label: '5 yrs average tenure' },
-    { icon: 'building', label: 'Worked for top companies' },
-  ];
+  // Generate dynamic highlights based on candidate data
+  const generateHighlights = () => {
+    const highlights: { icon: string; label: string }[] = [];
+    
+    // Add company-based highlight
+    if (candidate.roles && candidate.roles.length > 0) {
+      const topCompanies = ['Google', 'Salesforce', 'HubSpot', 'Shopify', 'Microsoft', 'Amazon', 'Meta', 'Apple', 'LinkedIn', 'Oracle'];
+      const workedAtTop = candidate.roles.some(role => 
+        topCompanies.some(company => role.company.toLowerCase().includes(company.toLowerCase()))
+      );
+      if (workedAtTop) {
+        const topCompany = candidate.roles.find(role => 
+          topCompanies.some(company => role.company.toLowerCase().includes(company.toLowerCase()))
+        );
+        highlights.push({ icon: 'building', label: `Experience at ${topCompany?.company}` });
+      } else if (candidate.roles.length >= 2) {
+        highlights.push({ icon: 'building', label: `${candidate.roles.length} relevant positions` });
+      }
+    }
+    
+    // Add experience-based highlight
+    if (candidate.roles && candidate.roles.length > 0) {
+      const currentRole = candidate.roles[0];
+      if (currentRole.role.toLowerCase().includes('senior') || currentRole.role.toLowerCase().includes('lead')) {
+        highlights.push({ icon: 'award', label: 'Senior-level experience' });
+      } else if (currentRole.role.toLowerCase().includes('manager') || currentRole.role.toLowerCase().includes('director')) {
+        highlights.push({ icon: 'award', label: 'Management experience' });
+      } else {
+        highlights.push({ icon: 'briefcase', label: currentRole.role });
+      }
+    }
+    
+    // Add skill-based highlight from skillTags
+    if (candidate.skillTags && candidate.skillTags.length > 0) {
+      const primarySkill = candidate.skillTags[0];
+      highlights.push({ icon: 'sparkles', label: primarySkill });
+    } else if (matchScore >= 10) {
+      highlights.push({ icon: 'sparkles', label: 'Strong criteria match' });
+    }
+    
+    // Add location highlight
+    highlights.push({ icon: 'location', label: `Based in ${candidate.city}` });
+    
+    return highlights.slice(0, 3); // Limit to 3 highlights
+  };
+  
+  const highlightItems = generateHighlights();
   
   const defaultTags = candidate.tags || ['Sourced'];
   const defaultSkillTags = candidate.skillTags || ['Award winner', 'UX Strategy', 'Fintech Experience'];
