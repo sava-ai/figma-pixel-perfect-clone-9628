@@ -101,46 +101,48 @@ const JobBrain = () => {
       </header>
 
       {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden p-6">
-        <div className="flex gap-4 w-full h-full">
-          {/* Left Panel - Versions */}
-          <div className="w-56 bg-white border border-[#EEEDEC] rounded-xl flex flex-col flex-shrink-0">
-            <div className="p-4 border-b border-[#EEEDEC]">
-              <h2 className="text-sm font-semibold text-gray-900">Versions</h2>
-            </div>
-            <ScrollArea className="flex-1">
-              <div className="p-2">
-                {versions.map(version => (
-                  <button
-                    key={version.id}
-                    onClick={() => setSelectedVersion(version)}
-                    className={`w-full text-left px-3 py-3 rounded-lg transition-colors mb-1 ${
-                      selectedVersion.id === version.id
-                        ? 'bg-violet-50 border border-violet-200'
-                        : 'hover:bg-gray-50'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className={`text-sm font-medium ${
-                        selectedVersion.id === version.id ? 'text-violet-700' : 'text-gray-900'
-                      }`}>
-                        {version.label}
-                      </span>
-                      {version.active && (
-                        <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full">
-                          Active
-                        </span>
-                      )}
-                    </div>
-                    <span className="text-xs text-gray-500">{version.date}</span>
-                  </button>
-                ))}
+      <div className="flex-1 flex overflow-hidden justify-center" style={{ backgroundColor: '#FBFAF9' }}>
+        <div className="h-full w-full max-w-[1200px] flex flex-col pt-6 pb-3">
+          <div className="flex-1 overflow-hidden mx-6">
+            <div className="flex gap-4 h-full">
+              {/* Left Panel - Versions */}
+              <div className="w-56 bg-white border border-[#EEEDEC] rounded-xl flex flex-col flex-shrink-0">
+                <div className="p-4 border-b border-[#EEEDEC]">
+                  <h2 className="text-sm font-semibold text-gray-900">Versions</h2>
+                </div>
+                <ScrollArea className="flex-1">
+                  <div className="p-2">
+                    {versions.map(version => (
+                      <button
+                        key={version.id}
+                        onClick={() => setSelectedVersion(version)}
+                        className={`w-full text-left px-3 py-3 rounded-lg transition-colors mb-1 ${
+                          selectedVersion.id === version.id
+                            ? 'bg-violet-50 border border-violet-200'
+                            : 'hover:bg-gray-50'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className={`text-sm font-medium ${
+                            selectedVersion.id === version.id ? 'text-violet-700' : 'text-gray-900'
+                          }`}>
+                            {version.label}
+                          </span>
+                          {version.active && (
+                            <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full">
+                              Active
+                            </span>
+                          )}
+                        </div>
+                        <span className="text-xs text-gray-500">{version.date}</span>
+                      </button>
+                    ))}
+                  </div>
+                </ScrollArea>
               </div>
-            </ScrollArea>
-          </div>
 
-          {/* Right Panel - Context Accordions */}
-          <div className="flex-1 bg-white border border-[#EEEDEC] rounded-xl overflow-y-auto p-6">
+              {/* Right Panel - Context Accordions */}
+              <div className="flex-1 bg-white border border-[#EEEDEC] rounded-xl overflow-y-auto p-6">
             {/* Company Context Section */}
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-4">
@@ -329,11 +331,13 @@ const JobBrain = () => {
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
   );
 };
 
