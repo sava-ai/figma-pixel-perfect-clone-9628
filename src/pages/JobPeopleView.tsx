@@ -161,7 +161,7 @@ const JobPeopleView = () => {
               <div className={`${selectedBestMatch ? 'pl-0 pr-0' : 'pl-0 pr-0'} ${isChatCollapsed ? '' : 'max-w-[1200px]'}`}>
               {/* Header with stats - hide when profile is selected */}
                 {!selectedBestMatch && (
-                  <div className="mb-5 animate-slide-down-fade-in overflow-hidden">
+                  <div className="mb-5 animate-slide-down-fade-in">
                     {/* Best Matches Section Title */}
                     <h3 className="text-sm font-medium text-muted-foreground mb-3">Best matches</h3>
 
