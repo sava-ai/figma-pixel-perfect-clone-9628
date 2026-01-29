@@ -176,7 +176,7 @@ Looking forward to connecting!`);
                     />
                     <div>
                       <h3 className="text-2xl font-semibold">{candidate.name}</h3>
-                      <p className="text-muted-foreground">{candidate.city}, Sweden</p>
+                      <p className="text-muted-foreground">{candidate.city}, Poland</p>
                       <div className="flex items-center justify-center gap-3 mt-2">
                         <span className="text-sm text-muted-foreground">{candidate.match} match</span>
                         <span className="text-sm font-medium text-primary">Engagement: {candidate.engagementRate}%</span>

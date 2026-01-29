@@ -293,7 +293,7 @@ const CandidateDetailPanel = ({
             {candidate.name}
           </h2>
           <p className="text-sm text-[#666666] mb-3">
-            {candidate.city}, Sweden
+            {candidate.city}, Poland
           </p>
 
           {/* Tags Row */}
