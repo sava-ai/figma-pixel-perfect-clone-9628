@@ -100,9 +100,9 @@ const JobBrain = () => {
         </div>
       </header>
 
-      {/* Main Content - Centered Container */}
-      <div className="max-w-[1260px] mx-auto p-6">
-        <div className="flex gap-4 h-[calc(100vh-130px)]">
+      {/* Main Content */}
+      <div className="flex-1 flex overflow-hidden p-6">
+        <div className="flex gap-4 w-full h-full">
           {/* Left Panel - Versions */}
           <div className="w-56 bg-white border border-[#EEEDEC] rounded-xl flex flex-col flex-shrink-0">
             <div className="p-4 border-b border-[#EEEDEC]">
