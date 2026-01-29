@@ -162,6 +162,8 @@ const JobPeopleView = () => {
               {/* Header with stats - hide when profile is selected */}
                 {!selectedBestMatch && (
                   <div className="mb-5 animate-slide-down-fade-in overflow-hidden">
+                    {/* Best Matches Section Title */}
+                    <h3 className="text-sm font-medium text-muted-foreground mb-3">Best matches</h3>
 
                     {/* Rate Candidates Banner */}
                     <button
@@ -192,6 +194,9 @@ const JobPeopleView = () => {
                         </div>
                       </div>
                     </button>
+
+                    {/* Your Pipeline Section Title */}
+                    <h3 className="text-sm font-medium text-muted-foreground mb-3">Your Pipeline</h3>
 
                     {/* Navigation Cards */}
                     <div className="grid grid-cols-3 gap-4 mb-4">
@@ -259,6 +264,9 @@ const JobPeopleView = () => {
                         </div>
                       </button>
                     </div>
+
+                    {/* Knowledge Base Section Title */}
+                    <h3 className="text-sm font-medium text-muted-foreground mb-3">Knowledge base</h3>
 
                     {/* Second Row - Job, Company, Brain */}
                     <div className="grid grid-cols-3 gap-4">
