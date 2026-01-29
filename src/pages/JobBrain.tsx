@@ -101,9 +101,9 @@ const JobBrain = () => {
 
       {/* Main Content - Centered Container */}
       <div className="max-w-[1260px] mx-auto p-6">
-        <div className="bg-white border border-[#EEEDEC] rounded-xl overflow-hidden flex h-[calc(100vh-130px)]">
+        <div className="flex gap-4 h-[calc(100vh-130px)]">
           {/* Left Panel - Versions */}
-          <div className="w-56 border-r border-[#EEEDEC] flex flex-col flex-shrink-0">
+          <div className="w-56 bg-white border border-[#EEEDEC] rounded-xl flex flex-col flex-shrink-0">
             <div className="p-4 border-b border-[#EEEDEC]">
               <h2 className="text-sm font-semibold text-gray-900">Versions</h2>
             </div>
@@ -139,7 +139,7 @@ const JobBrain = () => {
           </div>
 
           {/* Right Panel - Context Accordions */}
-          <div className="flex-1 overflow-y-auto p-6">
+          <div className="flex-1 bg-white border border-[#EEEDEC] rounded-xl overflow-y-auto p-6">
             {/* Company Context Section */}
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-4">
