@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Accordion,
@@ -8,7 +8,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
 
@@ -59,43 +58,45 @@ const JobBrain = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FBFAF9]">
+    <div className="h-screen w-full flex flex-col bg-[#FBFAF9] overflow-hidden">
       {/* Header */}
-      <header className="bg-white border-b border-[#EEEDEC] px-6 py-4">
-        <div className="max-w-[1260px] mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={() => navigate('/job/people/view')} 
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              <ChevronLeft className="w-5 h-5 text-gray-600" />
+      <header className="h-[54px] bg-background flex items-center justify-between px-5 flex-shrink-0">
+        {/* Left side - Back button and Jobs dropdown */}
+        <div className="flex items-center gap-2">
+          <button onClick={() => navigate('/job/people/view')} className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200">
+            <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+          </button>
+
+          {/* Jobs dropdown */}
+          <div className="relative">
+            <button onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)} className="flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all bg-white hover:bg-gray-50 border border-gray-200">
+              <img src={jobDropdownIcon} alt="Job" className="w-4 h-4 rounded" />
+              <span className="font-medium text-sm text-gray-700">BD Representative / Sales Manager</span>
+              <ChevronDown className="w-3.5 h-3.5 text-gray-700" />
             </button>
             
-            <Popover open={jobsDropdownOpen} onOpenChange={setJobsDropdownOpen}>
-              <PopoverTrigger asChild>
-                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors">
-                  <img src={jobDropdownIcon} alt="Job" className="w-5 h-5" />
-                  <span className="font-medium text-gray-900">BD Representative / Sales Manager</span>
-                  <ChevronDown className="w-4 h-4 text-gray-500" />
-                </button>
-              </PopoverTrigger>
-              <PopoverContent className="w-64 p-2 bg-white border border-gray-200 shadow-lg rounded-xl z-50">
+            {jobsDropdownOpen && (
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white border rounded-lg shadow-lg z-50">
                 {jobs.map(job => (
-                  <button
-                    key={job.id}
-                    className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors text-sm"
+                  <button 
+                    key={job.id} 
+                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-accent transition-colors text-left" 
                     onClick={() => setJobsDropdownOpen(false)}
                   >
-                    {job.title}
+                    <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded" />
+                    <span className="text-sm">{job.title}</span>
                   </button>
                 ))}
-              </PopoverContent>
-            </Popover>
+              </div>
+            )}
           </div>
+        </div>
 
-          <div className="flex items-center gap-3">
-            <img src={userAvatarImage} alt="User" className="w-8 h-8 rounded-full" />
-          </div>
+        {/* Right side - Profile */}
+        <div className="flex items-center gap-2">
+          <img src={userAvatarImage} alt="Profile" className="w-7 h-7 rounded-full object-cover border-2 border-gray-200" />
         </div>
       </header>
 
