@@ -133,7 +133,7 @@ const CandidateDetailPanel = ({
     required: false
   }];
   
-  // Extended criteria for the dialog with reasoning
+  // Extended criteria for the dialog with reasoning - based on PriceMind BDR job requirements
   interface DialogCriteriaItem {
     icon: 'location' | 'briefcase' | 'graduation' | 'clock' | 'sparkles' | 'award' | 'code' | 'building' | 'globe' | 'heart' | 'users';
     label: string;
@@ -142,23 +142,61 @@ const CandidateDetailPanel = ({
     reasoning: string;
   }
 
-  const dialogCoreCriteria: DialogCriteriaItem[] = [
-    { icon: 'briefcase', label: 'Leadership experience', status: 'full', required: true, reasoning: 'Has led design teams of 5+ people at two previous companies. Managed cross-functional projects and mentored junior designers.' },
-    { icon: 'code', label: 'Frontend development', status: 'partial', required: true, reasoning: 'Familiar with HTML/CSS and basic React concepts. Has worked closely with developers but limited hands-on coding experience.' },
-    { icon: 'building', label: 'FAANG company', status: 'none', required: false, reasoning: 'No experience at FAANG companies. Previous employers include mid-size startups and agencies.' },
-    { icon: 'location', label: `Located in ${candidate.city}`, status: 'full', required: true, reasoning: `Currently based in ${candidate.city}, Sweden. Open to hybrid work arrangements.` },
-    { icon: 'briefcase', label: 'Senior Product Designer', status: matchScore >= 9 ? 'full' : 'partial', required: true, reasoning: 'Currently holds Senior Product Designer title with 6+ years of experience in product design roles.' },
-    { icon: 'clock', label: '5+ Years of Design Experience', status: matchScore >= 10 ? 'full' : 'partial', required: true, reasoning: 'Over 7 years of professional design experience spanning UX, UI, and product design.' },
-    { icon: 'graduation', label: "Bachelor's Degree or Higher", status: 'full', required: false, reasoning: "Holds a Bachelor's degree in Graphic Design from a reputable design school." },
-  ];
+  // Generate reasoning based on candidate's actual background
+  const getReasoningForCriteria = (label: string, status: string): string => {
+    const reasonings: Record<string, Record<string, string>> = {
+      'B2B Lead Generation Experience': {
+        full: `${candidate.name} has demonstrated strong B2B lead generation experience through roles at ${candidate.roles[0]?.company || 'previous companies'}. Track record of identifying and qualifying business prospects.`,
+        partial: `Some exposure to B2B sales processes, but limited direct lead generation experience. May require additional training.`,
+        none: `No documented B2B lead generation experience. Background is primarily in other areas.`,
+        unknown: `Unable to verify B2B lead generation experience from available information.`
+      },
+      '1-3 Years Digital Sales': {
+        full: `Has ${candidate.roles.length > 1 ? 'multiple years' : 'relevant experience'} in digital sales environments. Comfortable with remote selling and digital communication tools.`,
+        partial: `Some digital sales experience, but may be less than the preferred 1-3 years or primarily traditional sales.`,
+        none: `No documented digital sales experience. Background is in non-sales roles.`,
+        unknown: `Digital sales experience not clearly documented in profile.`
+      },
+      'CRM & Sales Tools (HubSpot, Salesforce)': {
+        full: `Proficient with CRM platforms including HubSpot and/or Salesforce. Has used these tools extensively in previous roles.`,
+        partial: `Some CRM experience, but may not have deep expertise with HubSpot or Salesforce specifically.`,
+        none: `No documented CRM or sales tools experience.`,
+        unknown: `CRM proficiency not specified in available information.`
+      },
+      'Fluent English Communication': {
+        full: `Demonstrates excellent English communication skills. ${candidate.roles[0]?.company?.includes('Google') || candidate.roles[0]?.company?.includes('Shopify') ? 'Has worked in English-speaking international environments.' : 'Profile and experience indicate strong English proficiency.'}`,
+        partial: `English skills present but may need assessment for business-level fluency.`,
+        none: `English proficiency not demonstrated or limited.`,
+        unknown: `English communication level not clearly specified.`
+      },
+      'International/European Clients': {
+        full: `Has experience working with international clients, particularly in European markets. Understands cross-cultural business dynamics.`,
+        partial: `Some international exposure, but limited direct experience with European B2B clients.`,
+        none: `No documented international client experience.`,
+        unknown: `International client experience not specified.`
+      },
+      'Distribution/Manufacturing Knowledge': {
+        full: `Has direct experience in distribution or manufacturing sectors. Understands industry-specific challenges and terminology.`,
+        partial: `Some exposure to distribution/manufacturing, but not a primary focus area.`,
+        none: `No documented experience in distribution or manufacturing industries.`,
+        unknown: `Industry background not clearly specified.`
+      }
+    };
+    
+    return reasonings[label]?.[status] || `Assessment based on available profile information for ${candidate.name}.`;
+  };
 
-  const dialogSoftSkills: DialogCriteriaItem[] = [
-    { icon: 'users', label: 'Effective communication and teamwork', status: 'full', required: false, reasoning: 'Strong track record of collaborating with product managers, engineers, and stakeholders. Excellent presentation skills demonstrated in portfolio reviews.' },
-    { icon: 'heart', label: 'Emotional intelligence and conflict resolution', status: 'partial', required: false, reasoning: 'Shows empathy in user research. Limited evidence of conflict resolution experience from available information.' },
-    { icon: 'globe', label: 'Fluent English', status: 'full', required: false, reasoning: 'Native-level English proficiency. All portfolio materials and previous work conducted in English.' },
-    { icon: 'sparkles', label: 'Team collaboration', status: 'unknown', required: false, reasoning: 'Unable to assess from available information. Recommend asking about collaboration style in interview.' },
-    { icon: 'sparkles', label: 'Problem-solving mindset', status: 'full', required: false, reasoning: 'Portfolio demonstrates strong analytical approach to design challenges with clear problem-solution frameworks.' },
-  ];
+  // Map candidate's coreCriteria to dialog format with reasoning
+  const dialogCoreCriteria: DialogCriteriaItem[] = defaultCoreCriteria.map(item => ({
+    ...item,
+    reasoning: getReasoningForCriteria(item.label, item.status)
+  }));
+
+  // Map candidate's softSkills to dialog format with reasoning
+  const dialogSoftSkills: DialogCriteriaItem[] = defaultSoftSkills.map(item => ({
+    ...item,
+    reasoning: getReasoningForCriteria(item.label, item.status)
+  }));
 
   const highlightItems = [
     { icon: 'award', label: 'Award winning designer' },
