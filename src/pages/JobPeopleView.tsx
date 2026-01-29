@@ -193,15 +193,6 @@ const JobPeopleView = () => {
               {/* Header with stats - hide when profile is selected */}
                 {!selectedBestMatch && (
                   <div className="mb-5 animate-slide-down-fade-in overflow-hidden">
-                    <div className="flex items-center justify-between mb-4">
-                      <h1 className="text-lg font-medium text-foreground">{bestMatchesCount} of 230 people</h1>
-                      <div className="flex items-center gap-2">
-                        <button className="flex items-center gap-2 px-3 py-1.5 text-xs bg-white border border-[#EEEDEC] rounded-lg hover:bg-muted/50 transition-colors">
-                          <Search className="w-3.5 h-3.5" />
-                          <span className="text-muted-foreground">Searches (6)</span>
-                        </button>
-                      </div>
-                    </div>
 
                     {/* Navigation Cards */}
                     <div className="grid grid-cols-3 gap-4 mb-4">
