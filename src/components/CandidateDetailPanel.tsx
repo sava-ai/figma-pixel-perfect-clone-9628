@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import InitialsAvatar from '@/components/InitialsAvatar';
 interface CriteriaItem {
   icon: 'location' | 'briefcase' | 'graduation' | 'clock' | 'sparkles' | 'award' | 'code' | 'building' | 'globe' | 'heart' | 'users';
   label: string;
@@ -287,7 +288,7 @@ const CandidateDetailPanel = ({
       <div className="flex-1 overflow-y-auto scrollbar-hide">
         {/* Profile Section - Centered */}
         <div className="flex flex-col items-center pt-6 pb-6 border-b border-[#EEEDEC]">
-          <img src={candidate.image} alt={candidate.name} className="w-20 h-20 rounded-sm object-cover mb-3" />
+          <InitialsAvatar name={candidate.name} size="xl" className="mb-3" />
           <h2 className="text-lg font-semibold text-[#292524] font-['LabilGrotesk'] mb-1">
             {candidate.name}
           </h2>
