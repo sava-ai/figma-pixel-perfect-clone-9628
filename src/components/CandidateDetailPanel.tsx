@@ -37,6 +37,7 @@ interface Candidate {
   skillTags?: string[];
   coreCriteria?: CriteriaItem[];
   softSkills?: CriteriaItem[];
+  linkedin?: string;
 }
 interface CandidateDetailPanelProps {
   candidate: Candidate | null;
@@ -266,9 +267,17 @@ const CandidateDetailPanel = ({
         <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
           <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
         </button>
-        <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
-          <Share2 className="w-4 h-4 text-muted-foreground" />
-        </button>
+        {candidate.linkedin && (
+          <a 
+            href={candidate.linkedin} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors"
+            title="View LinkedIn Profile"
+          >
+            <Share2 className="w-4 h-4 text-muted-foreground" />
+          </a>
+        )}
         <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
           <X className="w-4 h-4 text-muted-foreground" />
         </button>
