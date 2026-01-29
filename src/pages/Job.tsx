@@ -368,18 +368,19 @@ Qualifications
 
       {/* Main Content - Flex layout without resizable */}
       <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
-        {/* Left Panel - Job Info */}
+        {/* Left Panel - Job Description Editor */}
         <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
           <div className={`h-full flex flex-col pt-6 pb-3 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
             <div className={`flex-1 overflow-y-auto bg-background rounded-lg border border-[#F3F3F3] relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
               
-              <button 
-                onClick={() => navigate('/job/people/view')}
-                className="w-full h-full flex flex-col items-center justify-center text-center hover:bg-gray-50 transition-colors cursor-pointer"
+              <div 
+                contentEditable
+                suppressContentEditableWarning
+                onInput={(e) => setJobDescription(e.currentTarget.textContent || '')}
+                className={`text-foreground whitespace-pre-wrap outline-none ${activeSuggestions.length > 0 ? 'px-[72px] py-12' : 'px-[72px] py-12'}`}
               >
-                <h1 className="text-3xl font-semibold text-foreground mb-2">BD Representative / Sales Manager</h1>
-                <p className="text-lg text-muted-foreground">PriceMind</p>
-              </button>
+                {formatJobDescription(jobDescription)}
+              </div>
             </div>
           </div>
         </div>
