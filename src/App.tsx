@@ -10,6 +10,7 @@ import JobPeople from "./pages/JobPeople";
 import JobPeopleView from "./pages/JobPeopleView";
 import JobPipeline from "./pages/JobPipeline";
 import JobApplicants from "./pages/JobApplicants";
+import JobBrain from "./pages/JobBrain";
 import Calendar from "./pages/Calendar";
 import Messages from "./pages/Messages";
 import NotFound from "./pages/NotFound";
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/job/people/view" element={<JobPeopleView />} />
             <Route path="/job/applicants" element={<JobApplicants />} />
             <Route path="/job/pipeline" element={<JobPipeline />} />
+            <Route path="/job/brain" element={<JobBrain />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/joboffer" element={<JobOffer />} />

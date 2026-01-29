@@ -345,6 +345,7 @@ const JobPeopleView = () => {
 
                       {/* Brain Card */}
                       <button 
+                        onClick={() => navigate('/job/brain')} 
                         className="bg-white border border-[#EEEDEC] rounded-xl p-4 text-left hover:bg-gray-50 transition-colors"
                       >
                         <div className="flex items-center gap-3">
