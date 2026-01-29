@@ -269,8 +269,8 @@ const JobPipeline = () => {
 
   const [columns, setColumns] = useState<Column[]>([
     {
-      id: 'ai-sourced',
-      title: 'AI sourced',
+      id: 'shortlisted',
+      title: 'Shortlisted',
       candidates: [
         {
           id: '1',
@@ -300,17 +300,6 @@ const JobPipeline = () => {
           match: '11/12',
           engagementRate: 92,
         },
-      ],
-    },
-    {
-      id: 'referred',
-      title: 'Referred',
-      candidates: [],
-    },
-    {
-      id: 'sourced',
-      title: 'Sourced',
-      candidates: [
         {
           id: '3',
           name: 'Emma Lundberg',
@@ -328,8 +317,8 @@ const JobPipeline = () => {
       ],
     },
     {
-      id: 'applied-approved',
-      title: 'Applied & approved',
+      id: 'outreach',
+      title: 'Outreach',
       candidates: [
         {
           id: '4',
@@ -345,12 +334,6 @@ const JobPipeline = () => {
           match: '8/12',
           engagementRate: 71,
         },
-      ],
-    },
-    {
-      id: 'screening',
-      title: 'Screening',
-      candidates: [
         {
           id: '5',
           name: 'Lisa Svensson',
@@ -368,8 +351,8 @@ const JobPipeline = () => {
       ],
     },
     {
-      id: 'first-interview',
-      title: 'First interview',
+      id: 'interview',
+      title: 'Interview',
       candidates: [
         {
           id: '6',
@@ -386,26 +369,6 @@ const JobPipeline = () => {
           engagementRate: 83,
         },
       ],
-    },
-    {
-      id: 'second-interview',
-      title: 'Second interview',
-      candidates: [],
-    },
-    {
-      id: 'rejected',
-      title: 'Rejected',
-      candidates: [],
-    },
-    {
-      id: 'rejected-noticed',
-      title: 'Rejected & noticed',
-      candidates: [],
-    },
-    {
-      id: 'top-picks',
-      title: 'Top picks',
-      candidates: [],
     },
   ]);
 
