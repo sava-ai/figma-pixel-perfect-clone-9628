@@ -239,51 +239,6 @@ const JobPeopleView = () => {
                         <h2 className="font-hedvig font-medium text-foreground text-xl">
                           Best matches ({filteredCandidates.length})
                         </h2>
-                        <Popover open={filterOpen} onOpenChange={setFilterOpen}>
-                          <PopoverTrigger asChild>
-                            <Button variant="outline" size="sm" className="h-8 gap-2">
-                              <Filter className="w-3.5 h-3.5" />
-                              Filter
-                              {selectedTags.length > 0 && (
-                                <span className="ml-1 px-1.5 py-0.5 bg-primary text-primary-foreground rounded-full text-xs">
-                                  {selectedTags.length}
-                                </span>
-                              )}
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-56" align="start">
-                            <div className="space-y-3">
-                              <h4 className="font-medium text-sm">Filter by tags</h4>
-                              <div className="space-y-2">
-                                {allTags.map(tag => (
-                                  <div key={tag} className="flex items-center space-x-2">
-                                    <Checkbox
-                                      id={tag}
-                                      checked={selectedTags.includes(tag)}
-                                      onCheckedChange={() => toggleTag(tag)}
-                                    />
-                                    <label
-                                      htmlFor={tag}
-                                      className="text-sm cursor-pointer"
-                                    >
-                                      {tag}
-                                    </label>
-                                  </div>
-                                ))}
-                              </div>
-                              {selectedTags.length > 0 && (
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  className="w-full"
-                                  onClick={() => setSelectedTags([])}
-                                >
-                                  Clear filters
-                                </Button>
-                              )}
-                            </div>
-                          </PopoverContent>
-                        </Popover>
                       </div>
                       {/* Candidate list */}
                       <div className="flex-1 overflow-y-auto space-y-4 scrollbar-hide">
