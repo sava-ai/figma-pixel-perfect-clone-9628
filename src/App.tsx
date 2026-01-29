@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Job from "./pages/Job";
+import JobOffer from "./pages/JobOffer";
 import JobPeople from "./pages/JobPeople";
 import JobPeopleView from "./pages/JobPeopleView";
 import JobPipeline from "./pages/JobPipeline";
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/job/pipeline" element={<JobPipeline />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/messages" element={<Messages />} />
+            <Route path="/joboffer" element={<JobOffer />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
