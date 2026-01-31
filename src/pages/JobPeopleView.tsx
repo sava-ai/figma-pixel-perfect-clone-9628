@@ -404,32 +404,26 @@ const JobPeopleView = () => {
                 {/* Focused Candidate Review */}
                 {selectedBestMatch && !reviewComplete ? (
                   <div className="animate-content-expand">
-                    {/* Back button and header */}
-                    <div className="flex items-center gap-3 mb-4">
-                      <button 
-                        onClick={handleBackToList}
-                        className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors border border-[#EEEDEC]"
-                      >
-                        <ArrowLeft className="w-4 h-4 text-muted-foreground" />
-                      </button>
-                      <h2 className="font-hedvig font-medium text-foreground text-xl">
-                        Reviewing {currentCandidateIndex + 1} of {filteredCandidates.length}
-                      </h2>
-                    </div>
-
-                    {/* Split view: Profile on left, Detail panel on right */}
-                    <div className="flex gap-4 h-[calc(100vh-140px)]">
-                      {/* Left side: Enhanced profile panel */}
-                      <div className="w-[45%] min-h-0">
-                        <CandidateProfilePanel
-                          candidate={selectedBestMatch}
-                          currentIndex={currentCandidateIndex}
-                          totalCount={filteredCandidates.length}
-                          hideProgressHeader={true}
-                        />
+                    {/* Split view: Title + Profile on left, Detail panel on right */}
+                    <div className="flex gap-4 h-[calc(100vh-110px)]">
+                      {/* Left side: Title + Enhanced profile panel */}
+                      <div className="w-[45%] min-h-0 flex flex-col">
+                        {/* Header */}
+                        <h2 className="font-hedvig font-medium text-foreground text-xl mb-4">
+                          Reviewing {currentCandidateIndex + 1} of {filteredCandidates.length}
+                        </h2>
+                        {/* Profile panel */}
+                        <div className="flex-1 min-h-0">
+                          <CandidateProfilePanel
+                            candidate={selectedBestMatch}
+                            currentIndex={currentCandidateIndex}
+                            totalCount={filteredCandidates.length}
+                            hideProgressHeader={true}
+                          />
+                        </div>
                       </div>
 
-                      {/* Right side: Detail panel with actions */}
+                      {/* Right side: Detail panel with actions - aligned with title */}
                       <div className="w-[55%] bg-white border border-[#EEEDEC] rounded-xl overflow-hidden">
                         <CandidateDetailPanel
                           candidate={selectedBestMatch}
