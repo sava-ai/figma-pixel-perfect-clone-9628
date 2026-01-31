@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical, ChevronLeft, Search, Filter, ArrowLeft } from 'lucide-react';
+import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Search, Filter, ArrowLeft } from 'lucide-react';
 import { ProfileDialog } from '@/components/ProfileDialog';
 import { ApplicantReviewDialog } from '@/components/ApplicantReviewDialog';
 import { RejectionDialog } from '@/components/RejectionDialog';
@@ -423,28 +423,50 @@ const JobPeopleView = () => {
                         </div>
                       </div>
 
-                      {/* Right side: Detail panel with actions - aligned with title */}
-                      <div className="w-[55%] bg-white border border-[#EEEDEC] rounded-xl overflow-hidden">
-                        <CandidateDetailPanel
-                          candidate={selectedBestMatch}
-                          onClose={handleBackToList}
-                          onNotAGoodFit={() => handleNextCandidate('reject')}
-                          onSaveToJob={() => handleNextCandidate('save')}
-                          currentIndex={currentCandidateIndex}
-                          totalCandidates={filteredCandidates.length}
-                          onPrevious={() => {
-                            if (currentCandidateIndex > 0) {
-                              setCurrentCandidateIndex(currentCandidateIndex - 1);
-                              setSelectedBestMatch(filteredCandidates[currentCandidateIndex - 1]);
-                            }
-                          }}
-                          onNext={() => {
-                            if (currentCandidateIndex < filteredCandidates.length - 1) {
-                              setCurrentCandidateIndex(currentCandidateIndex + 1);
-                              setSelectedBestMatch(filteredCandidates[currentCandidateIndex + 1]);
-                            }
-                          }}
-                        />
+                      {/* Right side: Navigation header + Detail panel */}
+                      <div className="w-[55%] min-h-0 flex flex-col">
+                        {/* Navigation header outside the panel */}
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="text-sm text-muted-foreground">
+                            Reviewing {currentCandidateIndex + 1} of {filteredCandidates.length}
+                          </span>
+                          <div className="flex items-center gap-1">
+                            <button 
+                              onClick={() => {
+                                if (currentCandidateIndex > 0) {
+                                  setCurrentCandidateIndex(currentCandidateIndex - 1);
+                                  setSelectedBestMatch(filteredCandidates[currentCandidateIndex - 1]);
+                                }
+                              }}
+                              disabled={currentCandidateIndex === 0}
+                              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed border border-gray-200 bg-white"
+                            >
+                              <ChevronLeft className="w-4 h-4 text-gray-700" />
+                            </button>
+                            <button 
+                              onClick={() => {
+                                if (currentCandidateIndex < filteredCandidates.length - 1) {
+                                  setCurrentCandidateIndex(currentCandidateIndex + 1);
+                                  setSelectedBestMatch(filteredCandidates[currentCandidateIndex + 1]);
+                                }
+                              }}
+                              disabled={currentCandidateIndex >= filteredCandidates.length - 1}
+                              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed border border-gray-200 bg-white"
+                            >
+                              <ChevronRight className="w-4 h-4 text-gray-700" />
+                            </button>
+                          </div>
+                        </div>
+                        
+                        {/* Detail panel */}
+                        <div className="flex-1 min-h-0 bg-white border border-[#EEEDEC] rounded-xl overflow-hidden">
+                          <CandidateDetailPanel
+                            candidate={selectedBestMatch}
+                            onClose={handleBackToList}
+                            onNotAGoodFit={() => handleNextCandidate('reject')}
+                            onSaveToJob={() => handleNextCandidate('save')}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>

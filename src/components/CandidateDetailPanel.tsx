@@ -353,56 +353,33 @@ const CandidateDetailPanel = ({
   return <div className="h-full flex flex-col bg-white">
       {/* Header */}
       <div className="flex items-center justify-between gap-2 p-4 border-b border-[#EEEDEC]">
-        {/* Left side - Navigation */}
-        <div className="flex items-center gap-3">
-          <span className="text-sm text-[#666666]">
-            Reviewing {currentIndex + 1} of {totalCandidates}
+        {/* Match Score */}
+        <div className="flex items-center gap-2">
+          <span className="text-xl font-semibold text-[#2D7A2D] font-['LabilGrotesk']">
+            {matchScore}/{matchTotal}
           </span>
-          <div className="flex items-center gap-1">
-            <button 
-              onClick={onPrevious}
-              disabled={currentIndex === 0}
-              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              <ChevronLeft className="w-4 h-4 text-muted-foreground" />
-            </button>
-            <button 
-              onClick={onNext}
-              disabled={currentIndex >= totalCandidates - 1}
-              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              <ChevronRight className="w-4 h-4 text-muted-foreground" />
-            </button>
-          </div>
+          <span className="text-sm text-[#666666]">Match</span>
         </div>
         
-        {/* Right side - Match score and actions */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <span className="text-xl font-semibold text-[#2D7A2D] font-['LabilGrotesk']">
-              {matchScore}/{matchTotal}
-            </span>
-            <span className="text-sm text-[#666666]">Match</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
-              <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
-            </button>
-            {candidate.linkedin && (
-              <a 
-                href={candidate.linkedin} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors"
-                title="View LinkedIn Profile"
-              >
-                <Share2 className="w-4 h-4 text-muted-foreground" />
-              </a>
-            )}
-            <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
-              <X className="w-4 h-4 text-muted-foreground" />
-            </button>
-          </div>
+        {/* Actions */}
+        <div className="flex items-center gap-1">
+          <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
+            <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
+          </button>
+          {candidate.linkedin && (
+            <a 
+              href={candidate.linkedin} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors"
+              title="View LinkedIn Profile"
+            >
+              <Share2 className="w-4 h-4 text-muted-foreground" />
+            </a>
+          )}
+          <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
+            <X className="w-4 h-4 text-muted-foreground" />
+          </button>
         </div>
       </div>
 
