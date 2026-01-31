@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, MoreHorizontal, Share2, Mail, MapPin, Briefcase, GraduationCap, Clock, ChevronDown, Sparkles, Award, Code, Building2, Globe, Heart, Users, Leaf } from 'lucide-react';
+import { X, MoreHorizontal, Share2, Mail, MapPin, Briefcase, GraduationCap, Clock, ChevronDown, ChevronLeft, ChevronRight, Sparkles, Award, Code, Building2, Globe, Heart, Users, Leaf } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -46,12 +46,20 @@ interface CandidateDetailPanelProps {
   onClose: () => void;
   onNotAGoodFit?: () => void;
   onSaveToJob?: () => void;
+  currentIndex?: number;
+  totalCandidates?: number;
+  onPrevious?: () => void;
+  onNext?: () => void;
 }
 const CandidateDetailPanel = ({
   candidate,
   onClose,
   onNotAGoodFit,
-  onSaveToJob
+  onSaveToJob,
+  currentIndex = 0,
+  totalCandidates = 0,
+  onPrevious,
+  onNext
 }: CandidateDetailPanelProps) => {
   const [showDetails, setShowDetails] = useState(false);
   const [showDetailsDialog, setShowDetailsDialog] = useState(false);
@@ -345,31 +353,56 @@ const CandidateDetailPanel = ({
   return <div className="h-full flex flex-col bg-white">
       {/* Header */}
       <div className="flex items-center justify-between gap-2 p-4 border-b border-[#EEEDEC]">
-        {/* Match Score - moved to header */}
-        <div className="flex items-center gap-2">
-          <span className="text-xl font-semibold text-[#2D7A2D] font-['LabilGrotesk']">
-            {matchScore}/{matchTotal}
+        {/* Left side - Navigation */}
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-[#666666]">
+            Reviewing {currentIndex + 1} of {totalCandidates}
           </span>
-          <span className="text-sm text-[#666666]">Match</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
-            <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
-          </button>
-          {candidate.linkedin && (
-            <a 
-              href={candidate.linkedin} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors"
-              title="View LinkedIn Profile"
+          <div className="flex items-center gap-1">
+            <button 
+              onClick={onPrevious}
+              disabled={currentIndex === 0}
+              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              <Share2 className="w-4 h-4 text-muted-foreground" />
-            </a>
-          )}
-          <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
-            <X className="w-4 h-4 text-muted-foreground" />
-          </button>
+              <ChevronLeft className="w-4 h-4 text-muted-foreground" />
+            </button>
+            <button 
+              onClick={onNext}
+              disabled={currentIndex >= totalCandidates - 1}
+              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            </button>
+          </div>
+        </div>
+        
+        {/* Right side - Match score and actions */}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <span className="text-xl font-semibold text-[#2D7A2D] font-['LabilGrotesk']">
+              {matchScore}/{matchTotal}
+            </span>
+            <span className="text-sm text-[#666666]">Match</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
+              <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
+            </button>
+            {candidate.linkedin && (
+              <a 
+                href={candidate.linkedin} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors"
+                title="View LinkedIn Profile"
+              >
+                <Share2 className="w-4 h-4 text-muted-foreground" />
+              </a>
+            )}
+            <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
+              <X className="w-4 h-4 text-muted-foreground" />
+            </button>
+          </div>
         </div>
       </div>
 

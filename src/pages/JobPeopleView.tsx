@@ -409,9 +409,9 @@ const JobPeopleView = () => {
                       {/* Left side: Title + Enhanced profile panel */}
                       <div className="w-[45%] min-h-0 flex flex-col">
                         {/* Header */}
-                        <h2 className="font-hedvig font-medium text-foreground text-xl mb-4">
-                          Reviewing {currentCandidateIndex + 1} of {filteredCandidates.length}
-                        </h2>
+                <h2 className="font-hedvig font-medium text-foreground text-xl mb-4">
+                  Candidate batch 3
+                </h2>
                         {/* Profile panel */}
                         <div className="flex-1 min-h-0">
                           <CandidateProfilePanel
@@ -430,6 +430,20 @@ const JobPeopleView = () => {
                           onClose={handleBackToList}
                           onNotAGoodFit={() => handleNextCandidate('reject')}
                           onSaveToJob={() => handleNextCandidate('save')}
+                          currentIndex={currentCandidateIndex}
+                          totalCandidates={filteredCandidates.length}
+                          onPrevious={() => {
+                            if (currentCandidateIndex > 0) {
+                              setCurrentCandidateIndex(currentCandidateIndex - 1);
+                              setSelectedBestMatch(filteredCandidates[currentCandidateIndex - 1]);
+                            }
+                          }}
+                          onNext={() => {
+                            if (currentCandidateIndex < filteredCandidates.length - 1) {
+                              setCurrentCandidateIndex(currentCandidateIndex + 1);
+                              setSelectedBestMatch(filteredCandidates[currentCandidateIndex + 1]);
+                            }
+                          }}
                         />
                       </div>
                     </div>
