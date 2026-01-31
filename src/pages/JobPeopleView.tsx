@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical, ChevronLeft, Search, Filter } from 'lucide-react';
+import { ChevronDown, MoreVertical, ChevronLeft, Search, Filter, ArrowLeft } from 'lucide-react';
 import { ProfileDialog } from '@/components/ProfileDialog';
 import { ApplicantReviewDialog } from '@/components/ApplicantReviewDialog';
 import { RejectionDialog } from '@/components/RejectionDialog';
@@ -8,6 +8,7 @@ import { InviteDialog } from '@/components/InviteDialog';
 import { JobChatPanel } from '@/components/JobChatPanel';
 import { BulkContactDialog } from '@/components/BulkContactDialog';
 import CandidateDetailPanel from '@/components/CandidateDetailPanel';
+import CandidateProfilePanel from '@/components/CandidateProfilePanel';
 import InitialsAvatar from '@/components/InitialsAvatar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -32,6 +33,9 @@ const JobPeopleView = () => {
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState<typeof bestCandidates[0] | null>(null);
   const [selectedBestMatch, setSelectedBestMatch] = useState<typeof bestCandidates[0] | null>(null);
+  const [currentCandidateIndex, setCurrentCandidateIndex] = useState(0);
+  const [reviewedCandidates, setReviewedCandidates] = useState<Set<number>>(new Set());
+  const [reviewComplete, setReviewComplete] = useState(false);
   const [profileDialogOpen, setProfileDialogOpen] = useState(false);
   const [applicantReviewDialogOpen, setApplicantReviewDialogOpen] = useState(false);
   const [rejectionDialogOpen, setRejectionDialogOpen] = useState(false);
@@ -61,6 +65,39 @@ const JobPeopleView = () => {
     : bestCandidates.filter(candidate => 
         selectedTags.some(tag => candidate.tags.includes(tag))
       );
+
+  // Handle navigation to next candidate
+  const handleNextCandidate = (action: 'save' | 'reject') => {
+    // Mark current candidate as reviewed
+    if (selectedBestMatch) {
+      setReviewedCandidates(prev => new Set(prev).add(selectedBestMatch.id));
+    }
+
+    // Move to next candidate
+    const nextIndex = currentCandidateIndex + 1;
+    if (nextIndex < filteredCandidates.length) {
+      setCurrentCandidateIndex(nextIndex);
+      setSelectedBestMatch(filteredCandidates[nextIndex]);
+    } else {
+      // All candidates reviewed
+      setReviewComplete(true);
+      setSelectedBestMatch(null);
+    }
+  };
+
+  // Handle going back in the review flow
+  const handleBackToList = () => {
+    setSelectedBestMatch(null);
+    setCurrentCandidateIndex(0);
+    setReviewComplete(false);
+  };
+
+  // Start reviewing from the first candidate
+  const handleStartReview = () => {
+    setCurrentCandidateIndex(0);
+    setSelectedBestMatch(filteredCandidates[0]);
+    setReviewComplete(false);
+  };
   
   // Animate counters on mount
   useEffect(() => {
@@ -167,7 +204,7 @@ const JobPeopleView = () => {
 
                     {/* Rate Candidates Banner */}
                     <button
-                      onClick={() => setSelectedBestMatch(filteredCandidates[0])}
+                      onClick={handleStartReview}
                       className="w-full bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20 rounded-xl py-12 px-8 text-left hover:border-primary/40 hover:from-primary/15 transition-all group mb-4"
                     >
                       <div className="flex items-center justify-between">
@@ -364,119 +401,65 @@ const JobPeopleView = () => {
                   </div>
                 )}
 
-                {/* Best Matches Content */}
-                {selectedBestMatch ? (
-                  // Split view: header + list on left, detail panel on right - aligned at top
-                  <div className="flex gap-4 h-[calc(100vh-90px)] animate-content-expand">
-                    {/* Left side: header + candidate list */}
-                    <div className="w-[40%] flex flex-col min-h-0">
-                      {/* Best matches header */}
-                      <div className="flex items-center gap-3 mb-4 flex-shrink-0">
-                        <h2 className="font-hedvig font-medium text-foreground text-xl">
-                          Best matches ({filteredCandidates.length})
-                        </h2>
-                      </div>
-                      {/* Candidate list */}
-                      <div className="flex-1 overflow-y-auto space-y-4 scrollbar-hide">
-                      {filteredCandidates.map(candidate => (
-                        <div
-                          key={candidate.id}
-                          className={`bg-white border rounded-xl p-4 hover:border-primary/50 transition-all cursor-pointer ${
-                            selectedBestMatch.id === candidate.id ? 'border-primary' : 'border-[#EEEDEC]'
-                          }`}
-                          onClick={() => setSelectedBestMatch(candidate)}
-                        >
-                          {/* Candidate header */}
-                          <div className="flex items-start gap-3 mb-3">
-                            <InitialsAvatar name={candidate.name} size="md" className="rounded-xl flex-shrink-0" />
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center justify-between mb-0.5">
-                                <h3 className="text-sm font-medium text-foreground truncate">
-                                  {candidate.name}
-                                </h3>
-                                <div className="flex items-center gap-2">
-                                  {candidate.isNew && (
-                                    <span className="w-2 h-2 bg-primary rounded-full"></span>
-                                  )}
-                                  <svg className="w-4 h-4 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <rect x="3" y="5" width="18" height="14" rx="2" />
-                                    <path d="m3 7 9 6 9-6" />
-                                  </svg>
-                                  <span className="text-xs text-muted-foreground">+5</span>
-                                </div>
-                              </div>
-                              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <span>{candidate.city}</span>
-                                <span>•</span>
-                                <span className="font-medium text-lime-800">{candidate.match} match</span>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Description */}
-                          <p className="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-3">
-                            {candidate.description}
-                          </p>
-
-                          {/* Experience summary */}
-                          <p className="text-xs text-muted-foreground mb-2">
-                            Experience · {8 + (candidate.id % 3)} yrs total
-                          </p>
-
-                          {/* Roles */}
-                          <div className="space-y-2 mb-3">
-                            {candidate.roles.slice(0, 2).map((role, idx) => {
-                              const icon = getCompanyIcon(role.company);
-                              return (
-                                <div key={idx} className="flex items-center gap-2 text-xs">
-                                  {/* Company icon */}
-                                  <div 
-                                    className="w-7 h-7 rounded flex items-center justify-center flex-shrink-0"
-                                    style={{ backgroundColor: icon.bg }}
-                                  >
-                                    <span className="text-xs font-bold" style={{ color: icon.text }}>{icon.letter}</span>
-                                  </div>
-                                  <div className="flex-1 min-w-0">
-                                    <p className="text-sm text-foreground truncate">{role.role}</p>
-                                    <p className="text-muted-foreground truncate">
-                                      {role.company} · Jun 2023 − Present · 6m
-                                    </p>
-                                  </div>
-                                </div>
-                              );
-                            })}
-                          </div>
-
-                          {/* Education */}
-                          {candidate.education && (
-                            <div>
-                              <p className="text-xs text-muted-foreground mb-2">Education</p>
-                              <div className="flex items-center gap-2 text-xs">
-                                <div className="w-7 h-7 rounded flex items-center justify-center flex-shrink-0 bg-[#8B0000]">
-                                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="white">
-                                    <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z" />
-                                  </svg>
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-sm text-foreground truncate">{candidate.education.degree}</p>
-                                  <p className="text-muted-foreground truncate">
-                                    {candidate.education.school} · {candidate.education.graduationDate}
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                      </div>
+                {/* Focused Candidate Review */}
+                {selectedBestMatch && !reviewComplete ? (
+                  <div className="animate-content-expand">
+                    {/* Back button and header */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <button 
+                        onClick={handleBackToList}
+                        className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors border border-[#EEEDEC]"
+                      >
+                        <ArrowLeft className="w-4 h-4 text-muted-foreground" />
+                      </button>
+                      <h2 className="font-hedvig font-medium text-foreground text-xl">
+                        Candidates ({filteredCandidates.length})
+                      </h2>
                     </div>
 
-                    {/* Detail Panel */}
-                    <div className="w-[60%] bg-white border border-[#EEEDEC] rounded-xl overflow-hidden">
-                      <CandidateDetailPanel
-                        candidate={selectedBestMatch}
-                        onClose={() => setSelectedBestMatch(null)}
-                      />
+                    {/* Split view: Profile on left, Detail panel on right */}
+                    <div className="flex gap-4 h-[calc(100vh-140px)]">
+                      {/* Left side: Enhanced profile panel */}
+                      <div className="w-[45%] min-h-0">
+                        <CandidateProfilePanel
+                          candidate={selectedBestMatch}
+                          currentIndex={currentCandidateIndex}
+                          totalCount={filteredCandidates.length}
+                        />
+                      </div>
+
+                      {/* Right side: Detail panel with actions */}
+                      <div className="w-[55%] bg-white border border-[#EEEDEC] rounded-xl overflow-hidden">
+                        <CandidateDetailPanel
+                          candidate={selectedBestMatch}
+                          onClose={handleBackToList}
+                          onNotAGoodFit={() => handleNextCandidate('reject')}
+                          onSaveToJob={() => handleNextCandidate('save')}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ) : reviewComplete ? (
+                  // Review complete state
+                  <div className="flex flex-col items-center justify-center h-[calc(100vh-140px)] animate-fade-in">
+                    <div className="w-20 h-20 rounded-full bg-lime-100 flex items-center justify-center mb-6">
+                      <svg className="w-10 h-10 text-lime-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <h2 className="font-hedvig text-2xl font-semibold text-foreground mb-2">
+                      All candidates reviewed!
+                    </h2>
+                    <p className="text-muted-foreground text-center mb-6 max-w-md">
+                      You've reviewed all {filteredCandidates.length} candidates. Check your pipeline for saved candidates or reset to review again.
+                    </p>
+                    <div className="flex gap-3">
+                      <Button variant="outline" onClick={handleBackToList}>
+                        Back to dashboard
+                      </Button>
+                      <Button onClick={() => navigate('/job/pipeline')}>
+                        View pipeline
+                      </Button>
                     </div>
                   </div>
                 ) : null}
