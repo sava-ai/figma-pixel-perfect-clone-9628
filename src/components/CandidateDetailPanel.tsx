@@ -44,10 +44,14 @@ interface Candidate {
 interface CandidateDetailPanelProps {
   candidate: Candidate | null;
   onClose: () => void;
+  onNotAGoodFit?: () => void;
+  onSaveToJob?: () => void;
 }
 const CandidateDetailPanel = ({
   candidate,
-  onClose
+  onClose,
+  onNotAGoodFit,
+  onSaveToJob
 }: CandidateDetailPanelProps) => {
   const [showDetails, setShowDetails] = useState(false);
   const [showDetailsDialog, setShowDetailsDialog] = useState(false);
@@ -267,12 +271,22 @@ const CandidateDetailPanel = ({
 
   const handleFeedbackSubmit = (feedback: string, rating: number | null) => {
     console.log('Feedback submitted:', { action: feedbackActionType, feedback, rating, candidateId: candidate.id });
-    // Handle the action after feedback
+    // Handle the action after feedback - call the callback to move to next candidate
+    if (feedbackActionType === 'not-a-good-fit' && onNotAGoodFit) {
+      onNotAGoodFit();
+    } else if (feedbackActionType === 'save-to-job' && onSaveToJob) {
+      onSaveToJob();
+    }
   };
 
   const handleFeedbackSkip = () => {
     console.log('Feedback skipped for:', feedbackActionType);
-    // Handle the action without feedback
+    // Handle the action without feedback - still move to next candidate
+    if (feedbackActionType === 'not-a-good-fit' && onNotAGoodFit) {
+      onNotAGoodFit();
+    } else if (feedbackActionType === 'save-to-job' && onSaveToJob) {
+      onSaveToJob();
+    }
   };
 
   const handleStatusChange = (criteriaLabel: string, newStatus: string) => {
