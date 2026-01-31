@@ -413,7 +413,7 @@ const JobPeopleView = () => {
                         <ArrowLeft className="w-4 h-4 text-muted-foreground" />
                       </button>
                       <h2 className="font-hedvig font-medium text-foreground text-xl">
-                        Candidates ({filteredCandidates.length})
+                        Reviewing {currentCandidateIndex + 1} of {filteredCandidates.length}
                       </h2>
                     </div>
 
@@ -425,6 +425,7 @@ const JobPeopleView = () => {
                           candidate={selectedBestMatch}
                           currentIndex={currentCandidateIndex}
                           totalCount={filteredCandidates.length}
+                          hideProgressHeader={true}
                         />
                       </div>
 

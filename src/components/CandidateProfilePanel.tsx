@@ -50,6 +50,7 @@ interface CandidateProfilePanelProps {
   candidate: Candidate;
   currentIndex: number;
   totalCount: number;
+  hideProgressHeader?: boolean;
 }
 
 // Generate company info based on company name
@@ -174,27 +175,30 @@ const getCompanyIcon = (company: string) => {
 const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
   candidate,
   currentIndex,
-  totalCount
+  totalCount,
+  hideProgressHeader = false
 }) => {
   const defaultSkillTags = candidate.skillTags || ['Sales', 'B2B', 'CRM'];
   const defaultSummary = candidate.summary || candidate.description;
 
   return (
     <div className="h-full flex flex-col bg-white rounded-xl border border-[#EEEDEC] overflow-hidden">
-      {/* Header with progress */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-[#EEEDEC]">
-        <span className="text-sm text-muted-foreground">
-          Reviewing {currentIndex + 1} of {totalCount}
-        </span>
-        <div className="flex items-center gap-2">
-          <div className="w-32 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-            <div 
-              className="h-full bg-primary rounded-full transition-all duration-300"
-              style={{ width: `${((currentIndex + 1) / totalCount) * 100}%` }}
-            />
+      {/* Header with progress - conditionally rendered */}
+      {!hideProgressHeader && (
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#EEEDEC]">
+          <span className="text-sm text-muted-foreground">
+            Reviewing {currentIndex + 1} of {totalCount}
+          </span>
+          <div className="flex items-center gap-2">
+            <div className="w-32 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-primary rounded-full transition-all duration-300"
+                style={{ width: `${((currentIndex + 1) / totalCount) * 100}%` }}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <ScrollArea className="flex-1">
         <div className="p-5">
