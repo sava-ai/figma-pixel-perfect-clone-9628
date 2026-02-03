@@ -274,7 +274,7 @@ const JobPeopleView = () => {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                             </svg>
                           </div>
-                          <span className="text-sm font-medium text-foreground">50</span>
+                          <span className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>50</span>
                         </div>
                         <p className="text-foreground mb-1" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Shortlist</p>
                         <p className="text-sm text-muted-foreground mb-3">View best matches</p>
@@ -297,7 +297,7 @@ const JobPeopleView = () => {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
                           </div>
-                          <span className="text-sm font-medium text-foreground">40</span>
+                          <span className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>40</span>
                         </div>
                         <p className="text-foreground mb-1" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Outreach</p>
                         <p className="text-sm text-muted-foreground mb-3">Reach out to shortlisted</p>
@@ -320,7 +320,7 @@ const JobPeopleView = () => {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                           </div>
-                          <span className="text-sm font-medium text-foreground">25</span>
+                          <span className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>25</span>
                         </div>
                         <p className="text-foreground mb-1" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Interview</p>
                         <p className="text-sm text-muted-foreground mb-3">Ready to schedule</p>
