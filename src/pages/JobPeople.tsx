@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronDown, MoreVertical } from 'lucide-react';
 import { InviteDialog } from '@/components/InviteDialog';
 import userAvatarImage from '@/assets/user-avatar.png';
-import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
+import jobDropdownIcon from '@/assets/job-dropdown-icon-new.png';
 import profile1 from '@/assets/profile-1.jpg';
 import profile2 from '@/assets/profile-2.jpg';
 import profile3 from '@/assets/profile-3.jpg';
@@ -155,68 +155,37 @@ const JobPeople = () => {
 
 
   return (
-    <div className="h-screen w-full flex flex-col bg-background overflow-hidden">
+    <div className="h-screen w-full flex flex-col overflow-hidden" style={{ backgroundColor: '#F5F4F1' }}>
       {/* Header */}
-      <header className="h-[54px] bg-background flex items-center justify-between px-5 flex-shrink-0">
+      <header className="h-[54px] flex items-center justify-between px-5 flex-shrink-0" style={{ backgroundColor: '#F2F1ED', borderBottom: '1px solid #D9D9D9' }}>
         {/* Left side - Back button and Jobs dropdown */}
         <div className="flex items-center gap-2">
-          <button onClick={() => navigate('/')} className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200">
-            <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <button onClick={() => navigate('/')} className="w-7 h-7 rounded-md flex items-center justify-center transition-all hover:opacity-80" style={{ backgroundColor: '#E8E6DD' }}>
+            <svg className="w-4 h-4" style={{ color: '#333333' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
           </button>
 
           {/* Jobs dropdown */}
           <div className="relative">
-            <button onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)} className="flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all bg-white hover:bg-gray-50 border border-gray-200">
-              <img src={jobDropdownIcon} alt="Job" className="w-4 h-4 rounded" />
-              <span className="font-medium text-sm text-gray-700">Senior product designer</span>
-              <ChevronDown className="w-3.5 h-3.5 text-gray-700" />
+            <button onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)} className="flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all hover:opacity-80" style={{ backgroundColor: '#E8E6DD' }}>
+              <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded-md" />
+              <span className="font-medium text-sm" style={{ color: '#333333' }}>Senior product designer</span>
+              <ChevronDown className="w-3.5 h-3.5" style={{ color: '#333333' }} />
             </button>
             
             {jobsDropdownOpen && <div className="absolute top-full left-0 mt-2 w-64 bg-white border rounded-lg shadow-lg z-50">
                 {jobs.map(job => <button key={job.id} className="w-full flex items-center gap-3 px-4 py-3 hover:bg-accent transition-colors text-left" onClick={() => setJobsDropdownOpen(false)}>
-                    <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded" />
+                    <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded-md" />
                     <span className="text-sm">{job.title}</span>
                   </button>)}
               </div>}
           </div>
         </div>
 
-        {/* Center - Tabs */}
-        <div className="flex items-center gap-0.5 p-0.5 rounded-md" style={{ backgroundColor: '#FAF8F4' }}>
-          <button onClick={() => navigate('/job')} className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all text-sm ${activeTab === 'job' ? 'bg-white border border-gray-200 text-gray-700 font-medium' : 'text-foreground hover:text-foreground'}`}>
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            Job
-          </button>
-          <button onClick={() => setActiveTab('people')} className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all text-sm ${activeTab === 'people' ? 'bg-white border border-gray-200 text-gray-700 font-medium' : 'text-foreground hover:text-foreground'}`}>
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-            People (230)
-          </button>
-          <button onClick={() => navigate('/job/pipeline')} className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all text-sm ${activeTab === 'pipeline' ? 'bg-white border border-gray-200 text-gray-700 font-medium' : 'text-foreground hover:text-foreground'}`}>
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
-            </svg>
-            Pipeline (18)
-          </button>
-        </div>
-
-        {/* Right side - Profile, Invite, More, Expand Chat */}
+        {/* Right side - Profile */}
         <div className="flex items-center gap-2">
           <img src={userAvatarImage} alt="Profile" className="w-7 h-7 rounded-full object-cover border-2 border-gray-200" />
-          <button 
-            onClick={() => setInviteDialogOpen(true)}
-            className="px-2.5 py-1 rounded-md text-sm font-medium transition-all bg-gray-800 text-white hover:bg-gray-700 border border-gray-700"
-          >
-            Invite
-          </button>
-          <button className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200">
-            <MoreVertical className="w-4 h-4 text-gray-700" />
-          </button>
         </div>
       </header>
 
@@ -229,12 +198,12 @@ const JobPeople = () => {
                 <div className="w-full h-full flex flex-col">
                   <div className="space-y-4 flex-1 flex flex-col">
                 {/* Searching Status */}
-                <div className="bg-white rounded-lg border border-[#EEEDEC] px-4 py-3 animate-fade-in">
+                <div className="rounded-xl px-4 py-3 animate-fade-in" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
                   <div className="flex items-center gap-2.5">
                     {isSearching && (
                       <div className="w-4 h-4 border-2 border-gray-300 border-t-gray-700 rounded-full animate-spin" />
                     )}
-                    <span className="text-sm font-medium text-gray-700">
+                    <span className="text-sm font-medium" style={{ color: '#333333' }}>
                       {isSearching ? 'Searching for candidates...' : 'Search complete'}
                     </span>
                   </div>
@@ -242,14 +211,14 @@ const JobPeople = () => {
 
                 {/* External Sources */}
                 {showExternalSources && (
-                <div className="bg-white rounded-lg border border-gray-200 animate-fade-in flex-shrink-0 overflow-hidden">
-                  <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-                    <h3 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                <div className="rounded-xl animate-fade-in flex-shrink-0 overflow-hidden" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
+                  <div className="px-4 py-3 flex items-center justify-between" style={{ borderBottom: '1px solid #E6E6E6' }}>
+                    <h3 className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#333333' }}>
                       External Sources
                     </h3>
-                    <span className="text-xs text-gray-500">13 platforms</span>
+                    <span className="text-xs text-muted-foreground">13 platforms</span>
                   </div>
-                  <div className="relative bg-gray-50 h-16 overflow-hidden">
+                  <div className="relative h-16 overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
                     <div className="flex gap-3 animate-scroll absolute top-3 left-0 whitespace-nowrap px-4">
                       <div className="flex gap-3 items-center">
                         {/* LinkedIn */}
@@ -406,35 +375,35 @@ const JobPeople = () => {
 
                 {/* Internal Sources */}
                 {showInternalSources && (
-                <div className="bg-white rounded-lg border border-gray-200 animate-fade-in overflow-hidden">
-                  <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-                    <h3 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                <div className="rounded-xl animate-fade-in overflow-hidden" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
+                  <div className="px-4 py-3 flex items-center justify-between" style={{ borderBottom: '1px solid #E6E6E6' }}>
+                    <h3 className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#333333' }}>
                       Internal Sources
                     </h3>
-                    <span className="text-xs text-gray-500">3 sources</span>
+                    <span className="text-xs text-muted-foreground">3 sources</span>
                   </div>
                   <div className="p-4 flex gap-2 flex-wrap sm:flex-nowrap">
-                    <div className="flex-1 min-w-0 flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-md border border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer">
+                    <div className="flex-1 min-w-0 flex items-center gap-2 px-3 py-2 rounded-md hover:opacity-80 transition-colors cursor-pointer" style={{ backgroundColor: '#FBFAF9', border: '1px solid #E6E6E6' }}>
                       <div className="flex -space-x-1.5">
                         <img src={profile18} alt="" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
                         <img src={profile19} alt="" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
                       </div>
-                      <span className="text-sm font-medium text-gray-700">Network</span>
+                      <span className="text-sm font-medium" style={{ color: '#333333' }}>Network</span>
                     </div>
-                    <div className="flex-1 min-w-0 flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-md border border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer">
+                    <div className="flex-1 min-w-0 flex items-center gap-2 px-3 py-2 rounded-md hover:opacity-80 transition-colors cursor-pointer" style={{ backgroundColor: '#FBFAF9', border: '1px solid #E6E6E6' }}>
                       <div className="flex -space-x-1.5">
                         <img src={profile20} alt="" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
                         <img src={profile1} alt="" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
                       </div>
-                      <span className="text-sm font-medium text-gray-700">Applied</span>
+                      <span className="text-sm font-medium" style={{ color: '#333333' }}>Applied</span>
                     </div>
-                    <div className="flex-1 min-w-0 flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-md border border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer">
+                    <div className="flex-1 min-w-0 flex items-center gap-2 px-3 py-2 rounded-md hover:opacity-80 transition-colors cursor-pointer" style={{ backgroundColor: '#FBFAF9', border: '1px solid #E6E6E6' }}>
                       <div className="w-6 h-6 rounded-full bg-blue-100 border-2 border-white flex items-center justify-center">
                         <svg className="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
                         </svg>
                       </div>
-                      <span className="text-sm font-medium text-gray-700">Database</span>
+                      <span className="text-sm font-medium" style={{ color: '#333333' }}>Database</span>
                     </div>
                   </div>
                 </div>
@@ -442,9 +411,9 @@ const JobPeople = () => {
 
                 {/* People Found */}
                 {showPeopleFound && (
-                <div className="bg-white rounded-lg border border-gray-200 animate-fade-in overflow-hidden">
-                  <div className="px-4 py-3 border-b border-gray-200">
-                    <h3 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                <div className="rounded-xl animate-fade-in overflow-hidden" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
+                  <div className="px-4 py-3" style={{ borderBottom: '1px solid #E6E6E6' }}>
+                    <h3 className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#333333' }}>
                       People Found
                     </h3>
                   </div>
@@ -454,32 +423,33 @@ const JobPeople = () => {
                       <img src={profile3} alt="" className="w-10 h-10 rounded-full border-2 border-white object-cover" />
                       <img src={profile4} alt="" className="w-10 h-10 rounded-full border-2 border-white object-cover" />
                     </div>
-                    <div className="text-4xl font-bold text-gray-900">{peopleCount}</div>
+                    <div className="text-4xl font-bold" style={{ color: '#333333' }}>{peopleCount}</div>
                   </div>
                 </div>
                 )}
 
                 {/* Best Matches */}
                 {showBestMatches && (
-                <div ref={bestMatchesRef} className="bg-white rounded-lg border border-gray-200 animate-fade-in overflow-hidden flex-1 flex flex-col min-h-[120px]">
-                  <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-                    <h3 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                <div ref={bestMatchesRef} className="rounded-xl animate-fade-in overflow-hidden flex-1 flex flex-col min-h-[120px]" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
+                  <div className="px-4 py-3 flex items-center justify-between" style={{ borderBottom: '1px solid #E6E6E6' }}>
+                    <h3 className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#333333' }}>
                       Best Matches
                     </h3>
-                    <span className="text-xs text-gray-500">{bestMatches.length} profiles</span>
+                    <span className="text-xs text-muted-foreground">{bestMatches.length} profiles</span>
                   </div>
                   <div className="p-4 flex items-start gap-2 overflow-hidden flex-1">
                     {bestMatches.slice(0, Math.min(9, visibleMatches)).map((match, index) => (
                       <div
                         key={index}
-                        className="w-12 h-12 rounded-md overflow-hidden animate-fade-in border border-gray-200 hover:border-gray-400 transition-colors cursor-pointer flex-shrink-0"
+                        className="w-12 h-12 rounded-md overflow-hidden animate-fade-in hover:opacity-80 transition-colors cursor-pointer flex-shrink-0"
+                        style={{ border: '1px solid #E6E6E6' }}
                         title={match.name}
                       >
                         <img src={match.image} alt={match.name} className="w-full h-full object-cover" />
                       </div>
                     ))}
                     {visibleMatches >= 10 && (
-                      <div className="w-12 h-12 rounded-md bg-gray-700 flex items-center justify-center text-white font-semibold text-sm animate-fade-in border border-gray-700 hover:bg-gray-800 transition-colors cursor-pointer flex-shrink-0">
+                      <div className="w-12 h-12 rounded-md flex items-center justify-center text-white font-semibold text-sm animate-fade-in hover:opacity-80 transition-colors cursor-pointer flex-shrink-0" style={{ backgroundColor: '#333333' }}>
                         +{bestMatches.length - 9}
                       </div>
                     )}
