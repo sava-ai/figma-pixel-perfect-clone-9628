@@ -243,7 +243,7 @@ const Index = () => {
             }`}>
             {/* Filters with Jobs title */}
             <div className="flex items-center gap-4 mb-8 flex-wrap">
-              <h1 className="text-[45px] font-normal text-[#292524] tracking-tight mr-auto" style={{ fontFamily: 'CustomHeading, sans-serif' }}>
+              <h1 className="text-[45px] font-normal text-[#292524] tracking-tight mr-auto" style={{ fontFamily: 'CooperLight, serif' }}>
                 Jobs ({publishedCount})
               </h1>
               

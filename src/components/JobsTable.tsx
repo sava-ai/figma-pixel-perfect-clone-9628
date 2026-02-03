@@ -135,8 +135,8 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
 
           {/* Title */}
           <h3 
-            className="text-sm font-medium text-[#292524] mb-3 line-clamp-2 min-h-[40px]"
-            style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+            className="text-base text-[#292524] mb-3 line-clamp-2 min-h-[40px]"
+            style={{ fontFamily: 'CooperLight, serif' }}
           >
             {job.title}
           </h3>
