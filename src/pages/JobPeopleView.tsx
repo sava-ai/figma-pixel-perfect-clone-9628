@@ -217,7 +217,7 @@ const JobPeopleView = () => {
                             <h2 className="text-lg mb-1" style={{ color: '#000000', fontFamily: 'CooperLight, sans-serif' }}>
                               Rate matched candidates ({filteredCandidates.length})
                             </h2>
-                            <p className="text-sm" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>
+                            <p className="text-sm" style={{ color: 'rgba(0, 0, 0, 0.6)', fontFamily: 'Inter, sans-serif' }}>
                               Review and rate {filteredCandidates.length} matches for this role.
                             </p>
                           </div>
@@ -254,9 +254,12 @@ const JobPeopleView = () => {
                             </p>
                           </div>
                         </div>
-                        <svg className="w-5 h-5 text-[#6B6B6B] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
-                        </svg>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>View reviews</span>
+                          <svg className="w-5 h-5 text-[#6B6B6B] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
                       </div>
                     </button>
 
