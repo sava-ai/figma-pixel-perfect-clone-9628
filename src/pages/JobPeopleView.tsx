@@ -267,7 +267,7 @@ const JobPeopleView = () => {
                         style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                       >
                         <div className="flex items-center justify-between mb-3">
-                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#B85B44' }}>
+                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
                             <svg className="w-4 h-4" style={{ color: '#FFFFFE' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                             </svg>
@@ -290,7 +290,7 @@ const JobPeopleView = () => {
                         style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                       >
                         <div className="flex items-center justify-between mb-3">
-                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#B85B44' }}>
+                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
                             <svg className="w-4 h-4" style={{ color: '#FFFFFE' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
@@ -313,7 +313,7 @@ const JobPeopleView = () => {
                         style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                       >
                         <div className="flex items-center justify-between mb-3">
-                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#B85B44' }}>
+                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
                             <svg className="w-4 h-4" style={{ color: '#FFFFFE' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
