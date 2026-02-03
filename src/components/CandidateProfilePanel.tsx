@@ -230,8 +230,8 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
           </div>
 
           {/* About Section */}
-          <div className="mb-5 p-4 bg-[#FAFAF9] rounded-lg">
-            <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
+          <div className="mb-5">
+            <h3 className="text-xs font-medium uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
               About
             </h3>
             <p className="text-sm text-foreground leading-relaxed">
@@ -241,7 +241,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
 
           {/* Skills Bubbles */}
           <div className="mb-5">
-            <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
+            <h3 className="text-xs font-medium uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
               Skills
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -259,7 +259,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
 
           {/* Experience Section */}
           <div className="mb-5">
-            <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">
+            <h3 className="text-xs font-medium uppercase tracking-wide mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
               Experience
             </h3>
             <div className="bg-white rounded-lg divide-y divide-[#EEEDEC]">
@@ -355,9 +355,9 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
           {/* Education Section */}
           {candidate.education && (
             <div className="mb-5">
-              <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">
-                Education
-              </h3>
+            <h3 className="text-xs font-medium uppercase tracking-wide mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
+              Education
+            </h3>
               <div className="p-4 bg-white border border-[#EEEDEC] rounded-lg">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-lg bg-[#8B0000] flex items-center justify-center flex-shrink-0">
@@ -377,9 +377,9 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
           {/* Languages Section */}
           {candidate.languages && candidate.languages.length > 0 && (
             <div>
-              <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
-                Languages
-              </h3>
+            <h3 className="text-xs font-medium uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
+              Languages
+            </h3>
               <div className="flex flex-wrap gap-2">
                 {candidate.languages.map((lang, index) => (
                   <Badge 
