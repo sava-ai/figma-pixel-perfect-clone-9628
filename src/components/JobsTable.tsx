@@ -70,15 +70,8 @@ const JobRowMenu: React.FC<{ onEdit?: () => void; onArchive?: () => void; onDele
       {isOpen && (
         <div className="absolute right-0 top-full mt-1 w-36 bg-white border border-[#EEEDEC] rounded-lg shadow-lg z-50 overflow-hidden">
           <button
-            onClick={() => { setIsOpen(false); onEdit?.(); }}
-            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-[#292524] hover:bg-gray-50 transition-colors"
-          >
-            <Pencil className="w-3.5 h-3.5" />
-            Edit
-          </button>
-          <button
             onClick={() => { setIsOpen(false); onArchive?.(); }}
-            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-[#292524] hover:bg-gray-50 transition-colors border-t border-[#EEEDEC]"
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-[#292524] hover:bg-gray-50 transition-colors"
           >
             <Archive className="w-3.5 h-3.5" />
             Archive
