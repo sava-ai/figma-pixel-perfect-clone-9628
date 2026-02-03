@@ -276,12 +276,12 @@ const JobPeopleView = () => {
                           </div>
                         </div>
                         <div className="flex items-center gap-2 mb-1">
-                          <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Shortlist</p>
+                          <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Qualified Candidates</p>
                           <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>50</span>
                         </div>
-                        <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>View best matches</p>
+                        <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>Candidates to contact</p>
                         <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm text-muted-foreground group-hover:text-foreground group-hover:border-[#1A1A1A] transition-all" style={{ border: '1px solid #E6E6E6' }}>
-                          <span style={{ fontFamily: 'Inter, sans-serif' }}>View</span>
+                          <span style={{ fontFamily: 'Inter, sans-serif' }}>Engage with candidates</span>
                           <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                           </svg>
@@ -301,12 +301,12 @@ const JobPeopleView = () => {
                           </div>
                         </div>
                         <div className="flex items-center gap-2 mb-1">
-                          <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Outreach</p>
+                          <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Engaged Candidates</p>
                           <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>40</span>
                         </div>
-                        <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>Reach out to shortlisted</p>
+                        <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>Candidates to schedule</p>
                         <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm text-muted-foreground group-hover:text-foreground group-hover:border-[#1A1A1A] transition-all" style={{ border: '1px solid #E6E6E6' }}>
-                          <span style={{ fontFamily: 'Inter, sans-serif' }}>View</span>
+                          <span style={{ fontFamily: 'Inter, sans-serif' }}>Go to conversations</span>
                           <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                           </svg>
@@ -326,12 +326,12 @@ const JobPeopleView = () => {
                           </div>
                         </div>
                         <div className="flex items-center gap-2 mb-1">
-                          <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Interview</p>
+                          <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Interviewing Candidates</p>
                           <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>25</span>
                         </div>
-                        <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>Ready to schedule</p>
+                        <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>Scheduled to interview</p>
                         <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm text-muted-foreground group-hover:text-foreground group-hover:border-[#1A1A1A] transition-all" style={{ border: '1px solid #E6E6E6' }}>
-                          <span style={{ fontFamily: 'Inter, sans-serif' }}>View</span>
+                          <span style={{ fontFamily: 'Inter, sans-serif' }}>View scheduled candidates</span>
                           <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                           </svg>
