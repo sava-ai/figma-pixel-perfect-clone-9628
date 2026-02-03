@@ -202,7 +202,7 @@ const Index = () => {
               </div>
               <h1 className={`text-[#292524] mb-6 max-w-[600px] mx-auto leading-tight text-[3rem] pt-[18px] transition-all duration-[1500ms] ${
                 isChatMode ? 'opacity-0' : 'opacity-100'
-              }`} style={{ fontFamily: 'CustomHeading, sans-serif' }}>
+              }`} style={{ fontFamily: 'CooperLight, serif' }}>
                 Who do you want to hire?
               </h1>
               <form onSubmit={handleSearch} className={`relative max-w-[600px] mx-auto transition-all duration-[4500ms] ease-in-out ${
