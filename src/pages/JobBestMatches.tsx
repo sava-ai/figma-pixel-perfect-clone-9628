@@ -102,101 +102,103 @@ const JobBestMatches = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
-        {/* Left Panel - Candidates View with unified scroll */}
-        <div className={`flex-1 overflow-y-auto ${isChatCollapsed ? 'flex justify-center' : ''}`}>
-          <div className={`py-6 pb-5 ${isChatCollapsed ? 'w-full max-w-[1200px] mx-6' : 'w-full ml-4 mr-4'}`}>
-            <div className={`${isChatCollapsed ? '' : 'max-w-[1200px]'}`}>
-              {/* Focused Candidate Review */}
-              {!reviewComplete ? (
-                <div className="animate-content-expand">
-                  {/* Split view: Title + Profile on left, Detail panel on right */}
-                  <div className="flex gap-4">
-                    {/* Left side: Title + Enhanced profile panel */}
-                    <div className="w-[45%] flex flex-col">
-                      {/* Header */}
-                      <h2 className="font-hedvig font-medium text-foreground text-xl mb-4">
-                        Candidate batch 3
-                      </h2>
-                      {/* Profile panel */}
-                      <div className="bg-white rounded-xl border border-[#EEEDEC]">
-                        <CandidateProfilePanel
-                          candidate={selectedBestMatch}
-                          currentIndex={currentCandidateIndex}
-                          totalCount={filteredCandidates.length}
-                          hideProgressHeader={true}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Right side: Navigation header + Detail panel */}
-                    <div className="w-[55%] flex flex-col">
-                      {/* Navigation header outside the panel */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="text-sm text-muted-foreground">
-                          Reviewing {currentCandidateIndex + 1} of {filteredCandidates.length}
-                        </span>
-                        <div className="flex items-center gap-1">
-                          <button 
-                            onClick={() => {
-                              if (currentCandidateIndex > 0) {
-                                setCurrentCandidateIndex(currentCandidateIndex - 1);
-                              }
-                            }}
-                            disabled={currentCandidateIndex === 0}
-                            className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed border border-gray-200 bg-white"
-                          >
-                            <ChevronLeft className="w-4 h-4 text-gray-700" />
-                          </button>
-                          <button 
-                            onClick={() => {
-                              if (currentCandidateIndex < filteredCandidates.length - 1) {
-                                setCurrentCandidateIndex(currentCandidateIndex + 1);
-                              }
-                            }}
-                            disabled={currentCandidateIndex >= filteredCandidates.length - 1}
-                            className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed border border-gray-200 bg-white"
-                          >
-                            <ChevronRight className="w-4 h-4 text-gray-700" />
-                          </button>
+        {/* Left Panel - Candidates View */}
+        <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
+          <div className={`h-full flex flex-col py-6 pb-5 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
+            <div className={`flex-1 overflow-y-auto relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
+              <div className={`${isChatCollapsed ? '' : 'max-w-[1200px]'}`}>
+                {/* Focused Candidate Review */}
+                {!reviewComplete ? (
+                  <div className="animate-content-expand">
+                    {/* Split view: Title + Profile on left, Detail panel on right */}
+                    <div className="flex gap-4 h-[calc(100vh-110px)]">
+                      {/* Left side: Title + Enhanced profile panel */}
+                      <div className="w-[45%] min-h-0 flex flex-col">
+                        {/* Header */}
+                        <h2 className="font-hedvig font-medium text-foreground text-xl mb-4">
+                          Candidate batch 3
+                        </h2>
+                        {/* Profile panel */}
+                        <div className="flex-1 min-h-0">
+                          <CandidateProfilePanel
+                            candidate={selectedBestMatch}
+                            currentIndex={currentCandidateIndex}
+                            totalCount={filteredCandidates.length}
+                            hideProgressHeader={true}
+                          />
                         </div>
                       </div>
-                      
-                      {/* Detail panel */}
-                      <div className="bg-white border border-[#EEEDEC] rounded-xl">
-                        <CandidateDetailPanel
-                          candidate={selectedBestMatch}
-                          onClose={handleBackToList}
-                          onNotAGoodFit={() => handleNextCandidate('reject')}
-                          onSaveToJob={() => handleNextCandidate('save')}
-                        />
+
+                      {/* Right side: Navigation header + Detail panel */}
+                      <div className="w-[55%] min-h-0 flex flex-col">
+                        {/* Navigation header outside the panel */}
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="text-sm text-muted-foreground">
+                            Reviewing {currentCandidateIndex + 1} of {filteredCandidates.length}
+                          </span>
+                          <div className="flex items-center gap-1">
+                            <button 
+                              onClick={() => {
+                                if (currentCandidateIndex > 0) {
+                                  setCurrentCandidateIndex(currentCandidateIndex - 1);
+                                }
+                              }}
+                              disabled={currentCandidateIndex === 0}
+                              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed border border-gray-200 bg-white"
+                            >
+                              <ChevronLeft className="w-4 h-4 text-gray-700" />
+                            </button>
+                            <button 
+                              onClick={() => {
+                                if (currentCandidateIndex < filteredCandidates.length - 1) {
+                                  setCurrentCandidateIndex(currentCandidateIndex + 1);
+                                }
+                              }}
+                              disabled={currentCandidateIndex >= filteredCandidates.length - 1}
+                              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed border border-gray-200 bg-white"
+                            >
+                              <ChevronRight className="w-4 h-4 text-gray-700" />
+                            </button>
+                          </div>
+                        </div>
+                        
+                        {/* Detail panel */}
+                        <div className="flex-1 min-h-0 bg-white border border-[#EEEDEC] rounded-xl overflow-hidden">
+                          <CandidateDetailPanel
+                            candidate={selectedBestMatch}
+                            onClose={handleBackToList}
+                            onNotAGoodFit={() => handleNextCandidate('reject')}
+                            onSaveToJob={() => handleNextCandidate('save')}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ) : (
-                // Review complete state
-                <div className="flex flex-col items-center justify-center min-h-[calc(100vh-140px)] animate-fade-in">
-                  <div className="w-20 h-20 rounded-full bg-lime-100 flex items-center justify-center mb-6">
-                    <svg className="w-10 h-10 text-lime-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
+                ) : (
+                  // Review complete state
+                  <div className="flex flex-col items-center justify-center h-[calc(100vh-140px)] animate-fade-in">
+                    <div className="w-20 h-20 rounded-full bg-lime-100 flex items-center justify-center mb-6">
+                      <svg className="w-10 h-10 text-lime-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <h2 className="font-hedvig text-2xl font-semibold text-foreground mb-2">
+                      All candidates reviewed!
+                    </h2>
+                    <p className="text-muted-foreground text-center mb-6 max-w-md">
+                      You've reviewed all {filteredCandidates.length} candidates. Check your pipeline for saved candidates or reset to review again.
+                    </p>
+                    <div className="flex gap-3">
+                      <Button variant="outline" onClick={handleBackToList}>
+                        Back to dashboard
+                      </Button>
+                      <Button onClick={() => navigate('/job/pipeline')}>
+                        View pipeline
+                      </Button>
+                    </div>
                   </div>
-                  <h2 className="font-hedvig text-2xl font-semibold text-foreground mb-2">
-                    All candidates reviewed!
-                  </h2>
-                  <p className="text-muted-foreground text-center mb-6 max-w-md">
-                    You've reviewed all {filteredCandidates.length} candidates. Check your pipeline for saved candidates or reset to review again.
-                  </p>
-                  <div className="flex gap-3">
-                    <Button variant="outline" onClick={handleBackToList}>
-                      Back to dashboard
-                    </Button>
-                    <Button onClick={() => navigate('/job/pipeline')}>
-                      View pipeline
-                    </Button>
-                  </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </div>

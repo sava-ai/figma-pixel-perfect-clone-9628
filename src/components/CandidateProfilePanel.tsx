@@ -182,7 +182,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
   const defaultSummary = candidate.summary || candidate.description;
 
   return (
-    <div className="flex flex-col bg-white rounded-xl overflow-hidden">
+    <div className="h-full flex flex-col bg-white rounded-xl border border-[#EEEDEC] overflow-hidden">
       {/* Header with progress - conditionally rendered */}
       {!hideProgressHeader && (
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#EEEDEC]">
@@ -200,7 +200,8 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
         </div>
       )}
 
-      <div className="p-5">
+      <ScrollArea className="flex-1">
+        <div className="p-5">
           {/* Profile Header */}
           <div className="flex items-start gap-4 mb-5">
             <InitialsAvatar name={candidate.name} size="lg" className="rounded-xl flex-shrink-0" />
@@ -397,7 +398,8 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
               </div>
             </div>
           )}
-      </div>
+        </div>
+      </ScrollArea>
     </div>
   );
 };
