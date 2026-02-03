@@ -238,9 +238,9 @@ const Index = () => {
             </div>
 
             {/* Jobs section */}
-            <section className={`bg-[#FFFFFF] rounded-lg border border-[#EEEDEC] p-8 mt-12 transition-all duration-[2500ms] ease-in-out ${
+            <section className={`border border-[#EEEDEC] p-8 mt-12 transition-all duration-[2500ms] ease-in-out ${
               isChatMode ? 'translate-y-[150vh] opacity-0' : 'translate-y-0 opacity-100'
-            }`}>
+            }`} style={{ backgroundColor: '#FBFAF9', borderRadius: '20px' }}>
             {/* Filters with Jobs title */}
             <div className="flex items-center gap-4 mb-8 flex-wrap">
               <h1 className="text-[45px] font-normal text-[#292524] tracking-tight mr-auto" style={{ fontFamily: 'CooperLight, serif' }}>
