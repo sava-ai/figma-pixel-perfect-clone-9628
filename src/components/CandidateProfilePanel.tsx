@@ -18,6 +18,9 @@ interface CandidateRole {
   role: string;
   companyInfo?: CompanyInfo;
   skills?: string[];
+  location?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 interface CandidateEducation {
@@ -231,7 +234,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
 
           {/* About Section */}
           <div className="mb-5">
-            <h3 className="text-xs font-medium uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
+            <h3 className="font-medium uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333', fontSize: '0.9rem' }}>
               About
             </h3>
             <p className="text-sm text-foreground leading-relaxed">
@@ -241,7 +244,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
 
           {/* Skills Bubbles */}
           <div className="mb-5">
-            <h3 className="text-xs font-medium uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
+            <h3 className="font-medium uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333', fontSize: '0.9rem' }}>
               Skills
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -249,7 +252,8 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
                 <Badge 
                   key={index} 
                   variant="outline"
-                  className="px-3 py-1.5 bg-[#F0EDE8] text-[#555555] border-[#E5E2DC] rounded-full text-xs font-medium"
+                  className="px-3 py-1.5 border-0 rounded-full text-xs font-medium"
+                  style={{ backgroundColor: '#E8F5E8', color: '#2E7D32' }}
                 >
                   {skill}
                 </Badge>
@@ -259,7 +263,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
 
           {/* Experience Section */}
           <div className="mb-5">
-            <h3 className="text-xs font-medium uppercase tracking-wide mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
+            <h3 className="font-medium uppercase tracking-wide mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333', fontSize: '0.9rem' }}>
               Experience
             </h3>
             <div className="bg-white rounded-lg divide-y divide-[#EEEDEC]">
@@ -268,10 +272,28 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
                 const roleSkills = getRoleSkills(role.role, role.company);
                 const icon = getCompanyIcon(role.company);
                 
+                // Generate mock dates and location if not provided
+                const mockDates = [
+                  { start: 'March 2024', end: 'Present' },
+                  { start: 'June 2022', end: 'February 2024' },
+                  { start: 'January 2020', end: 'May 2022' },
+                  { start: 'August 2018', end: 'December 2019' },
+                ];
+                const mockLocations = [
+                  'Warsaw, Masovian, Poland',
+                  'Cracow, Lesser Poland, Poland',
+                  'Remote',
+                  'Wroclaw, Lower Silesian, Poland',
+                ];
+                const dateRange = role.startDate && role.endDate 
+                  ? `${role.startDate} - ${role.endDate}`
+                  : `${mockDates[idx % mockDates.length].start} - ${mockDates[idx % mockDates.length].end}`;
+                const location = role.location || mockLocations[idx % mockLocations.length];
+                
                 return (
                   <div key={idx} className="p-4">
                     {/* Role Header */}
-                    <div className="flex items-start gap-3 mb-3">
+                    <div className="flex items-start gap-3 mb-2">
                       <div 
                         className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
                         style={{ backgroundColor: icon.bg }}
@@ -284,6 +306,15 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
                         <p className="text-sm font-medium text-foreground">{role.role}</p>
                         <p className="text-sm text-muted-foreground">{role.company}</p>
                       </div>
+                    </div>
+
+                    {/* Date and Location */}
+                    <div className="flex flex-col gap-1 mb-3 ml-[52px]">
+                      <span className="text-xs text-muted-foreground">{dateRange}</span>
+                      <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                        <MapPin className="w-3 h-3" />
+                        {location}
+                      </span>
                     </div>
 
                     {/* Company Tags */}
@@ -355,7 +386,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
           {/* Education Section */}
           {candidate.education && (
             <div className="mb-5">
-            <h3 className="text-xs font-medium uppercase tracking-wide mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
+            <h3 className="font-medium uppercase tracking-wide mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333', fontSize: '0.9rem' }}>
               Education
             </h3>
               <div className="p-4 bg-white border border-[#EEEDEC] rounded-lg">
@@ -377,7 +408,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
           {/* Languages Section */}
           {candidate.languages && candidate.languages.length > 0 && (
             <div>
-            <h3 className="text-xs font-medium uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
+            <h3 className="font-medium uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333', fontSize: '0.9rem' }}>
               Languages
             </h3>
               <div className="flex flex-wrap gap-2">
