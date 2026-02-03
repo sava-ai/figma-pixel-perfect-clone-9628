@@ -206,7 +206,7 @@ const JobPeopleView = () => {
                     <button
                       onClick={handleStartReview}
                       className="w-full rounded-xl py-10 px-8 text-left hover:opacity-90 transition-all group mb-4"
-                      style={{ background: 'linear-gradient(135deg, #EBDBBD 0%, #D5A27F 50%, #CD785C 100%)', border: 'none' }}
+                      style={{ background: 'linear-gradient(135deg, #EBDBBD 0%, #D5A27F 20%, #CD785C 45%, #CD785C 100%)', border: 'none' }}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-5">
