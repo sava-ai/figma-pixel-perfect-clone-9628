@@ -200,7 +200,7 @@ const JobPeopleView = () => {
                 {!selectedBestMatch && (
                   <div className="mb-5 animate-slide-down-fade-in">
                     {/* Best Matches Section Title */}
-                    <h3 className="mb-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>Best matches</h3>
+                    <h3 className="mb-3 pt-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>Best matches</h3>
 
                     {/* Rate Candidates Banner */}
                     <button
@@ -258,7 +258,7 @@ const JobPeopleView = () => {
                     </button>
 
                     {/* Your Pipeline Section Title */}
-                    <h3 className="mb-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>Your Pipeline</h3>
+                    <h3 className="mb-3 pt-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>Your Pipeline</h3>
 
                     {/* Navigation Cards */}
                     <div className="grid grid-cols-3 gap-3 mb-4">
@@ -334,7 +334,7 @@ const JobPeopleView = () => {
                     </div>
 
                     {/* Knowledge Base Section Title */}
-                    <h3 className="mb-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>Knowledge base</h3>
+                    <h3 className="mb-3 pt-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>Knowledge base</h3>
 
                     {/* Second Row - Job, Company, Brain */}
                     <div className="grid grid-cols-3 gap-3">
