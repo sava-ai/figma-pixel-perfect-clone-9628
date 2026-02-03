@@ -206,14 +206,9 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
           <div className="flex items-start gap-4 mb-5">
             <InitialsAvatar name={candidate.name} size="lg" className="rounded-xl flex-shrink-0" />
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <h2 className="text-lg font-semibold text-foreground truncate">
-                  {candidate.name}
-                </h2>
-                {candidate.isNew && (
-                  <span className="px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full">New</span>
-                )}
-              </div>
+              <h2 className="text-lg font-semibold text-foreground truncate mb-1">
+                {candidate.name}
+              </h2>
               <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                 <MapPin className="w-3.5 h-3.5" />
                 <span>{candidate.city}</span>
@@ -234,10 +229,10 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
             </div>
           </div>
 
-          {/* Summary Section */}
+          {/* About Section */}
           <div className="mb-5 p-4 bg-[#FAFAF9] rounded-lg">
             <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
-              Summary
+              About
             </h3>
             <p className="text-sm text-foreground leading-relaxed">
               {defaultSummary}
@@ -267,14 +262,14 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
             <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">
               Experience
             </h3>
-            <div className="space-y-4">
+            <div className="bg-white rounded-lg divide-y divide-[#EEEDEC]">
               {candidate.roles.map((role, idx) => {
                 const companyInfo = getCompanyInfo(role.company);
                 const roleSkills = getRoleSkills(role.role, role.company);
                 const icon = getCompanyIcon(role.company);
                 
                 return (
-                  <div key={idx} className="p-4 bg-white border border-[#EEEDEC] rounded-lg">
+                  <div key={idx} className="p-4">
                     {/* Role Header */}
                     <div className="flex items-start gap-3 mb-3">
                       <div 
@@ -294,13 +289,13 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
                     {/* Company Tags */}
                     <div className="flex flex-wrap gap-2 mb-3">
                       {companyInfo.employees && (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 bg-gray-50 text-gray-600 text-xs rounded border border-gray-200">
+                        <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#FAFAF9] text-muted-foreground text-xs rounded border border-[#EEEDEC]">
                           <Users className="w-3 h-3" />
                           {companyInfo.employees}
                         </span>
                       )}
                       {companyInfo.category && (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 bg-gray-50 text-gray-600 text-xs rounded border border-gray-200">
+                        <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#FAFAF9] text-muted-foreground text-xs rounded border border-[#EEEDEC]">
                           <Building2 className="w-3 h-3" />
                           {companyInfo.category}
                         </span>

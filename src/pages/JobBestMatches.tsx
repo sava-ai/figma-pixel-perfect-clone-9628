@@ -115,8 +115,8 @@ const JobBestMatches = () => {
                       {/* Left side: Title + Enhanced profile panel */}
                       <div className="w-[45%] min-h-0 flex flex-col">
                         {/* Header */}
-                        <h2 className="font-hedvig font-medium text-foreground text-xl mb-4">
-                          Candidate batch 3
+                        <h2 className="font-medium text-xl mb-4" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
+                          Candidates Batch 3
                         </h2>
                         {/* Profile panel */}
                         <div className="flex-1 min-h-0">
@@ -132,8 +132,8 @@ const JobBestMatches = () => {
                       {/* Right side: Navigation header + Detail panel */}
                       <div className="w-[55%] min-h-0 flex flex-col">
                         {/* Navigation header outside the panel */}
-                        <div className="flex items-center gap-3 mb-4">
-                          <span className="text-sm text-muted-foreground">
+                        <div className="flex items-center justify-end gap-3 mb-4">
+                          <span className="text-sm" style={{ fontFamily: 'Inter, sans-serif', color: '#1A1A1A' }}>
                             Reviewing {currentCandidateIndex + 1} of {filteredCandidates.length}
                           </span>
                           <div className="flex items-center gap-1">
