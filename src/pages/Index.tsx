@@ -213,7 +213,8 @@ const Index = () => {
                   onChange={e => setSearchQuery(e.target.value)}
                   placeholder="For example: find a user experience designer in Warsaw"
                   rows={4}
-                  className="w-full bg-white rounded-lg px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#292524] resize-none border border-[#EEEDEC]"
+                  className="w-full bg-white px-6 py-5 pr-16 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#292524] resize-none border border-[#EEEDEC]"
+                  style={{ borderRadius: '20px' }}
                 />
                 <div className="absolute right-4 bottom-4 flex items-center gap-2">
                   <button
