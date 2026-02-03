@@ -205,24 +205,24 @@ const JobPeopleView = () => {
                     {/* Rate Candidates Banner */}
                     <button
                       onClick={handleStartReview}
-                      className="w-full rounded-xl py-10 px-8 text-left hover:border-[#D9D9D9] transition-all group mb-4"
-                      style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
+                      className="w-full rounded-xl py-10 px-8 text-left hover:opacity-90 transition-all group mb-4"
+                      style={{ backgroundColor: '#CD785C', border: 'none' }}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-5">
-                          <svg className="w-7 h-7 text-[#6B6B6B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                           </svg>
                           <div>
-                            <h2 className="text-lg font-medium text-foreground mb-1">
+                            <h2 className="text-lg font-medium text-white mb-1">
                               Rate matched candidates ({filteredCandidates.length})
                             </h2>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-white/80">
                               Review and rate {filteredCandidates.length} matches for this role.
                             </p>
                           </div>
                         </div>
-                        <svg className="w-5 h-5 text-[#6B6B6B] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 text-white group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
                         </svg>
                       </div>
