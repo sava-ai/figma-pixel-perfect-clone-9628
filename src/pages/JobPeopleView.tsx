@@ -14,7 +14,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import userAvatarImage from '@/assets/user-avatar.png';
-import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
+import jobDropdownIcon from '@/assets/job-dropdown-icon-new.png';
 import profile9 from '@/assets/profile-9.jpg';
 import profile10 from '@/assets/profile-10.jpg';
 import profile11 from '@/assets/profile-11.jpg';
