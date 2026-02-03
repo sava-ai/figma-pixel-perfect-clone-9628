@@ -120,7 +120,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           <div className="flex items-center justify-between mb-3">
             <span 
               className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize ${getStatusBadge(job.status)}`}
-              style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+              style={{ fontFamily: 'CooperLight, serif' }}
             >
               {job.status}
             </span>
@@ -179,9 +179,9 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           {/* Actions Needed */}
           {job.actionsNeeded && job.actionsNeeded > 0 && (
             <button 
-              className="w-full px-3 py-2 text-xs font-medium bg-[#FBFAF9] border border-[#EFEEED] text-[#111111] rounded-md hover:bg-[#F5F4F2] transition-colors"
+              className="w-full px-3 py-2 text-xs bg-[#FBFAF9] border border-[#EFEEED] text-[#111111] rounded-md hover:bg-[#F5F4F2] transition-colors"
               onClick={(e) => { e.stopPropagation(); navigate('/job'); }}
-              style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+              style={{ fontFamily: 'CooperLight, serif' }}
             >
               {job.actionsNeeded} actions needed
             </button>
