@@ -147,9 +147,9 @@ const JobPeopleView = () => {
     { id: 8, name: "Jennifer Thomas", email: "jennifer.t@email.com", image: profile16, appliedDate: "2024-01-22" },
   ];
   return (
-    <div className="h-screen w-full flex flex-col bg-background overflow-hidden">
+    <div className="h-screen w-full flex flex-col overflow-hidden" style={{ backgroundColor: '#F5F4F1' }}>
       {/* Header */}
-      <header className="h-[54px] bg-background flex items-center justify-between px-5 flex-shrink-0">
+      <header className="h-[54px] flex items-center justify-between px-5 flex-shrink-0" style={{ backgroundColor: '#F2F1ED', borderBottom: '1px solid #D9D9D9' }}>
         {/* Left side - Back button and Jobs dropdown */}
         <div className="flex items-center gap-2">
           <button onClick={() => navigate('/')} className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200">
@@ -205,7 +205,8 @@ const JobPeopleView = () => {
                     {/* Rate Candidates Banner */}
                     <button
                       onClick={handleStartReview}
-                      className="w-full bg-white border border-[#EEEDEC] rounded-xl py-10 px-8 text-left hover:border-[#D9D8D6] transition-all group mb-4"
+                      className="w-full rounded-xl py-10 px-8 text-left hover:border-[#D9D9D9] transition-all group mb-4"
+                      style={{ backgroundColor: '#FAFAF7', border: '1px solid #E6E6E6' }}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-5">
@@ -229,7 +230,8 @@ const JobPeopleView = () => {
 
                     {/* Review and Rating History Banner */}
                     <button
-                      className="w-full bg-white border border-[#EEEDEC] rounded-xl py-5 px-6 text-left hover:border-[#D9D8D6] transition-all group mb-4"
+                      className="w-full rounded-xl py-5 px-6 text-left hover:border-[#D9D9D9] transition-all group mb-4"
+                      style={{ backgroundColor: '#FAFAF7', border: '1px solid #E6E6E6' }}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
@@ -259,7 +261,8 @@ const JobPeopleView = () => {
                       {/* Shortlist Card */}
                       <button 
                         onClick={() => navigate('/job/pipeline')} 
-                        className="bg-white border border-[#EEEDEC] rounded-xl p-4 text-left hover:border-[#D9D8D6] transition-colors group"
+                        className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group"
+                        style={{ backgroundColor: '#FAFAF7', border: '1px solid #E6E6E6' }}
                       >
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2.5">
@@ -281,7 +284,8 @@ const JobPeopleView = () => {
 
                       {/* Outreach Card */}
                       <button 
-                        className="bg-white border border-[#EEEDEC] rounded-xl p-4 text-left hover:border-[#D9D8D6] transition-colors group"
+                        className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group"
+                        style={{ backgroundColor: '#FAFAF7', border: '1px solid #E6E6E6' }}
                       >
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2.5">
@@ -303,7 +307,8 @@ const JobPeopleView = () => {
 
                       {/* Interview Card */}
                       <button 
-                        className="bg-white border border-[#EEEDEC] rounded-xl p-4 text-left hover:border-[#D9D8D6] transition-colors group"
+                        className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group"
+                        style={{ backgroundColor: '#FAFAF7', border: '1px solid #E6E6E6' }}
                       >
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2.5">
@@ -332,7 +337,8 @@ const JobPeopleView = () => {
                       {/* Job Card */}
                       <button 
                         onClick={() => navigate('/joboffer')} 
-                        className="bg-white border border-[#EEEDEC] rounded-xl p-4 text-left hover:border-[#D9D8D6] transition-colors group"
+                        className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group"
+                        style={{ backgroundColor: '#FAFAF7', border: '1px solid #E6E6E6' }}
                       >
                         <div className="flex items-center gap-2.5">
                           <svg className="w-4 h-4 text-[#6B6B6B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -347,7 +353,8 @@ const JobPeopleView = () => {
 
                       {/* Company Card */}
                       <button 
-                        className="bg-white border border-[#EEEDEC] rounded-xl p-4 text-left hover:border-[#D9D8D6] transition-colors group"
+                        className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group"
+                        style={{ backgroundColor: '#FAFAF7', border: '1px solid #E6E6E6' }}
                       >
                         <div className="flex items-center gap-2.5">
                           <svg className="w-4 h-4 text-[#6B6B6B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -363,7 +370,8 @@ const JobPeopleView = () => {
                       {/* Brain Card */}
                       <button 
                         onClick={() => navigate('/job/brain')} 
-                        className="bg-white border border-[#EEEDEC] rounded-xl p-4 text-left hover:border-[#D9D8D6] transition-colors group"
+                        className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group"
+                        style={{ backgroundColor: '#FAFAF7', border: '1px solid #E6E6E6' }}
                       >
                         <div className="flex items-center gap-2.5">
                           <svg className="w-4 h-4 text-[#6B6B6B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
