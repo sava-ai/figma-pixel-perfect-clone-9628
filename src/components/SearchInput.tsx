@@ -18,9 +18,9 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="w-[602px] max-w-full">
-      <div className="text-[rgba(21,52,61,1)] text-[42px] tracking-[-1.7px] max-md:max-w-full">
-        Describe who you want to hire
-      </div>
+      <h1 className="text-[rgba(21,52,61,1)] text-[42px] tracking-[-1.7px] max-md:max-w-full" style={{ fontFamily: 'CooperLight' }}>
+        Who do you want to hire?
+      </h1>
       <div className="bg-white shadow-[4px_4px_20px_rgba(0,0,0,0.25)] flex flex-col text-lg text-[rgba(156,157,161,1)] leading-none mt-[22px] pt-4 pb-[101px] px-5 rounded-2xl max-md:max-w-full max-md:pb-[100px]">
         <input
           type="text"
