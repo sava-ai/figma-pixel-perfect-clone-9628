@@ -109,139 +109,85 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
   };
 
   return (
-    <div className="overflow-x-auto">
-      <div className="flex flex-col min-w-[1080px]">
-        {/* Header row with icons */}
-        <div 
-          className="grid grid-cols-[minmax(180px,1fr)_140px_80px_75px_70px_90px_95px_80px_120px_40px] gap-x-2 items-center px-5 pb-3 text-xs font-medium text-muted-foreground"
-          style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+    <div className="grid grid-cols-3 gap-4">
+      {jobs.map((job, index) => (
+        <div
+          key={index}
+          className="bg-white border border-[#EEEDEC] rounded-lg p-5 hover:bg-accent/30 cursor-pointer transition-colors flex flex-col"
+          onClick={() => navigate('/job')}
         >
-          <span>Job Title</span>
-          <span>Owner</span>
-          <div className="flex flex-col items-center justify-center gap-1">
-            <img src={starIcon} alt="" className="w-4 h-4" />
-            <span>Found</span>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-1">
-            <FileCheck className="w-4 h-4 text-[#111111]" />
-            <span>Applied</span>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-1">
-            <img src={savedIcon} alt="" className="w-4 h-4" />
-            <span>Saved</span>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-1">
-            <img src={contactedIcon} alt="" className="w-4 h-4" />
-            <span>Contacted</span>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-1">
-            <img src={interviewedIcon} alt="" className="w-4 h-4" />
-            <span>Interviewed</span>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-1">
-            <Circle className="w-4 h-4 text-[#111111]" />
-            <span>Status</span>
-          </div>
-          <span className="text-center">Actions</span>
-          <span></span>
-        </div>
-        
-        {/* Job rows */}
-        <div className="flex flex-col gap-[14px]">
-          {jobs.map((job, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-[minmax(180px,1fr)_140px_80px_75px_70px_90px_95px_80px_120px_40px] gap-x-2 items-center bg-white border border-[#EEEDEC] rounded-lg px-6 py-[18px] hover:bg-accent/30 cursor-pointer transition-colors"
-              onClick={() => navigate('/job')}
+          {/* Header: Status + Menu */}
+          <div className="flex items-center justify-between mb-3">
+            <span 
+              className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize ${getStatusBadge(job.status)}`}
+              style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
             >
-              {/* Title */}
-              <span 
-                className="text-sm text-[#292524] truncate pr-3 min-w-0"
-                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
-              >
-                {job.title}
-              </span>
-              
-              {/* Owner */}
-              <div className="flex items-center gap-2 min-w-0">
-                <UserAvatar src={job.userAvatar} size="sm" />
-                <span 
-                  className="text-sm text-foreground truncate"
-                  style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
-                >
-                  {job.userName.split(' ')[0]} {job.userName.split(' ')[1]?.[0]}.
-                </span>
-              </div>
-              
-              {/* Stats - numbers only, centered */}
-              <span 
-                className="text-sm font-medium text-center"
-                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
-              >
-                {job.stats.found}
-              </span>
-              <span 
-                className="text-sm font-medium text-center"
-                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
-              >
-                {job.stats.applied}
-              </span>
-              <span 
-                className="text-sm font-medium text-center"
-                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
-              >
-                {job.stats.saved}
-              </span>
-              <span 
-                className="text-sm font-medium text-center"
-                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
-              >
-                {job.stats.contacted}
-              </span>
-              <span 
-                className="text-sm font-medium text-center"
-                style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
-              >
-                {job.stats.interviewed}
-              </span>
-              
-              {/* Status */}
-              <div className="flex justify-center">
-                <span 
-                  className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize ${getStatusBadge(job.status)}`}
-                  style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
-                >
-                  {job.status}
-                </span>
-              </div>
-              
-              {/* Actions Needed */}
-              <div className="flex justify-center">
-                {job.actionsNeeded && job.actionsNeeded > 0 ? (
-                  <button 
-                    className="px-3 py-1.5 text-xs font-medium bg-[#FBFAF9] border border-[#EFEEED] text-[#111111] rounded-md hover:bg-[#F5F4F2] transition-colors whitespace-nowrap"
-                    onClick={(e) => { e.stopPropagation(); navigate('/job'); }}
-                    style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
-                  >
-                    {job.actionsNeeded} actions needed
-                  </button>
-                ) : (
-                  <span></span>
-                )}
-              </div>
-              
-              {/* Menu */}
-              <div className="flex justify-center" onClick={(e) => e.stopPropagation()}>
-                <JobRowMenu 
-                  onEdit={() => console.log('Edit', index)}
-                  onArchive={() => console.log('Archive', index)}
-                  onDelete={() => console.log('Delete', index)}
-                />
-              </div>
+              {job.status}
+            </span>
+            <div onClick={(e) => e.stopPropagation()}>
+              <JobRowMenu 
+                onEdit={() => console.log('Edit', index)}
+                onArchive={() => console.log('Archive', index)}
+                onDelete={() => console.log('Delete', index)}
+              />
             </div>
-          ))}
+          </div>
+
+          {/* Title */}
+          <h3 
+            className="text-sm font-medium text-[#292524] mb-3 line-clamp-2 min-h-[40px]"
+            style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+          >
+            {job.title}
+          </h3>
+
+          {/* Owner */}
+          <div className="flex items-center gap-2 mb-4">
+            <UserAvatar src={job.userAvatar} size="sm" />
+            <span 
+              className="text-xs text-muted-foreground"
+              style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+            >
+              {job.userName.split(' ')[0]} {job.userName.split(' ')[1]?.[0]}.
+            </span>
+          </div>
+
+          {/* Stats */}
+          <div className="flex items-center justify-between gap-2 mb-4 pt-3 border-t border-[#EEEDEC]">
+            <div className="flex flex-col items-center gap-1">
+              <img src={starIcon} alt="" className="w-4 h-4" />
+              <span className="text-xs font-medium" style={{ fontFamily: 'LabilGrotesk, sans-serif' }}>{job.stats.found}</span>
+            </div>
+            <div className="flex flex-col items-center gap-1">
+              <FileCheck className="w-4 h-4 text-[#111111]" />
+              <span className="text-xs font-medium" style={{ fontFamily: 'LabilGrotesk, sans-serif' }}>{job.stats.applied}</span>
+            </div>
+            <div className="flex flex-col items-center gap-1">
+              <img src={savedIcon} alt="" className="w-4 h-4" />
+              <span className="text-xs font-medium" style={{ fontFamily: 'LabilGrotesk, sans-serif' }}>{job.stats.saved}</span>
+            </div>
+            <div className="flex flex-col items-center gap-1">
+              <img src={contactedIcon} alt="" className="w-4 h-4" />
+              <span className="text-xs font-medium" style={{ fontFamily: 'LabilGrotesk, sans-serif' }}>{job.stats.contacted}</span>
+            </div>
+            <div className="flex flex-col items-center gap-1">
+              <img src={interviewedIcon} alt="" className="w-4 h-4" />
+              <span className="text-xs font-medium" style={{ fontFamily: 'LabilGrotesk, sans-serif' }}>{job.stats.interviewed}</span>
+            </div>
+          </div>
+
+          {/* Actions Needed */}
+          {job.actionsNeeded && job.actionsNeeded > 0 && (
+            <button 
+              className="w-full px-3 py-2 text-xs font-medium bg-[#FBFAF9] border border-[#EFEEED] text-[#111111] rounded-md hover:bg-[#F5F4F2] transition-colors"
+              onClick={(e) => { e.stopPropagation(); navigate('/job'); }}
+              style={{ fontFamily: 'LabilGrotesk, sans-serif' }}
+            >
+              {job.actionsNeeded} actions needed
+            </button>
+          )}
         </div>
-      </div>
+      ))}
     </div>
   );
 };
