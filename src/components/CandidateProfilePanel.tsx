@@ -317,30 +317,8 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
                       </span>
                     </div>
 
-                    {/* Company Tags */}
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {companyInfo.employees && (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#FAFAF9] text-muted-foreground text-xs rounded border border-[#EEEDEC]">
-                          <Users className="w-3 h-3" />
-                          {companyInfo.employees}
-                        </span>
-                      )}
-                      {companyInfo.category && (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#FAFAF9] text-muted-foreground text-xs rounded border border-[#EEEDEC]">
-                          <Building2 className="w-3 h-3" />
-                          {companyInfo.category}
-                        </span>
-                      )}
-                      {companyInfo.type && (
-                        <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded border ${getCompanyTypeStyle(companyInfo.type)}`}>
-                          {companyInfo.type === 'public' ? 'Public Company' : 
-                           companyInfo.type === 'startup' ? 'Startup' : 'Private Company'}
-                        </span>
-                      )}
-                    </div>
-
                     {/* Company Links */}
-                    <div className="flex items-center gap-3 mb-3">
+                    <div className="flex items-center gap-3 mb-3 ml-[52px]">
                       {companyInfo.website && (
                         <a 
                           href={companyInfo.website}
@@ -362,6 +340,28 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
                           <Linkedin className="w-3 h-3" />
                           Company LinkedIn
                         </a>
+                      )}
+                    </div>
+
+                    {/* Company Tags */}
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {companyInfo.employees && (
+                        <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#FAFAF9] text-muted-foreground text-xs rounded border border-[#EEEDEC]">
+                          <Users className="w-3 h-3" />
+                          {companyInfo.employees}
+                        </span>
+                      )}
+                      {companyInfo.category && (
+                        <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#FAFAF9] text-muted-foreground text-xs rounded border border-[#EEEDEC]">
+                          <Building2 className="w-3 h-3" />
+                          {companyInfo.category}
+                        </span>
+                      )}
+                      {companyInfo.type && (
+                        <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded border ${getCompanyTypeStyle(companyInfo.type)}`}>
+                          {companyInfo.type === 'public' ? 'Public Company' : 
+                           companyInfo.type === 'startup' ? 'Startup' : 'Private Company'}
+                        </span>
                       )}
                     </div>
 
