@@ -211,13 +211,14 @@ const JobPeople = () => {
 
                 {/* External Sources */}
                 {showExternalSources && (
-                <div className="rounded-xl animate-fade-in flex-shrink-0 overflow-hidden" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
-                  <div className="px-4 py-3 flex items-center justify-between" style={{ borderBottom: '1px solid #E6E6E6' }}>
-                    <h3 className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#333333' }}>
+                <div className="animate-fade-in flex-shrink-0 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h3 style={{ fontFamily: 'CooperLight', fontSize: '1.5rem', color: '#333333' }}>
                       External Sources
                     </h3>
-                    <span className="text-xs text-muted-foreground">13 platforms</span>
+                    <span className="text-sm text-muted-foreground">13 platforms</span>
                   </div>
+                  <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
                   <div className="relative h-16 overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
                     <div className="flex gap-3 animate-scroll absolute top-3 left-0 whitespace-nowrap px-4">
                       <div className="flex gap-3 items-center">
@@ -370,18 +371,20 @@ const JobPeople = () => {
                       </div>
                     </div>
                   </div>
+                  </div>
                 </div>
                 )}
 
                 {/* Internal Sources */}
                 {showInternalSources && (
-                <div className="rounded-xl animate-fade-in overflow-hidden" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
-                  <div className="px-4 py-3 flex items-center justify-between" style={{ borderBottom: '1px solid #E6E6E6' }}>
-                    <h3 className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#333333' }}>
+                <div className="animate-fade-in space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h3 style={{ fontFamily: 'CooperLight', fontSize: '1.5rem', color: '#333333' }}>
                       Internal Sources
                     </h3>
-                    <span className="text-xs text-muted-foreground">3 sources</span>
+                    <span className="text-sm text-muted-foreground">3 sources</span>
                   </div>
+                  <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
                   <div className="p-4 flex gap-2 flex-wrap sm:flex-nowrap">
                     <div className="flex-1 min-w-0 flex items-center gap-2 px-3 py-2 rounded-md hover:opacity-80 transition-colors cursor-pointer" style={{ backgroundColor: '#FBFAF9', border: '1px solid #E6E6E6' }}>
                       <div className="flex -space-x-1.5">
@@ -406,38 +409,40 @@ const JobPeople = () => {
                       <span className="text-sm font-medium" style={{ color: '#333333' }}>Database</span>
                     </div>
                   </div>
+                  </div>
                 </div>
                 )}
 
                 {/* People Found */}
                 {showPeopleFound && (
-                <div className="rounded-xl animate-fade-in overflow-hidden" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
-                  <div className="px-4 py-3" style={{ borderBottom: '1px solid #E6E6E6' }}>
-                    <h3 className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#333333' }}>
-                      People Found
-                    </h3>
-                  </div>
-                  <div className="p-6 flex items-center justify-center gap-4">
-                    <div className="flex -space-x-2">
-                      <img src={profile2} alt="" className="w-10 h-10 rounded-full border-2 border-white object-cover" />
-                      <img src={profile3} alt="" className="w-10 h-10 rounded-full border-2 border-white object-cover" />
-                      <img src={profile4} alt="" className="w-10 h-10 rounded-full border-2 border-white object-cover" />
+                <div className="animate-fade-in space-y-2">
+                  <h3 style={{ fontFamily: 'CooperLight', fontSize: '1.5rem', color: '#333333' }}>
+                    People Found
+                  </h3>
+                  <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
+                    <div className="p-6 flex items-center justify-center gap-4">
+                      <div className="flex -space-x-2">
+                        <img src={profile2} alt="" className="w-10 h-10 rounded-full border-2 border-white object-cover" />
+                        <img src={profile3} alt="" className="w-10 h-10 rounded-full border-2 border-white object-cover" />
+                        <img src={profile4} alt="" className="w-10 h-10 rounded-full border-2 border-white object-cover" />
+                      </div>
+                      <div className="text-4xl font-bold" style={{ color: '#333333' }}>{peopleCount}</div>
                     </div>
-                    <div className="text-4xl font-bold" style={{ color: '#333333' }}>{peopleCount}</div>
                   </div>
                 </div>
                 )}
 
                 {/* Best Matches */}
                 {showBestMatches && (
-                <div ref={bestMatchesRef} className="rounded-xl animate-fade-in overflow-hidden flex-1 flex flex-col min-h-[120px]" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
-                  <div className="px-4 py-3 flex items-center justify-between" style={{ borderBottom: '1px solid #E6E6E6' }}>
-                    <h3 className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#333333' }}>
+                <div ref={bestMatchesRef} className="animate-fade-in flex-1 flex flex-col min-h-[120px] space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h3 style={{ fontFamily: 'CooperLight', fontSize: '1.5rem', color: '#333333' }}>
                       Best Matches
                     </h3>
-                    <span className="text-xs text-muted-foreground">{bestMatches.length} profiles</span>
+                    <span className="text-sm text-muted-foreground">{bestMatches.length} profiles</span>
                   </div>
-                  <div className="p-4 flex items-start gap-2 overflow-hidden flex-1">
+                  <div className="rounded-xl overflow-hidden flex-1 flex flex-col" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
+                    <div className="p-4 flex items-start gap-2 overflow-hidden flex-1">
                     {bestMatches.slice(0, Math.min(9, visibleMatches)).map((match, index) => (
                       <div
                         key={index}
@@ -449,10 +454,11 @@ const JobPeople = () => {
                       </div>
                     ))}
                     {visibleMatches >= 10 && (
-                      <div className="w-12 h-12 rounded-md flex items-center justify-center text-white font-semibold text-sm animate-fade-in hover:opacity-80 transition-colors cursor-pointer flex-shrink-0" style={{ backgroundColor: '#333333' }}>
-                        +{bestMatches.length - 9}
-                      </div>
-                    )}
+                        <div className="w-12 h-12 rounded-md flex items-center justify-center text-white font-semibold text-sm animate-fade-in hover:opacity-80 transition-colors cursor-pointer flex-shrink-0" style={{ backgroundColor: '#333333' }}>
+                          +{bestMatches.length - 9}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
                 )}
