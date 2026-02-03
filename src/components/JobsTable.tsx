@@ -106,7 +106,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
       {jobs.map((job, index) => (
         <div
           key={index}
-          className="bg-white border border-[#EEEDEC] rounded-xl p-5 hover:bg-accent/30 cursor-pointer transition-colors flex flex-col"
+          className="bg-white border border-[#E6E6E6] rounded-xl p-5 hover:bg-accent/30 cursor-pointer transition-colors flex flex-col"
           onClick={() => navigate('/job')}
         >
           {/* Header: Status + Menu */}
@@ -139,7 +139,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
             <UserAvatar src={job.userAvatar} size="sm" />
             <span 
               className="text-muted-foreground"
-              style={{ fontFamily: 'Inter, sans-serif', fontSize: '1rem' }}
+              style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem' }}
             >
               {job.userName.split(' ')[0]} {job.userName.split(' ')[1]?.[0]}.
             </span>
@@ -179,7 +179,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
             <button 
               className="w-full px-3 py-2 bg-white border border-[#EFEEED] text-[#111111] rounded-md hover:bg-[#F5F4F2] transition-colors"
               onClick={(e) => { e.stopPropagation(); navigate('/job'); }}
-              style={{ fontFamily: 'Inter, sans-serif', fontSize: '1rem' }}
+              style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem' }}
             >
               {job.actionsNeeded} actions needed
             </button>
