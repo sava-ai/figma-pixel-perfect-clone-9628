@@ -161,7 +161,7 @@ const JobPeopleView = () => {
           {/* Jobs dropdown */}
           <div className="relative">
             <button onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)} className="flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all hover:opacity-80" style={{ backgroundColor: '#E8E6DD' }}>
-              <img src={jobDropdownIcon} alt="Job" className="w-6 h-6" />
+              <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded-md" />
               <span className="font-medium text-sm" style={{ color: '#333333' }}>BD Representative / Sales Manager</span>
               <ChevronDown className="w-3.5 h-3.5" style={{ color: '#333333' }} />
             </button>
