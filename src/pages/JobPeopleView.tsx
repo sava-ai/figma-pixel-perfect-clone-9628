@@ -268,15 +268,17 @@ const JobPeopleView = () => {
                         className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group"
                         style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                       >
-                        <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center mb-3">
                           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
                             <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                             </svg>
                           </div>
-                          <span className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>50</span>
                         </div>
-                        <p className="text-foreground mb-1" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Shortlist</p>
+                        <div className="flex items-center gap-2 mb-1">
+                          <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Shortlist</p>
+                          <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>50</span>
+                        </div>
                         <p className="text-sm text-muted-foreground mb-3">View best matches</p>
                         <div className="flex items-center gap-1.5 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                           <span>View</span>
@@ -291,15 +293,17 @@ const JobPeopleView = () => {
                         className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group"
                         style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                       >
-                        <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center mb-3">
                           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
                             <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
                           </div>
-                          <span className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>40</span>
                         </div>
-                        <p className="text-foreground mb-1" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Outreach</p>
+                        <div className="flex items-center gap-2 mb-1">
+                          <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Outreach</p>
+                          <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>40</span>
+                        </div>
                         <p className="text-sm text-muted-foreground mb-3">Reach out to shortlisted</p>
                         <div className="flex items-center gap-1.5 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                           <span>View</span>
@@ -314,15 +318,17 @@ const JobPeopleView = () => {
                         className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group"
                         style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                       >
-                        <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center mb-3">
                           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
                             <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                           </div>
-                          <span className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>25</span>
                         </div>
-                        <p className="text-foreground mb-1" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Interview</p>
+                        <div className="flex items-center gap-2 mb-1">
+                          <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Interview</p>
+                          <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>25</span>
+                        </div>
                         <p className="text-sm text-muted-foreground mb-3">Ready to schedule</p>
                         <div className="flex items-center gap-1.5 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                           <span>View</span>
