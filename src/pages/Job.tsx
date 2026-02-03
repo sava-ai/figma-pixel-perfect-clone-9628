@@ -4,7 +4,7 @@ import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, 
 import { InviteDialog } from '@/components/InviteDialog';
 import { PublishingPlatformsDialog } from '@/components/PublishingPlatformsDialog';
 import userAvatarImage from '@/assets/user-avatar.png';
-import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
+import jobDropdownIcon from '@/assets/job-dropdown-icon-new.png';
 
 const Job = () => {
   const navigate = useNavigate();
@@ -252,54 +252,48 @@ Qualifications
   ];
 
   return (
-    <div className="h-screen w-full flex flex-col bg-background overflow-hidden">
+    <div className="h-screen w-full flex flex-col overflow-hidden" style={{ backgroundColor: '#F5F4F1' }}>
       {/* Header */}
-      <header className="h-[54px] bg-background flex items-center justify-between px-5 flex-shrink-0">
+      <header className="h-[54px] flex items-center justify-between px-5 flex-shrink-0" style={{ backgroundColor: '#F2F1ED', borderBottom: '1px solid #D9D9D9' }}>
         {/* Left side - Back button and Job title */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <button 
             onClick={() => navigate('/job/people/view')}
-            className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
+            className="w-7 h-7 rounded-md flex items-center justify-center transition-all hover:opacity-80"
+            style={{ backgroundColor: '#E8E6DD' }}
           >
-            <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4" style={{ color: '#333333' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
           </button>
 
           {/* Job title and company - inline */}
-          <div className="flex items-center gap-2">
-            <span className="font-medium text-sm text-gray-700">BD Representative / Sales Manager</span>
-            <span className="text-xs text-gray-400">•</span>
-            <span className="text-sm text-gray-500">PriceMind</span>
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md" style={{ backgroundColor: '#E8E6DD' }}>
+            <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded-md" />
+            <span className="font-medium text-sm" style={{ color: '#333333' }}>BD Representative / Sales Manager</span>
+            <span className="text-sm" style={{ color: '#666666' }}>•</span>
+            <span className="text-sm" style={{ color: '#666666' }}>PriceMind</span>
           </div>
         </div>
 
-        {/* Center - Empty spacer */}
-        <div></div>
-
-        {/* Right side - Profile, Invite, More, Chat Toggle */}
+        {/* Right side - Chat Toggle and Profile */}
         <div className="flex items-center gap-2">
+          <button 
+            onClick={() => setIsChatCollapsed(!isChatCollapsed)}
+            className="w-7 h-7 rounded-md flex items-center justify-center transition-all hover:opacity-80"
+            style={{ backgroundColor: '#E8E6DD' }}
+            title={isChatCollapsed ? "Open AI Chat" : "Close AI Chat"}
+          >
+            <svg className="w-4 h-4" style={{ color: '#333333' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h18v18H3V3z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 3v18" />
+            </svg>
+          </button>
           <img 
             src={userAvatarImage} 
             alt="Profile" 
             className="w-7 h-7 rounded-full object-cover border-2 border-gray-200"
           />
-          <button 
-            onClick={() => setInviteDialogOpen(true)}
-            className="px-2.5 py-1 rounded-md text-sm font-medium transition-all bg-gray-800 text-white hover:bg-gray-700 border border-gray-700"
-          >
-            Invite
-          </button>
-          <button className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200">
-            <MoreVertical className="w-4 h-4 text-gray-700" />
-          </button>
-          <button 
-            onClick={() => setIsChatCollapsed(!isChatCollapsed)}
-            className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
-            title={isChatCollapsed ? "Open AI Chat" : "Close AI Chat"}
-          >
-            <ChevronLeft className={`w-4 h-4 text-gray-700 transition-transform ${isChatCollapsed ? '' : 'rotate-180'}`} />
-          </button>
         </div>
       </header>
 
@@ -307,8 +301,8 @@ Qualifications
       <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
         {/* Left Panel - Job Description Editor */}
         <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
-          <div className={`h-full flex flex-col pt-6 pb-3 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
-            <div className={`flex-1 overflow-y-auto bg-background rounded-lg border border-[#F3F3F3] relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
+          <div className={`h-full flex flex-col py-6 pb-5 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
+            <div className={`flex-1 overflow-y-auto rounded-xl relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`} style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
               
               <div 
                 contentEditable
