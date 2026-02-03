@@ -106,8 +106,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
       {jobs.map((job, index) => (
         <div
           key={index}
-          className="border border-[#EEEDEC] p-5 hover:bg-accent/30 cursor-pointer transition-colors flex flex-col"
-          style={{ backgroundColor: '#FBFAF9', borderRadius: '20px' }}
+          className="bg-white border border-[#EEEDEC] rounded-lg p-5 hover:bg-accent/30 cursor-pointer transition-colors flex flex-col"
           onClick={() => navigate('/job')}
         >
           {/* Header: Status + Menu */}
