@@ -176,9 +176,8 @@ const JobPeopleView = () => {
         </div>
 
 
-        {/* Right side - Profile, Invite, More, Expand Chat */}
+        {/* Right side - Expand Chat, Profile */}
         <div className="flex items-center gap-2">
-          <img src={userAvatarImage} alt="Profile" className="w-7 h-7 rounded-full object-cover border-2 border-gray-200" />
           <button 
             onClick={() => setIsChatCollapsed(!isChatCollapsed)}
             className="w-7 h-7 rounded-md flex items-center justify-center transition-all hover:opacity-80"
@@ -195,6 +194,7 @@ const JobPeopleView = () => {
               </svg>
             )}
           </button>
+          <img src={userAvatarImage} alt="Profile" className="w-7 h-7 rounded-full object-cover border-2 border-gray-200" />
         </div>
       </header>
 
