@@ -359,7 +359,7 @@ const JobPeopleView = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
-                        <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>
+                        <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>
                           <div className="flex items-center gap-1.5">
                             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -405,10 +405,10 @@ const JobPeopleView = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
-                        <div className="space-y-1.5 text-xs text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>
+                        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>
                           <div className="font-medium text-foreground">PriceMind AI</div>
                           <div>51-200 employees</div>
-                          <div>AI-powered pricing optimization platform</div>
+                          <div>AI-powered pricing optimization</div>
                         </div>
                       </button>
 
@@ -430,7 +430,7 @@ const JobPeopleView = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
-                        <div className="space-y-1 text-xs text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>
+                        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>
                           <div className="font-medium text-foreground">Reasoning v2.3</div>
                           <div>Last updated Jan 28, 2025</div>
                         </div>
