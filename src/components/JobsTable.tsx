@@ -107,7 +107,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
         <div
           key={index}
           className="bg-white border border-[#E6E6E6] rounded-xl p-5 hover:bg-accent/30 cursor-pointer transition-colors flex flex-col"
-          onClick={() => navigate('/job')}
+          onClick={() => navigate('/job/people/view')}
         >
           {/* Header: Status + Menu */}
           <div className="flex items-center justify-between mb-3">
@@ -178,7 +178,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           {job.actionsNeeded && job.actionsNeeded > 0 && (
             <button 
               className="w-full px-3 py-2 bg-white border border-[#EFEEED] text-[#111111] rounded-md hover:bg-[#F5F4F2] transition-colors"
-              onClick={(e) => { e.stopPropagation(); navigate('/job'); }}
+              onClick={(e) => { e.stopPropagation(); navigate('/job/people/view'); }}
               style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.9rem' }}
             >
               {job.actionsNeeded} actions needed
