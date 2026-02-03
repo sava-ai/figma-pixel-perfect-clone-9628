@@ -276,7 +276,7 @@ const JobPeopleView = () => {
                           </div>
                           <span className="text-sm font-medium text-foreground">50</span>
                         </div>
-                        <p className="text-sm text-foreground mb-1" style={{ fontFamily: 'CooperLight, sans-serif' }}>Shortlist</p>
+                        <p className="text-foreground mb-1" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Shortlist</p>
                         <p className="text-sm text-muted-foreground mb-3">View best matches</p>
                         <div className="flex items-center gap-1.5 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                           <span>View</span>
@@ -299,7 +299,7 @@ const JobPeopleView = () => {
                           </div>
                           <span className="text-sm font-medium text-foreground">40</span>
                         </div>
-                        <p className="text-sm text-foreground mb-1" style={{ fontFamily: 'CooperLight, sans-serif' }}>Outreach</p>
+                        <p className="text-foreground mb-1" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Outreach</p>
                         <p className="text-sm text-muted-foreground mb-3">Reach out to shortlisted</p>
                         <div className="flex items-center gap-1.5 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                           <span>View</span>
@@ -322,7 +322,7 @@ const JobPeopleView = () => {
                           </div>
                           <span className="text-sm font-medium text-foreground">25</span>
                         </div>
-                        <p className="text-sm text-foreground mb-1" style={{ fontFamily: 'CooperLight, sans-serif' }}>Interview</p>
+                        <p className="text-foreground mb-1" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Interview</p>
                         <p className="text-sm text-muted-foreground mb-3">Ready to schedule</p>
                         <div className="flex items-center gap-1.5 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                           <span>View</span>
