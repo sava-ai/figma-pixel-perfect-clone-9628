@@ -149,28 +149,28 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           <div className="flex items-center justify-between gap-2 mb-4 pt-3 border-t border-[#EEEDEC]">
             <div className="flex flex-col items-center gap-0.5">
               <img src={starIcon} alt="" className="w-4 h-4" />
-              <span className="text-xs font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>{job.stats.found}</span>
-              <span className="text-[10px] text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>Found</span>
+              <span className="font-medium" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem' }}>{job.stats.found}</span>
+              <span className="text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px' }}>Found</span>
             </div>
             <div className="flex flex-col items-center gap-0.5">
               <FileCheck className="w-4 h-4 text-[#111111]" />
-              <span className="text-xs font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>{job.stats.applied}</span>
-              <span className="text-[10px] text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>Applied</span>
+              <span className="font-medium" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem' }}>{job.stats.applied}</span>
+              <span className="text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px' }}>Applied</span>
             </div>
             <div className="flex flex-col items-center gap-0.5">
               <img src={savedIcon} alt="" className="w-4 h-4" />
-              <span className="text-xs font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>{job.stats.saved}</span>
-              <span className="text-[10px] text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>Saved</span>
+              <span className="font-medium" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem' }}>{job.stats.saved}</span>
+              <span className="text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px' }}>Saved</span>
             </div>
             <div className="flex flex-col items-center gap-0.5">
               <img src={contactedIcon} alt="" className="w-4 h-4" />
-              <span className="text-xs font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>{job.stats.contacted}</span>
-              <span className="text-[10px] text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>Contacted</span>
+              <span className="font-medium" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem' }}>{job.stats.contacted}</span>
+              <span className="text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px' }}>Contacted</span>
             </div>
             <div className="flex flex-col items-center gap-0.5">
               <img src={interviewedIcon} alt="" className="w-4 h-4" />
-              <span className="text-xs font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>{job.stats.interviewed}</span>
-              <span className="text-[10px] text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>Interviewed</span>
+              <span className="font-medium" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem' }}>{job.stats.interviewed}</span>
+              <span className="text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px' }}>Interviewed</span>
             </div>
           </div>
 
