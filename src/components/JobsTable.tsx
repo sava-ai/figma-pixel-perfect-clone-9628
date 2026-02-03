@@ -139,7 +139,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
             <UserAvatar src={job.userAvatar} size="sm" />
             <span 
               className="text-muted-foreground"
-              style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem' }}
+              style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.9rem' }}
             >
               {job.userName.split(' ')[0]} {job.userName.split(' ')[1]?.[0]}.
             </span>
@@ -179,7 +179,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
             <button 
               className="w-full px-3 py-2 bg-white border border-[#EFEEED] text-[#111111] rounded-md hover:bg-[#F5F4F2] transition-colors"
               onClick={(e) => { e.stopPropagation(); navigate('/job'); }}
-              style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem' }}
+              style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.9rem' }}
             >
               {job.actionsNeeded} actions needed
             </button>
