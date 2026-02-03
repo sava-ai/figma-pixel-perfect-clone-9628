@@ -580,7 +580,7 @@ const JobPeopleView = () => {
 
         {/* Right Panel - AI Chat */}
         {!isChatCollapsed && (
-          <div className="w-[380px] flex-shrink-0 pr-4 pb-5">
+          <div className="w-[380px] flex-shrink-0 pr-4">
             <JobChatPanel />
           </div>
         )}
