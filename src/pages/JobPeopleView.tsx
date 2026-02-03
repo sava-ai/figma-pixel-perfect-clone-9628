@@ -279,7 +279,7 @@ const JobPeopleView = () => {
                           <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Shortlist</p>
                           <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>50</span>
                         </div>
-                        <p className="text-sm text-muted-foreground mb-3">View best matches</p>
+                        <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>View best matches</p>
                         <div className="flex items-center gap-1.5 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                           <span>View</span>
                           <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -304,7 +304,7 @@ const JobPeopleView = () => {
                           <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Outreach</p>
                           <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>40</span>
                         </div>
-                        <p className="text-sm text-muted-foreground mb-3">Reach out to shortlisted</p>
+                        <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>Reach out to shortlisted</p>
                         <div className="flex items-center gap-1.5 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                           <span>View</span>
                           <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -329,7 +329,7 @@ const JobPeopleView = () => {
                           <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Interview</p>
                           <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>25</span>
                         </div>
-                        <p className="text-sm text-muted-foreground mb-3">Ready to schedule</p>
+                        <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>Ready to schedule</p>
                         <div className="flex items-center gap-1.5 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                           <span>View</span>
                           <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
