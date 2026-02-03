@@ -348,7 +348,8 @@ const JobPeopleView = () => {
                             </svg>
                           </div>
                           <span className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Job Description</span>
-                          <svg className="w-3.5 h-3.5 text-[#6B6B6B] ml-auto group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <span className="text-sm text-muted-foreground ml-auto" style={{ fontFamily: 'Inter, sans-serif' }}>View & Edit</span>
+                          <svg className="w-3.5 h-3.5 text-[#6B6B6B] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
@@ -366,7 +367,8 @@ const JobPeopleView = () => {
                             </svg>
                           </div>
                           <span className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Company Information</span>
-                          <svg className="w-3.5 h-3.5 text-[#6B6B6B] ml-auto group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <span className="text-sm text-muted-foreground ml-auto" style={{ fontFamily: 'Inter, sans-serif' }}>View & Edit</span>
+                          <svg className="w-3.5 h-3.5 text-[#6B6B6B] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
@@ -385,7 +387,8 @@ const JobPeopleView = () => {
                             </svg>
                           </div>
                           <span className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Brain & Reasoning</span>
-                          <svg className="w-3.5 h-3.5 text-[#6B6B6B] ml-auto group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <span className="text-sm text-muted-foreground ml-auto" style={{ fontFamily: 'Inter, sans-serif' }}>View & Edit</span>
+                          <svg className="w-3.5 h-3.5 text-[#6B6B6B] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
