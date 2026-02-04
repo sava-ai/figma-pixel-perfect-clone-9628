@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, SkipForward } from 'lucide-react';
+import { ChevronDown, SkipForward, X } from 'lucide-react';
 import { InviteDialog } from '@/components/InviteDialog';
 import { JobChatPanel } from '@/components/JobChatPanel';
 import CandidateDetailPanel from '@/components/CandidateDetailPanel';
 import CandidateProfilePanel from '@/components/CandidateProfilePanel';
 import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon-new.png';
 import { bestCandidates } from '@/data/candidates';
@@ -23,6 +24,12 @@ const JobBestMatches = () => {
   const [reviewComplete, setReviewComplete] = useState(false);
   const [viewingSkipped, setViewingSkipped] = useState(false);
   const [skippedIndex, setSkippedIndex] = useState(0);
+  
+  // Feedback state
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedbackType, setFeedbackType] = useState<'reject' | 'save' | null>(null);
+  const [feedbackRating, setFeedbackRating] = useState<1 | 2 | 3 | null>(null);
+  const [feedbackText, setFeedbackText] = useState('');
   
   const filteredCandidates = bestCandidates;
   
@@ -51,28 +58,67 @@ const JobBestMatches = () => {
     moveToNext();
   };
 
-  // Handle save action
+  // Handle save action - show feedback
   const handleSave = () => {
+    setFeedbackType('save');
+    setShowFeedback(true);
+    setFeedbackRating(null);
+    setFeedbackText('');
+  };
+
+  // Handle reject action - show feedback
+  const handleReject = () => {
+    setFeedbackType('reject');
+    setShowFeedback(true);
+    setFeedbackRating(null);
+    setFeedbackText('');
+  };
+
+  // Submit feedback and move to next
+  const submitFeedback = () => {
     if (selectedBestMatch) {
-      setSavedCandidates(prev => [...prev, selectedBestMatch.id]);
+      if (feedbackType === 'save') {
+        setSavedCandidates(prev => [...prev, selectedBestMatch.id]);
+      } else if (feedbackType === 'reject') {
+        setRejectedCandidates(prev => [...prev, selectedBestMatch.id]);
+      }
       if (viewingSkipped) {
-        // Remove from skipped list
         setSkippedCandidates(prev => prev.filter(id => id !== selectedBestMatch.id));
       }
     }
+    // Reset feedback state
+    setShowFeedback(false);
+    setFeedbackType(null);
+    setFeedbackRating(null);
+    setFeedbackText('');
     moveToNext();
   };
 
-  // Handle reject action
-  const handleReject = () => {
+  // Skip feedback and move to next
+  const skipFeedback = () => {
     if (selectedBestMatch) {
-      setRejectedCandidates(prev => [...prev, selectedBestMatch.id]);
+      if (feedbackType === 'save') {
+        setSavedCandidates(prev => [...prev, selectedBestMatch.id]);
+      } else if (feedbackType === 'reject') {
+        setRejectedCandidates(prev => [...prev, selectedBestMatch.id]);
+      }
       if (viewingSkipped) {
-        // Remove from skipped list
         setSkippedCandidates(prev => prev.filter(id => id !== selectedBestMatch.id));
       }
     }
+    setShowFeedback(false);
+    setFeedbackType(null);
+    setFeedbackRating(null);
+    setFeedbackText('');
     moveToNext();
+  };
+
+  // Cancel feedback
+  const cancelFeedback = () => {
+    setShowFeedback(false);
+    setFeedbackType(null);
+    setFeedbackRating(null);
+    setFeedbackText('');
   };
 
   // Move to next candidate
@@ -272,76 +318,169 @@ const JobBestMatches = () => {
       {/* Sticky Footer */}
       {!reviewComplete && selectedBestMatch && (
         <div 
-          className="flex-shrink-0 px-6 py-3 border-t flex items-center justify-between"
+          className="flex-shrink-0 border-t"
           style={{ backgroundColor: '#F2F1ED', borderColor: '#D9D9D9' }}
         >
-          {/* Left - Batch info */}
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-medium" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
-              {viewingSkipped ? 'Reviewing Skipped' : 'Candidates Batch 3'}
-            </span>
-            {skippedCandidates.length > 0 && !viewingSkipped && (
-              <button 
-                onClick={handleReviewSkipped}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all hover:opacity-80"
-                style={{ backgroundColor: '#E8E6DD', color: '#666663' }}
-              >
-                <SkipForward className="w-3.5 h-3.5" />
-                {skippedCandidates.length} skipped
-              </button>
-            )}
-            {viewingSkipped && (
-              <button 
-                onClick={() => setViewingSkipped(false)}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all hover:opacity-80"
-                style={{ backgroundColor: '#E8E6DD', color: '#666663' }}
-              >
-                Back to batch
-              </button>
-            )}
-          </div>
+          {/* Feedback Panel - Expandable */}
+          {showFeedback && (
+            <div className="px-6 py-4 border-b" style={{ borderColor: '#D9D9D9' }}>
+              <div className="flex items-start gap-6">
+                {/* Left - Rating */}
+                <div className="flex-shrink-0">
+                  <p className="text-xs font-medium mb-2" style={{ color: '#666663' }}>
+                    {feedbackType === 'save' ? 'How good is this match?' : 'How bad is this fit?'}
+                  </p>
+                  <div className="flex gap-2">
+                    {[1, 2, 3].map((rating) => (
+                      <button
+                        key={rating}
+                        onClick={() => setFeedbackRating(rating as 1 | 2 | 3)}
+                        className={`w-10 h-10 rounded-lg text-sm font-semibold transition-all ${
+                          feedbackRating === rating
+                            ? feedbackType === 'save'
+                              ? 'bg-[#CC785C] text-white'
+                              : 'bg-[#BF4D43] text-white'
+                            : 'bg-white border border-[#D9D9D9] text-[#333333] hover:border-[#999999]'
+                        }`}
+                      >
+                        {rating}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex justify-between mt-1">
+                    <span className="text-[10px]" style={{ color: '#999999' }}>
+                      {feedbackType === 'save' ? 'Okay' : 'Minor'}
+                    </span>
+                    <span className="text-[10px]" style={{ color: '#999999' }}>
+                      {feedbackType === 'save' ? 'Perfect' : 'Major'}
+                    </span>
+                  </div>
+                </div>
 
-          {/* Center - Action buttons */}
-          <div className="flex items-center gap-2">
-            <button 
-              onClick={handleReject}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:opacity-80 border"
-              style={{ backgroundColor: '#FFFFFF', borderColor: '#BF4D43', color: '#BF4D43' }}
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17" />
-              </svg>
-              Not a good fit
-            </button>
-            
-            {!viewingSkipped && (
-              <button 
-                onClick={handleSkip}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:opacity-80 border"
-                style={{ backgroundColor: '#FFFFFF', borderColor: '#D9D9D9', color: '#666663' }}
-              >
-                <SkipForward className="w-4 h-4" />
-                Skip
-              </button>
-            )}
-            
-            <button 
-              onClick={handleSave}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:opacity-90"
-              style={{ background: 'linear-gradient(135deg, #CC785C 0%, #D4A27F 100%)', color: '#FFFFFF' }}
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-              </svg>
-              Save to job
-            </button>
-          </div>
+                {/* Center - Text input */}
+                <div className="flex-1">
+                  <p className="text-xs font-medium mb-2" style={{ color: '#666663' }}>
+                    {feedbackType === 'save' ? 'Why save this candidate? (optional)' : 'Why reject? (optional)'}
+                  </p>
+                  <Textarea
+                    value={feedbackText}
+                    onChange={(e) => setFeedbackText(e.target.value)}
+                    placeholder={feedbackType === 'save' ? 'e.g., Great experience at top companies...' : 'e.g., Missing required skills...'}
+                    className="h-20 text-sm resize-none bg-white border-[#D9D9D9]"
+                  />
+                </div>
 
-          {/* Right - Stats */}
-          <div className="flex items-center gap-4 text-xs" style={{ color: '#666663' }}>
-            <span>{savedCandidates.length} saved</span>
-            <span>{rejectedCandidates.length} rejected</span>
-            <span>{skippedCandidates.length} skipped</span>
+                {/* Right - Actions */}
+                <div className="flex flex-col gap-2 flex-shrink-0">
+                  <button
+                    onClick={submitFeedback}
+                    className="px-4 py-2 rounded-lg text-sm font-medium transition-all hover:opacity-90"
+                    style={{ 
+                      background: feedbackType === 'save' 
+                        ? 'linear-gradient(135deg, #CC785C 0%, #D4A27F 100%)' 
+                        : '#BF4D43',
+                      color: '#FFFFFF' 
+                    }}
+                  >
+                    {feedbackType === 'save' ? 'Save & Next' : 'Reject & Next'}
+                  </button>
+                  <button
+                    onClick={skipFeedback}
+                    className="px-4 py-2 rounded-lg text-sm font-medium transition-all hover:opacity-80 border"
+                    style={{ backgroundColor: '#FFFFFF', borderColor: '#D9D9D9', color: '#666663' }}
+                  >
+                    Skip feedback
+                  </button>
+                  <button
+                    onClick={cancelFeedback}
+                    className="px-4 py-2 text-xs text-[#999999] hover:text-[#666663] transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Main Footer Row */}
+          <div className="px-6 py-3 flex items-center justify-between">
+            {/* Left - Batch info */}
+            <div className="flex items-center gap-3">
+              <span className="text-sm font-medium" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
+                {viewingSkipped ? 'Reviewing Skipped' : 'Candidates Batch 3'}
+              </span>
+              {skippedCandidates.length > 0 && !viewingSkipped && (
+                <button 
+                  onClick={handleReviewSkipped}
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all hover:opacity-80"
+                  style={{ backgroundColor: '#E8E6DD', color: '#666663' }}
+                >
+                  <SkipForward className="w-3.5 h-3.5" />
+                  {skippedCandidates.length} skipped
+                </button>
+              )}
+              {viewingSkipped && (
+                <button 
+                  onClick={() => setViewingSkipped(false)}
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all hover:opacity-80"
+                  style={{ backgroundColor: '#E8E6DD', color: '#666663' }}
+                >
+                  Back to batch
+                </button>
+              )}
+            </div>
+
+            {/* Center - Action buttons */}
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={handleReject}
+                disabled={showFeedback}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all border ${
+                  showFeedback ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-80'
+                }`}
+                style={{ backgroundColor: '#FFFFFF', borderColor: '#BF4D43', color: '#BF4D43' }}
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17" />
+                </svg>
+                Not a good fit
+              </button>
+              
+              {!viewingSkipped && (
+                <button 
+                  onClick={handleSkip}
+                  disabled={showFeedback}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all border ${
+                    showFeedback ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-80'
+                  }`}
+                  style={{ backgroundColor: '#FFFFFF', borderColor: '#D9D9D9', color: '#666663' }}
+                >
+                  <SkipForward className="w-4 h-4" />
+                  Skip
+                </button>
+              )}
+              
+              <button 
+                onClick={handleSave}
+                disabled={showFeedback}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  showFeedback ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'
+                }`}
+                style={{ background: 'linear-gradient(135deg, #CC785C 0%, #D4A27F 100%)', color: '#FFFFFF' }}
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                </svg>
+                Save to job
+              </button>
+            </div>
+
+            {/* Right - Stats */}
+            <div className="flex items-center gap-4 text-xs" style={{ color: '#666663' }}>
+              <span>{savedCandidates.length} saved</span>
+              <span>{rejectedCandidates.length} rejected</span>
+              <span>{skippedCandidates.length} skipped</span>
+            </div>
           </div>
         </div>
       )}
