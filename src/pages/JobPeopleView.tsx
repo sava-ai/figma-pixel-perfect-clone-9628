@@ -272,31 +272,21 @@ const JobPeopleView = () => {
                     {/* Rate Candidates Banner */}
                     <button
                       onClick={() => navigate('/job/best-matches')}
-                      className="w-full rounded-xl py-10 px-8 text-left hover:opacity-90 transition-all group mb-4"
+                      className="w-full rounded-xl p-5 text-left hover:opacity-90 transition-all group mb-4"
                       style={{ background: 'linear-gradient(135deg, #EBDBBD 0%, #D5A27F 20%, #CD785C 45%, #CD785C 100%)', border: 'none' }}
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-5">
-                          <svg className="w-7 h-7" style={{ color: '#000000' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'rgba(0,0,0,0.15)' }}>
+                          <svg className="w-4 h-4" style={{ color: '#000000' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                           </svg>
-                          <div>
-                            <h2 className="text-lg mb-1" style={{ color: '#000000', fontFamily: 'CooperLight, sans-serif' }}>
-                              Rate matched candidates ({filteredCandidates.length})
-                            </h2>
-                            <p className="text-sm" style={{ color: 'rgba(0, 0, 0, 0.6)', fontFamily: 'Inter, sans-serif' }}>
-                              Review and rate {filteredCandidates.length} matches for this role.
-                            </p>
-                          </div>
                         </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-sm" style={{ color: '#000000', fontFamily: 'Inter, sans-serif' }}>Begin reviewing matches</span>
-                          <div className="w-9 h-9 rounded-lg flex items-center justify-center">
-                            <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" style={{ color: '#000000' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </div>
-                        </div>
+                        <p style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1rem', color: '#000000' }}>Rate matched candidates</p>
+                      </div>
+                      <p className="text-4xl font-medium mb-3" style={{ fontFamily: 'Inter, sans-serif', color: '#000000' }}>{filteredCandidates.length}</p>
+                      <div className="flex items-center gap-1 text-sm" style={{ color: 'rgba(0,0,0,0.7)' }}>
+                        <span style={{ fontFamily: 'Inter, sans-serif' }}>Review and rate now</span>
+                        <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                       </div>
                     </button>
 
