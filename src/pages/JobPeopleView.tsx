@@ -291,10 +291,11 @@ const JobPeopleView = () => {
                       <h3 style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>Your Pipeline</h3>
                       <button 
                         onClick={() => navigate('/job/pipeline')}
-                        className="text-sm font-medium hover:opacity-80 transition-opacity"
+                        className="flex items-center gap-1 text-sm font-medium hover:opacity-80 transition-opacity"
                         style={{ color: '#333333' }}
                       >
                         View pipeline
+                        <ChevronRight className="w-4 h-4" />
                       </button>
                     </div>
 
