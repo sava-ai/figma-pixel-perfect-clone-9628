@@ -405,30 +405,61 @@ const CandidateDetailPanel = ({
               <div className="grid grid-cols-[1fr_1.8fr]">
                 {/* Left Column - Match Score */}
                 <div className="p-8 bg-[#FAFAF9] border-r border-[#EEEDEC] flex flex-col items-center">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Leaf size={24} className="text-[#2D7A2D] rotate-[-45deg]" />
-                    <span className="text-5xl font-semibold text-[#2D7A2D] font-['LabilGrotesk']">
-                      {matchScore}/{matchTotal}
-                    </span>
-                    <Leaf size={24} className="text-[#2D7A2D] rotate-[135deg]" />
-                  </div>
-                  <span className="text-sm text-[#666666] mb-8">Match</span>
+                  <span className="text-5xl font-semibold text-[#2D7A2D] font-['LabilGrotesk'] mb-1">
+                    {matchScore}/{matchTotal}
+                  </span>
+                  <span className="text-sm text-[#666666] mb-6">Match</span>
                   
                   <p className="text-sm text-[#444444] leading-relaxed mb-6 text-center">
-                    {defaultSummary}
+                    {candidate.roles[0]?.role || 'Sales Development Representative'} with {candidate.roles.length > 2 ? '10+' : '5+'} years of experience in {candidate.roles[0]?.company?.includes('Google') || candidate.roles[0]?.company?.includes('Salesforce') ? 'enterprise sales and team leadership' : 'B2B sales and client development'}.
                   </p>
                   
-                  {/* Highlights */}
-                  <div className="w-full space-y-3">
-                    {highlightItems.map((item, index) => {
-                      const IconComponent = getIconComponent(item.icon);
-                      return (
-                        <div key={index} className="flex items-center gap-3 text-sm text-[#444444]">
-                          <IconComponent size={18} className="text-[#2D7A2D]" />
-                          <span>{item.label}</span>
-                        </div>
-                      );
-                    })}
+                  {/* Stand-outs as Accordion */}
+                  <div className="w-full">
+                    <h4 className="text-xs uppercase tracking-wide mb-3 text-[#666666]" style={{ fontFamily: 'CooperLight, serif' }}>
+                      Stand-outs
+                    </h4>
+                    <Accordion type="multiple" className="divide-y divide-[#EEEDEC] border-t border-[#EEEDEC]">
+                      <AccordionItem value="standout-0" className="border-0">
+                        <AccordionTrigger className="py-3 hover:no-underline">
+                          <div className="flex items-center gap-2.5 flex-1">
+                            <Award size={16} className="text-[#2D7A2D]" />
+                            <span className="text-sm text-[#292524] font-normal">Award winner</span>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="pb-3 pt-0">
+                          <p className="text-sm text-[#666666] leading-relaxed pl-6">
+                            Recognized for outstanding performance in sales targets, achieving 150% of quota for 3 consecutive quarters.
+                          </p>
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="standout-1" className="border-0">
+                        <AccordionTrigger className="py-3 hover:no-underline">
+                          <div className="flex items-center gap-2.5 flex-1">
+                            <Building2 size={16} className="text-[#2D7A2D]" />
+                            <span className="text-sm text-[#292524] font-normal">Worked for top companies</span>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="pb-3 pt-0">
+                          <p className="text-sm text-[#666666] leading-relaxed pl-6">
+                            Experience at {candidate.roles[0]?.company || 'industry-leading companies'} demonstrates ability to thrive in competitive, high-performance environments.
+                          </p>
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="standout-2" className="border-0">
+                        <AccordionTrigger className="py-3 hover:no-underline">
+                          <div className="flex items-center gap-2.5 flex-1">
+                            <Globe size={16} className="text-[#2D7A2D]" />
+                            <span className="text-sm text-[#292524] font-normal">International experience</span>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="pb-3 pt-0">
+                          <p className="text-sm text-[#666666] leading-relaxed pl-6">
+                            Has worked with clients across multiple European markets, demonstrating cross-cultural communication skills.
+                          </p>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
                   </div>
                 </div>
 
