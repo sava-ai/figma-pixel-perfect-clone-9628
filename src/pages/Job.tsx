@@ -278,14 +278,14 @@ Qualifications
         {/* Center - Navigation Tabs */}
         <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-0.5 px-0.5 h-7 rounded-md" style={{ backgroundColor: '#E8E6DD' }}>
           <button
-            onClick={() => navigate('/job')}
-            className="px-3 h-[22px] rounded text-xs font-medium transition-all bg-white shadow-sm"
+            onClick={() => navigate('/job/people/view')}
+            className="px-3 h-[22px] rounded text-xs font-medium transition-all"
             style={{ color: '#333333' }}
           >
             Job
           </button>
           <button
-            onClick={() => navigate('/job/people/view')}
+            onClick={() => navigate('/job/best-matches')}
             className="px-3 h-[22px] rounded text-xs font-medium transition-all"
             style={{ color: '#333333' }}
           >
