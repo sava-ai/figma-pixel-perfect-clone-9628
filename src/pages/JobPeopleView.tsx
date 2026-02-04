@@ -299,118 +299,120 @@ const JobPeopleView = () => {
                       </button>
                     </div>
 
-                    {/* Pipeline Rows */}
-                    <div className="flex flex-col gap-2 mb-4">
-                      {/* Qualified Candidates Row */}
-                      <button 
-                        onClick={() => navigate('/job/pipeline')}
-                        className="w-full flex items-center justify-between rounded-xl px-4 py-3 hover:border-[#D9D9D9] transition-colors group"
-                        style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
-                            <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                            </svg>
+                    {/* Navigation Cards - Horizontal Scroll */}
+                    <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 mb-4">
+                      <div className="flex gap-3 pr-4">
+                        {/* Qualified Candidates Card */}
+                        <button 
+                          onClick={() => navigate('/job/pipeline')} 
+                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
+                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6', width: '280px' }}
+                        >
+                          <div className="flex items-center mb-3">
+                            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
+                              <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                              </svg>
+                            </div>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1rem' }}>Qualified Candidates</p>
+                          <div className="flex items-center gap-2 mb-1">
+                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Qualified Candidates</p>
                             <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>50</span>
                           </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>Engage with candidates</span>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
-                        </div>
-                      </button>
-
-                      {/* Engaged Candidates Row */}
-                      <button 
-                        className="w-full flex items-center justify-between rounded-xl px-4 py-3 hover:border-[#D9D9D9] transition-colors group"
-                        style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
-                            <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
+                          <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>Candidates to contact</p>
+                          <div className="w-full flex items-center justify-center px-3 py-1.5 rounded-lg text-sm text-muted-foreground group-hover:text-foreground group-hover:border-[#1A1A1A] transition-all" style={{ border: '1px solid #E6E6E6' }}>
+                            <span style={{ fontFamily: 'Inter, sans-serif' }}>Engage with candidates</span>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1rem' }}>Engaged Candidates</p>
+                        </button>
+
+                        {/* Engaged Candidates Card */}
+                        <button 
+                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
+                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6', width: '280px' }}
+                        >
+                          <div className="flex items-center mb-3">
+                            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
+                              <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                              </svg>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Engaged Candidates</p>
                             <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>40</span>
                           </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>Go to conversations</span>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
-                        </div>
-                      </button>
-
-                      {/* Interviewing Candidates Row */}
-                      <button 
-                        className="w-full flex items-center justify-between rounded-xl px-4 py-3 hover:border-[#D9D9D9] transition-colors group"
-                        style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
-                            <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
+                          <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>Candidates to schedule</p>
+                          <div className="w-full flex items-center justify-center px-3 py-1.5 rounded-lg text-sm text-muted-foreground group-hover:text-foreground group-hover:border-[#1A1A1A] transition-all" style={{ border: '1px solid #E6E6E6' }}>
+                            <span style={{ fontFamily: 'Inter, sans-serif' }}>Go to conversations</span>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1rem' }}>Interviewing Candidates</p>
+                        </button>
+
+                        {/* Interviewing Candidates Card */}
+                        <button 
+                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
+                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6', width: '280px' }}
+                        >
+                          <div className="flex items-center mb-3">
+                            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
+                              <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Interviewing Candidates</p>
                             <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>25</span>
                           </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>View scheduled</span>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
-                        </div>
-                      </button>
-
-                      {/* Rejected Candidates Row */}
-                      <button 
-                        className="w-full flex items-center justify-between rounded-xl px-4 py-3 hover:border-[#D9D9D9] transition-colors group"
-                        style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
-                            <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
-                            </svg>
+                          <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>Scheduled to interview</p>
+                          <div className="w-full flex items-center justify-center px-3 py-1.5 rounded-lg text-sm text-muted-foreground group-hover:text-foreground group-hover:border-[#1A1A1A] transition-all" style={{ border: '1px solid #E6E6E6' }}>
+                            <span style={{ fontFamily: 'Inter, sans-serif' }}>View scheduled candidates</span>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1rem' }}>Rejected Candidates</p>
+                        </button>
+
+                        {/* Rejected Candidates Card */}
+                        <button 
+                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
+                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6', width: '280px' }}
+                        >
+                          <div className="flex items-center mb-3">
+                            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
+                              <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Rejected Candidates</p>
                             <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>12</span>
                           </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>Send rejections</span>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
-                        </div>
-                      </button>
-
-                      {/* Qualified for Job Row */}
-                      <button 
-                        className="w-full flex items-center justify-between rounded-xl px-4 py-3 hover:border-[#D9D9D9] transition-colors group"
-                        style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
-                            <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
+                          <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>Candidates that got rejected</p>
+                          <div className="w-full flex items-center justify-center px-3 py-1.5 rounded-lg text-sm text-muted-foreground group-hover:text-foreground group-hover:border-[#1A1A1A] transition-all" style={{ border: '1px solid #E6E6E6' }}>
+                            <span style={{ fontFamily: 'Inter, sans-serif' }}>Send rejection messages</span>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1rem' }}>Qualified for Job</p>
+                        </button>
+
+                        {/* Qualified for Job Card */}
+                        <button 
+                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
+                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6', width: '280px' }}
+                        >
+                          <div className="flex items-center mb-3">
+                            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
+                              <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Qualified for Job</p>
                             <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>8</span>
                           </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>View ready candidates</span>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
-                        </div>
-                      </button>
+                          <p className="text-sm text-muted-foreground mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>Ready to employ</p>
+                          <div className="w-full flex items-center justify-center px-3 py-1.5 rounded-lg text-sm text-muted-foreground group-hover:text-foreground group-hover:border-[#1A1A1A] transition-all" style={{ border: '1px solid #E6E6E6' }}>
+                            <span style={{ fontFamily: 'Inter, sans-serif' }}>View ready candidates</span>
+                          </div>
+                        </button>
+                      </div>
                     </div>
 
                     {/* Knowledge Base Section Title */}
