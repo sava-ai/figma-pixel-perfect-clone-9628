@@ -351,23 +351,22 @@ const CandidateDetailPanel = ({
       </div>;
   };
   return <div className="h-full flex flex-col bg-white">
-      {/* Header - Orange Gradient Match Banner */}
-      <div 
-        className="p-4"
-        style={{ 
-          background: 'linear-gradient(135deg, #CC785C 0%, #D4A27F 100%)'
-        }}
-      >
-        <div className="flex items-center justify-center gap-2">
-          <span className="text-2xl font-semibold text-white" style={{ fontFamily: 'CooperLight, serif' }}>
-            {matchScore}/{matchTotal}
-          </span>
-          <span className="text-sm text-white/90">Match</span>
-        </div>
-      </div>
-
       {/* Scrollable Content */}
       <div className="flex-1 overflow-y-auto scrollbar-hide">
+        {/* Match Banner - scrolls with content */}
+        <div 
+          className="p-4 mx-5 mt-5 rounded-lg"
+          style={{ 
+            background: 'linear-gradient(135deg, #CC785C 0%, #D4A27F 100%)'
+          }}
+        >
+          <div className="flex items-center justify-center gap-2">
+            <span className="text-2xl font-semibold text-white" style={{ fontFamily: 'CooperLight, serif' }}>
+              {matchScore}/{matchTotal}
+            </span>
+            <span className="text-sm text-white/90">Match</span>
+          </div>
+        </div>
 
         {/* Criteria Sections */}
         <div className="p-5">
