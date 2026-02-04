@@ -94,6 +94,32 @@ const getCompanyInfo = (companyName: string): CompanyInfo => {
   };
 };
 
+// Generate company descriptor tags (product/industry focus)
+const getCompanyDescriptors = (companyName: string): string[] => {
+  const descriptors: Record<string, string[]> = {
+    'Google': ['AI', 'Cloud Computing', 'Search Technology', 'Advertising'],
+    'Shopify': ['E-commerce Platform', 'Payments', 'SaaS'],
+    'Salesforce': ['CRM', 'Cloud Software', 'Enterprise', 'AI'],
+    'HubSpot': ['Marketing Automation', 'Inbound Marketing', 'SaaS'],
+    'Nielsen': ['Data Analytics', 'Consumer Insights', 'Market Research'],
+    'Acronis': ['Data Protection', 'Cybersecurity', 'Cloud Backup'],
+    'Akamai Technologies': ['CDN', 'Edge Computing', 'Web Security'],
+    'SoftServe': ['Digital Transformation', 'Custom Software', 'IT Consulting'],
+    'SALESmanago': ['Marketing Automation', 'CDP', 'AI-Powered'],
+    'PinMeTo': ['Local SEO', 'Multi-location', 'Brand Management'],
+    'Kontakt.io': ['IoT', 'Bluetooth Beacons', 'Asset Tracking'],
+    'UNITALK': ['VoIP', 'Cloud Telephony', 'Contact Center'],
+    'Mitrix Technology': ['IT Outsourcing', 'Custom Development'],
+    'Perfection42': ['Mobile Apps', 'Product Development', 'Startups'],
+    'Barbara Bang': ['iGaming', 'Slot Games', 'Entertainment'],
+    'ProtoQ': ['Tech Advisory', 'Digital Strategy'],
+    'Oxagile': ['Video Streaming', 'HealthTech', 'Custom Software'],
+    'ExxonMobil': ['Oil & Gas', 'Energy', 'Petrochemicals'],
+  };
+
+  return descriptors[companyName] || ['Technology', 'B2B'];
+};
+
 // Generate skills for a role based on company and role type
 const getRoleSkills = (role: string, company: string): string[] => {
   const skillSets: Record<string, string[]> = {
@@ -344,6 +370,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
             <div className="bg-white rounded-lg divide-y divide-[#EEEDEC]">
               {candidate.roles.map((role, idx) => {
                 const companyInfo = getCompanyInfo(role.company);
+                const companyDescriptors = getCompanyDescriptors(role.company);
                 const roleSkills = getRoleSkills(role.role, role.company);
                 const icon = getCompanyIcon(role.company);
                 
@@ -418,40 +445,57 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
                       )}
                     </div>
 
-                    {/* Company Tags */}
-                    <div className="flex flex-wrap gap-2 mb-3 ml-[52px]">
-                      {companyInfo.employees && (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full border-0" style={{ backgroundColor: '#F0F0EB', color: '#40403E' }}>
-                          <Users className="w-3 h-3" />
-                          {companyInfo.employees}
-                        </span>
-                      )}
-                      {companyInfo.category && (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full border-0" style={{ backgroundColor: '#F0F0EB', color: '#40403E' }}>
-                          <Building2 className="w-3 h-3" />
-                          {companyInfo.category}
-                        </span>
-                      )}
-                      {companyInfo.type && (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full border-0" style={{ backgroundColor: '#EBDBBC', color: '#262625' }}>
-                          {companyInfo.type === 'public' ? 'Public Company' : 
-                           companyInfo.type === 'startup' ? 'Startup' : 'Private Company'}
-                        </span>
-                      )}
+                    {/* Company Tags Section */}
+                    <div className="ml-[52px] mb-3">
+                      <p className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1.5">Company</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {/* Main tags: size, category, type */}
+                        {companyInfo.employees && (
+                          <span className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full border-0" style={{ backgroundColor: '#F0F0EB', color: '#40403E' }}>
+                            <Users className="w-3 h-3" />
+                            {companyInfo.employees}
+                          </span>
+                        )}
+                        {companyInfo.category && (
+                          <span className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full border-0" style={{ backgroundColor: '#F0F0EB', color: '#40403E' }}>
+                            <Building2 className="w-3 h-3" />
+                            {companyInfo.category}
+                          </span>
+                        )}
+                        {companyInfo.type && (
+                          <span className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full border-0" style={{ backgroundColor: '#EBDBBC', color: '#262625' }}>
+                            {companyInfo.type === 'public' ? 'Enterprise' : 
+                             companyInfo.type === 'startup' ? 'Startup' : 'Private Company'}
+                          </span>
+                        )}
+                        {/* Additional descriptor tags */}
+                        {companyDescriptors.map((descriptor, descIdx) => (
+                          <span 
+                            key={descIdx}
+                            className="inline-flex items-center px-2 py-1 text-xs rounded-full border-0"
+                            style={{ backgroundColor: '#E5E4DF', color: '#40403E' }}
+                          >
+                            {descriptor}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
-                    {/* Role Skills Bubbles */}
-                    <div className="flex flex-wrap gap-1.5 ml-[52px]">
-                      {roleSkills.map((skill, skillIdx) => (
-                        <Badge 
-                          key={skillIdx}
-                          variant="outline"
-                          className="px-2 py-0.5 rounded-full text-xs border-0"
-                          style={{ backgroundColor: '#E5E4DF', color: '#40403E' }}
-                        >
-                          {skill}
-                        </Badge>
-                      ))}
+                    {/* Skills Acquired Section */}
+                    <div className="ml-[52px]">
+                      <p className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1.5">Skills Acquired</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {roleSkills.map((skill, skillIdx) => (
+                          <Badge 
+                            key={skillIdx}
+                            variant="outline"
+                            className="px-2 py-0.5 rounded-full text-xs border-0"
+                            style={{ backgroundColor: '#D4A27F', color: '#191919' }}
+                          >
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 );
