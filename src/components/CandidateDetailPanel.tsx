@@ -323,28 +323,16 @@ const CandidateDetailPanel = ({
           </SelectTrigger>
           <SelectContent className="bg-white border border-[#EEEDEC] shadow-lg z-50">
             <SelectItem value="full" className="text-xs">
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#2D7A2D]"></span>
-                Full match
-              </span>
+              Full match
             </SelectItem>
             <SelectItem value="partial" className="text-xs">
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#999999]"></span>
-                Part match
-              </span>
+              Part match
             </SelectItem>
             <SelectItem value="none" className="text-xs">
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#D32F2F]"></span>
-                No match
-              </span>
+              No match
             </SelectItem>
             <SelectItem value="unknown" className="text-xs">
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#CCCCCC]"></span>
-                Unknown
-              </span>
+              Unknown
             </SelectItem>
           </SelectContent>
         </Select>
