@@ -363,7 +363,7 @@ const JobPeopleView = () => {
                     <div className="grid grid-cols-3 gap-3">
                       {/* Job Card */}
                       <button 
-                        onClick={() => navigate('/joboffer')} 
+                        onClick={() => navigate('/job')}
                         className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group"
                         style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                       >
