@@ -372,12 +372,12 @@ Qualifications
       </header>
 
       {/* Main Content - Flex layout without resizable */}
-      <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
+      <div className="flex-1 flex overflow-hidden pt-6 pb-4" style={{ backgroundColor: '#FBFAF9' }}>
         {/* Left Panel - Job Description Editor */}
         <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
-          <div className={`h-full flex flex-col pt-6 pb-4 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
+          <div className={`h-full flex flex-col relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
             <div className={`flex-1 overflow-y-auto rounded-xl relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`} style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
-              <div className="px-[72px] py-12 pb-12">
+              <div className="px-[72px] py-12 pb-24">
                 
                 {/* Title Input */}
                 <div className="mb-6">
@@ -916,7 +916,7 @@ Qualifications
         </div>
 
         {/* Floating Action Bar - Fixed at bottom of viewport */}
-        <div className="fixed bottom-5 left-1/2 transform -translate-x-1/2 z-50" style={{ marginLeft: isChatCollapsed ? '0' : '-190px' }}>
+        <div className="fixed bottom-[6%] left-1/2 transform -translate-x-1/2 z-50" style={{ marginLeft: isChatCollapsed ? '0' : '-190px' }}>
           <div className="flex items-center gap-2 bg-white rounded-full shadow-lg px-2 py-2 border border-[#E6E6E6]">
             {!isEditMode ? (
               <>
@@ -970,9 +970,12 @@ Qualifications
 
         {/* Right Panel - Chat - Fixed width */}
         {!isChatCollapsed && (
-          <div className="w-[380px] flex-shrink-0">
-            <div className="h-full flex flex-col" style={{ backgroundColor: '#FBFAF9' }}>
-              <div className="flex flex-col h-full pt-6 pr-4 pl-0 pb-4">
+          <div
+            className="w-[380px] flex-shrink-0 h-full pr-4"
+            style={{ backgroundColor: '#FBFAF9' }}
+          >
+            <div className="h-full flex flex-col">
+              <div className="flex flex-col h-full pl-0">
 
               {/* Chat Messages - Scrollable */}
               <div className="flex-1 overflow-y-auto mb-6 space-y-4 scrollbar-hide">
