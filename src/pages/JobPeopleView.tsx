@@ -176,10 +176,10 @@ const JobPeopleView = () => {
         </div>
 
         {/* Center - Navigation Tabs */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-1 px-1 py-1 rounded-lg" style={{ backgroundColor: '#E8E6DD' }}>
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-0.5 px-0.5 h-7 rounded-md" style={{ backgroundColor: '#E8E6DD' }}>
           <button
             onClick={() => navigate('/job')}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
+            className={`px-3 h-[22px] rounded text-xs font-medium transition-all ${
               activeTab === 'job' ? 'bg-white text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -187,7 +187,7 @@ const JobPeopleView = () => {
           </button>
           <button
             onClick={() => navigate('/job/people/view')}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
+            className={`px-3 h-[22px] rounded text-xs font-medium transition-all ${
               activeTab === 'people' ? 'bg-white text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -195,7 +195,7 @@ const JobPeopleView = () => {
           </button>
           <button
             onClick={() => navigate('/job/pipeline')}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
+            className={`px-3 h-[22px] rounded text-xs font-medium transition-all ${
               activeTab === 'pipeline' ? 'bg-white text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
