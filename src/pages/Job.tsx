@@ -1023,7 +1023,7 @@ Qualifications
         {/* Right Panel - Chat - Fixed width */}
         {!isChatCollapsed && (
           <div
-            className="w-[380px] flex-shrink-0 h-full pr-4 pb-[14px]"
+            className="w-[380px] flex-shrink-0 h-full pr-4 pb-[13px]"
             style={{ backgroundColor: '#FBFAF9' }}
           >
             <div className="h-full flex flex-col">
