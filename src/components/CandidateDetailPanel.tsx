@@ -414,11 +414,54 @@ const CandidateDetailPanel = ({
                   </div>
                   <span className="text-sm text-[#666666] mb-8">Match</span>
                   
-                  <p className="text-sm text-[#444444] leading-relaxed mb-8 text-center">
+                  <p className="text-sm text-[#444444] leading-relaxed mb-6 text-center">
                     {defaultSummary}
                   </p>
                   
-                  <div className="w-full space-y-4">
+                  {/* Strengths */}
+                  <div className="w-full mb-5">
+                    <h4 className="text-xs uppercase tracking-wide mb-2 text-[#666666] flex items-center gap-1.5">
+                      <Sparkles size={12} className="text-[#2D7A2D]" />
+                      Strengths
+                      <span className="text-[10px] text-[#999999] font-normal normal-case">(AI Summary)</span>
+                    </h4>
+                    <ul className="space-y-1.5 text-sm text-[#444444]">
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2D7A2D] mt-0.5">•</span>
+                        <span>Strong track record in B2B sales with proven results at {candidate.roles[0]?.company || 'leading companies'}</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2D7A2D] mt-0.5">•</span>
+                        <span>Experience working in fast-paced, high-growth environments</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2D7A2D] mt-0.5">•</span>
+                        <span>Demonstrated ability to build and maintain client relationships</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Concerns */}
+                  <div className="w-full mb-6">
+                    <h4 className="text-xs uppercase tracking-wide mb-2 text-[#666666] flex items-center gap-1.5">
+                      <Award size={12} className="text-[#B8860B]" />
+                      Concerns
+                      <span className="text-[10px] text-[#999999] font-normal normal-case">(AI Summary)</span>
+                    </h4>
+                    <ul className="space-y-1.5 text-sm text-[#444444]">
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#B8860B] mt-0.5">•</span>
+                        <span>Limited direct experience in the distribution/manufacturing sector</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#B8860B] mt-0.5">•</span>
+                        <span>May require onboarding for industry-specific knowledge</span>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  {/* Highlights */}
+                  <div className="w-full space-y-3 pt-4 border-t border-[#EEEDEC]">
                     {highlightItems.map((item, index) => {
                       const IconComponent = getIconComponent(item.icon);
                       return (
@@ -451,8 +494,7 @@ const CandidateDetailPanel = ({
                           <AccordionItem key={index} value={`core-${index}`} className="border-0">
                             <AccordionTrigger className="py-4 hover:no-underline">
                               <div className="flex items-center gap-3 flex-1">
-                                <span className={`w-2 h-2 rounded-full ${statusDot}`}></span>
-                                <IconComponent size={16} className="text-[#666666]" />
+                                <IconComponent size={16} className={statusColor} />
                                 <span className="text-sm text-[#292524] font-normal">
                                   {item.label}
                                   {item.required && <span className="text-[#D32F2F] ml-0.5">*</span>}
@@ -481,12 +523,14 @@ const CandidateDetailPanel = ({
                         const statusDot = item.status === 'full' ? 'bg-[#2D7A2D]' : 
                                          item.status === 'partial' ? 'bg-[#B8860B]' : 
                                          item.status === 'none' ? 'bg-[#D32F2F]' : 'bg-[#CCCCCC]';
+                        const statusColor = item.status === 'full' ? 'text-[#2D7A2D]' : 
+                                           item.status === 'partial' ? 'text-[#B8860B]' : 
+                                           item.status === 'none' ? 'text-[#D32F2F]' : 'text-[#999999]';
                         return (
                           <AccordionItem key={index} value={`soft-${index}`} className="border-0">
                             <AccordionTrigger className="py-4 hover:no-underline">
                               <div className="flex items-center gap-3 flex-1">
-                                <span className={`w-2 h-2 rounded-full ${statusDot}`}></span>
-                                <IconComponent size={16} className="text-[#666666]" />
+                                <IconComponent size={16} className={statusColor} />
                                 <span className="text-sm text-[#292524] font-normal">{item.label}</span>
                               </div>
                             </AccordionTrigger>
