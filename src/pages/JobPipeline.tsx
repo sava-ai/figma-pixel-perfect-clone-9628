@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical, Clock, MoreHorizontal, Calendar, MessageSquare, User, Trash2, XCircle, ChevronLeft } from 'lucide-react';
+import { ChevronDown, MoreHorizontal, Clock, Calendar, MessageSquare, User, Trash2, XCircle, LayoutGrid, Network } from 'lucide-react';
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, closestCorners, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { InviteDialog } from '@/components/InviteDialog';
@@ -9,7 +9,7 @@ import { RejectionDialog } from '@/components/RejectionDialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import userAvatarImage from '@/assets/user-avatar.png';
-import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
+import jobDropdownIcon from '@/assets/job-dropdown-icon-new.png';
 import profile1 from '@/assets/profile-1.jpg';
 import profile2 from '@/assets/profile-2.jpg';
 import profile3 from '@/assets/profile-3.jpg';
@@ -134,10 +134,9 @@ const CandidateCard = ({ candidate, isDragging, onReject, onDelete }: {
           </div>
         </div>
 
-        {/* Match score and engagement rate */}
-        <div className="mb-2 flex items-center justify-between">
+        {/* Match score */}
+        <div className="mb-2">
           <span className="text-xs text-muted-foreground">{candidate.match} match</span>
-          <span className="text-xs font-medium text-primary">Engagement: {candidate.engagementRate}%</span>
         </div>
 
         {/* Rating stars and last contact */}
@@ -252,11 +251,11 @@ const SortableCandidate = ({
 
 const JobPipeline = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'job' | 'people' | 'pipeline'>('pipeline');
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
   const [rejectionDialogOpen, setRejectionDialogOpen] = useState(false);
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'canvas'>('grid');
   const [activeDragId, setActiveDragId] = useState<string | null>(null);
 
   const sensors = useSensors(
@@ -490,10 +489,11 @@ const JobPipeline = () => {
         {/* Left side - Back button and Jobs dropdown */}
         <div className="flex items-center gap-2">
           <button 
-            onClick={() => navigate('/')}
-            className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
+            onClick={() => navigate('/job/people/view')}
+            className="w-7 h-7 rounded-md flex items-center justify-center transition-all hover:opacity-80"
+            style={{ backgroundColor: '#E8E6DD' }}
           >
-            <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4" style={{ color: '#333333' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
           </button>
@@ -502,11 +502,12 @@ const JobPipeline = () => {
           <div className="relative">
             <button
               onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all bg-white hover:bg-gray-50 border border-gray-200"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all hover:opacity-80"
+              style={{ backgroundColor: '#E8E6DD' }}
             >
-              <img src={jobDropdownIcon} alt="Job" className="w-4 h-4 rounded" />
-              <span className="font-medium text-sm text-gray-700">Senior product designer</span>
-              <ChevronDown className="w-3.5 h-3.5 text-gray-700" />
+              <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded-md" />
+              <span className="font-medium text-sm" style={{ color: '#333333' }}>BD Representative / Sales Manager</span>
+              <ChevronDown className="w-3.5 h-3.5" style={{ color: '#333333' }} />
             </button>
             
             {jobsDropdownOpen && (
@@ -544,38 +545,49 @@ const JobPipeline = () => {
           </button>
           <button
             onClick={() => navigate('/job/pipeline')}
-            className={`px-3 h-[22px] rounded text-xs font-medium transition-all ${
-              activeTab === 'pipeline' ? 'bg-white shadow-sm' : ''
-            }`}
+            className="px-3 h-[22px] rounded text-xs font-medium transition-all bg-white shadow-sm"
             style={{ color: '#333333' }}
           >
             Pipeline
           </button>
         </div>
 
-        {/* Right side - Profile, Invite, More, Chat Toggle */}
+        {/* Right side - View Toggle, Chat Toggle, Profile */}
         <div className="flex items-center gap-2">
+          {/* View Mode Toggle */}
+          <div className="flex items-center gap-0.5 px-0.5 h-7 rounded-md" style={{ backgroundColor: '#E8E6DD' }}>
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`w-7 h-[22px] rounded flex items-center justify-center transition-all ${viewMode === 'grid' ? 'bg-white shadow-sm' : ''}`}
+              title="Grid View"
+            >
+              <LayoutGrid className="w-3.5 h-3.5" style={{ color: '#333333' }} />
+            </button>
+            <button
+              onClick={() => setViewMode('canvas')}
+              className={`w-7 h-[22px] rounded flex items-center justify-center transition-all ${viewMode === 'canvas' ? 'bg-white shadow-sm' : ''}`}
+              title="Canvas View"
+            >
+              <Network className="w-3.5 h-3.5" style={{ color: '#333333' }} />
+            </button>
+          </div>
+          
+          <button 
+            onClick={() => setIsChatCollapsed(!isChatCollapsed)}
+            className="w-7 h-7 rounded-md flex items-center justify-center transition-all hover:opacity-80"
+            style={{ backgroundColor: '#E8E6DD' }}
+            title={isChatCollapsed ? "Open AI Chat" : "Close AI Chat"}
+          >
+            <svg className="w-4 h-4" style={{ color: '#333333' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h18v18H3V3z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 3v18" />
+            </svg>
+          </button>
           <img 
             src={userAvatarImage} 
             alt="Profile" 
             className="w-7 h-7 rounded-full object-cover border-2 border-gray-200"
           />
-          <button 
-            onClick={() => setInviteDialogOpen(true)}
-            className="px-2.5 py-1 rounded-md text-sm font-medium transition-all bg-gray-800 text-white hover:bg-gray-700 border border-gray-700"
-          >
-            Invite
-          </button>
-          <button className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200">
-            <MoreVertical className="w-4 h-4 text-gray-700" />
-          </button>
-          <button 
-            onClick={() => setIsChatCollapsed(!isChatCollapsed)}
-            className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200"
-            title={isChatCollapsed ? "Open AI Chat" : "Close AI Chat"}
-          >
-            <ChevronLeft className={`w-4 h-4 text-gray-700 transition-transform ${isChatCollapsed ? '' : 'rotate-180'}`} />
-          </button>
         </div>
       </header>
 
