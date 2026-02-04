@@ -327,8 +327,9 @@ const JobBestMatches = () => {
               <div className="flex items-start gap-6">
                 {/* Left - Rating */}
                 <div className="flex-shrink-0">
-                  <p className="text-xs font-medium mb-2" style={{ color: '#666663' }}>
+                  <p className={`text-xs font-medium mb-2 ${!feedbackRating && feedbackText.trim() === '' ? 'text-[#666663]' : feedbackRating ? 'text-[#666663]' : 'text-[#BF4D43]'}`}>
                     {feedbackType === 'save' ? 'How good is this match?' : 'How bad is this fit?'}
+                    <span className="text-[#BF4D43] ml-0.5">*</span>
                   </p>
                   <div className="flex gap-2">
                     {[1, 2, 3].map((rating) => (
@@ -359,14 +360,19 @@ const JobBestMatches = () => {
 
                 {/* Center - Text input */}
                 <div className="flex-1">
-                  <p className="text-xs font-medium mb-2" style={{ color: '#666663' }}>
-                    {feedbackType === 'save' ? 'Why save this candidate? (optional)' : 'Why reject? (optional)'}
+                  <p className={`text-xs font-medium mb-2 ${!feedbackRating && feedbackText.trim() === '' ? 'text-[#666663]' : feedbackText.trim() ? 'text-[#666663]' : 'text-[#BF4D43]'}`}>
+                    {feedbackType === 'save' ? 'Why save this candidate?' : 'Why reject?'}
+                    <span className="text-[#BF4D43] ml-0.5">*</span>
                   </p>
                   <Textarea
                     value={feedbackText}
                     onChange={(e) => setFeedbackText(e.target.value)}
                     placeholder={feedbackType === 'save' ? 'e.g., Great experience at top companies...' : 'e.g., Missing required skills...'}
-                    className="h-20 text-sm resize-none bg-white border-[#D9D9D9]"
+                    className={`h-20 text-sm resize-none bg-white ${
+                      feedbackRating && !feedbackText.trim() 
+                        ? 'border-[#BF4D43] focus:border-[#BF4D43]' 
+                        : 'border-[#D9D9D9]'
+                    }`}
                   />
                 </div>
 
@@ -374,13 +380,19 @@ const JobBestMatches = () => {
                 <div className="flex flex-col gap-2 flex-shrink-0">
                   <button
                     onClick={submitFeedback}
-                    className="px-4 py-2 rounded-lg text-sm font-medium transition-all hover:opacity-90"
+                    disabled={!feedbackRating || !feedbackText.trim()}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      !feedbackRating || !feedbackText.trim()
+                        ? 'opacity-50 cursor-not-allowed'
+                        : 'hover:opacity-90'
+                    }`}
                     style={{ 
                       background: feedbackType === 'save' 
                         ? 'linear-gradient(135deg, #CC785C 0%, #D4A27F 100%)' 
                         : '#BF4D43',
                       color: '#FFFFFF' 
                     }}
+                    title={!feedbackRating || !feedbackText.trim() ? 'Please select a rating and provide feedback' : ''}
                   >
                     {feedbackType === 'save' ? 'Train & Save' : 'Train & Reject'}
                   </button>
