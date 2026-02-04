@@ -198,11 +198,10 @@ const JobBestMatches = () => {
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
         {/* Left Panel - Candidates View */}
-        <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
-          <div className={`h-full flex flex-col py-6 pb-0 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
-            <div className={`flex-1 overflow-y-auto relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
-              <div className={`${isChatCollapsed ? '' : 'max-w-[1200px]'}`}>
-                {/* Focused Candidate Review */}
+        <div className={`flex-1 overflow-y-auto ${isChatCollapsed ? 'flex justify-center' : ''}`}>
+          <div className={`py-6 pb-6 ${isChatCollapsed ? 'w-full max-w-[1200px] mx-6' : 'w-full ml-4 mr-4'}`}>
+            <div className={`${isChatCollapsed ? '' : 'max-w-[1200px]'}`}>
+              {/* Focused Candidate Review */}
                 {!reviewComplete && selectedBestMatch ? (
                   <div className="animate-content-expand pb-6">
                     {/* Split view: Profile on left, Detail panel on right - both scroll together */}
@@ -260,7 +259,6 @@ const JobBestMatches = () => {
                     </div>
                   </div>
                 )}
-              </div>
             </div>
           </div>
         </div>
