@@ -180,24 +180,27 @@ const JobPeopleView = () => {
           <button
             onClick={() => navigate('/job')}
             className={`px-3 h-[22px] rounded text-xs font-medium transition-all ${
-              activeTab === 'job' ? 'bg-white text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              activeTab === 'job' ? 'bg-white shadow-sm' : ''
             }`}
+            style={{ color: '#333333' }}
           >
             Job
           </button>
           <button
             onClick={() => navigate('/job/people/view')}
             className={`px-3 h-[22px] rounded text-xs font-medium transition-all ${
-              activeTab === 'people' ? 'bg-white text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              activeTab === 'people' ? 'bg-white shadow-sm' : ''
             }`}
+            style={{ color: '#333333' }}
           >
             Review (50)
           </button>
           <button
             onClick={() => navigate('/job/pipeline')}
             className={`px-3 h-[22px] rounded text-xs font-medium transition-all ${
-              activeTab === 'pipeline' ? 'bg-white text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              activeTab === 'pipeline' ? 'bg-white shadow-sm' : ''
             }`}
+            style={{ color: '#333333' }}
           >
             Pipeline
           </button>
