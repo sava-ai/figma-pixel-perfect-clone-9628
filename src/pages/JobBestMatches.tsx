@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronDown, ChevronLeft, ChevronRight, SkipForward } from 'lucide-react';
 import { InviteDialog } from '@/components/InviteDialog';
 import { JobChatPanel } from '@/components/JobChatPanel';
 import CandidateDetailPanel from '@/components/CandidateDetailPanel';
@@ -17,10 +17,25 @@ const JobBestMatches = () => {
   const [isChatCollapsed, setIsChatCollapsed] = useState(false);
   const [currentCandidateIndex, setCurrentCandidateIndex] = useState(0);
   const [reviewedCandidates, setReviewedCandidates] = useState<Set<number>>(new Set());
+  const [skippedCandidates, setSkippedCandidates] = useState<number[]>([]);
+  const [savedCandidates, setSavedCandidates] = useState<number[]>([]);
+  const [rejectedCandidates, setRejectedCandidates] = useState<number[]>([]);
   const [reviewComplete, setReviewComplete] = useState(false);
+  const [viewingSkipped, setViewingSkipped] = useState(false);
+  const [skippedIndex, setSkippedIndex] = useState(0);
   
   const filteredCandidates = bestCandidates;
-  const selectedBestMatch = filteredCandidates[currentCandidateIndex];
+  
+  // Get current candidate based on mode
+  const getCurrentCandidate = () => {
+    if (viewingSkipped && skippedCandidates.length > 0) {
+      const candidateId = skippedCandidates[skippedIndex];
+      return filteredCandidates.find(c => c.id === candidateId);
+    }
+    return filteredCandidates[currentCandidateIndex];
+  };
+  
+  const selectedBestMatch = getCurrentCandidate();
 
   const jobs = [
     { id: 1, title: 'BD Representative / Sales Manager' },
@@ -28,26 +43,81 @@ const JobBestMatches = () => {
     { id: 3, title: 'Frontend Developer' }
   ];
 
-  // Handle navigation to next candidate
-  const handleNextCandidate = (action: 'save' | 'reject') => {
-    // Mark current candidate as reviewed
-    if (selectedBestMatch) {
-      setReviewedCandidates(prev => new Set(prev).add(selectedBestMatch.id));
+  // Handle skip action
+  const handleSkip = () => {
+    if (selectedBestMatch && !viewingSkipped) {
+      setSkippedCandidates(prev => [...prev, selectedBestMatch.id]);
     }
+    moveToNext();
+  };
 
-    // Move to next candidate
-    const nextIndex = currentCandidateIndex + 1;
-    if (nextIndex < filteredCandidates.length) {
-      setCurrentCandidateIndex(nextIndex);
+  // Handle save action
+  const handleSave = () => {
+    if (selectedBestMatch) {
+      setSavedCandidates(prev => [...prev, selectedBestMatch.id]);
+      if (viewingSkipped) {
+        // Remove from skipped list
+        setSkippedCandidates(prev => prev.filter(id => id !== selectedBestMatch.id));
+      }
+    }
+    moveToNext();
+  };
+
+  // Handle reject action
+  const handleReject = () => {
+    if (selectedBestMatch) {
+      setRejectedCandidates(prev => [...prev, selectedBestMatch.id]);
+      if (viewingSkipped) {
+        // Remove from skipped list
+        setSkippedCandidates(prev => prev.filter(id => id !== selectedBestMatch.id));
+      }
+    }
+    moveToNext();
+  };
+
+  // Move to next candidate
+  const moveToNext = () => {
+    if (viewingSkipped) {
+      if (skippedIndex < skippedCandidates.length - 1) {
+        setSkippedIndex(skippedIndex + 1);
+      } else {
+        // Done reviewing skipped
+        setViewingSkipped(false);
+        setSkippedIndex(0);
+      }
     } else {
-      // All candidates reviewed
-      setReviewComplete(true);
+      if (selectedBestMatch) {
+        setReviewedCandidates(prev => new Set(prev).add(selectedBestMatch.id));
+      }
+      const nextIndex = currentCandidateIndex + 1;
+      if (nextIndex < filteredCandidates.length) {
+        setCurrentCandidateIndex(nextIndex);
+      } else {
+        setReviewComplete(true);
+      }
+    }
+  };
+
+  // Handle navigation to next candidate (legacy)
+  const handleNextCandidate = (action: 'save' | 'reject') => {
+    if (action === 'save') {
+      handleSave();
+    } else {
+      handleReject();
     }
   };
 
   // Handle going back to the dashboard
   const handleBackToList = () => {
     navigate('/job/people/view');
+  };
+
+  // Enter skipped review mode
+  const handleReviewSkipped = () => {
+    if (skippedCandidates.length > 0) {
+      setViewingSkipped(true);
+      setSkippedIndex(0);
+    }
   };
 
   return (
@@ -129,26 +199,33 @@ const JobBestMatches = () => {
       <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
         {/* Left Panel - Candidates View */}
         <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
-          <div className={`h-full flex flex-col py-6 pb-[17px] relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
+          <div className={`h-full flex flex-col py-6 pb-0 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
             <div className={`flex-1 overflow-y-auto relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
               <div className={`${isChatCollapsed ? '' : 'max-w-[1200px]'}`}>
                 {/* Focused Candidate Review */}
-                {!reviewComplete ? (
+                {!reviewComplete && selectedBestMatch ? (
                   <div className="animate-content-expand">
                     {/* Split view: Title + Profile on left, Detail panel on right */}
-                    <div className="flex gap-4 h-[calc(100vh-97px)]">
+                    <div className="flex gap-4 h-[calc(100vh-170px)]">
                       {/* Left side: Title + Enhanced profile panel */}
                       <div className="w-[45%] min-h-0 flex flex-col">
-                        {/* Header */}
-                        <h2 className="font-medium text-xl mb-4" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
-                          Candidates Batch 3
-                        </h2>
+                        {/* Header with viewing mode indicator */}
+                        <div className="flex items-center gap-2 mb-4">
+                          <h2 className="font-medium text-xl" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
+                            {viewingSkipped ? 'Reviewing Skipped' : 'Candidates Batch 3'}
+                          </h2>
+                          {viewingSkipped && (
+                            <span className="px-2 py-0.5 text-xs rounded-full" style={{ backgroundColor: '#F0F0EB', color: '#666663' }}>
+                              {skippedIndex + 1} of {skippedCandidates.length}
+                            </span>
+                          )}
+                        </div>
                         {/* Profile panel */}
                         <div className="flex-1 min-h-0">
                           <CandidateProfilePanel
                             candidate={selectedBestMatch}
-                            currentIndex={currentCandidateIndex}
-                            totalCount={filteredCandidates.length}
+                            currentIndex={viewingSkipped ? skippedIndex : currentCandidateIndex}
+                            totalCount={viewingSkipped ? skippedCandidates.length : filteredCandidates.length}
                             hideProgressHeader={true}
                           />
                         </div>
@@ -159,27 +236,31 @@ const JobBestMatches = () => {
                         {/* Navigation header outside the panel */}
                         <div className="flex items-center justify-end gap-3 mb-4">
                           <span className="text-sm" style={{ fontFamily: 'Inter, sans-serif', color: '#1A1A1A' }}>
-                            Reviewing {currentCandidateIndex + 1} of {filteredCandidates.length}
+                            Reviewing {viewingSkipped ? skippedIndex + 1 : currentCandidateIndex + 1} of {viewingSkipped ? skippedCandidates.length : filteredCandidates.length}
                           </span>
                           <div className="flex items-center gap-1">
                             <button 
                               onClick={() => {
-                                if (currentCandidateIndex > 0) {
-                                  setCurrentCandidateIndex(currentCandidateIndex - 1);
+                                if (viewingSkipped) {
+                                  if (skippedIndex > 0) setSkippedIndex(skippedIndex - 1);
+                                } else {
+                                  if (currentCandidateIndex > 0) setCurrentCandidateIndex(currentCandidateIndex - 1);
                                 }
                               }}
-                              disabled={currentCandidateIndex === 0}
+                              disabled={viewingSkipped ? skippedIndex === 0 : currentCandidateIndex === 0}
                               className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed border border-gray-200 bg-white"
                             >
                               <ChevronLeft className="w-4 h-4 text-gray-700" />
                             </button>
                             <button 
                               onClick={() => {
-                                if (currentCandidateIndex < filteredCandidates.length - 1) {
-                                  setCurrentCandidateIndex(currentCandidateIndex + 1);
+                                if (viewingSkipped) {
+                                  if (skippedIndex < skippedCandidates.length - 1) setSkippedIndex(skippedIndex + 1);
+                                } else {
+                                  if (currentCandidateIndex < filteredCandidates.length - 1) setCurrentCandidateIndex(currentCandidateIndex + 1);
                                 }
                               }}
-                              disabled={currentCandidateIndex >= filteredCandidates.length - 1}
+                              disabled={viewingSkipped ? skippedIndex >= skippedCandidates.length - 1 : currentCandidateIndex >= filteredCandidates.length - 1}
                               className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed border border-gray-200 bg-white"
                             >
                               <ChevronRight className="w-4 h-4 text-gray-700" />
@@ -201,7 +282,7 @@ const JobBestMatches = () => {
                   </div>
                 ) : (
                   // Review complete state
-                  <div className="flex flex-col items-center justify-center h-[calc(100vh-140px)] animate-fade-in">
+                  <div className="flex flex-col items-center justify-center h-[calc(100vh-200px)] animate-fade-in">
                     <div className="w-20 h-20 rounded-full bg-lime-100 flex items-center justify-center mb-6">
                       <svg className="w-10 h-10 text-lime-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -211,9 +292,15 @@ const JobBestMatches = () => {
                       All candidates reviewed!
                     </h2>
                     <p className="text-muted-foreground text-center mb-6 max-w-md">
-                      You've reviewed all {filteredCandidates.length} candidates. Check your pipeline for saved candidates or reset to review again.
+                      You've reviewed all {filteredCandidates.length} candidates. 
+                      {skippedCandidates.length > 0 && ` You have ${skippedCandidates.length} skipped candidates to review.`}
                     </p>
                     <div className="flex gap-3">
+                      {skippedCandidates.length > 0 && (
+                        <Button variant="outline" onClick={handleReviewSkipped}>
+                          Review {skippedCandidates.length} skipped
+                        </Button>
+                      )}
                       <Button variant="outline" onClick={handleBackToList}>
                         Back to dashboard
                       </Button>
@@ -235,6 +322,83 @@ const JobBestMatches = () => {
           </div>
         )}
       </div>
+
+      {/* Sticky Footer */}
+      {!reviewComplete && selectedBestMatch && (
+        <div 
+          className="flex-shrink-0 px-6 py-3 border-t flex items-center justify-between"
+          style={{ backgroundColor: '#F2F1ED', borderColor: '#D9D9D9' }}
+        >
+          {/* Left - Batch info */}
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-medium" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
+              {viewingSkipped ? 'Reviewing Skipped' : 'Candidates Batch 3'}
+            </span>
+            {skippedCandidates.length > 0 && !viewingSkipped && (
+              <button 
+                onClick={handleReviewSkipped}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all hover:opacity-80"
+                style={{ backgroundColor: '#E8E6DD', color: '#666663' }}
+              >
+                <SkipForward className="w-3.5 h-3.5" />
+                {skippedCandidates.length} skipped
+              </button>
+            )}
+            {viewingSkipped && (
+              <button 
+                onClick={() => setViewingSkipped(false)}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all hover:opacity-80"
+                style={{ backgroundColor: '#E8E6DD', color: '#666663' }}
+              >
+                Back to batch
+              </button>
+            )}
+          </div>
+
+          {/* Center - Action buttons */}
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={handleReject}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:opacity-80 border"
+              style={{ backgroundColor: '#FFFFFF', borderColor: '#BF4D43', color: '#BF4D43' }}
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17" />
+              </svg>
+              Not a good fit
+            </button>
+            
+            {!viewingSkipped && (
+              <button 
+                onClick={handleSkip}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:opacity-80 border"
+                style={{ backgroundColor: '#FFFFFF', borderColor: '#D9D9D9', color: '#666663' }}
+              >
+                <SkipForward className="w-4 h-4" />
+                Skip
+              </button>
+            )}
+            
+            <button 
+              onClick={handleSave}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:opacity-90"
+              style={{ background: 'linear-gradient(135deg, #CC785C 0%, #D4A27F 100%)', color: '#FFFFFF' }}
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+              </svg>
+              Save to job
+            </button>
+          </div>
+
+          {/* Right - Stats */}
+          <div className="flex items-center gap-4 text-xs" style={{ color: '#666663' }}>
+            <span>{savedCandidates.length} saved</span>
+            <span>{rejectedCandidates.length} rejected</span>
+            <span>{skippedCandidates.length} skipped</span>
+          </div>
+        </div>
+      )}
 
       <InviteDialog
         open={inviteDialogOpen}
