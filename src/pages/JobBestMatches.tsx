@@ -204,11 +204,11 @@ const JobBestMatches = () => {
               <div className={`${isChatCollapsed ? '' : 'max-w-[1200px]'}`}>
                 {/* Focused Candidate Review */}
                 {!reviewComplete && selectedBestMatch ? (
-                  <div className="animate-content-expand">
-                    {/* Split view: Title + Profile on left, Detail panel on right */}
-                    <div className="flex gap-4 h-[calc(100vh-170px)]">
+                  <div className="animate-content-expand pb-6">
+                    {/* Split view: Profile on left, Detail panel on right - both scroll together */}
+                    <div className="flex gap-4">
                       {/* Left side: Profile panel */}
-                      <div className="w-[45%] min-h-0 flex flex-col">
+                      <div className="w-[45%]">
                         <CandidateProfilePanel
                           candidate={selectedBestMatch}
                           currentIndex={viewingSkipped ? skippedIndex : currentCandidateIndex}
@@ -218,8 +218,8 @@ const JobBestMatches = () => {
                       </div>
 
                       {/* Right side: Detail panel */}
-                      <div className="w-[55%] min-h-0 flex flex-col">
-                        <div className="flex-1 min-h-0 bg-white border border-[#EEEDEC] rounded-xl overflow-hidden">
+                      <div className="w-[55%]">
+                        <div className="bg-white border border-[#EEEDEC] rounded-xl overflow-hidden">
                           <CandidateDetailPanel
                             candidate={selectedBestMatch}
                             onClose={handleBackToList}

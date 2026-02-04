@@ -351,8 +351,8 @@ const CandidateDetailPanel = ({
       </div>;
   };
   return <div className="h-full flex flex-col bg-white">
-      {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide">
+      {/* Content */}
+      <div className="flex-1">
         {/* Match Banner - scrolls with content */}
         <div 
           className="p-4 mx-5 mt-5 rounded-lg"
