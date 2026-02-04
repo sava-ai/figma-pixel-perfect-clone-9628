@@ -58,6 +58,8 @@ const Job = () => {
     
     // Description sections
     description: 'We are seeking a Sales Development Manager with strong analytical and creative problem-solving skills to join our growing commercial team at Stepapp. You will be responsible for building, running, and continuously improving our sales development engine, ensuring predictable pipeline generation to support company growth.',
+    skills: ['Sales Strategy', 'Team Management', 'CRM Systems', 'Data Analysis', 'Communication'],
+    qualifications: ['Bachelor\'s degree in Business, Marketing, or related field', 'Proven track record of meeting sales targets'],
     responsibilities: ['Build and manage the sales development team', 'Create and optimize outbound sales processes'],
     requiredExperience: ['3+ years in sales', 'B2B SaaS experience', 'Team leadership'],
     preferredExperience: ['Startup experience', 'CRM expertise', 'Data analysis'],
@@ -66,6 +68,8 @@ const Job = () => {
   const [savedFormData, setSavedFormData] = useState(formData);
   
   // Input states for adding new items
+  const [newSkill, setNewSkill] = useState('');
+  const [newQualification, setNewQualification] = useState('');
   const [newResponsibility, setNewResponsibility] = useState('');
   const [newRequiredExp, setNewRequiredExp] = useState('');
   const [newPreferredExp, setNewPreferredExp] = useState('');
@@ -632,6 +636,107 @@ Qualifications
                     />
                   ) : (
                     <p className="text-foreground leading-relaxed">{formData.description}</p>
+                  )}
+                </div>
+
+                {/* Skills (Tags) */}
+                <div className="mb-8">
+                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Skills</h2>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {formData.skills.map((tag, idx) => (
+                      <span key={idx} className="px-3 py-1.5 rounded-full border border-border text-sm flex items-center gap-2">
+                        {tag}
+                        {isEditMode && (
+                          <button
+                            onClick={() => setFormData({
+                              ...formData,
+                              skills: formData.skills.filter((_, i) => i !== idx)
+                            })}
+                            className="text-muted-foreground hover:text-destructive"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                  {isEditMode && (
+                    <div className="flex items-center gap-2">
+                      <Input
+                        value={newSkill}
+                        onChange={(e) => setNewSkill(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && newSkill.trim()) {
+                            setFormData({...formData, skills: [...formData.skills, newSkill.trim()]});
+                            setNewSkill('');
+                          }
+                        }}
+                        className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                        placeholder="Add skill..."
+                      />
+                      <button
+                        onClick={() => {
+                          if (newSkill.trim()) {
+                            setFormData({...formData, skills: [...formData.skills, newSkill.trim()]});
+                            setNewSkill('');
+                          }
+                        }}
+                        className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
+                      >
+                        <Plus className="w-5 h-5" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Qualifications */}
+                <div className="mb-8">
+                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Qualifications</h2>
+                  <ul className="space-y-2 mb-3">
+                    {formData.qualifications.map((item, idx) => (
+                      <li key={idx} className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-foreground flex-shrink-0" />
+                        <span className="text-foreground">{item}</span>
+                        {isEditMode && (
+                          <button
+                            onClick={() => setFormData({
+                              ...formData,
+                              qualifications: formData.qualifications.filter((_, i) => i !== idx)
+                            })}
+                            className="text-muted-foreground hover:text-destructive ml-auto"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                  {isEditMode && (
+                    <div className="flex items-center gap-2">
+                      <Input
+                        value={newQualification}
+                        onChange={(e) => setNewQualification(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && newQualification.trim()) {
+                            setFormData({...formData, qualifications: [...formData.qualifications, newQualification.trim()]});
+                            setNewQualification('');
+                          }
+                        }}
+                        className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                        placeholder="Add qualification..."
+                      />
+                      <button
+                        onClick={() => {
+                          if (newQualification.trim()) {
+                            setFormData({...formData, qualifications: [...formData.qualifications, newQualification.trim()]});
+                            setNewQualification('');
+                          }
+                        }}
+                        className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
+                      >
+                        <Plus className="w-5 h-5" />
+                      </button>
+                    </div>
                   )}
                 </div>
 
