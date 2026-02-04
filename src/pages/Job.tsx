@@ -625,285 +625,290 @@ Qualifications
                 </Collapsible>
 
 
-                {/* Description */}
-                <div className="mb-8">
-                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Description</h2>
-                  {isEditMode ? (
-                    <Textarea
-                      value={formData.description}
-                      onChange={(e) => setFormData({...formData, description: e.target.value})}
-                      className="min-h-[120px] border-[#CD785C] focus-visible:ring-[#CD785C]"
-                    />
-                  ) : (
-                    <p className="text-foreground leading-relaxed">{formData.description}</p>
-                  )}
-                </div>
-
-                {/* Skills (Tags) */}
-                <div className="mb-8">
-                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Skills</h2>
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {formData.skills.map((tag, idx) => (
-                      <span key={idx} className="px-3 py-1.5 rounded-full border border-border text-sm flex items-center gap-2">
-                        {tag}
-                        {isEditMode && (
-                          <button
-                            onClick={() => setFormData({
-                              ...formData,
-                              skills: formData.skills.filter((_, i) => i !== idx)
-                            })}
-                            className="text-muted-foreground hover:text-destructive"
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
-                        )}
-                      </span>
-                    ))}
-                  </div>
-                  {isEditMode && (
-                    <div className="flex items-center gap-2">
-                      <Input
-                        value={newSkill}
-                        onChange={(e) => setNewSkill(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' && newSkill.trim()) {
-                            setFormData({...formData, skills: [...formData.skills, newSkill.trim()]});
-                            setNewSkill('');
-                          }
-                        }}
-                        className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
-                        placeholder="Add skill..."
-                      />
-                      <button
-                        onClick={() => {
-                          if (newSkill.trim()) {
-                            setFormData({...formData, skills: [...formData.skills, newSkill.trim()]});
-                            setNewSkill('');
-                          }
-                        }}
-                        className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
-                      >
-                        <Plus className="w-5 h-5" />
-                      </button>
+                {/* Job Description Content - Only visible when Job Role accordion is expanded */}
+                {jobRoleOpen && (
+                  <>
+                    {/* Description */}
+                    <div className="mb-8">
+                      <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Description</h2>
+                      {isEditMode ? (
+                        <Textarea
+                          value={formData.description}
+                          onChange={(e) => setFormData({...formData, description: e.target.value})}
+                          className="min-h-[120px] border-[#CD785C] focus-visible:ring-[#CD785C]"
+                        />
+                      ) : (
+                        <p className="text-foreground leading-relaxed">{formData.description}</p>
+                      )}
                     </div>
-                  )}
-                </div>
 
-                {/* Qualifications */}
-                <div className="mb-8">
-                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Qualifications</h2>
-                  <ul className="space-y-2 mb-3">
-                    {formData.qualifications.map((item, idx) => (
-                      <li key={idx} className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-foreground flex-shrink-0" />
-                        <span className="text-foreground">{item}</span>
-                        {isEditMode && (
+                    {/* Skills (Tags) */}
+                    <div className="mb-8">
+                      <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Skills</h2>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {formData.skills.map((tag, idx) => (
+                          <span key={idx} className="px-3 py-1.5 rounded-full border border-border text-sm flex items-center gap-2">
+                            {tag}
+                            {isEditMode && (
+                              <button
+                                onClick={() => setFormData({
+                                  ...formData,
+                                  skills: formData.skills.filter((_, i) => i !== idx)
+                                })}
+                                className="text-muted-foreground hover:text-destructive"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            )}
+                          </span>
+                        ))}
+                      </div>
+                      {isEditMode && (
+                        <div className="flex items-center gap-2">
+                          <Input
+                            value={newSkill}
+                            onChange={(e) => setNewSkill(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' && newSkill.trim()) {
+                                setFormData({...formData, skills: [...formData.skills, newSkill.trim()]});
+                                setNewSkill('');
+                              }
+                            }}
+                            className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                            placeholder="Add skill..."
+                          />
                           <button
-                            onClick={() => setFormData({
-                              ...formData,
-                              qualifications: formData.qualifications.filter((_, i) => i !== idx)
-                            })}
-                            className="text-muted-foreground hover:text-destructive ml-auto"
+                            onClick={() => {
+                              if (newSkill.trim()) {
+                                setFormData({...formData, skills: [...formData.skills, newSkill.trim()]});
+                                setNewSkill('');
+                              }
+                            }}
+                            className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
                           >
-                            <X className="w-4 h-4" />
+                            <Plus className="w-5 h-5" />
                           </button>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                  {isEditMode && (
-                    <div className="flex items-center gap-2">
-                      <Input
-                        value={newQualification}
-                        onChange={(e) => setNewQualification(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' && newQualification.trim()) {
-                            setFormData({...formData, qualifications: [...formData.qualifications, newQualification.trim()]});
-                            setNewQualification('');
-                          }
-                        }}
-                        className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
-                        placeholder="Add qualification..."
-                      />
-                      <button
-                        onClick={() => {
-                          if (newQualification.trim()) {
-                            setFormData({...formData, qualifications: [...formData.qualifications, newQualification.trim()]});
-                            setNewQualification('');
-                          }
-                        }}
-                        className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
-                      >
-                        <Plus className="w-5 h-5" />
-                      </button>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
 
-                {/* Responsibilities */}
-                <div className="mb-8">
-                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Responsibilities</h2>
-                  <ul className="space-y-2 mb-3">
-                    {formData.responsibilities.map((item, idx) => (
-                      <li key={idx} className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-foreground flex-shrink-0" />
-                        <span className="text-foreground">{item}</span>
-                        {isEditMode && (
+                    {/* Qualifications */}
+                    <div className="mb-8">
+                      <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Qualifications</h2>
+                      <ul className="space-y-2 mb-3">
+                        {formData.qualifications.map((item, idx) => (
+                          <li key={idx} className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-foreground flex-shrink-0" />
+                            <span className="text-foreground">{item}</span>
+                            {isEditMode && (
+                              <button
+                                onClick={() => setFormData({
+                                  ...formData,
+                                  qualifications: formData.qualifications.filter((_, i) => i !== idx)
+                                })}
+                                className="text-muted-foreground hover:text-destructive ml-auto"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                      {isEditMode && (
+                        <div className="flex items-center gap-2">
+                          <Input
+                            value={newQualification}
+                            onChange={(e) => setNewQualification(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' && newQualification.trim()) {
+                                setFormData({...formData, qualifications: [...formData.qualifications, newQualification.trim()]});
+                                setNewQualification('');
+                              }
+                            }}
+                            className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                            placeholder="Add qualification..."
+                          />
                           <button
-                            onClick={() => setFormData({
-                              ...formData,
-                              responsibilities: formData.responsibilities.filter((_, i) => i !== idx)
-                            })}
-                            className="text-muted-foreground hover:text-destructive ml-auto"
+                            onClick={() => {
+                              if (newQualification.trim()) {
+                                setFormData({...formData, qualifications: [...formData.qualifications, newQualification.trim()]});
+                                setNewQualification('');
+                              }
+                            }}
+                            className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
                           >
-                            <X className="w-4 h-4" />
+                            <Plus className="w-5 h-5" />
                           </button>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                  {isEditMode && (
-                    <div className="flex items-center gap-2">
-                      <Input
-                        value={newResponsibility}
-                        onChange={(e) => setNewResponsibility(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' && newResponsibility.trim()) {
-                            setFormData({...formData, responsibilities: [...formData.responsibilities, newResponsibility.trim()]});
-                            setNewResponsibility('');
-                          }
-                        }}
-                        className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
-                        placeholder="Add responsibility..."
-                      />
-                      <button
-                        onClick={() => {
-                          if (newResponsibility.trim()) {
-                            setFormData({...formData, responsibilities: [...formData.responsibilities, newResponsibility.trim()]});
-                            setNewResponsibility('');
-                          }
-                        }}
-                        className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
-                      >
-                        <Plus className="w-5 h-5" />
-                      </button>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
 
-                {/* Required Experience (Tags) */}
-                <div className="mb-8">
-                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Required Experience</h2>
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {formData.requiredExperience.map((tag, idx) => (
-                      <span key={idx} className="px-3 py-1.5 rounded-full border border-border text-sm flex items-center gap-2">
-                        {tag}
-                        {isEditMode && (
+                    {/* Responsibilities */}
+                    <div className="mb-8">
+                      <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Responsibilities</h2>
+                      <ul className="space-y-2 mb-3">
+                        {formData.responsibilities.map((item, idx) => (
+                          <li key={idx} className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-foreground flex-shrink-0" />
+                            <span className="text-foreground">{item}</span>
+                            {isEditMode && (
+                              <button
+                                onClick={() => setFormData({
+                                  ...formData,
+                                  responsibilities: formData.responsibilities.filter((_, i) => i !== idx)
+                                })}
+                                className="text-muted-foreground hover:text-destructive ml-auto"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                      {isEditMode && (
+                        <div className="flex items-center gap-2">
+                          <Input
+                            value={newResponsibility}
+                            onChange={(e) => setNewResponsibility(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' && newResponsibility.trim()) {
+                                setFormData({...formData, responsibilities: [...formData.responsibilities, newResponsibility.trim()]});
+                                setNewResponsibility('');
+                              }
+                            }}
+                            className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                            placeholder="Add responsibility..."
+                          />
                           <button
-                            onClick={() => setFormData({
-                              ...formData,
-                              requiredExperience: formData.requiredExperience.filter((_, i) => i !== idx)
-                            })}
-                            className="text-muted-foreground hover:text-destructive"
+                            onClick={() => {
+                              if (newResponsibility.trim()) {
+                                setFormData({...formData, responsibilities: [...formData.responsibilities, newResponsibility.trim()]});
+                                setNewResponsibility('');
+                              }
+                            }}
+                            className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
                           >
-                            <X className="w-3 h-3" />
+                            <Plus className="w-5 h-5" />
                           </button>
-                        )}
-                      </span>
-                    ))}
-                  </div>
-                  {isEditMode && (
-                    <div className="flex items-center gap-2">
-                      <Input
-                        value={newRequiredExp}
-                        onChange={(e) => setNewRequiredExp(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' && newRequiredExp.trim()) {
-                            setFormData({...formData, requiredExperience: [...formData.requiredExperience, newRequiredExp.trim()]});
-                            setNewRequiredExp('');
-                          }
-                        }}
-                        className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
-                        placeholder="Add required experience..."
-                      />
-                      <button
-                        onClick={() => {
-                          if (newRequiredExp.trim()) {
-                            setFormData({...formData, requiredExperience: [...formData.requiredExperience, newRequiredExp.trim()]});
-                            setNewRequiredExp('');
-                          }
-                        }}
-                        className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
-                      >
-                        <Plus className="w-5 h-5" />
-                      </button>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
 
-                {/* Preferred Experience (Tags) */}
-                <div className="mb-8">
-                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Preferred Experience</h2>
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {formData.preferredExperience.map((tag, idx) => (
-                      <span key={idx} className="px-3 py-1.5 rounded-full border border-border text-sm flex items-center gap-2">
-                        {tag}
-                        {isEditMode && (
+                    {/* Required Experience (Tags) */}
+                    <div className="mb-8">
+                      <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Required Experience</h2>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {formData.requiredExperience.map((tag, idx) => (
+                          <span key={idx} className="px-3 py-1.5 rounded-full border border-border text-sm flex items-center gap-2">
+                            {tag}
+                            {isEditMode && (
+                              <button
+                                onClick={() => setFormData({
+                                  ...formData,
+                                  requiredExperience: formData.requiredExperience.filter((_, i) => i !== idx)
+                                })}
+                                className="text-muted-foreground hover:text-destructive"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            )}
+                          </span>
+                        ))}
+                      </div>
+                      {isEditMode && (
+                        <div className="flex items-center gap-2">
+                          <Input
+                            value={newRequiredExp}
+                            onChange={(e) => setNewRequiredExp(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' && newRequiredExp.trim()) {
+                                setFormData({...formData, requiredExperience: [...formData.requiredExperience, newRequiredExp.trim()]});
+                                setNewRequiredExp('');
+                              }
+                            }}
+                            className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                            placeholder="Add required experience..."
+                          />
                           <button
-                            onClick={() => setFormData({
-                              ...formData,
-                              preferredExperience: formData.preferredExperience.filter((_, i) => i !== idx)
-                            })}
-                            className="text-muted-foreground hover:text-destructive"
+                            onClick={() => {
+                              if (newRequiredExp.trim()) {
+                                setFormData({...formData, requiredExperience: [...formData.requiredExperience, newRequiredExp.trim()]});
+                                setNewRequiredExp('');
+                              }
+                            }}
+                            className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
                           >
-                            <X className="w-3 h-3" />
+                            <Plus className="w-5 h-5" />
                           </button>
-                        )}
-                      </span>
-                    ))}
-                  </div>
-                  {isEditMode && (
-                    <div className="flex items-center gap-2">
-                      <Input
-                        value={newPreferredExp}
-                        onChange={(e) => setNewPreferredExp(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' && newPreferredExp.trim()) {
-                            setFormData({...formData, preferredExperience: [...formData.preferredExperience, newPreferredExp.trim()]});
-                            setNewPreferredExp('');
-                          }
-                        }}
-                        className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
-                        placeholder="Add preferred experience..."
-                      />
-                      <button
-                        onClick={() => {
-                          if (newPreferredExp.trim()) {
-                            setFormData({...formData, preferredExperience: [...formData.preferredExperience, newPreferredExp.trim()]});
-                            setNewPreferredExp('');
-                          }
-                        }}
-                        className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
-                      >
-                        <Plus className="w-5 h-5" />
-                      </button>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
 
-                {/* About Us */}
-                <div className="mb-8">
-                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>About Us</h2>
-                  {isEditMode ? (
-                    <Textarea
-                      value={formData.aboutUs}
-                      onChange={(e) => setFormData({...formData, aboutUs: e.target.value})}
-                      className="min-h-[100px] border-[#CD785C] focus-visible:ring-[#CD785C]"
-                    />
-                  ) : (
-                    <p className="text-foreground leading-relaxed">{formData.aboutUs}</p>
-                  )}
-                </div>
+                    {/* Preferred Experience (Tags) */}
+                    <div className="mb-8">
+                      <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Preferred Experience</h2>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {formData.preferredExperience.map((tag, idx) => (
+                          <span key={idx} className="px-3 py-1.5 rounded-full border border-border text-sm flex items-center gap-2">
+                            {tag}
+                            {isEditMode && (
+                              <button
+                                onClick={() => setFormData({
+                                  ...formData,
+                                  preferredExperience: formData.preferredExperience.filter((_, i) => i !== idx)
+                                })}
+                                className="text-muted-foreground hover:text-destructive"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            )}
+                          </span>
+                        ))}
+                      </div>
+                      {isEditMode && (
+                        <div className="flex items-center gap-2">
+                          <Input
+                            value={newPreferredExp}
+                            onChange={(e) => setNewPreferredExp(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' && newPreferredExp.trim()) {
+                                setFormData({...formData, preferredExperience: [...formData.preferredExperience, newPreferredExp.trim()]});
+                                setNewPreferredExp('');
+                              }
+                            }}
+                            className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                            placeholder="Add preferred experience..."
+                          />
+                          <button
+                            onClick={() => {
+                              if (newPreferredExp.trim()) {
+                                setFormData({...formData, preferredExperience: [...formData.preferredExperience, newPreferredExp.trim()]});
+                                setNewPreferredExp('');
+                              }
+                            }}
+                            className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
+                          >
+                            <Plus className="w-5 h-5" />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* About Us */}
+                    <div className="mb-8">
+                      <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>About Us</h2>
+                      {isEditMode ? (
+                        <Textarea
+                          value={formData.aboutUs}
+                          onChange={(e) => setFormData({...formData, aboutUs: e.target.value})}
+                          className="min-h-[100px] border-[#CD785C] focus-visible:ring-[#CD785C]"
+                        />
+                      ) : (
+                        <p className="text-foreground leading-relaxed">{formData.aboutUs}</p>
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
 
             </div>
