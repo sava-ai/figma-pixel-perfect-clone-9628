@@ -108,7 +108,7 @@ const JobBrain = () => {
             className="px-3 h-[22px] rounded text-xs font-medium transition-all"
             style={{ color: '#333333' }}
           >
-            Review (50)
+            Review (10)
           </button>
           <button
             onClick={() => navigate('/job/pipeline')}
