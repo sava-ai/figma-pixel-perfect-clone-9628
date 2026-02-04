@@ -380,15 +380,15 @@ const CandidateDetailPanel = ({
             </p>
             {/* Highlight Tags */}
             <div className="flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full font-medium" style={{ backgroundColor: '#FFF8E7', color: '#B8860B', border: '1px solid #F0E6D0' }}>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full font-medium" style={{ backgroundColor: '#EBDBBC', color: '#262625' }}>
                 <Award size={12} />
                 Award Winner
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full font-medium" style={{ backgroundColor: '#F0F7FF', color: '#1E5F9A', border: '1px solid #D0E3F7' }}>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full font-medium" style={{ backgroundColor: '#EBDBBC', color: '#262625' }}>
                 <Building2 size={12} />
                 Worked for Top Companies
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full font-medium" style={{ backgroundColor: '#F0FDF4', color: '#166534', border: '1px solid #BBF7D0' }}>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full font-medium" style={{ backgroundColor: '#EBDBBC', color: '#262625' }}>
                 <Globe size={12} />
                 International Experience
               </span>
@@ -426,88 +426,63 @@ const CandidateDetailPanel = ({
 
           {/* Technical Requirements */}
           <div className="mb-5">
-            <h3 className="text-sm uppercase tracking-wide mb-3" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
+            <h3 className="text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
               Technical Requirements
             </h3>
-            <div className="bg-white rounded-lg border border-[#EEEDEC] overflow-hidden">
-              {/* Python - Yes */}
-              <div className="flex items-start gap-3 p-3 border-b border-[#F3F3F3]">
-                <div className="w-16 flex-shrink-0">
-                  <span className="inline-flex items-center justify-center text-xs font-medium px-2.5 py-1 rounded-md w-full" style={{ backgroundColor: '#E8F5E8', color: '#2D7A2D' }}>
-                    Yes
-                  </span>
+            <div className="bg-white rounded-lg px-3 border border-[#EEEDEC]">
+              {/* Python */}
+              <div className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3]">
+                <div className="flex items-center gap-2.5 flex-1 min-w-0">
+                  <Code size={16} className="text-[#666666] flex-shrink-0" />
+                  <span className="text-sm text-[#292524]">Python</span>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <Code size={14} className="text-[#666666] flex-shrink-0" />
-                    <span className="text-sm font-medium" style={{ color: '#292524' }}>Python</span>
-                  </div>
-                  <p className="text-xs mt-1 leading-relaxed" style={{ color: '#666666' }}>Django SAML2 fork with original commits. GraphQL + SQLAlchemy contributions. Mypy typing.</p>
-                </div>
+                <span className={`h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#E8F5E8] text-[#2D7A2D]`}>
+                  Full match
+                </span>
               </div>
               
-              {/* TypeScript/React - Verify */}
-              <div className="flex items-start gap-3 p-3 border-b border-[#F3F3F3]">
-                <div className="w-16 flex-shrink-0">
-                  <span className="inline-flex items-center justify-center text-xs font-medium px-2.5 py-1 rounded-md w-full" style={{ backgroundColor: '#FFF3E0', color: '#E65100' }}>
-                    Verify
-                  </span>
+              {/* TypeScript/React */}
+              <div className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3]">
+                <div className="flex items-center gap-2.5 flex-1 min-w-0">
+                  <Code size={16} className="text-[#666666] flex-shrink-0" />
+                  <span className="text-sm text-[#292524]">TypeScript/React</span>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <Code size={14} className="text-[#666666] flex-shrink-0" />
-                    <span className="text-sm font-medium" style={{ color: '#292524' }}>TypeScript/React</span>
-                  </div>
-                  <p className="text-xs mt-1 leading-relaxed" style={{ color: '#666666' }}>Claims React and Node.js at ResQ/Ancestry. No visible frontend code on GitHub.</p>
-                </div>
+                <span className={`h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#F5F5F5] text-[#666666]`}>
+                  Part match
+                </span>
               </div>
               
-              {/* APIs & System Design - Yes */}
-              <div className="flex items-start gap-3 p-3 border-b border-[#F3F3F3]">
-                <div className="w-16 flex-shrink-0">
-                  <span className="inline-flex items-center justify-center text-xs font-medium px-2.5 py-1 rounded-md w-full" style={{ backgroundColor: '#E8F5E8', color: '#2D7A2D' }}>
-                    Yes
-                  </span>
+              {/* APIs & System Design */}
+              <div className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3]">
+                <div className="flex items-center gap-2.5 flex-1 min-w-0">
+                  <Leaf size={16} className="text-[#666666] flex-shrink-0" />
+                  <span className="text-sm text-[#292524]">APIs & System Design</span>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <Leaf size={14} className="text-[#666666] flex-shrink-0" />
-                    <span className="text-sm font-medium" style={{ color: '#292524' }}>APIs & System Design</span>
-                  </div>
-                  <p className="text-xs mt-1 leading-relaxed" style={{ color: '#666666' }}>GraphQL experience (graphene-sqlalchemy). REST API patterns. Enterprise auth (SAML2).</p>
-                </div>
+                <span className={`h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#E8F5E8] text-[#2D7A2D]`}>
+                  Full match
+                </span>
               </div>
               
-              {/* Cloud Infrastructure - Verify */}
-              <div className="flex items-start gap-3 p-3 border-b border-[#F3F3F3]">
-                <div className="w-16 flex-shrink-0">
-                  <span className="inline-flex items-center justify-center text-xs font-medium px-2.5 py-1 rounded-md w-full" style={{ backgroundColor: '#FFF3E0', color: '#E65100' }}>
-                    Verify
-                  </span>
+              {/* Cloud Infrastructure */}
+              <div className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3]">
+                <div className="flex items-center gap-2.5 flex-1 min-w-0">
+                  <Globe size={16} className="text-[#666666] flex-shrink-0" />
+                  <span className="text-sm text-[#292524]">Cloud Infrastructure</span>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <Globe size={14} className="text-[#666666] flex-shrink-0" />
-                    <span className="text-sm font-medium" style={{ color: '#292524' }}>Cloud Infrastructure</span>
-                  </div>
-                  <p className="text-xs mt-1 leading-relaxed" style={{ color: '#666666' }}>AWS claimed on resume. No visible infrastructure code. DoiT is cloud-focused company.</p>
-                </div>
+                <span className={`h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#F5F5F5] text-[#666666]`}>
+                  Part match
+                </span>
               </div>
               
-              {/* AI/ML Understanding - No */}
-              <div className="flex items-start gap-3 p-3">
-                <div className="w-16 flex-shrink-0">
-                  <span className="inline-flex items-center justify-center text-xs font-medium px-2.5 py-1 rounded-md w-full" style={{ backgroundColor: '#FDEAEA', color: '#D32F2F' }}>
-                    No
-                  </span>
+              {/* AI/ML Understanding */}
+              <div className="flex items-center justify-between py-2.5">
+                <div className="flex items-center gap-2.5 flex-1 min-w-0">
+                  <Sparkles size={16} className="text-[#666666] flex-shrink-0" />
+                  <span className="text-sm text-[#292524]">AI/ML Understanding</span>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <Sparkles size={14} className="text-[#666666] flex-shrink-0" />
-                    <span className="text-sm font-medium" style={{ color: '#292524' }}>AI/ML Understanding</span>
-                  </div>
-                  <p className="text-xs mt-1 leading-relaxed" style={{ color: '#666666' }}>No AI/ML experience visible. Physics background may help with technical concepts.</p>
-                </div>
+                <span className={`h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#FDEAEA] text-[#D32F2F]`}>
+                  No match
+                </span>
               </div>
             </div>
           </div>
