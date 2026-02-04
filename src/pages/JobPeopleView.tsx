@@ -460,6 +460,7 @@ const JobPeopleView = () => {
 
                       {/* Company Card */}
                       <button 
+                        onClick={() => navigate('/job?expand=company')}
                         className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group"
                         style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                       >

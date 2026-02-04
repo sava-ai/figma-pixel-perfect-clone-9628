@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, X, ArrowDown, ArrowUp, ChevronRight as ChevronRightIcon, Building2, Briefcase, MapPin, Users, DollarSign, Clock, Pencil, Save, Search, Plus } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Input } from '@/components/ui/input';
@@ -13,6 +13,7 @@ import jobDropdownIcon from '@/assets/job-dropdown-icon-new.png';
 
 const Job = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState<'job' | 'people' | 'pipeline'>('job');
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
@@ -28,7 +29,7 @@ const Job = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const suggestionRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
   const [currentSuggestionIndex, setCurrentSuggestionIndex] = useState(0);
-  const [companyOpen, setCompanyOpen] = useState(false);
+  const [companyOpen, setCompanyOpen] = useState(searchParams.get('expand') === 'company');
   const [jobRoleOpen, setJobRoleOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   
