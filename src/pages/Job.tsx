@@ -258,7 +258,7 @@ Qualifications
         {/* Left side - Back button and Job title */}
         <div className="flex items-center gap-2">
           <button 
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/job/people/view')}
             className="w-7 h-7 rounded-md flex items-center justify-center transition-all hover:opacity-80"
             style={{ backgroundColor: '#E8E6DD' }}
           >
