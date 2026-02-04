@@ -58,6 +58,7 @@ const Job = () => {
     
     // Description sections
     description: 'We are seeking a Sales Development Manager with strong analytical and creative problem-solving skills to join our growing commercial team at Stepapp. You will be responsible for building, running, and continuously improving our sales development engine, ensuring predictable pipeline generation to support company growth.',
+    languages: ['English', 'Polish'],
     skills: ['Sales Strategy', 'Team Management', 'CRM Systems', 'Data Analysis', 'Communication'],
     qualifications: ['Bachelor\'s degree in Business, Marketing, or related field', 'Proven track record of meeting sales targets'],
     responsibilities: ['Build and manage the sales development team', 'Create and optimize outbound sales processes'],
@@ -68,6 +69,7 @@ const Job = () => {
   const [savedFormData, setSavedFormData] = useState(formData);
   
   // Input states for adding new items
+  const [newLanguage, setNewLanguage] = useState('');
   const [newSkill, setNewSkill] = useState('');
   const [newQualification, setNewQualification] = useState('');
   const [newResponsibility, setNewResponsibility] = useState('');
@@ -639,6 +641,56 @@ Qualifications
                         />
                       ) : (
                         <p className="text-foreground leading-relaxed">{formData.description}</p>
+                      )}
+                    </div>
+
+                    {/* Languages (Tags) */}
+                    <div className="mb-8">
+                      <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Languages</h2>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {formData.languages.map((tag, idx) => (
+                          <span key={idx} className="px-3 py-1.5 rounded-full border border-border text-sm flex items-center gap-2">
+                            {tag}
+                            {isEditMode && (
+                              <button
+                                onClick={() => setFormData({
+                                  ...formData,
+                                  languages: formData.languages.filter((_, i) => i !== idx)
+                                })}
+                                className="text-muted-foreground hover:text-destructive"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            )}
+                          </span>
+                        ))}
+                      </div>
+                      {isEditMode && (
+                        <div className="flex items-center gap-2">
+                          <Input
+                            value={newLanguage}
+                            onChange={(e) => setNewLanguage(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' && newLanguage.trim()) {
+                                setFormData({...formData, languages: [...formData.languages, newLanguage.trim()]});
+                                setNewLanguage('');
+                              }
+                            }}
+                            className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                            placeholder="Add language..."
+                          />
+                          <button
+                            onClick={() => {
+                              if (newLanguage.trim()) {
+                                setFormData({...formData, languages: [...formData.languages, newLanguage.trim()]});
+                                setNewLanguage('');
+                              }
+                            }}
+                            className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
+                          >
+                            <Plus className="w-5 h-5" />
+                          </button>
+                        </div>
                       )}
                     </div>
 
