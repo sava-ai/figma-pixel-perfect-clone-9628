@@ -145,15 +145,16 @@ const getRoleSkills = (role: string, company: string): string[] => {
 };
 
 const getCompanyTypeStyle = (type: 'public' | 'private' | 'startup' | undefined) => {
+  // Using brand colors: Ivory/Manilla tones
   switch (type) {
     case 'public':
-      return 'bg-blue-50 text-blue-700 border-blue-200';
+      return 'border-[#E5E4DF]';
     case 'private':
-      return 'bg-purple-50 text-purple-700 border-purple-200';
+      return 'border-[#E5E4DF]';
     case 'startup':
-      return 'bg-amber-50 text-amber-700 border-amber-200';
+      return 'border-[#D4A27F]';
     default:
-      return 'bg-gray-50 text-gray-700 border-gray-200';
+      return 'border-[#E5E4DF]';
   }
 };
 
@@ -306,7 +307,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
                   key={index} 
                   variant="outline"
                   className="px-3 py-1.5 border-0 rounded-full text-xs font-medium"
-                  style={{ backgroundColor: '#E8F5E8', color: '#2E7D32' }}
+                  style={{ backgroundColor: '#EBDBBC', color: '#262625' }}
                 >
                   {skill}
                 </Badge>
@@ -325,7 +326,8 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
                   <Badge 
                     key={index}
                     variant="outline"
-                    className="px-2.5 py-1 bg-white text-muted-foreground border-border rounded-full text-xs"
+                    className="px-2.5 py-1 rounded-full text-xs border-0"
+                    style={{ backgroundColor: '#F0F0EB', color: '#40403E' }}
                   >
                     {lang}
                   </Badge>
@@ -419,19 +421,19 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
                     {/* Company Tags */}
                     <div className="flex flex-wrap gap-2 mb-3 ml-[52px]">
                       {companyInfo.employees && (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#FAFAF9] text-muted-foreground text-xs rounded border border-[#EEEDEC]">
+                        <span className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full border-0" style={{ backgroundColor: '#F0F0EB', color: '#40403E' }}>
                           <Users className="w-3 h-3" />
                           {companyInfo.employees}
                         </span>
                       )}
                       {companyInfo.category && (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#FAFAF9] text-muted-foreground text-xs rounded border border-[#EEEDEC]">
+                        <span className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full border-0" style={{ backgroundColor: '#F0F0EB', color: '#40403E' }}>
                           <Building2 className="w-3 h-3" />
                           {companyInfo.category}
                         </span>
                       )}
                       {companyInfo.type && (
-                        <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded border ${getCompanyTypeStyle(companyInfo.type)}`}>
+                        <span className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full border-0" style={{ backgroundColor: '#EBDBBC', color: '#262625' }}>
                           {companyInfo.type === 'public' ? 'Public Company' : 
                            companyInfo.type === 'startup' ? 'Startup' : 'Private Company'}
                         </span>
@@ -439,12 +441,13 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
                     </div>
 
                     {/* Role Skills Bubbles */}
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-1.5 ml-[52px]">
                       {roleSkills.map((skill, skillIdx) => (
                         <Badge 
                           key={skillIdx}
                           variant="outline"
-                          className="px-2 py-0.5 bg-white text-muted-foreground border-border rounded-full text-xs"
+                          className="px-2 py-0.5 rounded-full text-xs border-0"
+                          style={{ backgroundColor: '#E5E4DF', color: '#40403E' }}
                         >
                           {skill}
                         </Badge>
@@ -459,19 +462,32 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
           {/* Education Section */}
           {candidate.education && (
             <div className="mb-5">
-            <h3 className="font-medium uppercase tracking-wide mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333', fontSize: '0.9rem' }}>
-              Education
-            </h3>
-              <div className="p-4 bg-white border border-[#EEEDEC] rounded-lg">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-[#8B0000] flex items-center justify-center flex-shrink-0">
-                    <GraduationCap className="w-5 h-5 text-white" />
+              <h3 className="font-medium uppercase tracking-wide mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333', fontSize: '0.9rem' }}>
+                Education
+              </h3>
+              <div className="bg-white rounded-lg">
+                <div className="p-4">
+                  {/* Education Header */}
+                  <div className="flex items-start gap-3 mb-2">
+                    <div 
+                      className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                      style={{ backgroundColor: '#CC785C' }}
+                    >
+                      <GraduationCap className="w-5 h-5 text-white" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-foreground">{candidate.education.degree}</p>
+                      <p className="text-sm text-muted-foreground">{candidate.education.school}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground">{candidate.education.degree}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {candidate.education.school} · {candidate.education.graduationDate}
-                    </p>
+
+                  {/* Date and Location */}
+                  <div className="flex flex-col gap-1 ml-[52px]">
+                    <span className="text-xs text-muted-foreground">{candidate.education.graduationDate}</span>
+                    <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                      <MapPin className="w-3 h-3" />
+                      Warsaw, Poland
+                    </span>
                   </div>
                 </div>
               </div>
