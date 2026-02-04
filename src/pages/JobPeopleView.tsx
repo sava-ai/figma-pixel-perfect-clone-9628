@@ -175,6 +175,33 @@ const JobPeopleView = () => {
           </div>
         </div>
 
+        {/* Center - Navigation Tabs */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-1 px-1 py-1 rounded-lg" style={{ backgroundColor: '#E8E6DD' }}>
+          <button
+            onClick={() => navigate('/job')}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
+              activeTab === 'job' ? 'bg-white text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Job
+          </button>
+          <button
+            onClick={() => navigate('/job/people/view')}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
+              activeTab === 'people' ? 'bg-white text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Review
+          </button>
+          <button
+            onClick={() => navigate('/job/pipeline')}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
+              activeTab === 'pipeline' ? 'bg-white text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Pipeline
+          </button>
+        </div>
 
         {/* Right side - Profile */}
         <div className="flex items-center gap-2">
