@@ -198,16 +198,15 @@ const JobBestMatches = () => {
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
         {/* Left Panel - Candidates View */}
-        <div className={`flex-1 overflow-y-auto ${isChatCollapsed ? 'flex justify-center' : ''}`}>
-          <div className={`py-6 pb-6 ${isChatCollapsed ? 'w-full max-w-[1200px] mx-6' : 'w-full ml-4 mr-4'}`}>
-            <div className={`${isChatCollapsed ? '' : 'max-w-[1200px]'}`}>
+        <div className={`flex-1 min-w-0 overflow-y-auto ${isChatCollapsed ? 'flex justify-center' : ''}`}>
+          <div className={`py-6 pb-6 ${isChatCollapsed ? 'w-full max-w-[1200px] mx-6' : 'px-4'}`}>
               {/* Focused Candidate Review */}
                 {!reviewComplete && selectedBestMatch ? (
                   <div className="animate-content-expand pb-6">
                     {/* Split view: Profile on left, Detail panel on right - both scroll together */}
                     <div className="flex gap-4">
                       {/* Left side: Profile panel */}
-                      <div className="w-[45%]">
+                      <div className="w-[45%] min-w-0">
                         <CandidateProfilePanel
                           candidate={selectedBestMatch}
                           currentIndex={viewingSkipped ? skippedIndex : currentCandidateIndex}
@@ -217,7 +216,7 @@ const JobBestMatches = () => {
                       </div>
 
                       {/* Right side: Detail panel */}
-                      <div className="w-[55%]">
+                      <div className="w-[55%] min-w-0">
                         <div className="bg-white border border-[#EEEDEC] rounded-xl overflow-hidden">
                           <CandidateDetailPanel
                             candidate={selectedBestMatch}
@@ -259,7 +258,6 @@ const JobBestMatches = () => {
                     </div>
                   </div>
                 )}
-            </div>
           </div>
         </div>
 
