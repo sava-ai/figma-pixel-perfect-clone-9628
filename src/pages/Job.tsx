@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, X, ArrowDown, ArrowUp, ChevronRight as ChevronRightIcon } from 'lucide-react';
+import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, X, ArrowDown, ArrowUp, ChevronRight as ChevronRightIcon, Building2, Briefcase, MapPin, Users, DollarSign, Clock } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { InviteDialog } from '@/components/InviteDialog';
 import { PublishingPlatformsDialog } from '@/components/PublishingPlatformsDialog';
 import userAvatarImage from '@/assets/user-avatar.png';
@@ -23,6 +24,8 @@ const Job = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const suggestionRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
   const [currentSuggestionIndex, setCurrentSuggestionIndex] = useState(0);
+  const [companyOpen, setCompanyOpen] = useState(false);
+  const [jobRoleOpen, setJobRoleOpen] = useState(false);
   const [aiSuggestions, setAiSuggestions] = useState<{[key: string]: boolean}>({
     'suggestion1': true,
     'suggestion2': true,
@@ -327,14 +330,173 @@ Qualifications
         <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
           <div className={`h-full flex flex-col py-6 pb-5 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
             <div className={`flex-1 overflow-y-auto rounded-xl relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`} style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
-              
-              <div 
-                contentEditable
-                suppressContentEditableWarning
-                onInput={(e) => setJobDescription(e.currentTarget.textContent || '')}
-                className={`text-foreground whitespace-pre-wrap outline-none ${activeSuggestions.length > 0 ? 'px-[72px] py-12' : 'px-[72px] py-12'}`}
-              >
-                {formatJobDescription(jobDescription)}
+              <div className="px-[72px] py-12">
+                
+                {/* Company Information Accordion */}
+                <Collapsible open={companyOpen} onOpenChange={setCompanyOpen} className="mb-6">
+                  <CollapsibleTrigger className="w-full">
+                    <div className="flex items-center justify-between py-3 border-b border-border cursor-pointer hover:bg-muted/30 -mx-4 px-4 rounded-lg transition-colors">
+                      <div className="flex items-center gap-3">
+                        <Building2 className="w-5 h-5 text-muted-foreground" />
+                        <span className="text-lg font-semibold" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Company Information</span>
+                      </div>
+                      <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${companyOpen ? 'rotate-180' : ''}`} />
+                    </div>
+                    
+                    {/* Collapsed Summary - Company */}
+                    {!companyOpen && (
+                      <div className="flex flex-wrap items-center gap-2 mt-3 text-sm">
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                          <Building2 className="w-3.5 h-3.5" />
+                          PriceMind
+                        </span>
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                          <Users className="w-3.5 h-3.5" />
+                          50-200 employees
+                        </span>
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
+                          AI-Powered Pricing
+                        </span>
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
+                          Private Company
+                        </span>
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
+                          B2B SaaS
+                        </span>
+                      </div>
+                    )}
+                  </CollapsibleTrigger>
+                  
+                  <CollapsibleContent>
+                    <div className="pt-4 space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Company Name</label>
+                          <p className="text-foreground">PriceMind</p>
+                        </div>
+                        <div>
+                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Employee Count</label>
+                          <p className="text-foreground">50-200 employees</p>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground mb-1 block">What the Company Does</label>
+                        <p className="text-foreground">AI-powered dynamic pricing platform that helps e-commerce businesses optimize their pricing strategies in real-time to maximize revenue and profit margins.</p>
+                      </div>
+                      
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground mb-2 block">Company Tags</label>
+                        <div className="flex flex-wrap gap-2">
+                          <span className="px-3 py-1.5 rounded-full border border-border text-sm">Private Company</span>
+                          <span className="px-3 py-1.5 rounded-full border border-border text-sm">B2B SaaS</span>
+                          <span className="px-3 py-1.5 rounded-full border border-border text-sm">Tech Consulting</span>
+                          <span className="px-3 py-1.5 rounded-full border border-border text-sm">AI/ML</span>
+                          <span className="px-3 py-1.5 rounded-full border border-border text-sm">Stockholm</span>
+                        </div>
+                      </div>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+
+                {/* Job Role Accordion */}
+                <Collapsible open={jobRoleOpen} onOpenChange={setJobRoleOpen} className="mb-8">
+                  <CollapsibleTrigger className="w-full">
+                    <div className="flex items-center justify-between py-3 border-b border-border cursor-pointer hover:bg-muted/30 -mx-4 px-4 rounded-lg transition-colors">
+                      <div className="flex items-center gap-3">
+                        <Briefcase className="w-5 h-5 text-muted-foreground" />
+                        <span className="text-lg font-semibold" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Job Role Details</span>
+                      </div>
+                      <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${jobRoleOpen ? 'rotate-180' : ''}`} />
+                    </div>
+                    
+                    {/* Collapsed Summary - Job Role */}
+                    {!jobRoleOpen && (
+                      <div className="flex flex-wrap items-center gap-2 mt-3 text-sm">
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                          <Briefcase className="w-3.5 h-3.5" />
+                          Full-time
+                        </span>
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
+                          Senior Product Designer
+                        </span>
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5" />
+                          Stockholm, Sweden
+                        </span>
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
+                          Permanent
+                        </span>
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                          <DollarSign className="w-3.5 h-3.5" />
+                          €80k - €100k
+                        </span>
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                          <Clock className="w-3.5 h-3.5" />
+                          Senior (5+ years)
+                        </span>
+                      </div>
+                    )}
+                  </CollapsibleTrigger>
+                  
+                  <CollapsibleContent>
+                    <div className="pt-4 space-y-4">
+                      <div className="grid grid-cols-3 gap-4">
+                        <div>
+                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Employment Type</label>
+                          <p className="text-foreground">Full-time</p>
+                        </div>
+                        <div>
+                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Role</label>
+                          <p className="text-foreground">Senior Product Designer</p>
+                        </div>
+                        <div>
+                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Location</label>
+                          <p className="text-foreground">Stockholm, Sweden</p>
+                        </div>
+                      </div>
+                      
+                      <div className="grid grid-cols-3 gap-4">
+                        <div>
+                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Contract Type</label>
+                          <p className="text-foreground">Permanent</p>
+                        </div>
+                        <div>
+                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Salary Range</label>
+                          <p className="text-foreground">€80,000 - €100,000 / year</p>
+                        </div>
+                        <div>
+                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Seniority Level</label>
+                          <p className="text-foreground">Senior (5+ years experience)</p>
+                        </div>
+                      </div>
+                      
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Remote Policy</label>
+                          <p className="text-foreground">Hybrid (3 days in office)</p>
+                        </div>
+                        <div>
+                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Start Date</label>
+                          <p className="text-foreground">As soon as possible</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+
+                {/* Job Description */}
+                <div>
+                  <h2 className="text-lg font-semibold mb-4" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Job Description</h2>
+                  <div 
+                    contentEditable
+                    suppressContentEditableWarning
+                    onInput={(e) => setJobDescription(e.currentTarget.textContent || '')}
+                    className="text-foreground whitespace-pre-wrap outline-none"
+                  >
+                    {formatJobDescription(jobDescription)}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
