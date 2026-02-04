@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronLeft, ChevronRight, SkipForward } from 'lucide-react';
+import { ChevronDown, SkipForward } from 'lucide-react';
 import { InviteDialog } from '@/components/InviteDialog';
 import { JobChatPanel } from '@/components/JobChatPanel';
 import CandidateDetailPanel from '@/components/CandidateDetailPanel';
@@ -207,68 +207,18 @@ const JobBestMatches = () => {
                   <div className="animate-content-expand">
                     {/* Split view: Title + Profile on left, Detail panel on right */}
                     <div className="flex gap-4 h-[calc(100vh-170px)]">
-                      {/* Left side: Title + Enhanced profile panel */}
+                      {/* Left side: Profile panel */}
                       <div className="w-[45%] min-h-0 flex flex-col">
-                        {/* Header with viewing mode indicator */}
-                        <div className="flex items-center gap-2 mb-4">
-                          <h2 className="font-medium text-xl" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
-                            {viewingSkipped ? 'Reviewing Skipped' : 'Candidates Batch 3'}
-                          </h2>
-                          {viewingSkipped && (
-                            <span className="px-2 py-0.5 text-xs rounded-full" style={{ backgroundColor: '#F0F0EB', color: '#666663' }}>
-                              {skippedIndex + 1} of {skippedCandidates.length}
-                            </span>
-                          )}
-                        </div>
-                        {/* Profile panel */}
-                        <div className="flex-1 min-h-0">
-                          <CandidateProfilePanel
-                            candidate={selectedBestMatch}
-                            currentIndex={viewingSkipped ? skippedIndex : currentCandidateIndex}
-                            totalCount={viewingSkipped ? skippedCandidates.length : filteredCandidates.length}
-                            hideProgressHeader={true}
-                          />
-                        </div>
+                        <CandidateProfilePanel
+                          candidate={selectedBestMatch}
+                          currentIndex={viewingSkipped ? skippedIndex : currentCandidateIndex}
+                          totalCount={viewingSkipped ? skippedCandidates.length : filteredCandidates.length}
+                          hideProgressHeader={true}
+                        />
                       </div>
 
-                      {/* Right side: Navigation header + Detail panel */}
+                      {/* Right side: Detail panel */}
                       <div className="w-[55%] min-h-0 flex flex-col">
-                        {/* Navigation header outside the panel */}
-                        <div className="flex items-center justify-end gap-3 mb-4">
-                          <span className="text-sm" style={{ fontFamily: 'Inter, sans-serif', color: '#1A1A1A' }}>
-                            Reviewing {viewingSkipped ? skippedIndex + 1 : currentCandidateIndex + 1} of {viewingSkipped ? skippedCandidates.length : filteredCandidates.length}
-                          </span>
-                          <div className="flex items-center gap-1">
-                            <button 
-                              onClick={() => {
-                                if (viewingSkipped) {
-                                  if (skippedIndex > 0) setSkippedIndex(skippedIndex - 1);
-                                } else {
-                                  if (currentCandidateIndex > 0) setCurrentCandidateIndex(currentCandidateIndex - 1);
-                                }
-                              }}
-                              disabled={viewingSkipped ? skippedIndex === 0 : currentCandidateIndex === 0}
-                              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed border border-gray-200 bg-white"
-                            >
-                              <ChevronLeft className="w-4 h-4 text-gray-700" />
-                            </button>
-                            <button 
-                              onClick={() => {
-                                if (viewingSkipped) {
-                                  if (skippedIndex < skippedCandidates.length - 1) setSkippedIndex(skippedIndex + 1);
-                                } else {
-                                  if (currentCandidateIndex < filteredCandidates.length - 1) setCurrentCandidateIndex(currentCandidateIndex + 1);
-                                }
-                              }}
-                              disabled={viewingSkipped ? skippedIndex >= skippedCandidates.length - 1 : currentCandidateIndex >= filteredCandidates.length - 1}
-                              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed border border-gray-200 bg-white"
-                            >
-                              <ChevronRight className="w-4 h-4 text-gray-700" />
-                            </button>
-                          </div>
-                        </div>
-                        
-                        {/* Detail panel */}
                         <div className="flex-1 min-h-0 bg-white border border-[#EEEDEC] rounded-xl overflow-hidden">
                           <CandidateDetailPanel
                             candidate={selectedBestMatch}
