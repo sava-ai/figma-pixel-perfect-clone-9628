@@ -374,7 +374,7 @@ Qualifications
       </header>
 
       {/* Main Content - Flex layout without resizable */}
-      <div className="flex-1 flex overflow-hidden pt-6 pb-[25px]" style={{ backgroundColor: '#FBFAF9' }}>
+      <div className="flex-1 flex overflow-hidden pt-6 pb-4" style={{ backgroundColor: '#FBFAF9' }}>
         {/* Left Panel - Job Description Editor */}
         <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
           <div className={`h-full flex flex-col relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
@@ -1023,7 +1023,7 @@ Qualifications
         {/* Right Panel - Chat - Fixed width */}
         {!isChatCollapsed && (
           <div
-            className="w-[380px] flex-shrink-0 h-full pr-4"
+            className="w-[380px] flex-shrink-0 h-full pr-4 pb-[9px]"
             style={{ backgroundColor: '#FBFAF9' }}
           >
             <div className="h-full flex flex-col">
