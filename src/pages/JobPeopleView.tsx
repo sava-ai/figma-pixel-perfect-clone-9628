@@ -301,12 +301,12 @@ const JobPeopleView = () => {
 
                     {/* Navigation Cards - Horizontal Scroll */}
                     <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 mb-4">
-                      <div className="flex gap-3" style={{ minWidth: 'max-content' }}>
+                      <div className="flex gap-3 pr-8">
                         {/* Shortlist Card */}
                         <button 
                           onClick={() => navigate('/job/pipeline')} 
-                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
-                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6', width: 'calc((100% - 24px) / 3)', minWidth: '200px' }}
+                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0 w-[220px]"
+                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                         >
                           <div className="flex items-center mb-3">
                             <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
@@ -327,8 +327,8 @@ const JobPeopleView = () => {
 
                         {/* Outreach Card */}
                         <button 
-                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
-                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6', width: 'calc((100% - 24px) / 3)', minWidth: '200px' }}
+                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0 w-[220px]"
+                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                         >
                           <div className="flex items-center mb-3">
                             <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
@@ -349,8 +349,8 @@ const JobPeopleView = () => {
 
                         {/* Interview Card */}
                         <button 
-                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
-                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6', width: 'calc((100% - 24px) / 3)', minWidth: '200px' }}
+                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0 w-[220px]"
+                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                         >
                           <div className="flex items-center mb-3">
                             <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
@@ -371,8 +371,8 @@ const JobPeopleView = () => {
 
                         {/* Rejected Candidates Card */}
                         <button 
-                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
-                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6', width: 'calc((100% - 24px) / 3)', minWidth: '200px' }}
+                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0 w-[220px]"
+                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                         >
                           <div className="flex items-center mb-3">
                             <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
@@ -393,8 +393,8 @@ const JobPeopleView = () => {
 
                         {/* Qualified for Job Card */}
                         <button 
-                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
-                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6', width: 'calc((100% - 24px) / 3)', minWidth: '200px' }}
+                          className="rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0 w-[220px]"
+                          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                         >
                           <div className="flex items-center mb-3">
                             <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
