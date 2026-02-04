@@ -559,7 +559,6 @@ const CandidateDetailPanel = ({
             <h3 className="text-sm uppercase tracking-wide mb-2 flex items-center gap-1.5" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
               <Sparkles size={14} className="text-[#2D7A2D]" />
               Strengths
-              <span className="text-[10px] text-[#999999] font-normal normal-case ml-1">(AI Summary)</span>
             </h3>
             <p className="text-sm leading-relaxed" style={{ color: '#40403E' }}>
               Strong track record in B2B sales with proven results at {candidate.roles[0]?.company || 'leading companies'}. Experience working in fast-paced, high-growth environments with demonstrated ability to build and maintain client relationships.
@@ -571,7 +570,6 @@ const CandidateDetailPanel = ({
             <h3 className="text-sm uppercase tracking-wide mb-2 flex items-center gap-1.5" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
               <Award size={14} className="text-[#B8860B]" />
               Concerns
-              <span className="text-[10px] text-[#999999] font-normal normal-case ml-1">(AI Summary)</span>
             </h3>
             <p className="text-sm leading-relaxed" style={{ color: '#40403E' }}>
               Limited direct experience in the distribution/manufacturing sector. May require onboarding for industry-specific knowledge.
