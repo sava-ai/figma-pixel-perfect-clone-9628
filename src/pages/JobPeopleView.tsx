@@ -5,7 +5,7 @@ import { ProfileDialog } from '@/components/ProfileDialog';
 import { ApplicantReviewDialog } from '@/components/ApplicantReviewDialog';
 import { RejectionDialog } from '@/components/RejectionDialog';
 import { InviteDialog } from '@/components/InviteDialog';
-import { JobChatPanel } from '@/components/JobChatPanel';
+
 import { BulkContactDialog } from '@/components/BulkContactDialog';
 import CandidateDetailPanel from '@/components/CandidateDetailPanel';
 import CandidateProfilePanel from '@/components/CandidateProfilePanel';
@@ -30,7 +30,7 @@ const JobPeopleView = () => {
   const [activeTab, setActiveTab] = useState<'job' | 'people' | 'pipeline'>('people');
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
-  const [isChatCollapsed, setIsChatCollapsed] = useState(false);
+  
   const [selectedCandidate, setSelectedCandidate] = useState<typeof bestCandidates[0] | null>(null);
   const [selectedBestMatch, setSelectedBestMatch] = useState<typeof bestCandidates[0] | null>(null);
   const [currentCandidateIndex, setCurrentCandidateIndex] = useState(0);
@@ -176,30 +176,19 @@ const JobPeopleView = () => {
         </div>
 
 
-        {/* Right side - Expand Chat, Profile */}
+        {/* Right side - Profile */}
         <div className="flex items-center gap-2">
-          <button 
-            onClick={() => setIsChatCollapsed(!isChatCollapsed)}
-            className="w-7 h-7 rounded-md flex items-center justify-center transition-all hover:opacity-80"
-            style={{ backgroundColor: '#E8E6DD' }}
-            title={isChatCollapsed ? "Open AI Chat" : "Close AI Chat"}
-          >
-            <svg className="w-4 h-4" style={{ color: '#333333' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h18v18H3V3z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 3v18" />
-            </svg>
-          </button>
           <img src={userAvatarImage} alt="Profile" className="w-7 h-7 rounded-full object-cover border-2 border-gray-200" />
         </div>
       </header>
 
       {/* Main Content - Flex layout without resizable */}
       <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
-        {/* Left Panel - Candidates View */}
-        <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
-          <div className={`h-full flex flex-col py-6 pb-5 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
-            <div className={`flex-1 overflow-y-auto relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
-              <div className={`${selectedBestMatch ? 'pl-0 pr-0' : 'pl-0 pr-0'} ${isChatCollapsed ? '' : 'max-w-[1200px]'}`}>
+        {/* Main Content */}
+        <div className="flex-1 flex justify-center">
+          <div className="h-full flex flex-col py-6 pb-5 relative w-full max-w-[1200px]">
+            <div className="flex-1 overflow-y-auto relative scrollbar-hide mx-6">
+              <div className={`${selectedBestMatch ? 'pl-0 pr-0' : 'pl-0 pr-0'}`}>
               {/* Header with stats - hide when profile is selected */}
                 {!selectedBestMatch && (
                   <div className="mb-5 animate-slide-down-fade-in">
@@ -582,12 +571,6 @@ const JobPeopleView = () => {
           </div>
         </div>
 
-        {/* Right Panel - AI Chat */}
-        {!isChatCollapsed && (
-          <div className="w-[380px] flex-shrink-0 pr-4">
-            <JobChatPanel />
-          </div>
-        )}
       </div>
 
       <InviteDialog
