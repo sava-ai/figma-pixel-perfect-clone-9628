@@ -299,9 +299,9 @@ const JobPeopleView = () => {
                       </button>
                     </div>
 
-                    {/* Navigation Cards - Horizontal Scroll */}
-                    <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 mb-4">
-                      <div className="flex gap-3 pr-4">
+                    {/* Navigation Cards - Full Width Horizontal Scroll */}
+                    <div className="overflow-x-auto scrollbar-hide mb-4" style={{ marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', width: '100vw' }}>
+                      <div className="flex gap-3 px-6">
                         {/* Shortlist Card */}
                         <button 
                           onClick={() => navigate('/job/pipeline')} 
