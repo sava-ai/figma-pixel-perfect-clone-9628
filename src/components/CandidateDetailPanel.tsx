@@ -418,50 +418,8 @@ const CandidateDetailPanel = ({
                     {defaultSummary}
                   </p>
                   
-                  {/* Strengths */}
-                  <div className="w-full mb-5">
-                    <h4 className="text-xs uppercase tracking-wide mb-2 text-[#666666] flex items-center gap-1.5">
-                      <Sparkles size={12} className="text-[#2D7A2D]" />
-                      Strengths
-                      <span className="text-[10px] text-[#999999] font-normal normal-case">(AI Summary)</span>
-                    </h4>
-                    <ul className="space-y-1.5 text-sm text-[#444444]">
-                      <li className="flex items-start gap-2">
-                        <span className="text-[#2D7A2D] mt-0.5">•</span>
-                        <span>Strong track record in B2B sales with proven results at {candidate.roles[0]?.company || 'leading companies'}</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-[#2D7A2D] mt-0.5">•</span>
-                        <span>Experience working in fast-paced, high-growth environments</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-[#2D7A2D] mt-0.5">•</span>
-                        <span>Demonstrated ability to build and maintain client relationships</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Concerns */}
-                  <div className="w-full mb-6">
-                    <h4 className="text-xs uppercase tracking-wide mb-2 text-[#666666] flex items-center gap-1.5">
-                      <Award size={12} className="text-[#B8860B]" />
-                      Concerns
-                      <span className="text-[10px] text-[#999999] font-normal normal-case">(AI Summary)</span>
-                    </h4>
-                    <ul className="space-y-1.5 text-sm text-[#444444]">
-                      <li className="flex items-start gap-2">
-                        <span className="text-[#B8860B] mt-0.5">•</span>
-                        <span>Limited direct experience in the distribution/manufacturing sector</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-[#B8860B] mt-0.5">•</span>
-                        <span>May require onboarding for industry-specific knowledge</span>
-                      </li>
-                    </ul>
-                  </div>
-                  
                   {/* Highlights */}
-                  <div className="w-full space-y-3 pt-4 border-t border-[#EEEDEC]">
+                  <div className="w-full space-y-3">
                     {highlightItems.map((item, index) => {
                       const IconComponent = getIconComponent(item.icon);
                       return (
@@ -554,9 +512,15 @@ const CandidateDetailPanel = ({
             <h3 className="text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
               Summary
             </h3>
-            <p className="text-sm leading-relaxed" style={{ color: '#40403E' }}>
+            <p className="text-sm leading-relaxed mb-3" style={{ color: '#40403E' }}>
               {defaultSummary}
             </p>
+            {/* Skill Tags under summary */}
+            <div className="flex flex-wrap gap-2">
+              {defaultSkillTags.map((tag, index) => <span key={index} className="px-3 py-1.5 text-xs rounded-full font-medium" style={{ backgroundColor: '#EBDBBC', color: '#262625' }}>
+                  {tag}
+                </span>)}
+            </div>
           </div>
 
           {/* Strengths */}
@@ -566,20 +530,9 @@ const CandidateDetailPanel = ({
               Strengths
               <span className="text-[10px] text-[#999999] font-normal normal-case ml-1">(AI Summary)</span>
             </h3>
-            <ul className="space-y-1.5 text-sm" style={{ color: '#40403E' }}>
-              <li className="flex items-start gap-2">
-                <span className="text-[#2D7A2D] mt-0.5">•</span>
-                <span>Strong track record in B2B sales with proven results at {candidate.roles[0]?.company || 'leading companies'}</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#2D7A2D] mt-0.5">•</span>
-                <span>Experience working in fast-paced, high-growth environments</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#2D7A2D] mt-0.5">•</span>
-                <span>Demonstrated ability to build and maintain client relationships</span>
-              </li>
-            </ul>
+            <p className="text-sm leading-relaxed" style={{ color: '#40403E' }}>
+              Strong track record in B2B sales with proven results at {candidate.roles[0]?.company || 'leading companies'}. Experience working in fast-paced, high-growth environments with demonstrated ability to build and maintain client relationships.
+            </p>
           </div>
 
           {/* Concerns */}
@@ -589,23 +542,9 @@ const CandidateDetailPanel = ({
               Concerns
               <span className="text-[10px] text-[#999999] font-normal normal-case ml-1">(AI Summary)</span>
             </h3>
-            <ul className="space-y-1.5 text-sm" style={{ color: '#40403E' }}>
-              <li className="flex items-start gap-2">
-                <span className="text-[#B8860B] mt-0.5">•</span>
-                <span>Limited direct experience in the distribution/manufacturing sector</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#B8860B] mt-0.5">•</span>
-                <span>May require onboarding for industry-specific knowledge</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Skill Tags */}
-          <div className="flex flex-wrap gap-2">
-            {defaultSkillTags.map((tag, index) => <span key={index} className="px-3 py-1.5 text-xs rounded-full font-medium" style={{ backgroundColor: '#EBDBBC', color: '#262625' }}>
-                {tag}
-              </span>)}
+            <p className="text-sm leading-relaxed" style={{ color: '#40403E' }}>
+              Limited direct experience in the distribution/manufacturing sector. May require onboarding for industry-specific knowledge.
+            </p>
           </div>
         </div>
       </div>
