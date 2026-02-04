@@ -550,13 +550,55 @@ const CandidateDetailPanel = ({
           </Dialog>
 
           {/* Summary Section */}
-          <div className="mb-5 pt-3 border-t border-[#F3F3F3]">
+          <div className="mb-4 pt-3 border-t border-[#F3F3F3]">
             <h3 className="text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
               Summary
             </h3>
             <p className="text-sm leading-relaxed" style={{ color: '#40403E' }}>
               {defaultSummary}
             </p>
+          </div>
+
+          {/* Strengths */}
+          <div className="mb-4">
+            <h3 className="text-sm uppercase tracking-wide mb-2 flex items-center gap-1.5" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
+              <Sparkles size={14} className="text-[#2D7A2D]" />
+              Strengths
+              <span className="text-[10px] text-[#999999] font-normal normal-case ml-1">(AI Summary)</span>
+            </h3>
+            <ul className="space-y-1.5 text-sm" style={{ color: '#40403E' }}>
+              <li className="flex items-start gap-2">
+                <span className="text-[#2D7A2D] mt-0.5">•</span>
+                <span>Strong track record in B2B sales with proven results at {candidate.roles[0]?.company || 'leading companies'}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#2D7A2D] mt-0.5">•</span>
+                <span>Experience working in fast-paced, high-growth environments</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#2D7A2D] mt-0.5">•</span>
+                <span>Demonstrated ability to build and maintain client relationships</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Concerns */}
+          <div className="mb-5">
+            <h3 className="text-sm uppercase tracking-wide mb-2 flex items-center gap-1.5" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
+              <Award size={14} className="text-[#B8860B]" />
+              Concerns
+              <span className="text-[10px] text-[#999999] font-normal normal-case ml-1">(AI Summary)</span>
+            </h3>
+            <ul className="space-y-1.5 text-sm" style={{ color: '#40403E' }}>
+              <li className="flex items-start gap-2">
+                <span className="text-[#B8860B] mt-0.5">•</span>
+                <span>Limited direct experience in the distribution/manufacturing sector</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#B8860B] mt-0.5">•</span>
+                <span>May require onboarding for industry-specific knowledge</span>
+              </li>
+            </ul>
           </div>
 
           {/* Skill Tags */}
