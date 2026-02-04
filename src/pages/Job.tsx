@@ -972,7 +972,7 @@ Qualifications
         {!isChatCollapsed && (
           <div className="w-[380px] flex-shrink-0">
             <div className="h-full flex flex-col" style={{ backgroundColor: '#FBFAF9' }}>
-              <div className="flex flex-col h-full pt-6 pr-4 pl-0 pb-4">
+              <div className="flex flex-col h-full pt-6 pr-4 pl-0 pb-[18px]">
 
               {/* Chat Messages - Scrollable */}
               <div className="flex-1 overflow-y-auto mb-6 space-y-4 scrollbar-hide">
