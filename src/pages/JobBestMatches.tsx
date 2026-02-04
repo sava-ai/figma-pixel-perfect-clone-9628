@@ -136,7 +136,7 @@ const JobBestMatches = () => {
                 {!reviewComplete ? (
                   <div className="animate-content-expand">
                     {/* Split view: Title + Profile on left, Detail panel on right */}
-                    <div className="flex gap-4 h-[calc(100vh-110px)]">
+                    <div className="flex gap-4 h-[calc(100vh-97px)]">
                       {/* Left side: Title + Enhanced profile panel */}
                       <div className="w-[45%] min-h-0 flex flex-col">
                         {/* Header */}
