@@ -409,11 +409,55 @@ const CandidateDetailPanel = ({
           {/* Show Details Button */}
           <button 
             onClick={() => setShowDetailsDialog(true)} 
-            className="w-full py-3 text-sm text-[#666666] hover:text-[#292524] bg-[#F6F5F3] hover:bg-[#EEEDEC] rounded-lg transition-colors flex items-center justify-center gap-2 border border-[#EEEDEC]"
+            className="w-full py-3 mb-5 text-sm text-[#666666] hover:text-[#292524] bg-[#F6F5F3] hover:bg-[#EEEDEC] rounded-lg transition-colors flex items-center justify-center gap-2 border border-[#EEEDEC]"
           >
             Show details
             <ChevronDown size={14} />
           </button>
+
+          {/* Technical Requirements */}
+          <div className="mb-5">
+            <h3 className="text-sm uppercase tracking-wide mb-3" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
+              Technical Requirements
+            </h3>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <span className="text-xs font-medium px-2 py-0.5 rounded" style={{ backgroundColor: '#E8F5E8', color: '#2D7A2D' }}>Yes</span>
+                <div className="flex-1">
+                  <span className="text-sm font-medium" style={{ color: '#292524' }}>Python</span>
+                  <p className="text-xs mt-0.5" style={{ color: '#666666' }}>Django SAML2 fork with original commits. GraphQL + SQLAlchemy contributions. Mypy typing.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-xs font-medium px-2 py-0.5 rounded" style={{ backgroundColor: '#FFF3E0', color: '#E65100' }}>Verify</span>
+                <div className="flex-1">
+                  <span className="text-sm font-medium" style={{ color: '#292524' }}>TypeScript/React</span>
+                  <p className="text-xs mt-0.5" style={{ color: '#666666' }}>Claims React and Node.js at ResQ/Ancestry. No visible frontend code on GitHub.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-xs font-medium px-2 py-0.5 rounded" style={{ backgroundColor: '#E8F5E8', color: '#2D7A2D' }}>Yes</span>
+                <div className="flex-1">
+                  <span className="text-sm font-medium" style={{ color: '#292524' }}>APIs & System Design</span>
+                  <p className="text-xs mt-0.5" style={{ color: '#666666' }}>GraphQL experience (graphene-sqlalchemy). REST API patterns. Enterprise auth (SAML2).</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-xs font-medium px-2 py-0.5 rounded" style={{ backgroundColor: '#FFF3E0', color: '#E65100' }}>Verify</span>
+                <div className="flex-1">
+                  <span className="text-sm font-medium" style={{ color: '#292524' }}>Cloud Infrastructure</span>
+                  <p className="text-xs mt-0.5" style={{ color: '#666666' }}>AWS claimed on resume. No visible infrastructure code. DoiT is cloud-focused company.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-xs font-medium px-2 py-0.5 rounded" style={{ backgroundColor: '#FDEAEA', color: '#D32F2F' }}>No</span>
+                <div className="flex-1">
+                  <span className="text-sm font-medium" style={{ color: '#292524' }}>AI/ML Understanding</span>
+                  <p className="text-xs mt-0.5" style={{ color: '#666666' }}>No AI/ML experience visible. Physics background may help with technical concepts.</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Details Dialog */}
           <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
