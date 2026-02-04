@@ -344,7 +344,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
                     </div>
 
                     {/* Company Tags */}
-                    <div className="flex flex-wrap gap-2 mb-3">
+                    <div className="flex flex-wrap gap-2 mb-3 ml-[52px]">
                       {companyInfo.employees && (
                         <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#FAFAF9] text-muted-foreground text-xs rounded border border-[#EEEDEC]">
                           <Users className="w-3 h-3" />
