@@ -230,7 +230,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
         </div>
       )}
 
-      <ScrollArea className="flex-1">
+      <div className="flex-1">
         <div className="p-5">
           {/* Profile Header */}
           <div className="mb-5">
@@ -539,7 +539,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
           )}
 
         </div>
-      </ScrollArea>
+      </div>
     </div>
   );
 };
