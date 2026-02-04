@@ -179,17 +179,16 @@ const JobBestMatchesReviewed = () => {
             <h3 className="mb-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>
               Key insights
             </h3>
-            <div className="rounded-xl p-5" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
-              <p className="text-xs font-medium mb-2" style={{ color: '#666663' }}>
-                What Laidback learned from your feedback
-              </p>
-              <Textarea
-                placeholder="Based on your ratings, you prefer candidates with strong B2B sales experience and international backgrounds..."
-                className="min-h-[100px] text-sm resize-none bg-white border-[#D9D9D9]"
-                readOnly
-                defaultValue="Based on your ratings, you prefer candidates with strong B2B sales experience at SaaS companies. You rated international experience highly and rejected candidates lacking CRM proficiency."
-              />
-            </div>
+            <p className="text-xs font-medium mb-2" style={{ color: '#666663' }}>
+              What Laidback learned from your feedback
+            </p>
+            <Textarea
+              placeholder="Based on your ratings, you prefer candidates with strong B2B sales experience and international backgrounds..."
+              className="min-h-[100px] text-sm resize-none border-[#D9D9D9]"
+              style={{ backgroundColor: '#FFFFFF' }}
+              readOnly
+              defaultValue="Based on your ratings, you prefer candidates with strong B2B sales experience at SaaS companies. You rated international experience highly and rejected candidates lacking CRM proficiency."
+            />
           </div>
 
           {/* Brain Adjustments Section */}
@@ -197,77 +196,82 @@ const JobBestMatchesReviewed = () => {
             <h3 className="mb-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>
               Brain adjustments
             </h3>
-            <div className="rounded-xl p-5" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
-              <p className="text-xs font-medium mb-2" style={{ color: '#666663' }}>
-                What will change based on your feedback
-              </p>
-              <Textarea
-                placeholder="Future candidate matching will prioritize..."
-                className="min-h-[100px] text-sm resize-none bg-white border-[#D9D9D9]"
-                readOnly
-                defaultValue="• Increased weight on B2B SaaS experience (+15%)
+            <p className="text-xs font-medium mb-2" style={{ color: '#666663' }}>
+              What will change based on your feedback
+            </p>
+            <Textarea
+              placeholder="Future candidate matching will prioritize..."
+              className="min-h-[100px] text-sm resize-none border-[#D9D9D9]"
+              style={{ backgroundColor: '#FFFFFF' }}
+              readOnly
+              defaultValue="• Increased weight on B2B SaaS experience (+15%)
 • CRM proficiency now marked as critical requirement
 • International experience boosted in scoring
 • Candidates without direct sales roles deprioritized"
-              />
-            </div>
+            />
           </div>
 
-          {/* Feedback History Section */}
+          {/* Feedback History Section - Collapsible */}
           <div className="mb-6">
-            <h3 className="mb-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>
-              Feedback history
-            </h3>
-            <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
-              <Accordion type="single" collapsible className="w-full">
-                {feedbackHistory.map((item, index) => {
-                  const candidate = getCandidateById(item.id);
-                  if (!candidate) return null;
-                  
-                  return (
-                    <AccordionItem key={item.id} value={`item-${item.id}`} className="border-b border-[#E6E6E6] last:border-b-0">
-                      <AccordionTrigger className="px-5 py-4 hover:no-underline hover:bg-[#FAFAFA]">
-                        <div className="flex items-center gap-3 w-full">
-                          <InitialsAvatar name={candidate.name} size="sm" />
-                          <div className="flex-1 text-left">
-                            <p className="text-sm font-medium" style={{ color: '#333333' }}>{candidate.name}</p>
-                            <p className="text-xs" style={{ color: '#666663' }}>{candidate.roles[0]?.role || 'Candidate'}</p>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            {item.rating && (
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="feedback-history" className="border-0">
+                <AccordionTrigger className="py-0 mb-3 hover:no-underline">
+                  <h3 style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>
+                    Feedback history ({feedbackHistory.length})
+                  </h3>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
+                    {feedbackHistory.map((item, index) => {
+                      const candidate = getCandidateById(item.id);
+                      if (!candidate) return null;
+                      
+                      return (
+                        <div 
+                          key={item.id} 
+                          className="px-5 py-4 border-b border-[#E6E6E6] last:border-b-0"
+                        >
+                          <div className="flex items-center gap-3 w-full">
+                            <InitialsAvatar name={candidate.name} size="sm" />
+                            <div className="flex-1 text-left">
+                              <p className="text-sm font-medium" style={{ color: '#333333' }}>{candidate.name}</p>
+                              <p className="text-xs" style={{ color: '#666663' }}>{candidate.roles[0]?.role || 'Candidate'}</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {item.rating && (
+                                <span 
+                                  className="px-2 py-0.5 rounded text-xs font-medium"
+                                  style={{ 
+                                    backgroundColor: item.action === 'saved' ? '#E8F5E8' : '#FEE2E2',
+                                    color: item.action === 'saved' ? '#2E7D32' : '#BF4D43'
+                                  }}
+                                >
+                                  {item.rating}/3
+                                </span>
+                              )}
                               <span 
-                                className="px-2 py-0.5 rounded text-xs font-medium"
+                                className="px-2 py-0.5 rounded text-xs font-medium capitalize"
                                 style={{ 
                                   backgroundColor: item.action === 'saved' ? '#E8F5E8' : '#FEE2E2',
                                   color: item.action === 'saved' ? '#2E7D32' : '#BF4D43'
                                 }}
                               >
-                                {item.rating}/3
+                                {item.action}
                               </span>
-                            )}
-                            <span 
-                              className="px-2 py-0.5 rounded text-xs font-medium capitalize"
-                              style={{ 
-                                backgroundColor: item.action === 'saved' ? '#E8F5E8' : '#FEE2E2',
-                                color: item.action === 'saved' ? '#2E7D32' : '#BF4D43'
-                              }}
-                            >
-                              {item.action}
-                            </span>
+                            </div>
                           </div>
+                          {item.feedback && (
+                            <div className="pl-11 mt-2">
+                              <p className="text-sm" style={{ color: '#666663' }}>{item.feedback}</p>
+                            </div>
+                          )}
                         </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="px-5 pb-4">
-                        <div className="pl-11">
-                          <p className="text-xs font-medium mb-1" style={{ color: '#666663' }}>Your feedback:</p>
-                          <p className="text-sm" style={{ color: '#333333' }}>{item.feedback}</p>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  );
-                })}
-              </Accordion>
-            </div>
+                      );
+                    })}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
 
           {/* Action Buttons */}
