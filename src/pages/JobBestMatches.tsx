@@ -382,14 +382,14 @@ const JobBestMatches = () => {
                       color: '#FFFFFF' 
                     }}
                   >
-                    {feedbackType === 'save' ? 'Save & Next' : 'Reject & Next'}
+                    {feedbackType === 'save' ? 'Train & Save' : 'Train & Reject'}
                   </button>
                   <button
                     onClick={skipFeedback}
                     className="px-4 py-2 rounded-lg text-sm font-medium transition-all hover:opacity-80 border"
                     style={{ backgroundColor: '#FFFFFF', borderColor: '#D9D9D9', color: '#666663' }}
                   >
-                    Skip feedback
+                    {feedbackType === 'save' ? 'Skip & Save' : 'Skip & Reject'}
                   </button>
                   <button
                     onClick={cancelFeedback}
