@@ -375,7 +375,7 @@ Qualifications
       <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
         {/* Left Panel - Job Description Editor */}
         <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
-          <div className={`h-full flex flex-col py-6 pb-5 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
+          <div className={`h-full flex flex-col py-6 pb-2 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
             <div className={`flex-1 overflow-y-auto rounded-xl relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`} style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
               <div className="px-[72px] py-12 pb-24">
                 
