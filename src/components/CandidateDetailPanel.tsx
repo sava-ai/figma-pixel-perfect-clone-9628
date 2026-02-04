@@ -360,11 +360,20 @@ const CandidateDetailPanel = ({
             background: 'linear-gradient(135deg, #CC785C 0%, #D4A27F 100%)'
           }}
         >
-          <div className="flex items-center justify-center gap-2">
-            <span className="text-2xl font-semibold text-white" style={{ fontFamily: 'CooperLight, serif' }}>
-              {matchScore}/{matchTotal}
-            </span>
-            <span className="text-sm text-white/90">Match</span>
+          <div className="flex items-center justify-center gap-6">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-semibold text-white" style={{ fontFamily: 'CooperLight, serif' }}>
+                {matchScore}/{matchTotal}
+              </span>
+              <span className="text-sm text-white/90">Match</span>
+            </div>
+            <div className="w-px h-6 bg-white/30" />
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-semibold text-white" style={{ fontFamily: 'CooperLight, serif' }}>
+                82%
+              </span>
+              <span className="text-sm text-white/90">Eager</span>
+            </div>
           </div>
         </div>
 
@@ -432,55 +441,40 @@ const CandidateDetailPanel = ({
             <div className="bg-white rounded-lg px-3 border border-[#EEEDEC]">
               {/* Python */}
               <div className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3]">
-                <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                  <Code size={16} className="text-[#666666] flex-shrink-0" />
-                  <span className="text-sm text-[#292524]">Python</span>
-                </div>
-                <span className={`h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#E8F5E8] text-[#2D7A2D]`}>
+                <span className="text-sm text-[#292524]">Python</span>
+                <span className="h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#E8F5E8] text-[#2D7A2D]">
                   Full match
                 </span>
               </div>
               
               {/* TypeScript/React */}
               <div className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3]">
-                <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                  <Code size={16} className="text-[#666666] flex-shrink-0" />
-                  <span className="text-sm text-[#292524]">TypeScript/React</span>
-                </div>
-                <span className={`h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#F5F5F5] text-[#666666]`}>
+                <span className="text-sm text-[#292524]">TypeScript/React</span>
+                <span className="h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#F5F5F5] text-[#666666]">
                   Part match
                 </span>
               </div>
               
               {/* APIs & System Design */}
               <div className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3]">
-                <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                  <Leaf size={16} className="text-[#666666] flex-shrink-0" />
-                  <span className="text-sm text-[#292524]">APIs & System Design</span>
-                </div>
-                <span className={`h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#E8F5E8] text-[#2D7A2D]`}>
+                <span className="text-sm text-[#292524]">APIs & System Design</span>
+                <span className="h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#E8F5E8] text-[#2D7A2D]">
                   Full match
                 </span>
               </div>
               
               {/* Cloud Infrastructure */}
               <div className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3]">
-                <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                  <Globe size={16} className="text-[#666666] flex-shrink-0" />
-                  <span className="text-sm text-[#292524]">Cloud Infrastructure</span>
-                </div>
-                <span className={`h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#F5F5F5] text-[#666666]`}>
+                <span className="text-sm text-[#292524]">Cloud Infrastructure</span>
+                <span className="h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#F5F5F5] text-[#666666]">
                   Part match
                 </span>
               </div>
               
               {/* AI/ML Understanding */}
               <div className="flex items-center justify-between py-2.5">
-                <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                  <Sparkles size={16} className="text-[#666666] flex-shrink-0" />
-                  <span className="text-sm text-[#292524]">AI/ML Understanding</span>
-                </div>
-                <span className={`h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#FDEAEA] text-[#D32F2F]`}>
+                <span className="text-sm text-[#292524]">AI/ML Understanding</span>
+                <span className="h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#FDEAEA] text-[#D32F2F]">
                   No match
                 </span>
               </div>
