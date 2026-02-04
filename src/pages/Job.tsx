@@ -254,11 +254,11 @@ Qualifications
   return (
     <div className="h-screen w-full flex flex-col overflow-hidden" style={{ backgroundColor: '#F5F4F1' }}>
       {/* Header */}
-      <header className="h-[54px] flex items-center justify-between px-5 flex-shrink-0" style={{ backgroundColor: '#F2F1ED', borderBottom: '1px solid #D9D9D9' }}>
+      <header className="h-[54px] flex items-center justify-between px-5 flex-shrink-0 relative" style={{ backgroundColor: '#F2F1ED', borderBottom: '1px solid #D9D9D9' }}>
         {/* Left side - Back button and Job title */}
         <div className="flex items-center gap-2">
           <button 
-            onClick={() => navigate('/job/people/view')}
+            onClick={() => navigate('/')}
             className="w-7 h-7 rounded-md flex items-center justify-center transition-all hover:opacity-80"
             style={{ backgroundColor: '#E8E6DD' }}
           >
@@ -271,9 +271,33 @@ Qualifications
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md" style={{ backgroundColor: '#E8E6DD' }}>
             <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded-md" />
             <span className="font-medium text-sm" style={{ color: '#333333' }}>BD Representative / Sales Manager</span>
-            <span className="text-sm" style={{ color: '#666666' }}>•</span>
-            <span className="text-sm" style={{ color: '#666666' }}>PriceMind</span>
+            <ChevronDown className="w-3.5 h-3.5" style={{ color: '#333333' }} />
           </div>
+        </div>
+
+        {/* Center - Navigation Tabs */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-0.5 px-0.5 h-7 rounded-md" style={{ backgroundColor: '#E8E6DD' }}>
+          <button
+            onClick={() => navigate('/job')}
+            className="px-3 h-[22px] rounded text-xs font-medium transition-all bg-white shadow-sm"
+            style={{ color: '#333333' }}
+          >
+            Job
+          </button>
+          <button
+            onClick={() => navigate('/job/people/view')}
+            className="px-3 h-[22px] rounded text-xs font-medium transition-all"
+            style={{ color: '#333333' }}
+          >
+            Review (50)
+          </button>
+          <button
+            onClick={() => navigate('/job/pipeline')}
+            className="px-3 h-[22px] rounded text-xs font-medium transition-all"
+            style={{ color: '#333333' }}
+          >
+            Pipeline
+          </button>
         </div>
 
         {/* Right side - Chat Toggle and Profile */}
