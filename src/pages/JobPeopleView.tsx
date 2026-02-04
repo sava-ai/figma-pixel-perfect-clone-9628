@@ -61,10 +61,10 @@ const JobPeopleView = () => {
 
 
   const filteredCandidates = selectedTags.length === 0 
-    ? bestCandidates 
+    ? bestCandidates.slice(0, 10) 
     : bestCandidates.filter(candidate => 
         selectedTags.some(tag => candidate.tags.includes(tag))
-      );
+      ).slice(0, 10);
 
   // Handle navigation to next candidate
   const handleNextCandidate = (action: 'save' | 'reject') => {
