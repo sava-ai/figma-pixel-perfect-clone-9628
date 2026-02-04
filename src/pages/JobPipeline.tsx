@@ -6,6 +6,7 @@ import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { InviteDialog } from '@/components/InviteDialog';
 import { JobChatPanel } from '@/components/JobChatPanel';
 import { RejectionDialog } from '@/components/RejectionDialog';
+import { PipelineGridCard } from '@/components/PipelineGridCard';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import userAvatarImage from '@/assets/user-avatar.png';
@@ -37,6 +38,10 @@ interface Candidate {
   lastContact: string;
   match: string;
   engagementRate: number;
+  status?: 'saved' | 'contacted' | 'interview';
+  statusLabel?: string;
+  statusDate?: string;
+  followUp?: string;
 }
 
 interface Column {
@@ -275,7 +280,7 @@ const JobPipeline = () => {
           id: '1',
           name: 'Sarah Chapman',
           image: profile1,
-          position: 'Senior Product Designer',
+          position: 'Senior UX/UI Designer',
           company: 'Klarna',
           city: 'Warsaw',
           country: 'Poland',
@@ -284,12 +289,16 @@ const JobPipeline = () => {
           lastContact: '1h ago',
           match: '10/12',
           engagementRate: 78,
+          status: 'saved',
+          statusLabel: 'Saved',
+          statusDate: 'Just now',
+          followUp: 'Follow up in 2 days',
         },
         {
           id: '2',
-          name: 'Marcus Andersson',
+          name: 'Sam Morris',
           image: profile2,
-          position: 'Lead Designer',
+          position: 'Senior UX/UI Designer',
           company: 'Spotify',
           city: 'Cracow',
           country: 'Poland',
@@ -298,12 +307,16 @@ const JobPipeline = () => {
           lastContact: '3h ago',
           match: '11/12',
           engagementRate: 92,
+          status: 'saved',
+          statusLabel: 'Saved',
+          statusDate: '16 Jan',
+          followUp: 'Respond to message',
         },
         {
           id: '3',
-          name: 'Emma Lundberg',
+          name: 'Esther Howard',
           image: profile3,
-          position: 'Product Designer',
+          position: 'Senior UX/UI Designer',
           company: 'Bambora',
           city: 'Wroclaw',
           country: 'Poland',
@@ -312,6 +325,10 @@ const JobPipeline = () => {
           lastContact: '2d ago',
           match: '9/12',
           engagementRate: 65,
+          status: 'contacted',
+          statusLabel: 'Contacted',
+          statusDate: '16 Jan',
+          followUp: 'Follow up in 2 days',
         },
       ],
     },
@@ -321,9 +338,9 @@ const JobPipeline = () => {
       candidates: [
         {
           id: '4',
-          name: 'Johan Berg',
+          name: 'Pia Lorry',
           image: profile4,
-          position: 'UX Designer',
+          position: 'Senior UX/UI Designer',
           company: 'Tink',
           city: 'Warsaw',
           country: 'Poland',
@@ -332,12 +349,16 @@ const JobPipeline = () => {
           lastContact: '5h ago',
           match: '8/12',
           engagementRate: 71,
+          status: 'contacted',
+          statusLabel: 'Contacted',
+          statusDate: '14 days ago',
+          followUp: 'No activity in 14 days',
         },
         {
           id: '5',
-          name: 'Lisa Svensson',
+          name: 'Devon Lane',
           image: profile5,
-          position: 'Senior UX Designer',
+          position: 'Senior UX/UI Designer',
           company: 'iZettle',
           city: 'Warsaw',
           country: 'Poland',
@@ -346,6 +367,10 @@ const JobPipeline = () => {
           lastContact: '1d ago',
           match: '12/12',
           engagementRate: 95,
+          status: 'interview',
+          statusLabel: 'Interview 1',
+          statusDate: '16 Jan',
+          followUp: 'Interview scheduled • 16 Jan',
         },
       ],
     },
@@ -355,9 +380,9 @@ const JobPipeline = () => {
       candidates: [
         {
           id: '6',
-          name: 'Anders Nilsson',
+          name: 'John Wilson',
           image: profile6,
-          position: 'Product Designer',
+          position: 'Senior UX/UI Designer',
           company: 'King',
           city: 'Warsaw',
           country: 'Poland',
@@ -366,6 +391,10 @@ const JobPipeline = () => {
           lastContact: '12h ago',
           match: '10/12',
           engagementRate: 83,
+          status: 'interview',
+          statusLabel: 'Interview 1',
+          statusDate: '3 days ago',
+          followUp: 'Met with Sarah • 3 days ago',
         },
       ],
     },
@@ -597,76 +626,94 @@ const JobPipeline = () => {
         <div className={`flex-1 min-w-0 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
           <div className={`h-full flex flex-col pt-6 pb-3 relative ${isChatCollapsed ? 'w-full max-w-[1400px]' : 'w-full'}`}>
             <div className={`flex-1 overflow-hidden bg-background rounded-[15px] relative ${isChatCollapsed ? 'mx-2' : ''}`}>
-              <DndContext 
-                sensors={sensors}
-                collisionDetection={closestCorners}
-                onDragStart={handleDragStart}
-                onDragEnd={handleDragEnd}
-              >
-                <div className="h-full overflow-x-auto overflow-y-hidden pl-6 pr-6 pt-6 pb-6">
-                  <div className="flex gap-4 h-full pr-6" style={{ minWidth: 'max-content' }}>
-                    {columns.map((column) => (
-                      <div
-                        key={column.id}
-                        className="flex-shrink-0 w-[280px] flex flex-col"
-                      >
-                        <div className="mb-4 flex items-center justify-between">
-                          <h3 className="font-medium text-sm text-foreground">{column.title}</h3>
-                          <div className="flex items-center gap-2">
-                            {column.id === 'rejected' && (
-                              <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                  <button className="text-muted-foreground hover:text-foreground transition-colors">
-                                    <MoreHorizontal className="w-4 h-4" />
-                                  </button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
-                                  <DropdownMenuItem onClick={() => setRejectionDialogOpen(true)}>
-                                    Mass reject
-                                  </DropdownMenuItem>
-                                </DropdownMenuContent>
-                              </DropdownMenu>
-                            )}
-                            <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
-                              {column.candidates.length}
-                            </span>
-                          </div>
-                        </div>
-                        <div 
-                          className="flex-1 rounded-xl p-3 overflow-y-auto"
-                          style={{ minHeight: '200px', backgroundColor: '#FBFAF9' }}
-                        >
-                          <SortableContext
-                            items={column.candidates.map(c => c.id)}
-                            strategy={verticalListSortingStrategy}
-                          >
-                            <div className="space-y-3">
-                              {column.candidates.map((candidate) => (
-                                <SortableCandidate 
-                                  key={candidate.id} 
-                                  candidate={candidate}
-                                  onReject={handleRejectCandidate}
-                                  onDelete={handleDeleteCandidate}
-                                />
-                              ))}
-                            </div>
-                          </SortableContext>
-                        </div>
-                      </div>
+              
+              {viewMode === 'grid' ? (
+                /* Grid View - Card blocks */
+                <div className="h-full overflow-y-auto p-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {columns.flatMap(column => column.candidates).map((candidate) => (
+                      <PipelineGridCard
+                        key={candidate.id}
+                        candidate={candidate}
+                        onReject={handleRejectCandidate}
+                        onDelete={handleDeleteCandidate}
+                      />
                     ))}
                   </div>
                 </div>
-                <DragOverlay>
-                  {activeDragCandidate ? (
-                    <CandidateCard 
-                      candidate={activeDragCandidate} 
-                      isDragging
-                      onReject={handleRejectCandidate}
-                      onDelete={handleDeleteCandidate}
-                    />
-                  ) : null}
-                </DragOverlay>
-              </DndContext>
+              ) : (
+                /* Canvas View - Kanban columns */
+                <DndContext 
+                  sensors={sensors}
+                  collisionDetection={closestCorners}
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
+                >
+                  <div className="h-full overflow-x-auto overflow-y-hidden pl-6 pr-6 pt-6 pb-6">
+                    <div className="flex gap-4 h-full pr-6" style={{ minWidth: 'max-content' }}>
+                      {columns.map((column) => (
+                        <div
+                          key={column.id}
+                          className="flex-shrink-0 w-[280px] flex flex-col"
+                        >
+                          <div className="mb-4 flex items-center justify-between">
+                            <h3 className="font-medium text-sm text-foreground">{column.title}</h3>
+                            <div className="flex items-center gap-2">
+                              {column.id === 'rejected' && (
+                                <DropdownMenu>
+                                  <DropdownMenuTrigger asChild>
+                                    <button className="text-muted-foreground hover:text-foreground transition-colors">
+                                      <MoreHorizontal className="w-4 h-4" />
+                                    </button>
+                                  </DropdownMenuTrigger>
+                                  <DropdownMenuContent align="end">
+                                    <DropdownMenuItem onClick={() => setRejectionDialogOpen(true)}>
+                                      Mass reject
+                                    </DropdownMenuItem>
+                                  </DropdownMenuContent>
+                                </DropdownMenu>
+                              )}
+                              <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
+                                {column.candidates.length}
+                              </span>
+                            </div>
+                          </div>
+                          <div 
+                            className="flex-1 rounded-xl p-3 overflow-y-auto"
+                            style={{ minHeight: '200px', backgroundColor: '#FBFAF9' }}
+                          >
+                            <SortableContext
+                              items={column.candidates.map(c => c.id)}
+                              strategy={verticalListSortingStrategy}
+                            >
+                              <div className="space-y-3">
+                                {column.candidates.map((candidate) => (
+                                  <SortableCandidate 
+                                    key={candidate.id} 
+                                    candidate={candidate}
+                                    onReject={handleRejectCandidate}
+                                    onDelete={handleDeleteCandidate}
+                                  />
+                                ))}
+                              </div>
+                            </SortableContext>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <DragOverlay>
+                    {activeDragCandidate ? (
+                      <CandidateCard 
+                        candidate={activeDragCandidate} 
+                        isDragging
+                        onReject={handleRejectCandidate}
+                        onDelete={handleDeleteCandidate}
+                      />
+                    ) : null}
+                  </DragOverlay>
+                </DndContext>
+              )}
 
             </div>
           </div>
