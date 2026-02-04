@@ -31,7 +31,7 @@ const JobBestMatches = () => {
   const [feedbackRating, setFeedbackRating] = useState<1 | 2 | 3 | null>(null);
   const [feedbackText, setFeedbackText] = useState('');
   
-  const filteredCandidates = bestCandidates.slice(0, 10);
+  const filteredCandidates = bestCandidates.slice(0, 1);
   
   // Get current candidate based on mode
   const getCurrentCandidate = () => {
