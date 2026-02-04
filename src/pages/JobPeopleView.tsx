@@ -299,8 +299,8 @@ const JobPeopleView = () => {
                       </button>
                     </div>
 
-                    {/* Navigation Cards - Full Width Horizontal Scroll */}
-                    <div className="overflow-x-auto scrollbar-hide mb-4" style={{ marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', width: '100vw' }}>
+                    {/* Navigation Cards - Full Width Horizontal Scroll - Breaks out of container */}
+                    <div className="overflow-x-auto scrollbar-hide mb-4 -mx-6" style={{ width: 'calc(100% + 48px)' }}>
                       <div className="flex gap-3 px-6">
                         {/* Shortlist Card */}
                         <button 
