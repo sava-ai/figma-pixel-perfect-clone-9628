@@ -287,7 +287,16 @@ const JobPeopleView = () => {
                     </button>
 
                     {/* Your Pipeline Section Title */}
-                    <h3 className="mb-3 pt-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>Your Pipeline</h3>
+                    <div className="flex items-center justify-between mb-3 pt-3">
+                      <h3 style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>Your Pipeline</h3>
+                      <button 
+                        onClick={() => navigate('/job/pipeline')}
+                        className="text-sm font-medium hover:opacity-80 transition-opacity"
+                        style={{ color: '#333333' }}
+                      >
+                        View pipeline
+                      </button>
+                    </div>
 
                     {/* Navigation Cards */}
                     <div className="grid grid-cols-3 gap-3 mb-4">
