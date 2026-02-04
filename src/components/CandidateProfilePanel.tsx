@@ -314,6 +314,26 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
             </div>
           </div>
 
+          {/* Languages Section */}
+          {candidate.languages && candidate.languages.length > 0 && (
+            <div className="mb-5">
+              <h3 className="font-medium uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333', fontSize: '0.9rem' }}>
+                Languages
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {candidate.languages.map((lang, index) => (
+                  <Badge 
+                    key={index}
+                    variant="outline"
+                    className="px-2.5 py-1 bg-white text-muted-foreground border-border rounded-full text-xs"
+                  >
+                    {lang}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Experience Section */}
           <div className="mb-5">
             <h3 className="font-medium uppercase tracking-wide mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333', fontSize: '0.9rem' }}>
@@ -458,25 +478,6 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
             </div>
           )}
 
-          {/* Languages Section */}
-          {candidate.languages && candidate.languages.length > 0 && (
-            <div>
-            <h3 className="font-medium uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333', fontSize: '0.9rem' }}>
-              Languages
-            </h3>
-              <div className="flex flex-wrap gap-2">
-                {candidate.languages.map((lang, index) => (
-                  <Badge 
-                    key={index}
-                    variant="outline"
-                    className="px-2.5 py-1 bg-white text-muted-foreground border-border rounded-full text-xs"
-                  >
-                    {lang}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </ScrollArea>
     </div>
