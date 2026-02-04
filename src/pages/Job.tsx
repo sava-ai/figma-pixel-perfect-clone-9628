@@ -392,131 +392,234 @@ Qualifications
                   )}
                 </div>
 
-                {/* Company, City, Country, Work Type Row */}
-                <div className="flex flex-wrap items-center gap-3 mb-6">
-                  {isEditMode ? (
-                    <>
-                      <Input
-                        value={formData.company}
-                        onChange={(e) => setFormData({...formData, company: e.target.value})}
-                        className="w-48 border-[#CD785C] focus-visible:ring-[#CD785C]"
-                        placeholder="Company"
-                        style={{ backgroundColor: '#F5F4F1' }}
-                      />
-                      <span className="text-muted-foreground">in</span>
-                      <Input
-                        value={formData.city}
-                        onChange={(e) => setFormData({...formData, city: e.target.value})}
-                        className="w-32 border-[#CD785C] focus-visible:ring-[#CD785C]"
-                        placeholder="City"
-                        style={{ backgroundColor: '#F5F4F1' }}
-                      />
-                      <Input
-                        value={formData.country}
-                        onChange={(e) => setFormData({...formData, country: e.target.value})}
-                        className="w-32 border-[#CD785C] focus-visible:ring-[#CD785C]"
-                        placeholder="Country"
-                        style={{ backgroundColor: '#333333', color: 'white' }}
-                      />
-                      <Select 
-                        value={formData.workType} 
-                        onValueChange={(value: 'hybrid' | 'remote' | 'office') => setFormData({...formData, workType: value})}
-                      >
-                        <SelectTrigger className="w-32" style={{ backgroundColor: '#333333', color: 'white' }}>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="hybrid">Hybrid</SelectItem>
-                          <SelectItem value="remote">Remote</SelectItem>
-                          <SelectItem value="office">Office</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </>
-                  ) : (
-                    <div className="flex flex-wrap items-center gap-2 text-sm">
-                      <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">{formData.company}</span>
-                      <span className="text-muted-foreground">in</span>
-                      <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">{formData.city}, {formData.country}</span>
-                      <span className="px-3 py-1.5 rounded-full text-white capitalize" style={{ backgroundColor: '#333333' }}>{formData.workType}</span>
+                {/* Company Information Accordion */}
+                <Collapsible open={companyOpen} onOpenChange={setCompanyOpen} className="mb-6">
+                  <CollapsibleTrigger className="w-full">
+                    <div className="flex items-center justify-between py-3 border-b border-border">
+                      <div className="flex items-center gap-3">
+                        <Building2 className="w-5 h-5 text-muted-foreground" />
+                        <span className="font-medium" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Company Information</span>
+                      </div>
+                      <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${companyOpen ? 'rotate-180' : ''}`} />
                     </div>
-                  )}
-                </div>
-
-                {/* Salary Row */}
-                <div className="flex flex-wrap items-center gap-3 mb-6">
-                  <span className="text-sm text-muted-foreground w-12">Salary</span>
-                  {isEditMode ? (
-                    <>
-                      <Input
-                        value={formData.salaryMin}
-                        onChange={(e) => setFormData({...formData, salaryMin: e.target.value})}
-                        className="w-28 border-[#CD785C] focus-visible:ring-[#CD785C]"
-                        placeholder="Min"
-                        style={{ backgroundColor: '#F5F4F1' }}
-                      />
-                      <span className="text-muted-foreground">-</span>
-                      <Input
-                        value={formData.salaryMax}
-                        onChange={(e) => setFormData({...formData, salaryMax: e.target.value})}
-                        className="w-28 border-[#CD785C] focus-visible:ring-[#CD785C]"
-                        placeholder="Max"
-                        style={{ backgroundColor: '#F5F4F1' }}
-                      />
-                      <Input
-                        value={formData.currency}
-                        onChange={(e) => setFormData({...formData, currency: e.target.value})}
-                        className="w-20 text-center"
-                        placeholder="PLN"
-                        style={{ backgroundColor: '#333333', color: 'white' }}
-                      />
-                      <span className="text-muted-foreground">/</span>
-                      <Select 
-                        value={formData.salaryPeriod} 
-                        onValueChange={(value: 'monthly' | 'yearly' | 'hourly') => setFormData({...formData, salaryPeriod: value})}
-                      >
-                        <SelectTrigger className="w-28" style={{ backgroundColor: '#333333', color: 'white' }}>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="monthly">Monthly</SelectItem>
-                          <SelectItem value="yearly">Yearly</SelectItem>
-                          <SelectItem value="hourly">Hourly</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </>
-                  ) : (
-                    <div className="flex items-center gap-2 text-sm">
-                      {formData.salaryMin || formData.salaryMax ? (
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
-                          {formData.salaryMin && formData.salaryMax 
-                            ? `${formData.salaryMin} - ${formData.salaryMax} ${formData.currency} / ${formData.salaryPeriod}`
-                            : formData.salaryMin || formData.salaryMax} {formData.currency} / {formData.salaryPeriod}
+                    {!companyOpen && (
+                      <div className="flex flex-wrap gap-2 mt-3 text-sm">
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                          <Building2 className="w-3.5 h-3.5" />
+                          {formData.company}
                         </span>
-                      ) : (
-                        <span className="text-muted-foreground italic">Not specified</span>
-                      )}
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                          <Users className="w-3.5 h-3.5" />
+                          50-200 employees
+                        </span>
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">EdTech</span>
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">B2B</span>
+                      </div>
+                    )}
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="pt-4 space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="text-sm text-muted-foreground mb-1 block">Company Name</label>
+                          {isEditMode ? (
+                            <Input
+                              value={formData.company}
+                              onChange={(e) => setFormData({...formData, company: e.target.value})}
+                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
+                            />
+                          ) : (
+                            <p className="text-foreground">{formData.company}</p>
+                          )}
+                        </div>
+                        <div>
+                          <label className="text-sm text-muted-foreground mb-1 block">Employee Count</label>
+                          <p className="text-foreground">50-200 employees</p>
+                        </div>
+                      </div>
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">What we do</label>
+                        <p className="text-foreground">Revolutionizing how students learn through gamification and AI-powered learning</p>
+                      </div>
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">Company Tags</label>
+                        <div className="flex flex-wrap gap-2">
+                          <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground text-sm">Private Company</span>
+                          <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground text-sm">B2B Sales</span>
+                          <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground text-sm">EdTech</span>
+                        </div>
+                      </div>
                     </div>
-                  )}
-                </div>
+                  </CollapsibleContent>
+                </Collapsible>
 
-                {/* Employment Type Checkboxes */}
-                <div className="flex flex-wrap items-center gap-4 mb-8">
-                  <span className="text-sm text-muted-foreground w-12">Type</span>
-                  {(['permanent', 'b2b', 'contract', 'internship', 'freelance'] as const).map((type) => (
-                    <label key={type} className="flex items-center gap-2 cursor-pointer">
-                      <Checkbox
-                        checked={formData.employmentTypes[type]}
-                        onCheckedChange={(checked) => setFormData({
-                          ...formData, 
-                          employmentTypes: {...formData.employmentTypes, [type]: !!checked}
-                        })}
-                        disabled={!isEditMode}
-                        className="border-[#CD785C] data-[state=checked]:bg-[#CD785C] data-[state=checked]:border-[#CD785C]"
-                      />
-                      <span className="text-sm capitalize">{type === 'b2b' ? 'B2B' : type}</span>
-                    </label>
-                  ))}
-                </div>
+                {/* Job Role Details Accordion */}
+                <Collapsible open={jobRoleOpen} onOpenChange={setJobRoleOpen} className="mb-8">
+                  <CollapsibleTrigger className="w-full">
+                    <div className="flex items-center justify-between py-3 border-b border-border">
+                      <div className="flex items-center gap-3">
+                        <Briefcase className="w-5 h-5 text-muted-foreground" />
+                        <span className="font-medium" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Job Role Details</span>
+                      </div>
+                      <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${jobRoleOpen ? 'rotate-180' : ''}`} />
+                    </div>
+                    {!jobRoleOpen && (
+                      <div className="flex flex-wrap gap-2 mt-3 text-sm">
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5" />
+                          {formData.city}, {formData.country}
+                        </span>
+                        <span className="px-3 py-1.5 rounded-full text-white capitalize" style={{ backgroundColor: '#333333' }}>{formData.workType}</span>
+                        {formData.salaryMin && formData.salaryMax && (
+                          <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                            <DollarSign className="w-3.5 h-3.5" />
+                            {formData.salaryMin} - {formData.salaryMax} {formData.currency}
+                          </span>
+                        )}
+                        {Object.entries(formData.employmentTypes)
+                          .filter(([_, checked]) => checked)
+                          .map(([type]) => (
+                            <span key={type} className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground capitalize">
+                              {type === 'b2b' ? 'B2B' : type}
+                            </span>
+                          ))}
+                      </div>
+                    )}
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="pt-4 space-y-4">
+                      {/* Location Row */}
+                      <div className="flex flex-wrap items-center gap-3">
+                        {isEditMode ? (
+                          <>
+                            <Input
+                              value={formData.city}
+                              onChange={(e) => setFormData({...formData, city: e.target.value})}
+                              className="w-32 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                              placeholder="City"
+                              style={{ backgroundColor: '#F5F4F1' }}
+                            />
+                            <Input
+                              value={formData.country}
+                              onChange={(e) => setFormData({...formData, country: e.target.value})}
+                              className="w-32 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                              placeholder="Country"
+                              style={{ backgroundColor: '#F5F4F1' }}
+                            />
+                            <Select 
+                              value={formData.workType} 
+                              onValueChange={(value: 'hybrid' | 'remote' | 'office') => setFormData({...formData, workType: value})}
+                            >
+                              <SelectTrigger className="w-32" style={{ backgroundColor: '#333333', color: 'white' }}>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="hybrid">Hybrid</SelectItem>
+                                <SelectItem value="remote">Remote</SelectItem>
+                                <SelectItem value="office">Office</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </>
+                        ) : (
+                          <div className="flex flex-wrap items-center gap-2 text-sm">
+                            <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">{formData.city}, {formData.country}</span>
+                            <span className="px-3 py-1.5 rounded-full text-white capitalize" style={{ backgroundColor: '#333333' }}>{formData.workType}</span>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Salary Row */}
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="text-sm text-muted-foreground w-12">Salary</span>
+                        {isEditMode ? (
+                          <>
+                            <Input
+                              value={formData.salaryMin}
+                              onChange={(e) => setFormData({...formData, salaryMin: e.target.value})}
+                              className="w-28 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                              placeholder="Min"
+                              style={{ backgroundColor: '#F5F4F1' }}
+                            />
+                            <span className="text-muted-foreground">-</span>
+                            <Input
+                              value={formData.salaryMax}
+                              onChange={(e) => setFormData({...formData, salaryMax: e.target.value})}
+                              className="w-28 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                              placeholder="Max"
+                              style={{ backgroundColor: '#F5F4F1' }}
+                            />
+                            <Input
+                              value={formData.currency}
+                              onChange={(e) => setFormData({...formData, currency: e.target.value})}
+                              className="w-20 text-center"
+                              placeholder="PLN"
+                              style={{ backgroundColor: '#333333', color: 'white' }}
+                            />
+                            <span className="text-muted-foreground">/</span>
+                            <Select 
+                              value={formData.salaryPeriod} 
+                              onValueChange={(value: 'monthly' | 'yearly' | 'hourly') => setFormData({...formData, salaryPeriod: value})}
+                            >
+                              <SelectTrigger className="w-28" style={{ backgroundColor: '#333333', color: 'white' }}>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="monthly">Monthly</SelectItem>
+                                <SelectItem value="yearly">Yearly</SelectItem>
+                                <SelectItem value="hourly">Hourly</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </>
+                        ) : (
+                          <div className="flex items-center gap-2 text-sm">
+                            {formData.salaryMin || formData.salaryMax ? (
+                              <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
+                                {formData.salaryMin && formData.salaryMax 
+                                  ? `${formData.salaryMin} - ${formData.salaryMax} ${formData.currency} / ${formData.salaryPeriod}`
+                                  : formData.salaryMin || formData.salaryMax} {formData.currency} / {formData.salaryPeriod}
+                              </span>
+                            ) : (
+                              <span className="text-muted-foreground italic">Not specified</span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Employment Type */}
+                      <div className="flex flex-wrap items-center gap-4">
+                        <span className="text-sm text-muted-foreground w-12">Type</span>
+                        {isEditMode ? (
+                          <>
+                            {(['permanent', 'b2b', 'contract', 'internship', 'freelance'] as const).map((type) => (
+                              <label key={type} className="flex items-center gap-2 cursor-pointer">
+                                <Checkbox
+                                  checked={formData.employmentTypes[type]}
+                                  onCheckedChange={(checked) => setFormData({
+                                    ...formData, 
+                                    employmentTypes: {...formData.employmentTypes, [type]: !!checked}
+                                  })}
+                                  className="border-[#CD785C] data-[state=checked]:bg-[#CD785C] data-[state=checked]:border-[#CD785C]"
+                                />
+                                <span className="text-sm capitalize">{type === 'b2b' ? 'B2B' : type}</span>
+                              </label>
+                            ))}
+                          </>
+                        ) : (
+                          <div className="flex flex-wrap gap-2">
+                            {Object.entries(formData.employmentTypes)
+                              .filter(([_, checked]) => checked)
+                              .map(([type]) => (
+                                <span key={type} className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground text-sm capitalize">
+                                  {type === 'b2b' ? 'B2B' : type}
+                                </span>
+                              ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+
 
                 {/* Description */}
                 <div className="mb-8">
@@ -698,59 +801,60 @@ Qualifications
                 </div>
               </div>
 
-              {/* Floating Action Bar */}
-              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10">
-                <div className="flex items-center gap-2 bg-white rounded-full shadow-lg px-2 py-2 border border-[#E6E6E6]">
-                  {!isEditMode ? (
-                    <>
-                      <button
-                        onClick={() => {
-                          setIsEditMode(true);
-                          setSavedFormData(formData);
-                        }}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-colors hover:bg-muted"
-                        style={{ color: '#333333' }}
-                      >
-                        <Pencil className="w-4 h-4" />
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => navigate('/job/people/view')}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-white transition-colors hover:opacity-90"
-                        style={{ backgroundColor: '#CD785C' }}
-                      >
-                        <Search className="w-4 h-4" />
-                        Start sourcing
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        onClick={() => {
-                          setFormData(savedFormData);
-                          setIsEditMode(false);
-                        }}
-                        className="px-5 py-2.5 rounded-full text-sm font-medium transition-colors hover:bg-muted"
-                        style={{ color: '#333333' }}
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        onClick={() => {
-                          setSavedFormData(formData);
-                          setIsEditMode(false);
-                        }}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-white transition-colors hover:opacity-90"
-                        style={{ backgroundColor: '#CD785C' }}
-                      >
-                        <Save className="w-4 h-4" />
-                        Save Changes
-                      </button>
-                    </>
-                  )}
-                </div>
-              </div>
             </div>
+          </div>
+        </div>
+
+        {/* Floating Action Bar - Fixed at bottom of viewport */}
+        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50" style={{ marginLeft: isChatCollapsed ? '0' : '-190px' }}>
+          <div className="flex items-center gap-2 bg-white rounded-full shadow-lg px-2 py-2 border border-[#E6E6E6]">
+            {!isEditMode ? (
+              <>
+                <button
+                  onClick={() => {
+                    setIsEditMode(true);
+                    setSavedFormData(formData);
+                  }}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-colors hover:bg-muted"
+                  style={{ color: '#333333' }}
+                >
+                  <Pencil className="w-4 h-4" />
+                  Edit
+                </button>
+                <button
+                  onClick={() => navigate('/job/people/view')}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-white transition-colors hover:opacity-90"
+                  style={{ backgroundColor: '#CD785C' }}
+                >
+                  <Search className="w-4 h-4" />
+                  Start sourcing
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => {
+                    setFormData(savedFormData);
+                    setIsEditMode(false);
+                  }}
+                  className="px-5 py-2.5 rounded-full text-sm font-medium transition-colors hover:bg-muted"
+                  style={{ color: '#333333' }}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    setSavedFormData(formData);
+                    setIsEditMode(false);
+                  }}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-white transition-colors hover:opacity-90"
+                  style={{ backgroundColor: '#CD785C' }}
+                >
+                  <Save className="w-4 h-4" />
+                  Save Changes
+                </button>
+              </>
+            )}
           </div>
         </div>
 
