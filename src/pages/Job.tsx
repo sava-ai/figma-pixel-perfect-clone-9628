@@ -408,16 +408,16 @@ Qualifications
                     </div>
                     {!companyOpen && (
                       <div className="flex flex-wrap gap-2 mt-3 text-sm">
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                        <span className="px-3 py-1.5 rounded-full flex items-center gap-1.5" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>
                           <Building2 className="w-3.5 h-3.5" />
                           {formData.company}
                         </span>
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                        <span className="px-3 py-1.5 rounded-full flex items-center gap-1.5" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>
                           <Users className="w-3.5 h-3.5" />
                           50-200 employees
                         </span>
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">EdTech</span>
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">B2B</span>
+                        <span className="px-3 py-1.5 rounded-full" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>EdTech</span>
+                        <span className="px-3 py-1.5 rounded-full" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>B2B</span>
                       </div>
                     )}
                   </CollapsibleTrigger>
@@ -448,9 +448,9 @@ Qualifications
                       <div>
                         <label className="text-sm text-muted-foreground mb-1 block">Company Tags</label>
                         <div className="flex flex-wrap gap-2">
-                          <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground text-sm">Private Company</span>
-                          <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground text-sm">B2B Sales</span>
-                          <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground text-sm">EdTech</span>
+                          <span className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>Private Company</span>
+                          <span className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>B2B Sales</span>
+                          <span className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>EdTech</span>
                         </div>
                       </div>
                     </div>
@@ -469,13 +469,13 @@ Qualifications
                     </div>
                     {!jobRoleOpen && (
                       <div className="flex flex-wrap gap-2 mt-3 text-sm">
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                        <span className="px-3 py-1.5 rounded-full flex items-center gap-1.5" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>
                           <MapPin className="w-3.5 h-3.5" />
                           {formData.city}, {formData.country}
                         </span>
                         <span className="px-3 py-1.5 rounded-full text-white capitalize" style={{ backgroundColor: '#333333' }}>{formData.workType}</span>
                         {formData.salaryMin && formData.salaryMax && (
-                          <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                          <span className="px-3 py-1.5 rounded-full flex items-center gap-1.5" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>
                             <DollarSign className="w-3.5 h-3.5" />
                             {formData.salaryMin} - {formData.salaryMax} {formData.currency}
                           </span>
@@ -483,7 +483,7 @@ Qualifications
                         {Object.entries(formData.employmentTypes)
                           .filter(([_, checked]) => checked)
                           .map(([type]) => (
-                            <span key={type} className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground capitalize">
+                            <span key={type} className="px-3 py-1.5 rounded-full capitalize" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>
                               {type === 'b2b' ? 'B2B' : type}
                             </span>
                           ))}
@@ -526,7 +526,7 @@ Qualifications
                           </>
                         ) : (
                           <div className="flex flex-wrap items-center gap-2 text-sm">
-                            <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">{formData.city}, {formData.country}</span>
+                            <span className="px-3 py-1.5 rounded-full" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>{formData.city}, {formData.country}</span>
                             <span className="px-3 py-1.5 rounded-full text-white capitalize" style={{ backgroundColor: '#333333' }}>{formData.workType}</span>
                           </div>
                         )}
@@ -577,8 +577,8 @@ Qualifications
                         ) : (
                           <div className="flex items-center gap-2 text-sm">
                             {formData.salaryMin || formData.salaryMax ? (
-                              <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
-                                {formData.salaryMin && formData.salaryMax 
+                              <span className="px-3 py-1.5 rounded-full" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>
+                                {formData.salaryMin && formData.salaryMax
                                   ? `${formData.salaryMin} - ${formData.salaryMax} ${formData.currency} / ${formData.salaryPeriod}`
                                   : formData.salaryMin || formData.salaryMax} {formData.currency} / {formData.salaryPeriod}
                               </span>
@@ -613,7 +613,7 @@ Qualifications
                             {Object.entries(formData.employmentTypes)
                               .filter(([_, checked]) => checked)
                               .map(([type]) => (
-                                <span key={type} className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground text-sm capitalize">
+                                <span key={type} className="px-3 py-1.5 rounded-full text-sm capitalize" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>
                                   {type === 'b2b' ? 'B2B' : type}
                                 </span>
                               ))}
@@ -916,7 +916,7 @@ Qualifications
         </div>
 
         {/* Floating Action Bar - Fixed at bottom of viewport */}
-        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50" style={{ marginLeft: isChatCollapsed ? '0' : '-190px' }}>
+        <div className="fixed bottom-[10%] left-1/2 transform -translate-x-1/2 z-50" style={{ marginLeft: isChatCollapsed ? '0' : '-190px' }}>
           <div className="flex items-center gap-2 bg-white rounded-full shadow-lg px-2 py-2 border border-[#E6E6E6]">
             {!isEditMode ? (
               <>
