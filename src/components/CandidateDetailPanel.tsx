@@ -370,6 +370,22 @@ const CandidateDetailPanel = ({
 
         {/* Criteria Sections */}
         <div className="p-5">
+          {/* Executive Summary - moved to top */}
+          <div className="mb-5">
+            <h3 className="text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
+              Executive Summary
+            </h3>
+            <p className="text-sm leading-relaxed mb-3" style={{ color: '#40403E' }}>
+              {defaultSummary}
+            </p>
+            {/* Skill Tags under summary */}
+            <div className="flex flex-wrap gap-2">
+              {defaultSkillTags.map((tag, index) => <span key={index} className="px-3 py-1.5 text-xs rounded-full font-medium" style={{ backgroundColor: '#EBDBBC', color: '#262625' }}>
+                  {tag}
+                </span>)}
+            </div>
+          </div>
+
           {/* Core Criteria Section */}
           <div className="mb-5">
             <h3 className="text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
@@ -537,22 +553,6 @@ const CandidateDetailPanel = ({
               </div>
             </DialogContent>
           </Dialog>
-
-          {/* Summary Section */}
-          <div className="mb-4 pt-3 border-t border-[#F3F3F3]">
-            <h3 className="text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
-              Summary
-            </h3>
-            <p className="text-sm leading-relaxed mb-3" style={{ color: '#40403E' }}>
-              {defaultSummary}
-            </p>
-            {/* Skill Tags under summary */}
-            <div className="flex flex-wrap gap-2">
-              {defaultSkillTags.map((tag, index) => <span key={index} className="px-3 py-1.5 text-xs rounded-full font-medium" style={{ backgroundColor: '#EBDBBC', color: '#262625' }}>
-                  {tag}
-                </span>)}
-            </div>
-          </div>
 
           {/* Strengths */}
           <div className="mb-4">
