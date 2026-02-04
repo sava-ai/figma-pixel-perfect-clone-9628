@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, X, ArrowDown, ArrowUp, ChevronRight as ChevronRightIcon, Building2, Briefcase, MapPin, Users, DollarSign, Clock, Pencil, Save, Search } from 'lucide-react';
+import { ChevronDown, MoreVertical, ChevronLeft, ChevronRight, Sparkles, Check, X, ArrowDown, ArrowUp, ChevronRight as ChevronRightIcon, Building2, Briefcase, MapPin, Users, DollarSign, Clock, Pencil, Save, Search, Plus } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { InviteDialog } from '@/components/InviteDialog';
 import { PublishingPlatformsDialog } from '@/components/PublishingPlatformsDialog';
 import userAvatarImage from '@/assets/user-avatar.png';
@@ -32,20 +34,41 @@ const Job = () => {
   
   // Editable form data
   const [formData, setFormData] = useState({
-    companyName: 'PriceMind',
-    employeeCount: '50-200 employees',
-    companyDescription: 'AI-powered dynamic pricing platform that helps e-commerce businesses optimize their pricing strategies in real-time to maximize revenue and profit margins.',
-    companyTags: ['Private Company', 'B2B SaaS', 'Tech Consulting', 'AI/ML', 'Stockholm'],
-    employmentType: 'Full-time',
-    role: 'Senior Product Designer',
-    location: 'Stockholm, Sweden',
-    contractType: 'Permanent',
-    salaryRange: '€80,000 - €100,000 / year',
-    seniority: 'Senior (5+ years experience)',
-    remotePolicy: 'Hybrid (3 days in office)',
-    startDate: 'As soon as possible',
+    // Basic info
+    title: 'Sales Development Manager',
+    company: 'Stepapp',
+    city: 'Warsaw',
+    country: 'Poland',
+    workType: 'hybrid' as 'hybrid' | 'remote' | 'office',
+    
+    // Salary
+    salaryMin: '',
+    salaryMax: '',
+    currency: 'PLN',
+    salaryPeriod: 'monthly' as 'monthly' | 'yearly' | 'hourly',
+    
+    // Employment types (checkboxes)
+    employmentTypes: {
+      permanent: true,
+      b2b: false,
+      contract: false,
+      internship: false,
+      freelance: false,
+    },
+    
+    // Description sections
+    description: 'We are seeking a Sales Development Manager with strong analytical and creative problem-solving skills to join our growing commercial team at Stepapp. You will be responsible for building, running, and continuously improving our sales development engine, ensuring predictable pipeline generation to support company growth.',
+    responsibilities: ['Build and manage the sales development team', 'Create and optimize outbound sales processes'],
+    requiredExperience: ['3+ years in sales', 'B2B SaaS experience', 'Team leadership'],
+    preferredExperience: ['Startup experience', 'CRM expertise', 'Data analysis'],
+    aboutUs: 'Stepapp is a fast-growing EdTech company revolutionizing how students learn and prepare for exams through gamification and AI-powered learning.',
   });
   const [savedFormData, setSavedFormData] = useState(formData);
+  
+  // Input states for adding new items
+  const [newResponsibility, setNewResponsibility] = useState('');
+  const [newRequiredExp, setNewRequiredExp] = useState('');
+  const [newPreferredExp, setNewPreferredExp] = useState('');
   const [aiSuggestions, setAiSuggestions] = useState<{[key: string]: boolean}>({
     'suggestion1': true,
     'suggestion2': true,
@@ -350,254 +373,328 @@ Qualifications
         <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
           <div className={`h-full flex flex-col py-6 pb-5 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
             <div className={`flex-1 overflow-y-auto rounded-xl relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`} style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}>
-              <div className="px-[72px] py-12">
+              <div className="px-[72px] py-12 pb-24">
                 
-                {/* Company Information Accordion */}
-                <Collapsible open={companyOpen} onOpenChange={setCompanyOpen} className="mb-6">
-                  <CollapsibleTrigger className="w-full">
-                    <div className="flex items-center justify-between py-3 border-b border-border cursor-pointer hover:bg-muted/30 -mx-4 px-4 rounded-lg transition-colors">
-                      <div className="flex items-center gap-3">
-                        <Building2 className="w-5 h-5 text-muted-foreground" />
-                        <span className="text-lg font-semibold" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Company Information</span>
-                      </div>
-                      <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${companyOpen ? 'rotate-180' : ''}`} />
+                {/* Title Input */}
+                <div className="mb-6">
+                  {isEditMode ? (
+                    <Input
+                      value={formData.title}
+                      onChange={(e) => setFormData({...formData, title: e.target.value})}
+                      className="text-2xl font-medium border-[#CD785C] focus-visible:ring-[#CD785C] h-auto py-3"
+                      style={{ fontFamily: 'CooperLight, sans-serif' }}
+                      placeholder="Job Title"
+                    />
+                  ) : (
+                    <h1 className="text-2xl font-medium" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>
+                      {formData.title}
+                    </h1>
+                  )}
+                </div>
+
+                {/* Company, City, Country, Work Type Row */}
+                <div className="flex flex-wrap items-center gap-3 mb-6">
+                  {isEditMode ? (
+                    <>
+                      <Input
+                        value={formData.company}
+                        onChange={(e) => setFormData({...formData, company: e.target.value})}
+                        className="w-48 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                        placeholder="Company"
+                        style={{ backgroundColor: '#F5F4F1' }}
+                      />
+                      <span className="text-muted-foreground">in</span>
+                      <Input
+                        value={formData.city}
+                        onChange={(e) => setFormData({...formData, city: e.target.value})}
+                        className="w-32 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                        placeholder="City"
+                        style={{ backgroundColor: '#F5F4F1' }}
+                      />
+                      <Input
+                        value={formData.country}
+                        onChange={(e) => setFormData({...formData, country: e.target.value})}
+                        className="w-32 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                        placeholder="Country"
+                        style={{ backgroundColor: '#333333', color: 'white' }}
+                      />
+                      <Select 
+                        value={formData.workType} 
+                        onValueChange={(value: 'hybrid' | 'remote' | 'office') => setFormData({...formData, workType: value})}
+                      >
+                        <SelectTrigger className="w-32" style={{ backgroundColor: '#333333', color: 'white' }}>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="hybrid">Hybrid</SelectItem>
+                          <SelectItem value="remote">Remote</SelectItem>
+                          <SelectItem value="office">Office</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </>
+                  ) : (
+                    <div className="flex flex-wrap items-center gap-2 text-sm">
+                      <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">{formData.company}</span>
+                      <span className="text-muted-foreground">in</span>
+                      <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">{formData.city}, {formData.country}</span>
+                      <span className="px-3 py-1.5 rounded-full text-white capitalize" style={{ backgroundColor: '#333333' }}>{formData.workType}</span>
                     </div>
-                    
-                    {/* Collapsed Summary - Company */}
-                    {!companyOpen && (
-                      <div className="flex flex-wrap items-center gap-2 mt-3 text-sm">
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
-                          <Building2 className="w-3.5 h-3.5" />
-                          {formData.companyName}
+                  )}
+                </div>
+
+                {/* Salary Row */}
+                <div className="flex flex-wrap items-center gap-3 mb-6">
+                  <span className="text-sm text-muted-foreground w-12">Salary</span>
+                  {isEditMode ? (
+                    <>
+                      <Input
+                        value={formData.salaryMin}
+                        onChange={(e) => setFormData({...formData, salaryMin: e.target.value})}
+                        className="w-28 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                        placeholder="Min"
+                        style={{ backgroundColor: '#F5F4F1' }}
+                      />
+                      <span className="text-muted-foreground">-</span>
+                      <Input
+                        value={formData.salaryMax}
+                        onChange={(e) => setFormData({...formData, salaryMax: e.target.value})}
+                        className="w-28 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                        placeholder="Max"
+                        style={{ backgroundColor: '#F5F4F1' }}
+                      />
+                      <Input
+                        value={formData.currency}
+                        onChange={(e) => setFormData({...formData, currency: e.target.value})}
+                        className="w-20 text-center"
+                        placeholder="PLN"
+                        style={{ backgroundColor: '#333333', color: 'white' }}
+                      />
+                      <span className="text-muted-foreground">/</span>
+                      <Select 
+                        value={formData.salaryPeriod} 
+                        onValueChange={(value: 'monthly' | 'yearly' | 'hourly') => setFormData({...formData, salaryPeriod: value})}
+                      >
+                        <SelectTrigger className="w-28" style={{ backgroundColor: '#333333', color: 'white' }}>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="monthly">Monthly</SelectItem>
+                          <SelectItem value="yearly">Yearly</SelectItem>
+                          <SelectItem value="hourly">Hourly</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </>
+                  ) : (
+                    <div className="flex items-center gap-2 text-sm">
+                      {formData.salaryMin || formData.salaryMax ? (
+                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
+                          {formData.salaryMin && formData.salaryMax 
+                            ? `${formData.salaryMin} - ${formData.salaryMax} ${formData.currency} / ${formData.salaryPeriod}`
+                            : formData.salaryMin || formData.salaryMax} {formData.currency} / {formData.salaryPeriod}
                         </span>
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
-                          <Users className="w-3.5 h-3.5" />
-                          {formData.employeeCount}
-                        </span>
-                        {formData.companyTags.slice(0, 3).map((tag, idx) => (
-                          <span key={idx} className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </CollapsibleTrigger>
-                  
-                  <CollapsibleContent>
-                    <div className="pt-4 space-y-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Company Name</label>
-                          {isEditMode ? (
-                            <Input
-                              value={formData.companyName}
-                              onChange={(e) => setFormData({...formData, companyName: e.target.value})}
-                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
-                            />
-                          ) : (
-                            <p className="text-foreground">{formData.companyName}</p>
-                          )}
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Employee Count</label>
-                          {isEditMode ? (
-                            <Input
-                              value={formData.employeeCount}
-                              onChange={(e) => setFormData({...formData, employeeCount: e.target.value})}
-                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
-                            />
-                          ) : (
-                            <p className="text-foreground">{formData.employeeCount}</p>
-                          )}
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground mb-1 block">What the Company Does</label>
-                        {isEditMode ? (
-                          <Textarea
-                            value={formData.companyDescription}
-                            onChange={(e) => setFormData({...formData, companyDescription: e.target.value})}
-                            className="border-[#CD785C] focus-visible:ring-[#CD785C] min-h-[80px]"
-                          />
-                        ) : (
-                          <p className="text-foreground">{formData.companyDescription}</p>
+                      ) : (
+                        <span className="text-muted-foreground italic">Not specified</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Employment Type Checkboxes */}
+                <div className="flex flex-wrap items-center gap-4 mb-8">
+                  <span className="text-sm text-muted-foreground w-12">Type</span>
+                  {(['permanent', 'b2b', 'contract', 'internship', 'freelance'] as const).map((type) => (
+                    <label key={type} className="flex items-center gap-2 cursor-pointer">
+                      <Checkbox
+                        checked={formData.employmentTypes[type]}
+                        onCheckedChange={(checked) => setFormData({
+                          ...formData, 
+                          employmentTypes: {...formData.employmentTypes, [type]: !!checked}
+                        })}
+                        disabled={!isEditMode}
+                        className="border-[#CD785C] data-[state=checked]:bg-[#CD785C] data-[state=checked]:border-[#CD785C]"
+                      />
+                      <span className="text-sm capitalize">{type === 'b2b' ? 'B2B' : type}</span>
+                    </label>
+                  ))}
+                </div>
+
+                {/* Description */}
+                <div className="mb-8">
+                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Description</h2>
+                  {isEditMode ? (
+                    <Textarea
+                      value={formData.description}
+                      onChange={(e) => setFormData({...formData, description: e.target.value})}
+                      className="min-h-[120px] border-[#CD785C] focus-visible:ring-[#CD785C]"
+                    />
+                  ) : (
+                    <p className="text-foreground leading-relaxed">{formData.description}</p>
+                  )}
+                </div>
+
+                {/* Responsibilities */}
+                <div className="mb-8">
+                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Responsibilities</h2>
+                  <ul className="space-y-2 mb-3">
+                    {formData.responsibilities.map((item, idx) => (
+                      <li key={idx} className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-foreground flex-shrink-0" />
+                        <span className="text-foreground">{item}</span>
+                        {isEditMode && (
+                          <button
+                            onClick={() => setFormData({
+                              ...formData,
+                              responsibilities: formData.responsibilities.filter((_, i) => i !== idx)
+                            })}
+                            className="text-muted-foreground hover:text-destructive ml-auto"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
                         )}
-                      </div>
-                      
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground mb-2 block">Company Tags</label>
-                        <div className="flex flex-wrap gap-2">
-                          {formData.companyTags.map((tag, idx) => (
-                            <span key={idx} className="px-3 py-1.5 rounded-full border border-border text-sm">{tag}</span>
-                          ))}
-                        </div>
-                      </div>
+                      </li>
+                    ))}
+                  </ul>
+                  {isEditMode && (
+                    <div className="flex items-center gap-2">
+                      <Input
+                        value={newResponsibility}
+                        onChange={(e) => setNewResponsibility(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && newResponsibility.trim()) {
+                            setFormData({...formData, responsibilities: [...formData.responsibilities, newResponsibility.trim()]});
+                            setNewResponsibility('');
+                          }
+                        }}
+                        className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                        placeholder="Add responsibility..."
+                      />
+                      <button
+                        onClick={() => {
+                          if (newResponsibility.trim()) {
+                            setFormData({...formData, responsibilities: [...formData.responsibilities, newResponsibility.trim()]});
+                            setNewResponsibility('');
+                          }
+                        }}
+                        className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
+                      >
+                        <Plus className="w-5 h-5" />
+                      </button>
                     </div>
-                  </CollapsibleContent>
-                </Collapsible>
+                  )}
+                </div>
 
-                {/* Job Role Accordion */}
-                <Collapsible open={jobRoleOpen} onOpenChange={setJobRoleOpen} className="mb-8">
-                  <CollapsibleTrigger className="w-full">
-                    <div className="flex items-center justify-between py-3 border-b border-border cursor-pointer hover:bg-muted/30 -mx-4 px-4 rounded-lg transition-colors">
-                      <div className="flex items-center gap-3">
-                        <Briefcase className="w-5 h-5 text-muted-foreground" />
-                        <span className="text-lg font-semibold" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Job Role Details</span>
-                      </div>
-                      <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${jobRoleOpen ? 'rotate-180' : ''}`} />
-                    </div>
-                    
-                    {/* Collapsed Summary - Job Role */}
-                    {!jobRoleOpen && (
-                      <div className="flex flex-wrap items-center gap-2 mt-3 text-sm">
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
-                          <Briefcase className="w-3.5 h-3.5" />
-                          {formData.employmentType}
-                        </span>
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
-                          {formData.role}
-                        </span>
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
-                          <MapPin className="w-3.5 h-3.5" />
-                          {formData.location}
-                        </span>
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
-                          {formData.contractType}
-                        </span>
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
-                          <DollarSign className="w-3.5 h-3.5" />
-                          {formData.salaryRange.split(' / ')[0]}
-                        </span>
-                        <span className="px-3 py-1.5 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
-                          <Clock className="w-3.5 h-3.5" />
-                          {formData.seniority}
-                        </span>
-                      </div>
-                    )}
-                  </CollapsibleTrigger>
-                  
-                  <CollapsibleContent>
-                    <div className="pt-4 space-y-4">
-                      <div className="grid grid-cols-3 gap-4">
-                        <div>
-                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Employment Type</label>
-                          {isEditMode ? (
-                            <Input
-                              value={formData.employmentType}
-                              onChange={(e) => setFormData({...formData, employmentType: e.target.value})}
-                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
-                            />
-                          ) : (
-                            <p className="text-foreground">{formData.employmentType}</p>
-                          )}
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Role</label>
-                          {isEditMode ? (
-                            <Input
-                              value={formData.role}
-                              onChange={(e) => setFormData({...formData, role: e.target.value})}
-                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
-                            />
-                          ) : (
-                            <p className="text-foreground">{formData.role}</p>
-                          )}
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Location</label>
-                          {isEditMode ? (
-                            <Input
-                              value={formData.location}
-                              onChange={(e) => setFormData({...formData, location: e.target.value})}
-                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
-                            />
-                          ) : (
-                            <p className="text-foreground">{formData.location}</p>
-                          )}
-                        </div>
-                      </div>
-                      
-                      <div className="grid grid-cols-3 gap-4">
-                        <div>
-                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Contract Type</label>
-                          {isEditMode ? (
-                            <Input
-                              value={formData.contractType}
-                              onChange={(e) => setFormData({...formData, contractType: e.target.value})}
-                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
-                            />
-                          ) : (
-                            <p className="text-foreground">{formData.contractType}</p>
-                          )}
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Salary Range</label>
-                          {isEditMode ? (
-                            <Input
-                              value={formData.salaryRange}
-                              onChange={(e) => setFormData({...formData, salaryRange: e.target.value})}
-                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
-                            />
-                          ) : (
-                            <p className="text-foreground">{formData.salaryRange}</p>
-                          )}
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Seniority Level</label>
-                          {isEditMode ? (
-                            <Input
-                              value={formData.seniority}
-                              onChange={(e) => setFormData({...formData, seniority: e.target.value})}
-                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
-                            />
-                          ) : (
-                            <p className="text-foreground">{formData.seniority}</p>
-                          )}
-                        </div>
-                      </div>
-                      
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Remote Policy</label>
-                          {isEditMode ? (
-                            <Input
-                              value={formData.remotePolicy}
-                              onChange={(e) => setFormData({...formData, remotePolicy: e.target.value})}
-                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
-                            />
-                          ) : (
-                            <p className="text-foreground">{formData.remotePolicy}</p>
-                          )}
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-muted-foreground mb-1 block">Start Date</label>
-                          {isEditMode ? (
-                            <Input
-                              value={formData.startDate}
-                              onChange={(e) => setFormData({...formData, startDate: e.target.value})}
-                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
-                            />
-                          ) : (
-                            <p className="text-foreground">{formData.startDate}</p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-
-                {/* Job Description */}
-                <div className="pb-20">
-                  <h2 className="text-lg font-semibold mb-4" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Job Description</h2>
-                  <div 
-                    contentEditable={isEditMode}
-                    suppressContentEditableWarning
-                    onInput={(e) => setJobDescription(e.currentTarget.textContent || '')}
-                    className={`text-foreground whitespace-pre-wrap outline-none ${isEditMode ? 'border border-[#CD785C] rounded-lg p-4 focus:ring-2 focus:ring-[#CD785C]' : ''}`}
-                  >
-                    {formatJobDescription(jobDescription)}
+                {/* Required Experience (Tags) */}
+                <div className="mb-8">
+                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Required Experience</h2>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {formData.requiredExperience.map((tag, idx) => (
+                      <span key={idx} className="px-3 py-1.5 rounded-full border border-border text-sm flex items-center gap-2">
+                        {tag}
+                        {isEditMode && (
+                          <button
+                            onClick={() => setFormData({
+                              ...formData,
+                              requiredExperience: formData.requiredExperience.filter((_, i) => i !== idx)
+                            })}
+                            className="text-muted-foreground hover:text-destructive"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        )}
+                      </span>
+                    ))}
                   </div>
+                  {isEditMode && (
+                    <div className="flex items-center gap-2">
+                      <Input
+                        value={newRequiredExp}
+                        onChange={(e) => setNewRequiredExp(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && newRequiredExp.trim()) {
+                            setFormData({...formData, requiredExperience: [...formData.requiredExperience, newRequiredExp.trim()]});
+                            setNewRequiredExp('');
+                          }
+                        }}
+                        className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                        placeholder="Add required experience..."
+                      />
+                      <button
+                        onClick={() => {
+                          if (newRequiredExp.trim()) {
+                            setFormData({...formData, requiredExperience: [...formData.requiredExperience, newRequiredExp.trim()]});
+                            setNewRequiredExp('');
+                          }
+                        }}
+                        className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
+                      >
+                        <Plus className="w-5 h-5" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Preferred Experience (Tags) */}
+                <div className="mb-8">
+                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>Preferred Experience</h2>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {formData.preferredExperience.map((tag, idx) => (
+                      <span key={idx} className="px-3 py-1.5 rounded-full border border-border text-sm flex items-center gap-2">
+                        {tag}
+                        {isEditMode && (
+                          <button
+                            onClick={() => setFormData({
+                              ...formData,
+                              preferredExperience: formData.preferredExperience.filter((_, i) => i !== idx)
+                            })}
+                            className="text-muted-foreground hover:text-destructive"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                  {isEditMode && (
+                    <div className="flex items-center gap-2">
+                      <Input
+                        value={newPreferredExp}
+                        onChange={(e) => setNewPreferredExp(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && newPreferredExp.trim()) {
+                            setFormData({...formData, preferredExperience: [...formData.preferredExperience, newPreferredExp.trim()]});
+                            setNewPreferredExp('');
+                          }
+                        }}
+                        className="flex-1 border-[#CD785C] focus-visible:ring-[#CD785C]"
+                        placeholder="Add preferred experience..."
+                      />
+                      <button
+                        onClick={() => {
+                          if (newPreferredExp.trim()) {
+                            setFormData({...formData, preferredExperience: [...formData.preferredExperience, newPreferredExp.trim()]});
+                            setNewPreferredExp('');
+                          }
+                        }}
+                        className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors"
+                      >
+                        <Plus className="w-5 h-5" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* About Us */}
+                <div className="mb-8">
+                  <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'CooperLight, sans-serif', color: '#333333' }}>About Us</h2>
+                  {isEditMode ? (
+                    <Textarea
+                      value={formData.aboutUs}
+                      onChange={(e) => setFormData({...formData, aboutUs: e.target.value})}
+                      className="min-h-[100px] border-[#CD785C] focus-visible:ring-[#CD785C]"
+                    />
+                  ) : (
+                    <p className="text-foreground leading-relaxed">{formData.aboutUs}</p>
+                  )}
                 </div>
               </div>
 
