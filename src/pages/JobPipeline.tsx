@@ -486,7 +486,7 @@ const JobPipeline = () => {
   return (
     <div className="h-screen w-full flex flex-col bg-background overflow-hidden">
       {/* Header */}
-      <header className="h-[54px] bg-background flex items-center justify-between px-5 flex-shrink-0">
+      <header className="h-[54px] flex items-center justify-between px-5 flex-shrink-0 relative" style={{ backgroundColor: '#F2F1ED', borderBottom: '1px solid #D9D9D9' }}>
         {/* Left side - Back button and Jobs dropdown */}
         <div className="flex items-center gap-2">
           <button 
@@ -526,46 +526,30 @@ const JobPipeline = () => {
           </div>
         </div>
 
-        {/* Center - Tabs */}
-        <div className="flex items-center gap-0.5 p-0.5 rounded-md" style={{ backgroundColor: '#FAF8F4' }}>
+        {/* Center - Navigation Tabs */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-0.5 px-0.5 h-7 rounded-md" style={{ backgroundColor: '#E8E6DD' }}>
           <button
-            onClick={() => navigate('/job')}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all text-sm ${
-              activeTab === 'job' 
-                ? 'bg-white border border-gray-200 text-gray-700 font-medium' 
-                : 'text-foreground hover:text-foreground'
-            }`}
+            onClick={() => navigate('/job/people/view')}
+            className="px-3 h-[22px] rounded text-xs font-medium transition-all"
+            style={{ color: '#333333' }}
           >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
             Job
           </button>
           <button
-            onClick={() => navigate('/job/people/view')}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all text-sm ${
-              activeTab === 'people' 
-                ? 'bg-white border border-gray-200 text-gray-700 font-medium' 
-                : 'text-foreground hover:text-foreground'
-            }`}
+            onClick={() => navigate('/job/best-matches')}
+            className="px-3 h-[22px] rounded text-xs font-medium transition-all"
+            style={{ color: '#333333' }}
           >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-            People (230)
+            Review (50)
           </button>
           <button
-            onClick={() => setActiveTab('pipeline')}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all text-sm ${
-              activeTab === 'pipeline' 
-                ? 'bg-white border border-gray-200 text-gray-700 font-medium' 
-                : 'text-foreground hover:text-foreground'
+            onClick={() => navigate('/job/pipeline')}
+            className={`px-3 h-[22px] rounded text-xs font-medium transition-all ${
+              activeTab === 'pipeline' ? 'bg-white shadow-sm' : ''
             }`}
+            style={{ color: '#333333' }}
           >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
-            </svg>
-            Pipeline (18)
+            Pipeline
           </button>
         </div>
 
