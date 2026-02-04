@@ -336,7 +336,7 @@ const JobPeopleView = () => {
                     {/* Navigation Cards - Horizontal Scroll */}
                     <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 mb-4">
                       <div className="flex gap-3 pr-4">
-                        {/* Qualified Candidates Card */}
+                        {/* Qualified - To contact */}
                         <button 
                           onClick={() => navigate('/job/pipeline')} 
                           className="rounded-xl p-5 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
@@ -348,7 +348,7 @@ const JobPeopleView = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                               </svg>
                             </div>
-                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1rem' }}>Qualified</p>
+                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1rem' }}>To contact</p>
                           </div>
                           <p className="text-4xl font-medium mb-3" style={{ fontFamily: 'Inter, sans-serif', color: '#1A1A1A' }}>50</p>
                           <div className="flex items-center gap-1 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
@@ -357,7 +357,7 @@ const JobPeopleView = () => {
                           </div>
                         </button>
 
-                        {/* Engaged Candidates Card */}
+                        {/* Engaged - To Schedule */}
                         <button 
                           className="rounded-xl p-5 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
                           style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6', width: '240px' }}
@@ -368,7 +368,7 @@ const JobPeopleView = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                               </svg>
                             </div>
-                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1rem' }}>Engaged</p>
+                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1rem' }}>To Schedule</p>
                           </div>
                           <p className="text-4xl font-medium mb-3" style={{ fontFamily: 'Inter, sans-serif', color: '#1A1A1A' }}>40</p>
                           <div className="flex items-center gap-1 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
@@ -377,7 +377,7 @@ const JobPeopleView = () => {
                           </div>
                         </button>
 
-                        {/* Interviewing Candidates Card */}
+                        {/* Interviewing */}
                         <button 
                           className="rounded-xl p-5 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
                           style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6', width: '240px' }}
@@ -397,7 +397,7 @@ const JobPeopleView = () => {
                           </div>
                         </button>
 
-                        {/* Qualified for Job Card */}
+                        {/* Ready */}
                         <button 
                           className="rounded-xl p-5 text-left hover:border-[#D9D9D9] transition-colors group flex-shrink-0"
                           style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6', width: '240px' }}
@@ -408,7 +408,7 @@ const JobPeopleView = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
                             </div>
-                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1rem' }}>Qualified for Job</p>
+                            <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1rem' }}>Ready</p>
                           </div>
                           <p className="text-4xl font-medium mb-3" style={{ fontFamily: 'Inter, sans-serif', color: '#1A1A1A' }}>8</p>
                           <div className="flex items-center gap-1 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
