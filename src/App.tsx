@@ -9,6 +9,7 @@ import JobOffer from "./pages/JobOffer";
 import JobPeople from "./pages/JobPeople";
 import JobPeopleView from "./pages/JobPeopleView";
 import JobBestMatches from "./pages/JobBestMatches";
+import JobBestMatchesReviewed from "./pages/JobBestMatchesReviewed";
 import JobPipeline from "./pages/JobPipeline";
 import JobApplicants from "./pages/JobApplicants";
 import JobBrain from "./pages/JobBrain";
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/job/people" element={<JobPeople />} />
             <Route path="/job/people/view" element={<JobPeopleView />} />
             <Route path="/job/best-matches" element={<JobBestMatches />} />
+            <Route path="/job/best-matches/reviewed" element={<JobBestMatchesReviewed />} />
             <Route path="/job/applicants" element={<JobApplicants />} />
             <Route path="/job/pipeline" element={<JobPipeline />} />
             <Route path="/job/brain" element={<JobBrain />} />
