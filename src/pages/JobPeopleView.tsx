@@ -191,7 +191,7 @@ const JobPeopleView = () => {
               activeTab === 'people' ? 'bg-white text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            Review
+            Review (50)
           </button>
           <button
             onClick={() => navigate('/job/pipeline')}
