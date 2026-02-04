@@ -9,7 +9,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import userAvatarImage from '@/assets/user-avatar.png';
-import jobDropdownIcon from '@/assets/job-dropdown-icon.png';
+import jobDropdownIcon from '@/assets/job-dropdown-icon-new.png';
 
 const versions = [
   { id: 1, label: 'Version 1.0', date: 'Jan 15, 2025', active: true },
@@ -60,21 +60,21 @@ const JobBrain = () => {
   return (
     <div className="h-screen w-full flex flex-col bg-[#FBFAF9] overflow-hidden">
       {/* Header */}
-      <header className="h-[54px] bg-background flex items-center justify-between px-5 flex-shrink-0">
+      <header className="h-[54px] flex items-center justify-between px-5 flex-shrink-0" style={{ backgroundColor: '#F2F1ED', borderBottom: '1px solid #D9D9D9' }}>
         {/* Left side - Back button and Jobs dropdown */}
         <div className="flex items-center gap-2">
-          <button onClick={() => navigate('/job/people/view')} className="w-7 h-7 rounded-md flex items-center justify-center transition-all bg-white hover:bg-gray-50 border border-gray-200">
-            <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <button onClick={() => navigate('/job/people/view')} className="w-7 h-7 rounded-md flex items-center justify-center transition-all hover:opacity-80" style={{ backgroundColor: '#E8E6DD' }}>
+            <svg className="w-4 h-4" style={{ color: '#333333' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
           </button>
 
           {/* Jobs dropdown */}
           <div className="relative">
-            <button onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)} className="flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all bg-white hover:bg-gray-50 border border-gray-200">
-              <img src={jobDropdownIcon} alt="Job" className="w-4 h-4 rounded" />
-              <span className="font-medium text-sm text-gray-700">BD Representative / Sales Manager</span>
-              <ChevronDown className="w-3.5 h-3.5 text-gray-700" />
+            <button onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)} className="flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all hover:opacity-80" style={{ backgroundColor: '#E8E6DD' }}>
+              <img src={jobDropdownIcon} alt="Job" className="w-5 h-5 rounded-md" />
+              <span className="font-medium text-sm" style={{ color: '#333333' }}>BD Representative / Sales Manager</span>
+              <ChevronDown className="w-3.5 h-3.5" style={{ color: '#333333' }} />
             </button>
             
             {jobsDropdownOpen && (
@@ -92,6 +92,31 @@ const JobBrain = () => {
               </div>
             )}
           </div>
+        </div>
+
+        {/* Center - Navigation Tabs */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-0.5 px-0.5 h-7 rounded-md" style={{ backgroundColor: '#E8E6DD' }}>
+          <button
+            onClick={() => navigate('/job/people/view')}
+            className="px-3 h-[22px] rounded text-xs font-medium transition-all"
+            style={{ color: '#333333' }}
+          >
+            Job
+          </button>
+          <button
+            onClick={() => navigate('/job/best-matches')}
+            className="px-3 h-[22px] rounded text-xs font-medium transition-all"
+            style={{ color: '#333333' }}
+          >
+            Review (50)
+          </button>
+          <button
+            onClick={() => navigate('/job/pipeline')}
+            className="px-3 h-[22px] rounded text-xs font-medium transition-all"
+            style={{ color: '#333333' }}
+          >
+            Pipeline
+          </button>
         </div>
 
         {/* Right side - Profile */}
