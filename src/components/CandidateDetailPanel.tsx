@@ -351,35 +351,18 @@ const CandidateDetailPanel = ({
       </div>;
   };
   return <div className="h-full flex flex-col bg-white">
-      {/* Header */}
-      <div className="flex items-center justify-between gap-2 p-4 border-b border-[#EEEDEC]">
-        {/* Match Score */}
-        <div className="flex items-center gap-2">
-          <span className="text-xl font-semibold text-[#2D7A2D] font-['LabilGrotesk']">
+      {/* Header - Orange Gradient Match Banner */}
+      <div 
+        className="p-4"
+        style={{ 
+          background: 'linear-gradient(135deg, #CC785C 0%, #D4A27F 100%)'
+        }}
+      >
+        <div className="flex items-center justify-center gap-2">
+          <span className="text-2xl font-semibold text-white" style={{ fontFamily: 'CooperLight, serif' }}>
             {matchScore}/{matchTotal}
           </span>
-          <span className="text-sm text-[#666666]">Match</span>
-        </div>
-        
-        {/* Actions */}
-        <div className="flex items-center gap-1">
-          <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
-            <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
-          </button>
-          {candidate.linkedin && (
-            <a 
-              href={candidate.linkedin} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors"
-              title="View LinkedIn Profile"
-            >
-              <Share2 className="w-4 h-4 text-muted-foreground" />
-            </a>
-          )}
-          <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
-            <X className="w-4 h-4 text-muted-foreground" />
-          </button>
+          <span className="text-sm text-white/90">Match</span>
         </div>
       </div>
 
@@ -390,7 +373,7 @@ const CandidateDetailPanel = ({
         <div className="p-5">
           {/* Core Criteria Section */}
           <div className="mb-5">
-            <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-2">
+            <h3 className="text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
               Core Criteria
             </h3>
             <div className="bg-white rounded-lg px-3 border border-[#EEEDEC]">
@@ -400,7 +383,7 @@ const CandidateDetailPanel = ({
 
           {/* Soft Skills Section */}
           <div className="mb-5">
-            <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-2">
+            <h3 className="text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
               Soft Skills
             </h3>
             <div className="bg-white rounded-lg px-3 border border-[#EEEDEC]">
@@ -453,7 +436,7 @@ const CandidateDetailPanel = ({
                 <div className="p-8 max-h-[700px] overflow-y-auto scrollbar-hide">
                   {/* Core Criteria */}
                   <div className="mb-6">
-                    <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-3">
+                    <h3 className="text-sm uppercase tracking-wide mb-3" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
                       Core Criteria
                     </h3>
                     <Accordion type="multiple" className="divide-y divide-[#EEEDEC]">
@@ -490,7 +473,7 @@ const CandidateDetailPanel = ({
 
                   {/* Soft Skills */}
                   <div>
-                    <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-3">
+                    <h3 className="text-sm uppercase tracking-wide mb-3" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
                       Soft Skills
                     </h3>
                     <Accordion type="multiple" className="divide-y divide-[#EEEDEC]">
@@ -525,17 +508,17 @@ const CandidateDetailPanel = ({
 
           {/* Summary Section */}
           <div className="mb-5 pt-3 border-t border-[#F3F3F3]">
-            <h3 className="text-xs font-medium text-[#999999] uppercase tracking-wide mb-2">
+            <h3 className="text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
               Summary
             </h3>
-            <p className="text-sm text-[#444444] leading-relaxed">
+            <p className="text-sm leading-relaxed" style={{ color: '#40403E' }}>
               {defaultSummary}
             </p>
           </div>
 
           {/* Skill Tags */}
           <div className="flex flex-wrap gap-2">
-            {defaultSkillTags.map((tag, index) => <span key={index} className="px-3 py-1.5 bg-[#F0EDE8] text-[#555555] text-xs rounded-full font-medium">
+            {defaultSkillTags.map((tag, index) => <span key={index} className="px-3 py-1.5 text-xs rounded-full font-medium" style={{ backgroundColor: '#EBDBBC', color: '#262625' }}>
                 {tag}
               </span>)}
           </div>
