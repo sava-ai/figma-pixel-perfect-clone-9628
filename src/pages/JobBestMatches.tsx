@@ -21,7 +21,7 @@ const JobBestMatches = () => {
   const [skippedCandidates, setSkippedCandidates] = useState<number[]>([]);
   const [savedCandidates, setSavedCandidates] = useState<number[]>([]);
   const [rejectedCandidates, setRejectedCandidates] = useState<number[]>([]);
-  const [reviewComplete, setReviewComplete] = useState(false);
+  
   const [viewingSkipped, setViewingSkipped] = useState(false);
   const [skippedIndex, setSkippedIndex] = useState(0);
   
@@ -139,7 +139,14 @@ const JobBestMatches = () => {
       if (nextIndex < filteredCandidates.length) {
         setCurrentCandidateIndex(nextIndex);
       } else {
-        setReviewComplete(true);
+        // Navigate to the reviewed page with state
+        navigate('/job/best-matches/reviewed', {
+          state: {
+            savedCandidates,
+            rejectedCandidates,
+            skippedCandidates,
+          }
+        });
       }
     }
   };
@@ -247,7 +254,7 @@ const JobBestMatches = () => {
         <div className={`flex-1 min-w-0 overflow-y-auto ${isChatCollapsed ? 'flex justify-center' : ''}`}>
           <div className={`py-6 pb-6 ${isChatCollapsed ? 'w-full max-w-[1200px] mx-6' : 'px-4'}`}>
               {/* Focused Candidate Review */}
-                {!reviewComplete && selectedBestMatch ? (
+                {selectedBestMatch && (
                   <div className="animate-content-expand pb-6">
                     {/* Split view: Profile on left, Detail panel on right - both scroll together */}
                     <div className="flex gap-4 items-start">
@@ -274,35 +281,6 @@ const JobBestMatches = () => {
                       </div>
                     </div>
                   </div>
-                ) : (
-                  // Review complete state
-                  <div className="flex flex-col items-center justify-center h-[calc(100vh-200px)] animate-fade-in">
-                    <div className="w-20 h-20 rounded-full bg-lime-100 flex items-center justify-center mb-6">
-                      <svg className="w-10 h-10 text-lime-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <h2 className="font-hedvig text-2xl font-semibold text-foreground mb-2">
-                      All candidates reviewed!
-                    </h2>
-                    <p className="text-muted-foreground text-center mb-6 max-w-md">
-                      You've reviewed all {filteredCandidates.length} candidates. 
-                      {skippedCandidates.length > 0 && ` You have ${skippedCandidates.length} skipped candidates to review.`}
-                    </p>
-                    <div className="flex gap-3">
-                      {skippedCandidates.length > 0 && (
-                        <Button variant="outline" onClick={handleReviewSkipped}>
-                          Review {skippedCandidates.length} skipped
-                        </Button>
-                      )}
-                      <Button variant="outline" onClick={handleBackToList}>
-                        Back to dashboard
-                      </Button>
-                      <Button onClick={() => navigate('/job/pipeline')}>
-                        View pipeline
-                      </Button>
-                    </div>
-                  </div>
                 )}
           </div>
         </div>
@@ -316,7 +294,7 @@ const JobBestMatches = () => {
       </div>
 
       {/* Sticky Footer */}
-      {!reviewComplete && selectedBestMatch && (
+      {selectedBestMatch && (
         <div 
           className="flex-shrink-0 border-t"
           style={{ backgroundColor: '#F2F1ED', borderColor: '#D9D9D9' }}
