@@ -204,7 +204,7 @@ const JobBestMatches = () => {
                 {!reviewComplete && selectedBestMatch ? (
                   <div className="animate-content-expand pb-6">
                     {/* Split view: Profile on left, Detail panel on right - both scroll together */}
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 items-start">
                       {/* Left side: Profile panel */}
                       <div className="w-[45%] min-w-0">
                         <CandidateProfilePanel

@@ -212,7 +212,7 @@ const CandidateProfilePanel: React.FC<CandidateProfilePanelProps> = ({
   const defaultSummary = candidate.summary || candidate.description;
 
   return (
-    <div className="h-full flex flex-col bg-white rounded-xl border border-[#EEEDEC] overflow-hidden">
+    <div className="flex flex-col bg-white rounded-xl border border-[#EEEDEC] overflow-hidden">
       {/* Header with progress - conditionally rendered */}
       {!hideProgressHeader && (
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#EEEDEC]">
