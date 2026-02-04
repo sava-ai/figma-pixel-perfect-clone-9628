@@ -292,31 +292,20 @@ const JobPeopleView = () => {
 
                     {/* Review and Rating History Banner */}
                     <button
-                      className="w-full rounded-xl py-5 px-6 text-left hover:border-[#D9D9D9] transition-all group mb-4"
+                      className="w-full rounded-xl p-5 text-left hover:border-[#D9D9D9] transition-all group mb-4"
                       style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          <div className="w-7 h-7 rounded-md flex items-center justify-center" style={{ backgroundColor: '#D5A27F' }}>
-                            <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                            </svg>
-                          </div>
-                          <div>
-                            <h2 className="text-base text-foreground" style={{ fontFamily: 'CooperLight, sans-serif' }}>
-                              Review and rating history
-                            </h2>
-                            <p className="text-sm text-muted-foreground">
-                              View your past reviews and ratings.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>View reviews</span>
-                          <svg className="w-5 h-5 text-[#6B6B6B] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#D5A27F' }}>
+                          <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                           </svg>
                         </div>
+                        <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1rem' }}>Review and rating history</p>
+                      </div>
+                      <div className="flex items-center gap-1 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                        <span style={{ fontFamily: 'Inter, sans-serif' }}>View now</span>
+                        <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                       </div>
                     </button>
 
