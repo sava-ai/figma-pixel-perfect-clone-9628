@@ -222,8 +222,50 @@ const JobPeopleView = () => {
               {/* Header with stats - hide when profile is selected */}
                 {!selectedBestMatch && (
                   <div className="mb-5 animate-slide-down-fade-in">
+                    {/* Applicants and Rejected Row */}
+                    <div className="flex gap-3 mb-4 pt-3">
+                      {/* Applicants Card */}
+                      <button 
+                        className="flex-1 rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group"
+                        style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
+                      >
+                        <div className="flex items-center mb-3">
+                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
+                            <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Applicants</p>
+                          <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>{applicantsCount}</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>Review new applicants</p>
+                      </button>
+
+                      {/* Rejected Card */}
+                      <button 
+                        onClick={() => setRejectionDialogOpen(true)}
+                        className="flex-1 rounded-xl p-4 text-left hover:border-[#D9D9D9] transition-colors group"
+                        style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
+                      >
+                        <div className="flex items-center mb-3">
+                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#CD785C' }}>
+                            <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <p className="text-foreground" style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.05rem' }}>Rejected</p>
+                          <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: '#1A1A1A', color: '#FBFBFB' }}>{rejectionsCount}</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>View rejected candidates</p>
+                      </button>
+                    </div>
+
                     {/* Best Matches Section Title */}
-                    <h3 className="mb-3 pt-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>Best matches</h3>
+                    <h3 className="mb-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>Best matches</h3>
 
                     {/* Rate Candidates Banner */}
                     <button
