@@ -129,7 +129,7 @@ const JobBestMatches = () => {
       <div className="flex-1 flex overflow-hidden" style={{ backgroundColor: '#FBFAF9' }}>
         {/* Left Panel - Candidates View */}
         <div className={`flex-1 ${isChatCollapsed ? 'flex justify-center' : ''}`}>
-          <div className={`h-full flex flex-col py-6 pb-5 relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
+          <div className={`h-full flex flex-col py-6 pb-[17px] relative ${isChatCollapsed ? 'w-full max-w-[1200px]' : 'w-full'}`}>
             <div className={`flex-1 overflow-y-auto relative scrollbar-hide ${isChatCollapsed ? 'mx-6' : 'ml-4 mr-4'}`}>
               <div className={`${isChatCollapsed ? '' : 'max-w-[1200px]'}`}>
                 {/* Focused Candidate Review */}
