@@ -27,7 +27,7 @@ import { bestCandidates, getCompanyIcon } from '@/data/candidates';
 
 const JobPeopleView = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'job' | 'people' | 'pipeline'>('people');
+  const [activeTab, setActiveTab] = useState<'job' | 'people' | 'pipeline'>('job');
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
   
