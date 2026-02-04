@@ -31,7 +31,7 @@ const JobBestMatches = () => {
   const [feedbackRating, setFeedbackRating] = useState<1 | 2 | 3 | null>(null);
   const [feedbackText, setFeedbackText] = useState('');
   
-  const filteredCandidates = bestCandidates;
+  const filteredCandidates = bestCandidates.slice(0, 10);
   
   // Get current candidate based on mode
   const getCurrentCandidate = () => {
@@ -213,7 +213,7 @@ const JobBestMatches = () => {
             className="px-3 h-[22px] rounded text-xs font-medium transition-all bg-white shadow-sm"
             style={{ color: '#333333' }}
           >
-            Review (50)
+            Review (10)
           </button>
           <button
             onClick={() => navigate('/job/pipeline')}

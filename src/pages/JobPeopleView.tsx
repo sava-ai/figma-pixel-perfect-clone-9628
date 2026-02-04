@@ -193,7 +193,7 @@ const JobPeopleView = () => {
             }`}
             style={{ color: '#333333' }}
           >
-            Review (50)
+            Review (10)
           </button>
           <button
             onClick={() => navigate('/job/pipeline')}
