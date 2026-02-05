@@ -93,15 +93,15 @@ const Index = () => {
     setConversationStep(0);
   };
   const jobs = [
-    { ...jobData, sourcingStatus: 'completed' as const, newMatches: 40 },
-    { ...jobData, sourcingStatus: 'in_progress' as const, newMatches: 0 },
-    { ...jobData, sourcingStatus: 'none' as const, newMatches: 0 },
-    { ...jobData, sourcingStatus: 'completed' as const, newMatches: 12 },
-    { ...jobData, sourcingStatus: 'in_progress' as const, newMatches: 0 },
-    { ...jobData, sourcingStatus: 'completed' as const, newMatches: 8 },
-    { ...jobData, sourcingStatus: 'none' as const, newMatches: 0 },
-    { ...jobData, sourcingStatus: 'completed' as const, newMatches: 25 },
-    { ...jobData, sourcingStatus: 'in_progress' as const, newMatches: 0 },
+    { ...jobData, sourcingStatus: 'completed' as const, newMatches: 40, newApplied: 3 },
+    { ...jobData, sourcingStatus: 'in_progress' as const, newMatches: 0, newApplied: 0 },
+    { ...jobData, sourcingStatus: 'none' as const, newMatches: 0, newApplied: 1 },
+    { ...jobData, sourcingStatus: 'completed' as const, newMatches: 12, newApplied: 5 },
+    { ...jobData, sourcingStatus: 'in_progress' as const, newMatches: 0, newApplied: 0 },
+    { ...jobData, sourcingStatus: 'completed' as const, newMatches: 8, newApplied: 2 },
+    { ...jobData, sourcingStatus: 'none' as const, newMatches: 0, newApplied: 0 },
+    { ...jobData, sourcingStatus: 'completed' as const, newMatches: 25, newApplied: 0 },
+    { ...jobData, sourcingStatus: 'in_progress' as const, newMatches: 0, newApplied: 4 },
   ];
   const companies = ['Acme Corporation', 'TechVentures', 'Global Industries', 'StartupCo'];
   const publishedCount = jobs.filter(job => job.status === 'published').length;
