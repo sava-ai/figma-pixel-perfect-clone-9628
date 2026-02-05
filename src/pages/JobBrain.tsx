@@ -699,7 +699,7 @@ const JobBrain = () => {
                                   <div key={index} className="p-4 rounded-lg" style={{ backgroundColor: '#FAFAF9', border: '1px solid #EEEDEC' }}>
                                     <div className="flex items-start justify-between mb-2">
                                       <span className="text-sm font-semibold" style={{ color: '#333333' }}>{item.name}</span>
-                                      <span className="text-sm font-medium" style={{ color: '#2E7D32' }}>{item.weight}%</span>
+                                      <span className="text-sm font-medium" style={{ color: '#CC785C' }}>{item.weight}%</span>
                                     </div>
                                     <p className="text-sm mb-2" style={{ color: '#666663' }}>{item.description}</p>
                                     <p className="text-xs italic" style={{ color: '#999999' }}>{item.reason}</p>
@@ -722,7 +722,7 @@ const JobBrain = () => {
                                   <div key={index} className="p-4 rounded-lg" style={{ backgroundColor: '#FAFAF9', border: '1px solid #EEEDEC' }}>
                                     <div className="flex items-start justify-between mb-2">
                                       <span className="text-sm font-semibold" style={{ color: '#333333' }}>{item.name}</span>
-                                      <span className="text-sm font-medium" style={{ color: '#2E7D32' }}>{item.weight}%</span>
+                                      <span className="text-sm font-medium" style={{ color: '#CC785C' }}>{item.weight}%</span>
                                     </div>
                                     <p className="text-sm mb-2" style={{ color: '#666663' }}>{item.description}</p>
                                     <p className="text-xs italic" style={{ color: '#999999' }}>{item.reason}</p>
@@ -745,7 +745,7 @@ const JobBrain = () => {
                                   <div key={index} className="p-4 rounded-lg" style={{ backgroundColor: '#FAFAF9', border: '1px solid #EEEDEC' }}>
                                     <div className="flex items-start justify-between mb-2">
                                       <span className="text-sm font-semibold" style={{ color: '#333333' }}>{item.name}</span>
-                                      <span className="text-sm font-medium" style={{ color: '#2E7D32' }}>{item.weight}%</span>
+                                      <span className="text-sm font-medium" style={{ color: '#CC785C' }}>{item.weight}%</span>
                                     </div>
                                     <p className="text-sm mb-2" style={{ color: '#666663' }}>{item.description}</p>
                                     <p className="text-xs italic" style={{ color: '#999999' }}>{item.reason}</p>
@@ -768,7 +768,7 @@ const JobBrain = () => {
                                   <div key={index} className="p-4 rounded-lg" style={{ backgroundColor: '#FAFAF9', border: '1px solid #EEEDEC' }}>
                                     <div className="flex items-start justify-between mb-2">
                                       <span className="text-sm font-semibold" style={{ color: '#333333' }}>{item.name}</span>
-                                      <span className="text-sm font-medium" style={{ color: '#2E7D32' }}>{item.weight}%</span>
+                                      <span className="text-sm font-medium" style={{ color: '#CC785C' }}>{item.weight}%</span>
                                     </div>
                                     <p className="text-sm mb-2" style={{ color: '#666663' }}>{item.description}</p>
                                     <p className="text-xs italic" style={{ color: '#999999' }}>{item.reason}</p>
