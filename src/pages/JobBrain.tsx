@@ -43,37 +43,44 @@ const jobContext = {
   jobDescription: {
     title: "Business Development Representative / Sales Manager",
     company: "PriceMind",
-    location: "Warsaw / Remote (Hybrid)",
-    about: "PriceMind is a trusted provider of pricing software services and IT solutions for pricing management. It supports large companies across retail, distribution, and manufacturing sectors in optimizing their pricing processes and increasing profitability. PriceMind has operated as a software integrator for Pricefx and is now extending its partner network with three other SaaS pricing solution providers, focusing sales activities on the CEE region.",
-    tags: ["B2B Sales", "CEE Region", "SaaS"],
+    location: "Warsaw, Poland",
+    salary: "12,000 - 18,000 PLN net/month + commission",
+    contractType: "B2B / Employment Contract (UoP)",
+    workType: "Hybrid (3 days office, 2 days remote)",
+    description: "We are looking for a driven Business Development Representative / Sales Manager to join our team and help expand PriceMind's presence across the CEE region. You will work closely with our Founder and CEO to identify, engage, and convert enterprise clients seeking pricing optimization solutions.",
+    languages: ["English (Fluent - required)", "Polish (Native)", "German (Nice to have)"],
+    skills: ["B2B Sales", "Lead Generation", "CRM Management", "Sales Analytics", "Presentation Skills", "Negotiation", "Account Management"],
+    qualifications: [
+      "Bachelor's degree in Business, Marketing, or related field",
+      "Strong understanding of B2B sales cycles",
+      "Proven ability to work with C-level executives",
+      "Data-driven approach to sales strategy",
+    ],
+    responsibilities: [
+      "Identify and prioritize target companies and decision makers across CEE region",
+      "Gather information on pricing needs and tools used by target companies",
+      "Establish contact with decision makers and open sales opportunities",
+      "Refine lead generation tools and sales messages alongside marketing team",
+      "Implement mass lead generation campaigns",
+      "Manage CRM and all internal/external stakeholder communications",
+      "Collect client feedback and provide insights to teams",
+    ],
+    requiredExperience: [
+      "1-3 years in a digital sales function",
+      "Experience in large corporate B2B lead generation",
+      "Experience with CRM and sales tools (Salesforce, HubSpot)",
+      "Excellent communication skills in English",
+      "Ability to work independently",
+    ],
+    preferredExperience: [
+      "Proven track record selling to international/European clients",
+      "Understanding of pricing tools and software",
+      "Knowledge of distribution and manufacturing industries",
+      "MBA or equivalent business education",
+    ],
+    aboutUs: "PriceMind is a trusted provider of pricing software services and IT solutions for pricing management. We support large companies across retail, distribution, and manufacturing sectors in optimizing their pricing processes and increasing profitability. Operating as a software integrator for Pricefx, we are now extending our partner network with three other SaaS pricing solution providers, focusing our sales activities on the CEE region. Join a lean, dynamic organization where initiative and taking responsibility are valued and rewarded.",
+    tags: ["B2B Sales", "CEE Region", "SaaS", "Pricing Software"],
   },
-  responsibilities: [
-    "Work closely with PriceMind's Founder and CEO to identify and reach new clients across CEE region",
-    "Establish contact with decision makers and open sales opportunities (discovery calls/meetings)",
-    "Find and prioritize largest companies per pre-defined market/sector and geography",
-    "Gather information on pricing needs and tools used by target companies",
-    "Identify decision makers such as revenue manager or pricing manager",
-    "Refine lead generation tools and sales messages alongside marketing team",
-    "Implement mass lead generation campaigns leveraging effective tools and services",
-    "Manage CRM, contract next steps, set meeting dates and agendas",
-    "Collect client feedback and provide insight to marketing, sales and technical teams",
-  ],
-  requiredExperience: [
-    "Sales mentality and goal-oriented mindset",
-    "Experience in large corporate B2B lead generation / selling through digital channels",
-    "1-3 years in a digital sales function",
-    "Personal maturity to effectively communicate with senior managers in large corporates",
-    "Excellent communication skills (verbal & written) in English",
-    "Experience in working with CRM and other sales tools",
-    "Experience in selling digital solutions",
-    "Ability to work independently and take the lead",
-    "Enthusiasm and commitment",
-  ],
-  preferredExperience: [
-    "Proven track record of selling to international / European clients",
-    "Understanding of pricing tools",
-    "Understanding of the distribution and manufacturing industries",
-  ],
   hiringPhilosophy: "We prioritize cultural fit and growth potential over perfect experience matches. We're looking for self-starters who thrive in ambiguity and can adapt to a fast-paced, evolving environment. The ideal candidate demonstrates initiative, takes ownership of their work, and shows a genuine passion for helping businesses optimize their pricing strategies. We value candidates who ask thoughtful questions, show intellectual curiosity, and have a track record of learning quickly. Experience is important, but we weigh potential and attitude equally when making hiring decisions.",
   cultureFitPreferences: "Collaborative team players who can work independently, strong communication skills, comfort with rapid iteration.",
   technicalChallenges: "Building scalable sales processes, navigating complex enterprise deals, managing multi-stakeholder relationships.",
@@ -351,7 +358,7 @@ const JobBrain = () => {
                           </svg>
                         </div>
                         <h3 className="text-sm font-medium" style={{ color: '#333333' }}>Job Context</h3>
-                        <span className="text-xs text-[#999999] ml-auto">12 items</span>
+                        <span className="text-xs text-[#999999] ml-auto">9 items</span>
                       </CollapsibleTrigger>
 
                       <CollapsibleContent>
@@ -365,92 +372,129 @@ const JobBrain = () => {
                               </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <div className="space-y-3 pt-3">
-                                <div>
-                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Title:</span>
-                                  <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.title}</p>
+                              <div className="space-y-4 pt-3">
+                                {/* Basic Info */}
+                                <div className="grid grid-cols-2 gap-3">
+                                  <div>
+                                    <span className="text-xs font-medium" style={{ color: '#333333' }}>Title</span>
+                                    <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.title}</p>
+                                  </div>
+                                  <div>
+                                    <span className="text-xs font-medium" style={{ color: '#333333' }}>Company</span>
+                                    <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.company}</p>
+                                  </div>
+                                  <div>
+                                    <span className="text-xs font-medium" style={{ color: '#333333' }}>Location</span>
+                                    <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.location}</p>
+                                  </div>
+                                  <div>
+                                    <span className="text-xs font-medium" style={{ color: '#333333' }}>Work Type</span>
+                                    <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.workType}</p>
+                                  </div>
+                                  <div>
+                                    <span className="text-xs font-medium" style={{ color: '#333333' }}>Contract Type</span>
+                                    <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.contractType}</p>
+                                  </div>
+                                  <div>
+                                    <span className="text-xs font-medium" style={{ color: '#333333' }}>Salary</span>
+                                    <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.salary}</p>
+                                  </div>
                                 </div>
+
+                                {/* Description */}
                                 <div>
-                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Company:</span>
-                                  <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.company}</p>
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Description</span>
+                                  <p className="text-sm mt-1" style={{ color: '#666663' }}>{jobContext.jobDescription.description}</p>
                                 </div>
+
+                                {/* Languages */}
                                 <div>
-                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Location:</span>
-                                  <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.location}</p>
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Languages</span>
+                                  <div className="flex flex-wrap gap-2 mt-1">
+                                    {jobContext.jobDescription.languages.map((lang, index) => (
+                                      <span key={index} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: '#F0F0EB', color: '#666663' }}>{lang}</span>
+                                    ))}
+                                  </div>
                                 </div>
+
+                                {/* Skills */}
                                 <div>
-                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>About:</span>
-                                  <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.about}</p>
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Skills</span>
+                                  <div className="flex flex-wrap gap-2 mt-1">
+                                    {jobContext.jobDescription.skills.map((skill, index) => (
+                                      <span key={index} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: '#EBDBBC', color: '#262625' }}>{skill}</span>
+                                    ))}
+                                  </div>
                                 </div>
+
+                                {/* Qualifications */}
                                 <div>
-                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Tags:</span>
-                                  <div className="flex gap-2 mt-1">
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Qualifications</span>
+                                  <ul className="space-y-1 mt-1">
+                                    {jobContext.jobDescription.qualifications.map((item, index) => (
+                                      <li key={index} className="flex items-start gap-2">
+                                        <CheckCircle className="w-3 h-3 mt-1 shrink-0" style={{ color: '#CC785C' }} />
+                                        <span className="text-sm" style={{ color: '#666663' }}>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+
+                                {/* Responsibilities */}
+                                <div>
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Responsibilities</span>
+                                  <ul className="space-y-1 mt-1">
+                                    {jobContext.jobDescription.responsibilities.map((item, index) => (
+                                      <li key={index} className="flex items-start gap-2">
+                                        <CheckCircle className="w-3 h-3 mt-1 shrink-0" style={{ color: '#CC785C' }} />
+                                        <span className="text-sm" style={{ color: '#666663' }}>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+
+                                {/* Required Experience */}
+                                <div>
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Required Experience</span>
+                                  <ul className="space-y-1 mt-1">
+                                    {jobContext.jobDescription.requiredExperience.map((item, index) => (
+                                      <li key={index} className="flex items-start gap-2">
+                                        <CheckCircle className="w-3 h-3 mt-1 shrink-0" style={{ color: '#CC785C' }} />
+                                        <span className="text-sm" style={{ color: '#666663' }}>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+
+                                {/* Preferred Experience */}
+                                <div>
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Preferred Experience</span>
+                                  <ul className="space-y-1 mt-1">
+                                    {jobContext.jobDescription.preferredExperience.map((item, index) => (
+                                      <li key={index} className="flex items-start gap-2">
+                                        <Star className="w-3 h-3 mt-1 shrink-0" style={{ color: '#999999' }} />
+                                        <span className="text-sm" style={{ color: '#666663' }}>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+
+                                {/* About Us */}
+                                <div>
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>About Us</span>
+                                  <p className="text-sm mt-1" style={{ color: '#666663' }}>{jobContext.jobDescription.aboutUs}</p>
+                                </div>
+
+                                {/* Tags */}
+                                <div>
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Tags</span>
+                                  <div className="flex flex-wrap gap-2 mt-1">
                                     {jobContext.jobDescription.tags.map((tag, index) => (
                                       <span key={index} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: '#F0F0EB', color: '#666663' }}>{tag}</span>
                                     ))}
                                   </div>
                                 </div>
                               </div>
-                            </AccordionContent>
-                          </AccordionItem>
-
-                          {/* Responsibilities */}
-                          <AccordionItem value="responsibilities" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
-                            <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <div className="flex items-center gap-2">
-                                <Target className="w-4 h-4" style={{ color: '#CC785C' }} />
-                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Responsibilities</span>
-                              </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <ul className="space-y-2 pt-3">
-                                {jobContext.responsibilities.map((item, index) => (
-                                  <li key={index} className="flex items-start gap-2">
-                                    <CheckCircle className="w-3 h-3 mt-1 shrink-0" style={{ color: '#CC785C' }} />
-                                    <span className="text-sm" style={{ color: '#666663' }}>{item}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </AccordionContent>
-                          </AccordionItem>
-
-                          {/* Required Experience */}
-                          <AccordionItem value="requiredExperience" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
-                            <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <div className="flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4" style={{ color: '#CC785C' }} />
-                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Required Experience</span>
-                              </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <ul className="space-y-2 pt-3">
-                                {jobContext.requiredExperience.map((item, index) => (
-                                  <li key={index} className="flex items-start gap-2">
-                                    <CheckCircle className="w-3 h-3 mt-1 shrink-0" style={{ color: '#CC785C' }} />
-                                    <span className="text-sm" style={{ color: '#666663' }}>{item}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </AccordionContent>
-                          </AccordionItem>
-
-                          {/* Preferred Experience */}
-                          <AccordionItem value="preferredExperience" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
-                            <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <div className="flex items-center gap-2">
-                                <Star className="w-4 h-4" style={{ color: '#CC785C' }} />
-                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Preferred Experience</span>
-                              </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <ul className="space-y-2 pt-3">
-                                {jobContext.preferredExperience.map((item, index) => (
-                                  <li key={index} className="flex items-start gap-2">
-                                    <Star className="w-3 h-3 mt-1 shrink-0" style={{ color: '#999999' }} />
-                                    <span className="text-sm" style={{ color: '#666663' }}>{item}</span>
-                                  </li>
-                                ))}
-                              </ul>
                             </AccordionContent>
                           </AccordionItem>
 
