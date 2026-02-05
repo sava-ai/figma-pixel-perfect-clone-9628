@@ -62,7 +62,7 @@ const JobRowMenu: React.FC<{ onEdit?: () => void; onArchive?: () => void; onDele
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-[#FBFAF9] hover:border hover:border-[#EFEEED] transition-colors text-muted-foreground"
+        className="w-10 h-10 flex items-center justify-center rounded-md bg-white border border-[#EFEEED] hover:bg-[#F5F4F2] transition-colors text-muted-foreground"
       >
         •••
       </button>
@@ -110,20 +110,13 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           onClick={() => navigate('/job/people/view')}
         >
           {/* Header: Status + Menu */}
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center mb-3">
             <span 
               className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize ${getStatusBadge(job.status)}`}
               style={{ fontFamily: 'CooperLight, serif' }}
             >
               {job.status}
             </span>
-            <div onClick={(e) => e.stopPropagation()}>
-              <JobRowMenu 
-                onEdit={() => console.log('Edit', index)}
-                onArchive={() => console.log('Archive', index)}
-                onDelete={() => console.log('Delete', index)}
-              />
-            </div>
           </div>
 
           {/* Title */}
@@ -175,15 +168,24 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           </div>
 
           {/* Actions Needed */}
-          {job.actionsNeeded && job.actionsNeeded > 0 && (
-            <button 
-              className="w-full px-3 py-2 bg-white border border-[#EFEEED] text-[#111111] rounded-md hover:bg-[#F5F4F2] transition-colors"
-              onClick={(e) => { e.stopPropagation(); navigate('/job/people/view'); }}
-              style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.9rem' }}
-            >
-              {job.actionsNeeded} actions needed
-            </button>
-          )}
+          <div className="flex items-center gap-2 mt-auto">
+            <div onClick={(e) => e.stopPropagation()}>
+              <JobRowMenu 
+                onEdit={() => console.log('Edit', index)}
+                onArchive={() => console.log('Archive', index)}
+                onDelete={() => console.log('Delete', index)}
+              />
+            </div>
+            {job.actionsNeeded && job.actionsNeeded > 0 && (
+              <button 
+                className="flex-1 px-3 py-2 bg-white border border-[#EFEEED] text-[#111111] rounded-md hover:bg-[#F5F4F2] transition-colors"
+                onClick={(e) => { e.stopPropagation(); navigate('/job/people/view'); }}
+                style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.9rem' }}
+              >
+                {job.actionsNeeded} actions needed
+              </button>
+            )}
+          </div>
         </div>
       ))}
     </div>
