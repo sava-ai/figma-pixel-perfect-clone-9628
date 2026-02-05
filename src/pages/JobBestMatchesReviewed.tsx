@@ -9,6 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { UserMenu } from '@/components/UserMenu';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon-new.png';
 import InitialsAvatar from '@/components/InitialsAvatar';
@@ -117,7 +118,7 @@ const JobBestMatchesReviewed = () => {
 
         {/* Right side - Profile */}
         <div className="flex items-center gap-2">
-          <img src={userAvatarImage} alt="Profile" className="w-7 h-7 rounded-full object-cover border-2 border-gray-200" />
+          <UserMenu initials="TW" src={userAvatarImage} />
         </div>
       </header>
 
