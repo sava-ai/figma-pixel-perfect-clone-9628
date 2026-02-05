@@ -277,34 +277,34 @@ const Index = () => {
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EEEDEC] rounded-lg text-sm font-medium hover:bg-accent transition-colors">
+                  <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EEEDEC] rounded-lg text-sm font-medium hover:bg-[#E5E4DF] transition-colors">
                     <span>{selectedCompany || 'All Companies'}</span>
                     <ChevronDown className="w-4 h-4 text-muted-foreground" />
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48">
-                  <DropdownMenuItem onClick={() => setSelectedCompany(null)}>
+                <DropdownMenuContent align="start" className="w-48 bg-white">
+                  <DropdownMenuItem onClick={() => setSelectedCompany(null)} className="hover:bg-[#E5E4DF]">
                     All Companies
                   </DropdownMenuItem>
                   {companies.map((company) => (
-                    <DropdownMenuItem key={company} onClick={() => setSelectedCompany(company)}>
+                    <DropdownMenuItem key={company} onClick={() => setSelectedCompany(company)} className="hover:bg-[#E5E4DF]">
                       {company}
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EEEDEC] rounded-lg text-sm font-medium hover:bg-accent transition-colors">
+              <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EEEDEC] rounded-lg text-sm font-medium hover:bg-[#E5E4DF] transition-colors">
                 <span className="w-2 h-2 rounded-full bg-green-500"></span>
                 Published
               </button>
 
-              <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EEEDEC] rounded-lg text-sm font-medium hover:bg-accent transition-colors">
+              <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EEEDEC] rounded-lg text-sm font-medium hover:bg-[#E5E4DF] transition-colors">
                 <span className="w-2 h-2 rounded-full bg-gray-400"></span>
                 Drafts
               </button>
 
-              <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EEEDEC] rounded-lg text-sm font-medium hover:bg-accent transition-colors">
+              <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EEEDEC] rounded-lg text-sm font-medium hover:bg-[#E5E4DF] transition-colors">
                 <span className="w-2 h-2 rounded-full bg-red-500"></span>
                 Archived
               </button>
