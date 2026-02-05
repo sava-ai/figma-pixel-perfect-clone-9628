@@ -21,6 +21,8 @@ interface Job {
   userAvatar?: string;
   company?: string;
   status: 'published' | 'draft' | 'archived';
+  sourcingStatus?: 'completed' | 'in_progress' | 'none';
+  newMatches?: number;
   stats: {
     found: number;
     applied: number;
@@ -111,13 +113,31 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           onClick={() => navigate('/job/people/view')}
         >
           {/* Header: Status + Menu */}
-          <div className="flex items-center mb-3">
+          <div className="flex items-center justify-between mb-3">
             <span 
               className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize ${getStatusBadge(job.status)}`}
               style={{ fontFamily: 'CooperLight, serif' }}
             >
               {job.status}
             </span>
+            
+            {/* Sourcing Status Notification */}
+            <div className="flex items-center">
+              {job.sourcingStatus === 'completed' && job.newMatches && job.newMatches > 0 ? (
+                <span className="px-2 py-0.5 text-[10px] font-medium rounded-sm bg-blue-100 text-blue-700">
+                  {job.newMatches} new matches
+                </span>
+              ) : job.sourcingStatus === 'in_progress' ? (
+                <span className="px-2 py-0.5 text-[10px] font-medium rounded-sm bg-amber-100 text-amber-700 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                  Sourcing matches
+                </span>
+              ) : job.sourcingStatus === 'none' ? (
+                <span className="px-2 py-0.5 text-[10px] font-medium rounded-sm bg-gray-100 text-gray-500">
+                  No sourcing running
+                </span>
+              ) : null}
+            </div>
           </div>
 
           {/* Title */}

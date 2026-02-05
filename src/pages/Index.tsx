@@ -92,7 +92,17 @@ const Index = () => {
     setIsThinking(false);
     setConversationStep(0);
   };
-  const jobs = Array(9).fill(jobData);
+  const jobs = [
+    { ...jobData, sourcingStatus: 'completed' as const, newMatches: 40 },
+    { ...jobData, sourcingStatus: 'in_progress' as const, newMatches: 0 },
+    { ...jobData, sourcingStatus: 'none' as const, newMatches: 0 },
+    { ...jobData, sourcingStatus: 'completed' as const, newMatches: 12 },
+    { ...jobData, sourcingStatus: 'in_progress' as const, newMatches: 0 },
+    { ...jobData, sourcingStatus: 'completed' as const, newMatches: 8 },
+    { ...jobData, sourcingStatus: 'none' as const, newMatches: 0 },
+    { ...jobData, sourcingStatus: 'completed' as const, newMatches: 25 },
+    { ...jobData, sourcingStatus: 'in_progress' as const, newMatches: 0 },
+  ];
   const companies = ['Acme Corporation', 'TechVentures', 'Global Industries', 'StartupCo'];
   const publishedCount = jobs.filter(job => job.status === 'published').length;
   
