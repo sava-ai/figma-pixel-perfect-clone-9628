@@ -88,6 +88,7 @@ const Job = () => {
   const [newResponsibility, setNewResponsibility] = useState('');
   const [newRequiredExp, setNewRequiredExp] = useState('');
   const [newPreferredExp, setNewPreferredExp] = useState('');
+  const [newCompanyTag, setNewCompanyTag] = useState('');
   const [aiSuggestions, setAiSuggestions] = useState<{[key: string]: boolean}>({
     'suggestion1': true,
     'suggestion2': true,
@@ -550,8 +551,60 @@ Qualifications
                         <label className="text-sm text-muted-foreground mb-1 block">Company Tags</label>
                         <div className="flex flex-wrap gap-2">
                           {formData.companyTags.map((tag, index) => (
-                            <span key={index} className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>{tag}</span>
+                            <span 
+                              key={index} 
+                              className="px-3 py-1.5 rounded-full text-sm flex items-center gap-1.5" 
+                              style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}
+                            >
+                              {tag}
+                              {isEditMode && (
+                                <button
+                                  onClick={() => setFormData({
+                                    ...formData, 
+                                    companyTags: formData.companyTags.filter((_, i) => i !== index)
+                                  })}
+                                  className="hover:text-red-600 transition-colors"
+                                >
+                                  <X className="w-3.5 h-3.5" />
+                                </button>
+                              )}
+                            </span>
                           ))}
+                          {isEditMode && (
+                            <div className="flex items-center gap-1">
+                              <Input
+                                value={newCompanyTag}
+                                onChange={(e) => setNewCompanyTag(e.target.value)}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter' && newCompanyTag.trim()) {
+                                    e.preventDefault();
+                                    setFormData({
+                                      ...formData,
+                                      companyTags: [...formData.companyTags, newCompanyTag.trim()]
+                                    });
+                                    setNewCompanyTag('');
+                                  }
+                                }}
+                                placeholder="Add tag..."
+                                className="w-28 h-8 text-sm border-[#CD785C] focus-visible:ring-[#CD785C]"
+                              />
+                              <button
+                                onClick={() => {
+                                  if (newCompanyTag.trim()) {
+                                    setFormData({
+                                      ...formData,
+                                      companyTags: [...formData.companyTags, newCompanyTag.trim()]
+                                    });
+                                    setNewCompanyTag('');
+                                  }
+                                }}
+                                className="p-1.5 rounded-md hover:bg-[#EDE9E1] transition-colors"
+                                style={{ color: '#CC785C' }}
+                              >
+                                <Plus className="w-4 h-4" />
+                              </button>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
