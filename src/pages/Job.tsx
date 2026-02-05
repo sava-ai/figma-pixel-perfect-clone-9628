@@ -416,20 +416,60 @@ Qualifications
                           )}
                         </div>
                         <div>
+                          <label className="text-sm text-muted-foreground mb-1 block">Company Website</label>
+                          <p className="text-foreground">stepapp.io</p>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">What do you sell?</label>
+                        <p className="text-foreground">AI-powered gamified learning platform for K-12 students, helping them master subjects through interactive challenges and adaptive learning paths.</p>
+                      </div>
+
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">Mission, Vision, Values</label>
+                        <p className="text-foreground">Mission: Make learning fun and accessible for every student. Vision: To become the world's leading gamified education platform. Values: Innovation, inclusivity, student success, and continuous improvement.</p>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
                           <label className="text-sm text-muted-foreground mb-1 block">Employee Count</label>
                           <p className="text-foreground">50-200 employees</p>
                         </div>
+                        <div>
+                          <label className="text-sm text-muted-foreground mb-1 block">Location</label>
+                          <p className="text-foreground">Warsaw, Poland</p>
+                        </div>
                       </div>
+
                       <div>
-                        <label className="text-sm text-muted-foreground mb-1 block">What we do</label>
-                        <p className="text-foreground">Revolutionizing how students learn through gamification and AI-powered learning</p>
+                        <label className="text-sm text-muted-foreground mb-1 block">Leadership</label>
+                        <p className="text-foreground">CEO: Maria Kowalska (former Google Education PM) • CTO: Piotr Nowak (ex-Spotify engineer) • VP Sales: Anna Wiśniewska (10+ years B2B SaaS)</p>
                       </div>
+
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">Unique Differentiators</label>
+                        <p className="text-foreground">Patented AI-driven adaptive learning engine, partnerships with 500+ schools across Europe, proven 40% improvement in student test scores, and the only platform combining gamification with curriculum alignment.</p>
+                      </div>
+
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">Working Culture</label>
+                        <p className="text-foreground">Hybrid work model with 2 days in Warsaw office. Fast-paced startup environment with strong emphasis on autonomy and ownership. Weekly team syncs, monthly all-hands, and quarterly off-sites. Flat hierarchy with open-door policy.</p>
+                      </div>
+
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">Key Achievements</label>
+                        <p className="text-foreground">• Series A funding of €15M in 2024 • Winner of EdTech Europe Award 2023 • 2M+ active students • Featured in TechCrunch and Forbes • Expanded to 12 countries in 2 years</p>
+                      </div>
+
                       <div>
                         <label className="text-sm text-muted-foreground mb-1 block">Company Tags</label>
                         <div className="flex flex-wrap gap-2">
                           <span className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>Private Company</span>
                           <span className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>B2B Sales</span>
                           <span className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>EdTech</span>
+                          <span className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>Series A</span>
+                          <span className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>AI/ML</span>
                         </div>
                       </div>
                     </div>
