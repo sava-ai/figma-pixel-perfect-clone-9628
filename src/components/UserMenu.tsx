@@ -1,10 +1,10 @@
- import React, { useState } from 'react';
- import {
-   Popover,
-   PopoverContent,
-   PopoverTrigger,
- } from "@/components/ui/popover";
- import { User, Plug, CreditCard, BarChart3, Building2 } from 'lucide-react';
+import React, { useState } from 'react';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { User, Plug, CreditCard, BarChart3, Building2, LogOut } from 'lucide-react';
  import { UserAvatar } from '@/components/UserAvatar';
  import { ProfileSection } from './user-settings/ProfileSection';
  import { IntegrationsSection } from './user-settings/IntegrationsSection';
@@ -49,26 +49,38 @@
            align="end"
            sideOffset={8}
          >
-           <div className="space-y-1">
-             {menuItems.map((item) => {
-               const Icon = item.icon;
-               return (
-                 <button
-                   key={item.id}
-                   onClick={() => handleItemClick(item.id)}
-                   className="w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-md hover:bg-[#F5F5F3] transition-colors text-left"
-                   style={{ color: '#333333' }}
-                 >
-                   <div className="w-7 h-7 rounded-md flex items-center justify-center bg-[#F0F0EB]">
-                     <Icon className="h-3.5 w-3.5" style={{ color: '#333333' }} />
-                   </div>
-                   <span>{item.label}</span>
-                 </button>
-               );
-             })}
-           </div>
-         </PopoverContent>
-       </Popover>
+          <div className="space-y-1">
+              {menuItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleItemClick(item.id)}
+                    className="w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-md hover:bg-[#F5F5F3] transition-colors text-left"
+                    style={{ color: '#333333' }}
+                  >
+                    <div className="w-7 h-7 rounded-md flex items-center justify-center bg-[#F0F0EB]">
+                      <Icon className="h-3.5 w-3.5" style={{ color: '#333333' }} />
+                    </div>
+                    <span>{item.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <div className="border-t border-[#E6E6E6] mt-2 pt-2">
+              <button
+                onClick={() => setPopoverOpen(false)}
+                className="w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-md hover:bg-[#F5F5F3] transition-colors text-left"
+                style={{ color: '#333333' }}
+              >
+                <div className="w-7 h-7 rounded-md flex items-center justify-center bg-[#F0F0EB]">
+                  <LogOut className="h-3.5 w-3.5" style={{ color: '#333333' }} />
+                </div>
+                <span>Sign out</span>
+              </button>
+            </div>
+          </PopoverContent>
+        </Popover>
  
        <ProfileSection 
          open={activeDialog === 'profile'} 
