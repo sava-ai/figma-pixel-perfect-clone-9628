@@ -66,7 +66,7 @@ const JobRowMenu: React.FC<{ onEdit?: () => void; onArchive?: () => void; onDele
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-10 h-10 flex items-center justify-center rounded-md bg-white border border-[#EFEEED] hover:bg-[#F0F0EB] transition-colors text-[#666663]"
+        className="w-10 h-10 flex items-center justify-center rounded-md bg-white border border-[#EFEEED] hover:bg-[#E5E4DF] transition-colors text-[#666663]"
       >
         •••
       </button>
@@ -217,7 +217,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
             </div>
             {job.actionsNeeded && job.actionsNeeded > 0 && (
               <button 
-                className="flex-1 px-3 py-2 bg-white border border-[#EFEEED] text-[#262625] rounded-md hover:bg-[#F0F0EB] transition-colors"
+                className="flex-1 px-3 py-2 bg-white border border-[#EFEEED] text-[#262625] rounded-md hover:bg-[#E5E4DF] transition-colors"
                 onClick={(e) => { e.stopPropagation(); navigate('/job/people/view'); }}
                 style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.9rem' }}
               >
