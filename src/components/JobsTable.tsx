@@ -23,6 +23,7 @@ interface Job {
   status: 'published' | 'draft' | 'archived';
   sourcingStatus?: 'completed' | 'in_progress' | 'none';
   newMatches?: number;
+  newApplied?: number;
   stats: {
     found: number;
     applied: number;
@@ -65,7 +66,7 @@ const JobRowMenu: React.FC<{ onEdit?: () => void; onArchive?: () => void; onDele
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-10 h-10 flex items-center justify-center rounded-md bg-white border border-[#EFEEED] hover:bg-[#F5F4F2] transition-colors text-muted-foreground"
+        className="w-10 h-10 flex items-center justify-center rounded-md bg-white border border-[#EFEEED] hover:bg-[#F0F0EB] transition-colors text-[#666663]"
       >
         •••
       </button>
@@ -74,14 +75,14 @@ const JobRowMenu: React.FC<{ onEdit?: () => void; onArchive?: () => void; onDele
         <div className="absolute right-0 top-full mt-1 w-36 bg-white border border-[#EEEDEC] rounded-lg shadow-lg z-50 overflow-hidden">
           <button
             onClick={() => { setIsOpen(false); onArchive?.(); }}
-            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-[#292524] hover:bg-gray-50 transition-colors"
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-[#262625] hover:bg-[#F0F0EB] transition-colors"
           >
             <Archive className="w-3.5 h-3.5" />
             Archive
           </button>
           <button
             onClick={() => { setIsOpen(false); onDelete?.(); }}
-            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors border-t border-[#EEEDEC]"
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-[#BF4D43] hover:bg-[#F0F0EB] transition-colors border-t border-[#EEEDEC]"
           >
             <Trash2 className="w-3.5 h-3.5" />
             Delete
@@ -109,7 +110,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
       {jobs.map((job, index) => (
         <div
           key={index}
-          className="bg-white border border-[#E6E6E6] rounded-xl p-5 hover:bg-accent/30 cursor-pointer transition-colors flex flex-col"
+          className="bg-white border border-[#E6E6E6] rounded-xl p-5 hover:bg-[#F0F0EB] cursor-pointer transition-colors flex flex-col"
           onClick={() => navigate('/job/people/view')}
         >
           {/* Header: Status + Menu */}
@@ -124,17 +125,17 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
             {/* Sourcing Status Notification */}
             <div className="flex items-center">
               {job.sourcingStatus === 'completed' && job.newMatches && job.newMatches > 0 ? (
-                <span className="px-2 py-0.5 text-[10px] font-medium rounded-sm bg-blue-100 text-blue-700">
+                <span className="px-2 py-0.5 text-[10px] font-medium rounded-sm bg-[#EBDBBC] text-[#262625]">
                   {job.newMatches} new matches
                 </span>
               ) : job.sourcingStatus === 'in_progress' ? (
-                <span className="px-2 py-0.5 text-[10px] font-medium rounded-sm bg-amber-100 text-amber-700 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                  Sourcing matches
+                <span className="px-2 py-0.5 text-[10px] font-medium rounded-sm bg-[#D4A27F] text-[#262625] flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#CC785C] animate-pulse"></span>
+                  Sourcing enabled
                 </span>
               ) : job.sourcingStatus === 'none' ? (
-                <span className="px-2 py-0.5 text-[10px] font-medium rounded-sm bg-gray-100 text-gray-500">
-                  No sourcing running
+                <span className="px-2 py-0.5 text-[10px] font-medium rounded-sm bg-[#F0F0EB] text-[#666663]">
+                  Sourcing disabled
                 </span>
               ) : null}
             </div>
@@ -176,10 +177,17 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
               <span className="font-medium" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem' }}>{job.stats.found}</span>
               <span className="text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px' }}>Found</span>
             </div>
-            <div className="flex flex-col items-center gap-0.5">
-              <FileCheck className="w-4 h-4 text-[#111111]" />
-              <span className="font-medium" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem' }}>{job.stats.applied}</span>
+            <div className="flex flex-col items-center gap-0.5 relative">
+              <FileCheck className="w-4 h-4 text-[#262625]" />
+              <span className="font-medium" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem' }}>
+                {job.stats.applied}
+              </span>
               <span className="text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px' }}>Applied</span>
+              {job.newApplied && job.newApplied > 0 && (
+                <span className="absolute -top-1 -right-2 px-1 py-0.5 text-[8px] font-medium rounded-full bg-[#CC785C] text-white min-w-[16px] text-center">
+                  +{job.newApplied}
+                </span>
+              )}
             </div>
             <div className="flex flex-col items-center gap-0.5">
               <img src={savedIcon} alt="" className="w-4 h-4" />
@@ -209,7 +217,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
             </div>
             {job.actionsNeeded && job.actionsNeeded > 0 && (
               <button 
-                className="flex-1 px-3 py-2 bg-white border border-[#EFEEED] text-[#111111] rounded-md hover:bg-[#F5F4F2] transition-colors"
+                className="flex-1 px-3 py-2 bg-white border border-[#EFEEED] text-[#262625] rounded-md hover:bg-[#F0F0EB] transition-colors"
                 onClick={(e) => { e.stopPropagation(); navigate('/job/people/view'); }}
                 style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.9rem' }}
               >
