@@ -2,6 +2,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon-new.png';
 import InitialsAvatar from '@/components/InitialsAvatar';
@@ -309,60 +315,66 @@ const JobReviewHistory = () => {
                       </div>
                     </div>
 
-                    {/* Candidates Reviewed Title */}
-                    <h3 className="text-sm font-medium pt-2" style={{ color: '#333333' }}>
-                      Candidates reviewed ({selectedBatch.candidates.length})
-                    </h3>
-                  </div>
-
-                  {/* Candidates List */}
-                  <div className="divide-y divide-[#EEEDEC]">
-                    {selectedBatch.candidates.map((item) => {
-                      const candidate = getCandidateById(item.id);
-                      if (!candidate) return null;
-                      
-                      return (
-                        <div 
-                          key={item.id} 
-                          className="px-5 py-4 hover:bg-[#FAFAF7] transition-colors"
-                        >
-                          <div className="flex items-center gap-3 w-full">
-                            <InitialsAvatar name={candidate.name} size="sm" />
-                            <div className="flex-1 text-left">
-                              <p className="text-sm font-medium" style={{ color: '#333333' }}>{candidate.name}</p>
-                              <p className="text-xs" style={{ color: '#666663' }}>{candidate.roles[0]?.role || 'Candidate'}</p>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              {item.rating && (
-                                <span 
-                                  className="px-2 py-0.5 rounded text-xs font-medium"
-                                  style={{ 
-                                    backgroundColor: item.action === 'saved' ? '#E8F5E8' : '#FEE2E2',
-                                    color: item.action === 'saved' ? '#2E7D32' : '#BF4D43'
-                                  }}
+                    {/* Candidates Reviewed Accordion */}
+                    <Accordion type="single" collapsible className="w-full">
+                      <AccordionItem value="candidates" className="border-0">
+                        <AccordionTrigger className="py-2 hover:no-underline">
+                          <span className="text-sm font-medium" style={{ color: '#333333' }}>
+                            Candidates reviewed ({selectedBatch.candidates.length})
+                          </span>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <div className="divide-y divide-[#EEEDEC] rounded-lg border border-[#EEEDEC] overflow-hidden">
+                            {selectedBatch.candidates.map((item) => {
+                              const candidate = getCandidateById(item.id);
+                              if (!candidate) return null;
+                              
+                              return (
+                                <div 
+                                  key={item.id} 
+                                  className="px-4 py-3 hover:bg-[#FAFAF7] transition-colors bg-white"
                                 >
-                                  {item.rating}/3
-                                </span>
-                              )}
-                              <span 
-                                className="px-2 py-0.5 rounded text-xs font-medium capitalize"
-                                style={{ 
-                                  backgroundColor: item.action === 'saved' ? '#E8F5E8' : '#FEE2E2',
-                                  color: item.action === 'saved' ? '#2E7D32' : '#BF4D43'
-                                }}
-                              >
-                                {item.action}
-                              </span>
-                            </div>
+                                  <div className="flex items-center gap-3 w-full">
+                                    <InitialsAvatar name={candidate.name} size="sm" />
+                                    <div className="flex-1 text-left">
+                                      <p className="text-sm font-medium" style={{ color: '#333333' }}>{candidate.name}</p>
+                                      <p className="text-xs" style={{ color: '#666663' }}>{candidate.roles[0]?.role || 'Candidate'}</p>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      {item.rating && (
+                                        <span 
+                                          className="px-2 py-0.5 rounded text-xs font-medium"
+                                          style={{ 
+                                            backgroundColor: item.action === 'saved' ? '#E8F5E8' : '#FEE2E2',
+                                            color: item.action === 'saved' ? '#2E7D32' : '#BF4D43'
+                                          }}
+                                        >
+                                          {item.rating}/3
+                                        </span>
+                                      )}
+                                      <span 
+                                        className="px-2 py-0.5 rounded text-xs font-medium capitalize"
+                                        style={{ 
+                                          backgroundColor: item.action === 'saved' ? '#E8F5E8' : '#FEE2E2',
+                                          color: item.action === 'saved' ? '#2E7D32' : '#BF4D43'
+                                        }}
+                                      >
+                                        {item.action}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  {item.feedback && (
+                                    <div className="pl-11 mt-2">
+                                      <p className="text-sm" style={{ color: '#666663' }}>{item.feedback}</p>
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })}
                           </div>
-                          {item.feedback && (
-                            <div className="pl-11 mt-2">
-                              <p className="text-sm" style={{ color: '#666663' }}>{item.feedback}</p>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
                   </div>
                 </ScrollArea>
               </div>
