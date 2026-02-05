@@ -105,6 +105,27 @@ const jobContext = {
       "Managing relationships across different cultural contexts in CEE markets",
       "Balancing lead generation volume with quality of enterprise prospects",
     ],
+    candidateValueProposition: [
+      "Direct access to C-level leadership and strategic decision-making processes",
+      "Opportunity to shape sales strategy for an emerging market leader in pricing technology",
+      "Competitive compensation with uncapped commission structure tied to deal closures",
+      "Exposure to cutting-edge pricing optimization technology and AI-driven solutions",
+      "Flexibility of hybrid work model with strong work-life balance culture",
+    ],
+    teamComposition: [
+      "Report directly to Founder & CEO with high visibility and mentorship",
+      "Collaborate closely with marketing team on campaign strategy and messaging",
+      "Work alongside technical implementation specialists who support client onboarding",
+      "Lean team structure (5-10 people) enabling rapid decision-making and impact",
+      "Cross-functional exposure to product, partnerships, and customer success teams",
+    ],
+    growthPaths: [
+      "Sales Manager → Senior Sales Manager → Head of Sales (CEE Region)",
+      "Potential transition to Partnership Management role as partner network expands",
+      "Opportunity to build and lead a sales team as company scales",
+      "Path to Country Manager for key CEE markets (Poland, Czech Republic, Hungary)",
+      "Access to leadership development programs and industry conferences",
+    ],
   },
   coreRequirements: "5+ years B2B sales experience, proven track record of exceeding quotas, experience with SaaS or tech products.",
   softRequirements: "MBA preferred but not required, experience in pricing or retail tech, multi-language capabilities.",
@@ -567,6 +588,45 @@ const JobBrain = () => {
                                       <li key={index} className="flex items-start gap-2">
                                         <span className="text-sm mt-0.5" style={{ color: '#666663' }}>•</span>
                                         <span className="text-sm" style={{ color: '#666663' }}>{challenge}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+
+                                {/* Candidate Value Proposition */}
+                                <div>
+                                  <p className="text-sm font-semibold mb-2" style={{ color: '#333333' }}>Candidate Value Proposition:</p>
+                                  <ul className="space-y-2">
+                                    {jobContext.initialInformation.candidateValueProposition.map((item, index) => (
+                                      <li key={index} className="flex items-start gap-2">
+                                        <span className="text-sm mt-0.5" style={{ color: '#666663' }}>•</span>
+                                        <span className="text-sm" style={{ color: '#666663' }}>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+
+                                {/* Team Composition & Peer Dynamics */}
+                                <div>
+                                  <p className="text-sm font-semibold mb-2" style={{ color: '#333333' }}>Team Composition & Peer Dynamics:</p>
+                                  <ul className="space-y-2">
+                                    {jobContext.initialInformation.teamComposition.map((item, index) => (
+                                      <li key={index} className="flex items-start gap-2">
+                                        <span className="text-sm mt-0.5" style={{ color: '#666663' }}>•</span>
+                                        <span className="text-sm" style={{ color: '#666663' }}>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+
+                                {/* Growth Paths */}
+                                <div>
+                                  <p className="text-sm font-semibold mb-2" style={{ color: '#333333' }}>Growth Paths:</p>
+                                  <ul className="space-y-2">
+                                    {jobContext.initialInformation.growthPaths.map((item, index) => (
+                                      <li key={index} className="flex items-start gap-2">
+                                        <span className="text-sm mt-0.5" style={{ color: '#666663' }}>•</span>
+                                        <span className="text-sm" style={{ color: '#666663' }}>{item}</span>
                                       </li>
                                     ))}
                                   </ul>
