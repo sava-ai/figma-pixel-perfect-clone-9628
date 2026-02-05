@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Accordion,
@@ -8,6 +8,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon-new.png';
 
@@ -50,6 +55,9 @@ const JobBrain = () => {
   const navigate = useNavigate();
   const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
   const [selectedVersion, setSelectedVersion] = useState(versions[0]);
+
+  const [companyContextOpen, setCompanyContextOpen] = useState(true);
+  const [jobContextOpen, setJobContextOpen] = useState(true);
 
   const jobs = [
     { id: 1, title: 'BD Representative / Sales Manager' },
@@ -162,17 +170,24 @@ const JobBrain = () => {
                 <ScrollArea className="flex-1">
                   <div className="p-5 space-y-6">
                     {/* Company Context Section */}
-                    <div>
-                      <div className="flex items-center gap-3 mb-3">
+                    <Collapsible open={companyContextOpen} onOpenChange={setCompanyContextOpen}>
+                      <CollapsibleTrigger className="w-full flex items-center gap-3 mb-3 hover:opacity-80 transition-opacity">
+                        {companyContextOpen ? (
+                          <ChevronDown className="w-4 h-4" style={{ color: '#333333' }} />
+                        ) : (
+                          <ChevronRight className="w-4 h-4" style={{ color: '#333333' }} />
+                        )}
                         <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#E8F5E8' }}>
                           <svg className="w-4 h-4" style={{ color: '#2E7D32' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                           </svg>
                         </div>
                         <h3 className="text-sm font-medium" style={{ color: '#333333' }}>Company Context</h3>
-                      </div>
+                        <span className="text-xs text-[#999999] ml-auto">9 items</span>
+                      </CollapsibleTrigger>
 
-                      <Accordion type="multiple" className="space-y-2">
+                      <CollapsibleContent>
+                        <Accordion type="multiple" className="space-y-2 ml-7">
                           <AccordionItem value="mission" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
                               <span className="text-sm font-normal" style={{ color: '#333333' }}>Mission</span>
@@ -254,20 +269,28 @@ const JobBrain = () => {
                             </AccordionContent>
                           </AccordionItem>
                         </Accordion>
-                    </div>
+                      </CollapsibleContent>
+                    </Collapsible>
 
                     {/* Job Context Section */}
-                    <div>
-                      <div className="flex items-center gap-3 mb-3">
+                    <Collapsible open={jobContextOpen} onOpenChange={setJobContextOpen}>
+                      <CollapsibleTrigger className="w-full flex items-center gap-3 mb-3 hover:opacity-80 transition-opacity">
+                        {jobContextOpen ? (
+                          <ChevronDown className="w-4 h-4" style={{ color: '#333333' }} />
+                        ) : (
+                          <ChevronRight className="w-4 h-4" style={{ color: '#333333' }} />
+                        )}
                         <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#FDF8F6' }}>
                           <svg className="w-4 h-4" style={{ color: '#CC785C' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                           </svg>
                         </div>
                         <h3 className="text-sm font-medium" style={{ color: '#333333' }}>Job Context</h3>
-                      </div>
+                        <span className="text-xs text-[#999999] ml-auto">9 items</span>
+                      </CollapsibleTrigger>
 
-                      <Accordion type="multiple" className="space-y-2">
+                      <CollapsibleContent>
+                        <Accordion type="multiple" className="space-y-2 ml-7">
                           <AccordionItem value="hiringPhilosophy" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
                               <span className="text-sm font-normal" style={{ color: '#333333' }}>Hiring Philosophy</span>
@@ -349,7 +372,8 @@ const JobBrain = () => {
                             </AccordionContent>
                           </AccordionItem>
                         </Accordion>
-                    </div>
+                      </CollapsibleContent>
+                    </Collapsible>
                   </div>
                 </ScrollArea>
               </div>
