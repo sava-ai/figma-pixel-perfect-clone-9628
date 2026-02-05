@@ -107,10 +107,10 @@ export const CompanyDialog: React.FC<CompanyDialogProps> = ({ open, onOpenChange
 
             <div>
               <label className="block text-sm font-medium mb-1.5" style={{ color: '#333333' }}>
-                Target ICP
+                Mission, Vision, Values
               </label>
               <Textarea 
-                placeholder="Ideal buyer profile—role, company size, industry..." 
+                placeholder="Company mission, vision and core values..." 
                 className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] min-h-[80px] resize-none bg-white"
               />
             </div>
@@ -128,21 +128,61 @@ export const CompanyDialog: React.FC<CompanyDialogProps> = ({ open, onOpenChange
 
             <div>
               <label className="block text-sm font-medium mb-1.5" style={{ color: '#333333' }}>
+                Location
+              </label>
+              <Input 
+                placeholder="e.g., San Francisco, CA" 
+                className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] bg-white"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1.5" style={{ color: '#333333' }}>
+                Leadership
+              </label>
+              <Textarea 
+                placeholder="Key leadership team members and their backgrounds..." 
+                className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] min-h-[80px] resize-none bg-white"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1.5" style={{ color: '#333333' }}>
+                Unique Differentiators
+              </label>
+              <Textarea 
+                placeholder="What sets this company apart from competitors..." 
+                className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] min-h-[80px] resize-none bg-white"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1.5" style={{ color: '#333333' }}>
+                Working Culture
+              </label>
+              <Textarea 
+                placeholder="Work environment, team dynamics, remote policies..." 
+                className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] min-h-[80px] resize-none bg-white"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1.5" style={{ color: '#333333' }}>
+                Key Achievements
+              </label>
+              <Textarea 
+                placeholder="Notable milestones, awards, and accomplishments..." 
+                className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] min-h-[80px] resize-none bg-white"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1.5" style={{ color: '#333333' }}>
                 Company Tags
               </label>
               <Input 
                 placeholder="Enter tags separated by commas" 
                 className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] bg-white"
-              />
-            </div>
-
-            <div className="pt-2 border-t border-[#E6E6E6]">
-              <p className="text-xs uppercase tracking-wide mb-3" style={{ color: '#91918D' }}>
-                About You
-              </p>
-              <Textarea 
-                placeholder="Your background for more personal messages..." 
-                className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] min-h-[80px] resize-none bg-white"
               />
             </div>
 
