@@ -292,6 +292,7 @@ const JobPeopleView = () => {
 
                     {/* Review and Rating History Banner */}
                     <button
+                      onClick={() => navigate('/job/review-history')}
                       className="w-full rounded-xl p-5 text-left hover:border-[#D9D9D9] transition-all group mb-4"
                       style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E6E6' }}
                     >
