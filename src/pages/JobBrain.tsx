@@ -128,7 +128,6 @@ const jobContext = {
     ],
   },
   coreRequirements: "5+ years B2B sales experience, proven track record of exceeding quotas, experience with SaaS or tech products.",
-  softRequirements: "MBA preferred but not required, experience in pricing or retail tech, multi-language capabilities.",
   redFlags: [
     "Job hopping without clear progression or explanation",
     "Lack of quantifiable achievements in previous roles",
@@ -136,9 +135,30 @@ const jobContext = {
     "No research done about PriceMind or the pricing industry",
     "Inability to articulate past successes with specific metrics",
   ],
-  technicalSkills: "CRM proficiency (Salesforce, HubSpot), sales analytics tools, presentation software, basic understanding of APIs.",
-  culturalFit: "Values transparency and direct feedback, comfortable with data-driven decision making, entrepreneurial mindset.",
-  derivedSignals: "Look for candidates who ask insightful questions about our product, show genuine curiosity about pricing strategies.",
+  softRequirements: [
+    { name: "MBA or Advanced Degree", weight: 75, description: "Preferred for strategic thinking and business acumen.", reason: "Directly mentioned as preferred qualification. Indicates structured business knowledge." },
+    { name: "Pricing/Retail Tech Experience", weight: 85, description: "Understanding of pricing tools and software landscape.", reason: "Critical for faster onboarding and client conversations." },
+    { name: "Multi-language Capabilities", weight: 60, description: "German or other CEE languages as an advantage.", reason: "Valuable for CEE market expansion but not mandatory." },
+    { name: "Enterprise Sales Background", weight: 90, description: "Experience with complex, multi-stakeholder sales cycles.", reason: "Directly relevant to the B2B enterprise focus of the role." },
+  ],
+  technicalSkills: [
+    { name: "CRM Proficiency", weight: 95, description: "Expert-level knowledge of Salesforce or HubSpot.", reason: "Mentioned as a core requirement. Essential for daily operations." },
+    { name: "Sales Analytics Tools", weight: 80, description: "Ability to use data tools for pipeline and performance tracking.", reason: "Supports data-driven approach emphasized in the job description." },
+    { name: "Presentation Software", weight: 70, description: "PowerPoint, Keynote, or similar for client presentations.", reason: "Necessary for C-level engagement and demos." },
+    { name: "Basic API Understanding", weight: 55, description: "Familiarity with how integrations work at a high level.", reason: "Helpful for technical discussions but not primary responsibility." },
+  ],
+  culturalFit: [
+    { name: "Transparency & Direct Feedback", weight: 90, description: "Comfortable giving and receiving honest, constructive feedback.", reason: "Core company value. Essential for lean team dynamics." },
+    { name: "Data-Driven Mindset", weight: 85, description: "Makes decisions based on metrics and evidence.", reason: "Aligns with company's analytical approach to pricing." },
+    { name: "Entrepreneurial Spirit", weight: 95, description: "Self-starter who thrives with autonomy and ownership.", reason: "Critical for success in a small, fast-moving organization." },
+    { name: "Adaptability", weight: 80, description: "Comfortable with ambiguity and rapid iteration.", reason: "Necessary given the evolving nature of CEE market strategy." },
+  ],
+  derivedSignals: [
+    { name: "Insightful Questions", weight: 90, description: "Asks thoughtful questions about product, market, or strategy.", reason: "Indicates genuine curiosity and preparation." },
+    { name: "Pricing Strategy Interest", weight: 85, description: "Shows genuine curiosity about pricing optimization challenges.", reason: "Suggests alignment with company mission and product focus." },
+    { name: "Problem-Solving Prowess", weight: 80, description: "Aptitude for identifying and resolving challenges under pressure.", reason: "Directly mentioned as a requirement. Particularly relevant for high-potential candidates." },
+    { name: "Client Success Orientation", weight: 75, description: "Focus on building long-term relationships over quick wins.", reason: "Aligns with trusted advisor positioning in the role." },
+  ],
 };
 
 const JobBrain = () => {
@@ -647,18 +667,6 @@ const JobBrain = () => {
                             </AccordionContent>
                           </AccordionItem>
 
-                          <AccordionItem value="softRequirements" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
-                            <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <div className="flex items-center gap-2">
-                                <FileText className="w-4 h-4" style={{ color: '#CC785C' }} />
-                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Soft Requirements</span>
-                              </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.softRequirements}</p>
-                            </AccordionContent>
-                          </AccordionItem>
-
                           <AccordionItem value="redFlags" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
                               <div className="flex items-center gap-2">
@@ -678,6 +686,29 @@ const JobBrain = () => {
                             </AccordionContent>
                           </AccordionItem>
 
+                          <AccordionItem value="softRequirements" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
+                            <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
+                              <div className="flex items-center gap-2">
+                                <FileText className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Soft Requirements</span>
+                              </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="px-4 pb-4 pt-0 border-t border-[#EEEDEC]">
+                              <div className="grid grid-cols-2 gap-3 pt-4">
+                                {jobContext.softRequirements.map((item, index) => (
+                                  <div key={index} className="p-4 rounded-lg" style={{ backgroundColor: '#FAFAF9', border: '1px solid #EEEDEC' }}>
+                                    <div className="flex items-start justify-between mb-2">
+                                      <span className="text-sm font-semibold" style={{ color: '#333333' }}>{item.name}</span>
+                                      <span className="text-sm font-medium" style={{ color: '#2E7D32' }}>{item.weight}%</span>
+                                    </div>
+                                    <p className="text-sm mb-2" style={{ color: '#666663' }}>{item.description}</p>
+                                    <p className="text-xs italic" style={{ color: '#999999' }}>{item.reason}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </AccordionContent>
+                          </AccordionItem>
+
                           <AccordionItem value="technicalSkills" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
                               <div className="flex items-center gap-2">
@@ -685,8 +716,19 @@ const JobBrain = () => {
                                 <span className="text-sm font-normal" style={{ color: '#333333' }}>Technical Skills</span>
                               </div>
                             </AccordionTrigger>
-                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.technicalSkills}</p>
+                            <AccordionContent className="px-4 pb-4 pt-0 border-t border-[#EEEDEC]">
+                              <div className="grid grid-cols-2 gap-3 pt-4">
+                                {jobContext.technicalSkills.map((item, index) => (
+                                  <div key={index} className="p-4 rounded-lg" style={{ backgroundColor: '#FAFAF9', border: '1px solid #EEEDEC' }}>
+                                    <div className="flex items-start justify-between mb-2">
+                                      <span className="text-sm font-semibold" style={{ color: '#333333' }}>{item.name}</span>
+                                      <span className="text-sm font-medium" style={{ color: '#2E7D32' }}>{item.weight}%</span>
+                                    </div>
+                                    <p className="text-sm mb-2" style={{ color: '#666663' }}>{item.description}</p>
+                                    <p className="text-xs italic" style={{ color: '#999999' }}>{item.reason}</p>
+                                  </div>
+                                ))}
+                              </div>
                             </AccordionContent>
                           </AccordionItem>
 
@@ -697,8 +739,19 @@ const JobBrain = () => {
                                 <span className="text-sm font-normal" style={{ color: '#333333' }}>Cultural Fit</span>
                               </div>
                             </AccordionTrigger>
-                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.culturalFit}</p>
+                            <AccordionContent className="px-4 pb-4 pt-0 border-t border-[#EEEDEC]">
+                              <div className="grid grid-cols-2 gap-3 pt-4">
+                                {jobContext.culturalFit.map((item, index) => (
+                                  <div key={index} className="p-4 rounded-lg" style={{ backgroundColor: '#FAFAF9', border: '1px solid #EEEDEC' }}>
+                                    <div className="flex items-start justify-between mb-2">
+                                      <span className="text-sm font-semibold" style={{ color: '#333333' }}>{item.name}</span>
+                                      <span className="text-sm font-medium" style={{ color: '#2E7D32' }}>{item.weight}%</span>
+                                    </div>
+                                    <p className="text-sm mb-2" style={{ color: '#666663' }}>{item.description}</p>
+                                    <p className="text-xs italic" style={{ color: '#999999' }}>{item.reason}</p>
+                                  </div>
+                                ))}
+                              </div>
                             </AccordionContent>
                           </AccordionItem>
 
@@ -709,8 +762,19 @@ const JobBrain = () => {
                                 <span className="text-sm font-normal" style={{ color: '#333333' }}>Derived Signals</span>
                               </div>
                             </AccordionTrigger>
-                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.derivedSignals}</p>
+                            <AccordionContent className="px-4 pb-4 pt-0 border-t border-[#EEEDEC]">
+                              <div className="grid grid-cols-2 gap-3 pt-4">
+                                {jobContext.derivedSignals.map((item, index) => (
+                                  <div key={index} className="p-4 rounded-lg" style={{ backgroundColor: '#FAFAF9', border: '1px solid #EEEDEC' }}>
+                                    <div className="flex items-start justify-between mb-2">
+                                      <span className="text-sm font-semibold" style={{ color: '#333333' }}>{item.name}</span>
+                                      <span className="text-sm font-medium" style={{ color: '#2E7D32' }}>{item.weight}%</span>
+                                    </div>
+                                    <p className="text-sm mb-2" style={{ color: '#666663' }}>{item.description}</p>
+                                    <p className="text-xs italic" style={{ color: '#999999' }}>{item.reason}</p>
+                                  </div>
+                                ))}
+                              </div>
                             </AccordionContent>
                           </AccordionItem>
                         </Accordion>
