@@ -15,11 +15,12 @@ import { User, Plug, CreditCard, BarChart3, Building2, LogOut } from 'lucide-rea
  interface UserMenuProps {
    initials?: string;
    src?: string;
+   size?: 'sm' | 'md' | 'lg';
  }
  
  type DialogType = 'profile' | 'integrations' | 'subscription' | 'usage' | 'companies' | null;
  
- export const UserMenu: React.FC<UserMenuProps> = ({ initials = "TW", src }) => {
+ export const UserMenu: React.FC<UserMenuProps> = ({ initials = "TW", src, size = "md" }) => {
    const [popoverOpen, setPopoverOpen] = useState(false);
    const [activeDialog, setActiveDialog] = useState<DialogType>(null);
  
@@ -39,11 +40,11 @@ import { User, Plug, CreditCard, BarChart3, Building2, LogOut } from 'lucide-rea
    return (
      <>
        <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-         <PopoverTrigger asChild>
-           <button className="hover:opacity-80 transition-opacity">
-             <UserAvatar initials={initials} src={src} />
-           </button>
-         </PopoverTrigger>
+          <PopoverTrigger asChild>
+            <button className="hover:opacity-80 transition-opacity">
+              <UserAvatar initials={initials} src={src} size={size} />
+            </button>
+          </PopoverTrigger>
         <PopoverContent 
             className="w-52 p-2 bg-white border-[#E6E6E6]" 
             align="end"
