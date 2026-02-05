@@ -117,7 +117,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           <div className="flex items-center justify-between mb-3">
             <span 
               className={`px-2 py-0.5 text-[10px] font-medium rounded-sm capitalize ${getStatusBadge(job.status)}`}
-              style={{ fontFamily: 'CooperLight, serif' }}
+              style={{ fontFamily: 'Inter, sans-serif' }}
             >
               {job.status}
             </span>
@@ -183,7 +183,7 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
                 {job.stats.applied}
               </span>
               <span className="text-muted-foreground" style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px' }}>Applied</span>
-              {job.newApplied && job.newApplied > 0 && (
+              {typeof job.newApplied === 'number' && job.newApplied > 0 && (
                 <span className="absolute -top-1 -right-2 px-1 py-0.5 text-[8px] font-medium rounded-full bg-[#CC785C] text-white min-w-[16px] text-center">
                   +{job.newApplied}
                 </span>
