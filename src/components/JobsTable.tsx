@@ -19,6 +19,7 @@ interface Job {
   title: string;
   userName: string;
   userAvatar?: string;
+  company?: string;
   status: 'published' | 'draft' | 'archived';
   stats: {
     found: number;
@@ -126,6 +127,16 @@ export const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
           >
             {job.title}
           </h3>
+
+          {/* Company */}
+          {job.company && (
+            <p 
+              className="text-sm text-muted-foreground mb-3 -mt-1"
+              style={{ fontFamily: 'Inter, sans-serif' }}
+            >
+              {job.company}
+            </p>
+          )}
 
           {/* Owner */}
           <div className="flex items-center gap-2 mb-4">

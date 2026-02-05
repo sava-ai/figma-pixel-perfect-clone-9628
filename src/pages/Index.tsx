@@ -8,6 +8,13 @@ import { MessagesOverlay } from '@/components/MessagesOverlay';
 import { AnimatedLogo } from '@/components/AnimatedLogo';
 import userAvatarImage from '@/assets/user-avatar.png';
 import backgroundImage from '@/assets/background-landscape.png';
+import { ChevronDown } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 const Index = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
@@ -19,6 +26,7 @@ const Index = () => {
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
   const [chatButtonPosition, setChatButtonPosition] = useState({ top: 0, right: 0 });
+  const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
   const chatButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -31,6 +39,7 @@ const Index = () => {
     title: "Chief Commercial Officer in East/North Asia and Pacific Ocean",
     userName: "Mateusz Budka",
     userAvatar: userAvatarImage,
+    company: "Acme Corporation",
     stats: {
       found: 55,
       applied: 12,
@@ -84,6 +93,7 @@ const Index = () => {
     setConversationStep(0);
   };
   const jobs = Array(9).fill(jobData);
+  const companies = ['Acme Corporation', 'TechVentures', 'Global Industries', 'StartupCo'];
   const publishedCount = jobs.filter(job => job.status === 'published').length;
   
   return (
@@ -254,6 +264,25 @@ const Index = () => {
                 </svg>
                 <input type="text" placeholder="Search jobs..." className="w-full bg-white border border-[#EEEDEC] rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#292524]" />
               </div>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EEEDEC] rounded-lg text-sm font-medium hover:bg-accent transition-colors">
+                    <span>{selectedCompany || 'All Companies'}</span>
+                    <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-48">
+                  <DropdownMenuItem onClick={() => setSelectedCompany(null)}>
+                    All Companies
+                  </DropdownMenuItem>
+                  {companies.map((company) => (
+                    <DropdownMenuItem key={company} onClick={() => setSelectedCompany(company)}>
+                      {company}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EEEDEC] rounded-lg text-sm font-medium hover:bg-accent transition-colors">
                 <span className="w-2 h-2 rounded-full bg-green-500"></span>
