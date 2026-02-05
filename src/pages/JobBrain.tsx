@@ -81,9 +81,31 @@ const jobContext = {
     aboutUs: "PriceMind is a trusted provider of pricing software services and IT solutions for pricing management. We support large companies across retail, distribution, and manufacturing sectors in optimizing their pricing processes and increasing profitability. Operating as a software integrator for Pricefx, we are now extending our partner network with three other SaaS pricing solution providers, focusing our sales activities on the CEE region. Join a lean, dynamic organization where initiative and taking responsibility are valued and rewarded.",
     tags: ["B2B Sales", "CEE Region", "SaaS", "Pricing Software"],
   },
-  hiringPhilosophy: "We prioritize cultural fit and growth potential over perfect experience matches. We're looking for self-starters who thrive in ambiguity and can adapt to a fast-paced, evolving environment. The ideal candidate demonstrates initiative, takes ownership of their work, and shows a genuine passion for helping businesses optimize their pricing strategies. We value candidates who ask thoughtful questions, show intellectual curiosity, and have a track record of learning quickly. Experience is important, but we weigh potential and attitude equally when making hiring decisions.",
-  cultureFitPreferences: "Collaborative team players who can work independently, strong communication skills, comfort with rapid iteration.",
-  technicalChallenges: "Building scalable sales processes, navigating complex enterprise deals, managing multi-stakeholder relationships.",
+  initialInformation: {
+    hiringPhilosophy: {
+      summary: "The hiring philosophy emphasizes finding candidates who are not only experienced in B2B sales but also possess strong collaborative skills, a proactive and adaptable mindset, and a genuine passion for helping businesses optimize their pricing strategies. There is a willingness to consider strong candidates with slightly less experience if they demonstrate exceptional problem-solving abilities, a drive to learn, and a cultural fit aligned with the company's mission to empower clients rather than just sell to them.",
+      points: [
+        "Cultural fit and growth potential valued over perfect experience matches",
+        "Self-starters who thrive in ambiguity and adapt to fast-paced environments",
+        "Candidates who demonstrate initiative and take ownership of their work",
+        "Intellectual curiosity and a track record of learning quickly",
+      ],
+    },
+    cultureFitPreferences: [
+      "Collaborative team dynamic that emphasizes working closely with leadership while maintaining autonomy",
+      "Mindset and approach that ensures the sales person is seen as a trusted advisor, contributing to client success rather than just closing deals",
+      "Proactivity and a 'get things done' mindset, taking initiative to drive tasks to completion without constant supervision",
+      "Comfort with rapid iteration and ability to adapt strategies based on market feedback",
+      "Strong communication skills for managing multi-stakeholder relationships",
+    ],
+    technicalChallenges: [
+      "Building scalable sales processes for the CEE region with varying market maturity",
+      "Navigating complex enterprise sales cycles with multiple decision makers",
+      "Understanding and articulating technical pricing software benefits to non-technical buyers",
+      "Managing relationships across different cultural contexts in CEE markets",
+      "Balancing lead generation volume with quality of enterprise prospects",
+    ],
+  },
   coreRequirements: "5+ years B2B sales experience, proven track record of exceeding quotas, experience with SaaS or tech products.",
   softRequirements: "MBA preferred but not required, experience in pricing or retail tech, multi-language capabilities.",
   redFlags: [
@@ -358,7 +380,7 @@ const JobBrain = () => {
                           </svg>
                         </div>
                         <h3 className="text-sm font-medium" style={{ color: '#333333' }}>Job Context</h3>
-                        <span className="text-xs text-[#999999] ml-auto">9 items</span>
+                        <span className="text-xs text-[#999999] ml-auto">7 items</span>
                       </CollapsibleTrigger>
 
                       <CollapsibleContent>
@@ -498,39 +520,58 @@ const JobBrain = () => {
                             </AccordionContent>
                           </AccordionItem>
 
-                          <AccordionItem value="hiringPhilosophy" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
+                          {/* Initial Information - Analysis */}
+                          <AccordionItem value="initialInformation" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
                               <div className="flex items-center gap-2">
                                 <Brain className="w-4 h-4" style={{ color: '#CC785C' }} />
-                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Hiring Philosophy</span>
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Initial Information</span>
                               </div>
                             </AccordionTrigger>
-                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.hiringPhilosophy}</p>
-                            </AccordionContent>
-                          </AccordionItem>
+                            <AccordionContent className="px-4 pb-4 pt-0 border-t border-[#EEEDEC]">
+                              <div className="space-y-5 pt-4">
+                                {/* Hiring Philosophy */}
+                                <div>
+                                  <p className="text-sm" style={{ color: '#666663' }}>
+                                    <span className="font-semibold" style={{ color: '#333333' }}>Hiring Philosophy: </span>
+                                    {jobContext.initialInformation.hiringPhilosophy.summary}
+                                  </p>
+                                  <ul className="mt-3 space-y-2">
+                                    {jobContext.initialInformation.hiringPhilosophy.points.map((point, index) => (
+                                      <li key={index} className="flex items-start gap-2">
+                                        <span className="text-sm mt-0.5" style={{ color: '#666663' }}>•</span>
+                                        <span className="text-sm" style={{ color: '#666663' }}>{point}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
 
-                          <AccordionItem value="cultureFitPreferences" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
-                            <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <div className="flex items-center gap-2">
-                                <UserCheck className="w-4 h-4" style={{ color: '#CC785C' }} />
-                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Culture Fit Preferences</span>
-                              </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.cultureFitPreferences}</p>
-                            </AccordionContent>
-                          </AccordionItem>
+                                {/* Culture Fit Preferences */}
+                                <div>
+                                  <p className="text-sm font-semibold mb-2" style={{ color: '#333333' }}>Culture Fit Preferences:</p>
+                                  <ul className="space-y-2">
+                                    {jobContext.initialInformation.cultureFitPreferences.map((pref, index) => (
+                                      <li key={index} className="flex items-start gap-2">
+                                        <span className="text-sm mt-0.5" style={{ color: '#666663' }}>•</span>
+                                        <span className="text-sm" style={{ color: '#666663' }}>{pref}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
 
-                          <AccordionItem value="technicalChallenges" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
-                            <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <div className="flex items-center gap-2">
-                                <Wrench className="w-4 h-4" style={{ color: '#CC785C' }} />
-                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Technical Challenges</span>
+                                {/* Technical Challenges */}
+                                <div>
+                                  <p className="text-sm font-semibold mb-2" style={{ color: '#333333' }}>Technical Challenges:</p>
+                                  <ul className="space-y-2">
+                                    {jobContext.initialInformation.technicalChallenges.map((challenge, index) => (
+                                      <li key={index} className="flex items-start gap-2">
+                                        <span className="text-sm mt-0.5" style={{ color: '#666663' }}>•</span>
+                                        <span className="text-sm" style={{ color: '#666663' }}>{challenge}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
                               </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.technicalChallenges}</p>
                             </AccordionContent>
                           </AccordionItem>
 
