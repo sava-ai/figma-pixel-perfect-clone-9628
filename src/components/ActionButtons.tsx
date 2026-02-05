@@ -61,45 +61,49 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
     onDelete?.();
   };
 
- 
-   return (
-     <div className="flex items-center gap-2">
-       <div className="flex items-center border border-[#EEEDEC] rounded-lg overflow-hidden">
-         <div className="relative" ref={menuRef}>
-           <button
-             onClick={handleMenuClick}
-             className="bg-[#FBFAF9] hover:bg-accent flex items-center justify-center w-10 h-10 transition-colors text-lg font-bold text-muted-foreground border-r border-[#EEEDEC]"
-             aria-label="Open menu"
-           >
-             ...
-           </button>
-           
-           {isMenuOpen && (
-             <div className="absolute bottom-full left-0 mb-2 w-40 bg-white border border-[#EEEDEC] rounded-lg shadow-lg z-50 overflow-hidden">
-               <button
-                 onClick={handleArchive}
-                 className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[#292524] hover:bg-gray-50 transition-colors"
-               >
-                 <Archive className="w-4 h-4" />
-                 Archive
-               </button>
-               <button
-                 onClick={handleDelete}
-                 className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors border-t border-[#EEEDEC]"
-               >
-                 <Trash2 className="w-4 h-4" />
-                 Delete
-               </button>
-             </div>
-           )}
-         </div>
-         <button
-           onClick={handleActionClick}
-           className="bg-[#FBFAF9] hover:bg-accent flex items-center justify-center h-10 px-4 transition-colors text-xs font-medium text-[#111111]"
-         >
-           {actionsNeeded} actions needed
-         </button>
-       </div>
-     </div>
-   );
+  return (
+    <div className="flex items-center gap-2">
+      <div className="relative" ref={menuRef}>
+        <button
+          onClick={handleMenuClick}
+          className="bg-white border border-[#EEEDEC] hover:bg-accent flex items-center justify-center w-12 h-12 rounded-lg transition-colors text-xl font-bold text-muted-foreground"
+          aria-label="Open menu"
+        >
+          ...
+        </button>
+        
+        {isMenuOpen && (
+          <div className="absolute bottom-full left-0 mb-2 w-40 bg-white border border-[#EEEDEC] rounded-lg shadow-lg z-50 overflow-hidden">
+            <button
+              onClick={handleEdit}
+              className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[#292524] hover:bg-gray-50 transition-colors"
+            >
+              <Pencil className="w-4 h-4" />
+              Edit
+            </button>
+            <button
+              onClick={handleArchive}
+              className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[#292524] hover:bg-gray-50 transition-colors border-t border-[#EEEDEC]"
+            >
+              <Archive className="w-4 h-4" />
+              Archive
+            </button>
+            <button
+              onClick={handleDelete}
+              className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors border-t border-[#EEEDEC]"
+            >
+              <Trash2 className="w-4 h-4" />
+              Delete
+            </button>
+          </div>
+        )}
+      </div>
+      <button
+        onClick={handleActionClick}
+        className="bg-white border border-[#EEEDEC] hover:bg-accent flex-1 flex items-center justify-center h-12 px-6 rounded-lg transition-colors text-xs font-medium text-muted-foreground"
+      >
+        {actionsNeeded} actions needed
+      </button>
+    </div>
+  );
 };
