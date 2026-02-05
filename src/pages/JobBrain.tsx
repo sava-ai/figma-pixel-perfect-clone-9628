@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronRight, Target, Eye, Heart, MapPin, Package, Users, Sparkles, Briefcase, Trophy, Brain, UserCheck, Wrench, CheckCircle, FileText, AlertTriangle, Code, Compass, Lightbulb } from 'lucide-react';
+import { ChevronDown, ChevronRight, Target, Eye, Heart, MapPin, Package, Users, Sparkles, Briefcase, Trophy, Brain, UserCheck, Wrench, CheckCircle, FileText, AlertTriangle, Code, Compass, Lightbulb, ClipboardList, Star } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Accordion,
@@ -40,12 +40,52 @@ const companyContext = {
 };
 
 const jobContext = {
-  hiringPhilosophy: "We prioritize cultural fit and growth potential over perfect experience matches. Looking for self-starters who thrive in ambiguity.",
+  jobDescription: {
+    title: "Business Development Representative / Sales Manager",
+    company: "PriceMind",
+    location: "Warsaw / Remote (Hybrid)",
+    about: "PriceMind is a trusted provider of pricing software services and IT solutions for pricing management. It supports large companies across retail, distribution, and manufacturing sectors in optimizing their pricing processes and increasing profitability. PriceMind has operated as a software integrator for Pricefx and is now extending its partner network with three other SaaS pricing solution providers, focusing sales activities on the CEE region.",
+    tags: ["B2B Sales", "CEE Region", "SaaS"],
+  },
+  responsibilities: [
+    "Work closely with PriceMind's Founder and CEO to identify and reach new clients across CEE region",
+    "Establish contact with decision makers and open sales opportunities (discovery calls/meetings)",
+    "Find and prioritize largest companies per pre-defined market/sector and geography",
+    "Gather information on pricing needs and tools used by target companies",
+    "Identify decision makers such as revenue manager or pricing manager",
+    "Refine lead generation tools and sales messages alongside marketing team",
+    "Implement mass lead generation campaigns leveraging effective tools and services",
+    "Manage CRM, contract next steps, set meeting dates and agendas",
+    "Collect client feedback and provide insight to marketing, sales and technical teams",
+  ],
+  requiredExperience: [
+    "Sales mentality and goal-oriented mindset",
+    "Experience in large corporate B2B lead generation / selling through digital channels",
+    "1-3 years in a digital sales function",
+    "Personal maturity to effectively communicate with senior managers in large corporates",
+    "Excellent communication skills (verbal & written) in English",
+    "Experience in working with CRM and other sales tools",
+    "Experience in selling digital solutions",
+    "Ability to work independently and take the lead",
+    "Enthusiasm and commitment",
+  ],
+  preferredExperience: [
+    "Proven track record of selling to international / European clients",
+    "Understanding of pricing tools",
+    "Understanding of the distribution and manufacturing industries",
+  ],
+  hiringPhilosophy: "We prioritize cultural fit and growth potential over perfect experience matches. We're looking for self-starters who thrive in ambiguity and can adapt to a fast-paced, evolving environment. The ideal candidate demonstrates initiative, takes ownership of their work, and shows a genuine passion for helping businesses optimize their pricing strategies. We value candidates who ask thoughtful questions, show intellectual curiosity, and have a track record of learning quickly. Experience is important, but we weigh potential and attitude equally when making hiring decisions.",
   cultureFitPreferences: "Collaborative team players who can work independently, strong communication skills, comfort with rapid iteration.",
   technicalChallenges: "Building scalable sales processes, navigating complex enterprise deals, managing multi-stakeholder relationships.",
   coreRequirements: "5+ years B2B sales experience, proven track record of exceeding quotas, experience with SaaS or tech products.",
   softRequirements: "MBA preferred but not required, experience in pricing or retail tech, multi-language capabilities.",
-  redFlags: "Job hopping without clear progression, lack of quantifiable achievements, poor communication during interviews.",
+  redFlags: [
+    "Job hopping without clear progression or explanation",
+    "Lack of quantifiable achievements in previous roles",
+    "Poor communication or unprepared during interviews",
+    "No research done about PriceMind or the pricing industry",
+    "Inability to articulate past successes with specific metrics",
+  ],
   technicalSkills: "CRM proficiency (Salesforce, HubSpot), sales analytics tools, presentation software, basic understanding of APIs.",
   culturalFit: "Values transparency and direct feedback, comfortable with data-driven decision making, entrepreneurial mindset.",
   derivedSignals: "Look for candidates who ask insightful questions about our product, show genuine curiosity about pricing strategies.",
@@ -311,11 +351,109 @@ const JobBrain = () => {
                           </svg>
                         </div>
                         <h3 className="text-sm font-medium" style={{ color: '#333333' }}>Job Context</h3>
-                        <span className="text-xs text-[#999999] ml-auto">9 items</span>
+                        <span className="text-xs text-[#999999] ml-auto">12 items</span>
                       </CollapsibleTrigger>
 
                       <CollapsibleContent>
                         <Accordion type="multiple" className="space-y-2 ml-7">
+                          {/* Job Description - First */}
+                          <AccordionItem value="jobDescription" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
+                            <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
+                              <div className="flex items-center gap-2">
+                                <ClipboardList className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Job Description</span>
+                              </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
+                              <div className="space-y-3 pt-3">
+                                <div>
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Title:</span>
+                                  <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.title}</p>
+                                </div>
+                                <div>
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Company:</span>
+                                  <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.company}</p>
+                                </div>
+                                <div>
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Location:</span>
+                                  <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.location}</p>
+                                </div>
+                                <div>
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>About:</span>
+                                  <p className="text-sm" style={{ color: '#666663' }}>{jobContext.jobDescription.about}</p>
+                                </div>
+                                <div>
+                                  <span className="text-xs font-medium" style={{ color: '#333333' }}>Tags:</span>
+                                  <div className="flex gap-2 mt-1">
+                                    {jobContext.jobDescription.tags.map((tag, index) => (
+                                      <span key={index} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: '#F0F0EB', color: '#666663' }}>{tag}</span>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          {/* Responsibilities */}
+                          <AccordionItem value="responsibilities" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
+                            <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
+                              <div className="flex items-center gap-2">
+                                <Target className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Responsibilities</span>
+                              </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
+                              <ul className="space-y-2 pt-3">
+                                {jobContext.responsibilities.map((item, index) => (
+                                  <li key={index} className="flex items-start gap-2">
+                                    <CheckCircle className="w-3 h-3 mt-1 shrink-0" style={{ color: '#CC785C' }} />
+                                    <span className="text-sm" style={{ color: '#666663' }}>{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          {/* Required Experience */}
+                          <AccordionItem value="requiredExperience" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
+                            <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
+                              <div className="flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Required Experience</span>
+                              </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
+                              <ul className="space-y-2 pt-3">
+                                {jobContext.requiredExperience.map((item, index) => (
+                                  <li key={index} className="flex items-start gap-2">
+                                    <CheckCircle className="w-3 h-3 mt-1 shrink-0" style={{ color: '#CC785C' }} />
+                                    <span className="text-sm" style={{ color: '#666663' }}>{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          {/* Preferred Experience */}
+                          <AccordionItem value="preferredExperience" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
+                            <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
+                              <div className="flex items-center gap-2">
+                                <Star className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Preferred Experience</span>
+                              </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
+                              <ul className="space-y-2 pt-3">
+                                {jobContext.preferredExperience.map((item, index) => (
+                                  <li key={index} className="flex items-start gap-2">
+                                    <Star className="w-3 h-3 mt-1 shrink-0" style={{ color: '#999999' }} />
+                                    <span className="text-sm" style={{ color: '#666663' }}>{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </AccordionContent>
+                          </AccordionItem>
+
                           <AccordionItem value="hiringPhilosophy" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
                               <div className="flex items-center gap-2">
@@ -379,12 +517,19 @@ const JobBrain = () => {
                           <AccordionItem value="redFlags" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
                               <div className="flex items-center gap-2">
-                                <AlertTriangle className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <AlertTriangle className="w-4 h-4" style={{ color: '#DC2626' }} />
                                 <span className="text-sm font-normal" style={{ color: '#333333' }}>Red Flags</span>
                               </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.redFlags}</p>
+                              <ul className="space-y-2 pt-3">
+                                {jobContext.redFlags.map((flag, index) => (
+                                  <li key={index} className="flex items-start gap-2">
+                                    <AlertTriangle className="w-3 h-3 mt-1 shrink-0" style={{ color: '#DC2626' }} />
+                                    <span className="text-sm" style={{ color: '#DC2626' }}>{flag}</span>
+                                  </li>
+                                ))}
+                              </ul>
                             </AccordionContent>
                           </AccordionItem>
 
