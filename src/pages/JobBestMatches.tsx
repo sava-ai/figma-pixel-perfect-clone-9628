@@ -245,7 +245,7 @@ const JobBestMatches = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 3v18" />
             </svg>
           </button>
-          <UserMenu initials="TW" src={userAvatarImage} />
+          <UserMenu initials="TW" src={userAvatarImage} size="sm" />
         </div>
       </header>
 

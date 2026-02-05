@@ -209,7 +209,7 @@ const JobPeopleView = () => {
 
         {/* Right side - Profile */}
         <div className="flex items-center gap-2">
-          <UserMenu initials="TW" src={userAvatarImage} />
+          <UserMenu initials="TW" src={userAvatarImage} size="sm" />
         </div>
       </header>
 
