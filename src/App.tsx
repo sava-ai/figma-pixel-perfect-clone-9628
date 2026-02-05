@@ -13,6 +13,7 @@ import JobBestMatchesReviewed from "./pages/JobBestMatchesReviewed";
 import JobPipeline from "./pages/JobPipeline";
 import JobApplicants from "./pages/JobApplicants";
 import JobBrain from "./pages/JobBrain";
+import JobReviewHistory from "./pages/JobReviewHistory";
 import Calendar from "./pages/Calendar";
 import Messages from "./pages/Messages";
 import NotFound from "./pages/NotFound";
@@ -37,6 +38,7 @@ const App = () => (
             <Route path="/job/applicants" element={<JobApplicants />} />
             <Route path="/job/pipeline" element={<JobPipeline />} />
             <Route path="/job/brain" element={<JobBrain />} />
+            <Route path="/job/review-history" element={<JobReviewHistory />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/joboffer" element={<JobOffer />} />
