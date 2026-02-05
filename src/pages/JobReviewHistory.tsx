@@ -162,7 +162,49 @@ const JobReviewHistory = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden justify-center" style={{ backgroundColor: '#FBFAF9' }}>
-        <div className="h-full w-full max-w-[1200px] flex flex-col pt-6 pb-3">
+        <div className="h-full w-full max-w-[1200px] flex flex-col pt-6 pb-3 overflow-y-auto">
+          <div className="mx-6">
+            {/* Key Insights Section */}
+            <div className="mb-5">
+              <h3 className="mb-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>
+                Key insights
+              </h3>
+              <p className="text-xs font-medium mb-2" style={{ color: '#666663' }}>
+                What Laidback learned from your feedback
+              </p>
+              <div 
+                className="min-h-[100px] text-sm p-3 rounded-md border border-[#D9D9D9]"
+                style={{ backgroundColor: '#FAFAF9', color: '#333333' }}
+              >
+                Based on your ratings, you prefer candidates with strong B2B sales experience at SaaS companies. You rated international experience highly and rejected candidates lacking CRM proficiency. Candidates with proven quota achievement are consistently saved.
+              </div>
+            </div>
+
+            {/* Brain Adjustments Section */}
+            <div className="mb-6">
+              <h3 className="mb-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>
+                Brain adjustments
+              </h3>
+              <p className="text-xs font-medium mb-2" style={{ color: '#666663' }}>
+                What will change based on your feedback
+              </p>
+              <div 
+                className="min-h-[100px] text-sm p-3 rounded-md border border-[#D9D9D9]"
+                style={{ backgroundColor: '#FAFAF9', color: '#333333' }}
+              >
+                • Increased weight on B2B SaaS experience (+15%)<br />
+                • CRM proficiency now marked as critical requirement<br />
+                • International experience boosted in scoring<br />
+                • Candidates without direct sales roles deprioritized
+              </div>
+            </div>
+
+            {/* Review History Section Title */}
+            <h3 className="mb-4" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>
+              Review history
+            </h3>
+          </div>
+          
           <div className="flex-1 overflow-hidden mx-6">
             <div className="flex gap-4 h-full">
               {/* Left Panel - Batches */}
