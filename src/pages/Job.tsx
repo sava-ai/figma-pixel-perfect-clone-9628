@@ -985,7 +985,7 @@ Qualifications
                   Edit
                 </button>
                 <button
-                  onClick={() => navigate('/job/people/view')}
+                  onClick={() => navigate('/job/people')}
                   className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-white transition-colors hover:opacity-90"
                   style={{ backgroundColor: '#CD785C' }}
                 >
