@@ -42,6 +42,18 @@ const Job = () => {
     country: 'Poland',
     workType: 'hybrid' as 'hybrid' | 'remote' | 'office',
     
+    // Company info
+    companyWebsite: 'stepapp.io',
+    whatYouSell: 'AI-powered gamified learning platform for K-12 students, helping them master subjects through interactive challenges and adaptive learning paths.',
+    missionVisionValues: 'Mission: Make learning fun and accessible for every student. Vision: To become the world\'s leading gamified education platform. Values: Innovation, inclusivity, student success, and continuous improvement.',
+    employeeCount: '50-200 employees',
+    companyLocation: 'Warsaw, Poland',
+    leadership: 'CEO: Maria Kowalska (former Google Education PM) • CTO: Piotr Nowak (ex-Spotify engineer) • VP Sales: Anna Wiśniewska (10+ years B2B SaaS)',
+    uniqueDifferentiators: 'Patented AI-driven adaptive learning engine, partnerships with 500+ schools across Europe, proven 40% improvement in student test scores, and the only platform combining gamification with curriculum alignment.',
+    workingCulture: 'Hybrid work model with 2 days in Warsaw office. Fast-paced startup environment with strong emphasis on autonomy and ownership. Weekly team syncs, monthly all-hands, and quarterly off-sites. Flat hierarchy with open-door policy.',
+    keyAchievements: '• Series A funding of €15M in 2024 • Winner of EdTech Europe Award 2023 • 2M+ active students • Featured in TechCrunch and Forbes • Expanded to 12 countries in 2 years',
+    companyTags: ['Private Company', 'B2B Sales', 'EdTech', 'Series A', 'AI/ML'],
+    
     // Salary
     salaryMin: '',
     salaryMax: '',
@@ -417,59 +429,129 @@ Qualifications
                         </div>
                         <div>
                           <label className="text-sm text-muted-foreground mb-1 block">Company Website</label>
-                          <p className="text-foreground">stepapp.io</p>
+                          {isEditMode ? (
+                            <Input
+                              value={formData.companyWebsite}
+                              onChange={(e) => setFormData({...formData, companyWebsite: e.target.value})}
+                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
+                            />
+                          ) : (
+                            <p className="text-foreground">{formData.companyWebsite}</p>
+                          )}
                         </div>
                       </div>
                       
                       <div>
                         <label className="text-sm text-muted-foreground mb-1 block">What do you sell?</label>
-                        <p className="text-foreground">AI-powered gamified learning platform for K-12 students, helping them master subjects through interactive challenges and adaptive learning paths.</p>
+                        {isEditMode ? (
+                          <Textarea
+                            value={formData.whatYouSell}
+                            onChange={(e) => setFormData({...formData, whatYouSell: e.target.value})}
+                            className="border-[#CD785C] focus-visible:ring-[#CD785C] min-h-[80px] resize-none"
+                          />
+                        ) : (
+                          <p className="text-foreground">{formData.whatYouSell}</p>
+                        )}
                       </div>
 
                       <div>
                         <label className="text-sm text-muted-foreground mb-1 block">Mission, Vision, Values</label>
-                        <p className="text-foreground">Mission: Make learning fun and accessible for every student. Vision: To become the world's leading gamified education platform. Values: Innovation, inclusivity, student success, and continuous improvement.</p>
+                        {isEditMode ? (
+                          <Textarea
+                            value={formData.missionVisionValues}
+                            onChange={(e) => setFormData({...formData, missionVisionValues: e.target.value})}
+                            className="border-[#CD785C] focus-visible:ring-[#CD785C] min-h-[80px] resize-none"
+                          />
+                        ) : (
+                          <p className="text-foreground">{formData.missionVisionValues}</p>
+                        )}
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <label className="text-sm text-muted-foreground mb-1 block">Employee Count</label>
-                          <p className="text-foreground">50-200 employees</p>
+                          {isEditMode ? (
+                            <Input
+                              value={formData.employeeCount}
+                              onChange={(e) => setFormData({...formData, employeeCount: e.target.value})}
+                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
+                            />
+                          ) : (
+                            <p className="text-foreground">{formData.employeeCount}</p>
+                          )}
                         </div>
                         <div>
                           <label className="text-sm text-muted-foreground mb-1 block">Location</label>
-                          <p className="text-foreground">Warsaw, Poland</p>
+                          {isEditMode ? (
+                            <Input
+                              value={formData.companyLocation}
+                              onChange={(e) => setFormData({...formData, companyLocation: e.target.value})}
+                              className="border-[#CD785C] focus-visible:ring-[#CD785C]"
+                            />
+                          ) : (
+                            <p className="text-foreground">{formData.companyLocation}</p>
+                          )}
                         </div>
                       </div>
 
                       <div>
                         <label className="text-sm text-muted-foreground mb-1 block">Leadership</label>
-                        <p className="text-foreground">CEO: Maria Kowalska (former Google Education PM) • CTO: Piotr Nowak (ex-Spotify engineer) • VP Sales: Anna Wiśniewska (10+ years B2B SaaS)</p>
+                        {isEditMode ? (
+                          <Textarea
+                            value={formData.leadership}
+                            onChange={(e) => setFormData({...formData, leadership: e.target.value})}
+                            className="border-[#CD785C] focus-visible:ring-[#CD785C] min-h-[60px] resize-none"
+                          />
+                        ) : (
+                          <p className="text-foreground">{formData.leadership}</p>
+                        )}
                       </div>
 
                       <div>
                         <label className="text-sm text-muted-foreground mb-1 block">Unique Differentiators</label>
-                        <p className="text-foreground">Patented AI-driven adaptive learning engine, partnerships with 500+ schools across Europe, proven 40% improvement in student test scores, and the only platform combining gamification with curriculum alignment.</p>
+                        {isEditMode ? (
+                          <Textarea
+                            value={formData.uniqueDifferentiators}
+                            onChange={(e) => setFormData({...formData, uniqueDifferentiators: e.target.value})}
+                            className="border-[#CD785C] focus-visible:ring-[#CD785C] min-h-[80px] resize-none"
+                          />
+                        ) : (
+                          <p className="text-foreground">{formData.uniqueDifferentiators}</p>
+                        )}
                       </div>
 
                       <div>
                         <label className="text-sm text-muted-foreground mb-1 block">Working Culture</label>
-                        <p className="text-foreground">Hybrid work model with 2 days in Warsaw office. Fast-paced startup environment with strong emphasis on autonomy and ownership. Weekly team syncs, monthly all-hands, and quarterly off-sites. Flat hierarchy with open-door policy.</p>
+                        {isEditMode ? (
+                          <Textarea
+                            value={formData.workingCulture}
+                            onChange={(e) => setFormData({...formData, workingCulture: e.target.value})}
+                            className="border-[#CD785C] focus-visible:ring-[#CD785C] min-h-[80px] resize-none"
+                          />
+                        ) : (
+                          <p className="text-foreground">{formData.workingCulture}</p>
+                        )}
                       </div>
 
                       <div>
                         <label className="text-sm text-muted-foreground mb-1 block">Key Achievements</label>
-                        <p className="text-foreground">• Series A funding of €15M in 2024 • Winner of EdTech Europe Award 2023 • 2M+ active students • Featured in TechCrunch and Forbes • Expanded to 12 countries in 2 years</p>
+                        {isEditMode ? (
+                          <Textarea
+                            value={formData.keyAchievements}
+                            onChange={(e) => setFormData({...formData, keyAchievements: e.target.value})}
+                            className="border-[#CD785C] focus-visible:ring-[#CD785C] min-h-[80px] resize-none"
+                          />
+                        ) : (
+                          <p className="text-foreground">{formData.keyAchievements}</p>
+                        )}
                       </div>
 
                       <div>
                         <label className="text-sm text-muted-foreground mb-1 block">Company Tags</label>
                         <div className="flex flex-wrap gap-2">
-                          <span className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>Private Company</span>
-                          <span className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>B2B Sales</span>
-                          <span className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>EdTech</span>
-                          <span className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>Series A</span>
-                          <span className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>AI/ML</span>
+                          {formData.companyTags.map((tag, index) => (
+                            <span key={index} className="px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EDE9E1', color: '#302C24' }}>{tag}</span>
+                          ))}
                         </div>
                       </div>
                     </div>
