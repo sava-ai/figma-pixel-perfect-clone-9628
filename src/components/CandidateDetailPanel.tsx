@@ -426,45 +426,70 @@ const CandidateDetailPanel = ({
             <h3 className="text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'CooperLight, serif', color: '#333333' }}>
               Technical Requirements
             </h3>
-            <div className="bg-white rounded-lg px-3 border border-[#EEEDEC]">
+            <div className="bg-white rounded-lg border border-[#EEEDEC]">
               {/* Python */}
-              <div className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3]">
-                <span className="text-sm text-[#292524]">Python</span>
-                <span className="h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#E8F5E8] text-[#2D7A2D]">
-                  Full match
-                </span>
+              <div className="py-3 px-3 border-b border-[#F3F3F3]">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-sm text-[#292524] font-medium">Python</span>
+                  <span className="h-6 min-w-[80px] text-[11px] font-medium px-2 flex items-center justify-center rounded bg-[#F5F5F5] text-[#666666]">
+                    Verify Claims
+                  </span>
+                </div>
+                <p className="text-xs text-[#666666] leading-relaxed">
+                  Python at {candidate.roles[0]?.company || 'previous companies'} and {candidate.roles[1]?.company || 'other roles'}. No public Python code visible. Resume-only.
+                </p>
               </div>
               
               {/* TypeScript/React */}
-              <div className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3]">
-                <span className="text-sm text-[#292524]">TypeScript/React</span>
-                <span className="h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#F5F5F5] text-[#666666]">
-                  Part match
-                </span>
+              <div className="py-3 px-3 border-b border-[#F3F3F3]">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-sm text-[#292524] font-medium">TypeScript/React</span>
+                  <span className="h-6 min-w-[80px] text-[11px] font-medium px-2 flex items-center justify-center rounded bg-[#F5F5F5] text-[#666666]">
+                    Verify Claims
+                  </span>
+                </div>
+                <p className="text-xs text-[#666666] leading-relaxed">
+                  TypeScript/React at {candidate.roles[0]?.company || 'current role'} and {candidate.roles[1]?.company || 'previous roles'}. No public repos. Resume-only.
+                </p>
               </div>
               
               {/* APIs & System Design */}
-              <div className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3]">
-                <span className="text-sm text-[#292524]">APIs & System Design</span>
-                <span className="h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#E8F5E8] text-[#2D7A2D]">
-                  Full match
-                </span>
+              <div className="py-3 px-3 border-b border-[#F3F3F3]">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-sm text-[#292524] font-medium">APIs & System Design</span>
+                  <span className="h-6 min-w-[80px] text-[11px] font-medium px-2 flex items-center justify-center rounded bg-[#E8F5E8] text-[#2D7A2D]">
+                    Yes
+                  </span>
+                </div>
+                <p className="text-xs text-[#666666] leading-relaxed">
+                  4 years at {candidate.roles[0]?.company || 'enterprise company'} building product APIs. {candidate.roles[1]?.company || 'Previous role'} backend (GCP: Bigtable, Pub/Sub).
+                </p>
               </div>
               
               {/* Cloud Infrastructure */}
-              <div className="flex items-center justify-between py-2.5 border-b border-[#F3F3F3]">
-                <span className="text-sm text-[#292524]">Cloud Infrastructure</span>
-                <span className="h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#F5F5F5] text-[#666666]">
-                  Part match
-                </span>
+              <div className="py-3 px-3 border-b border-[#F3F3F3]">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-sm text-[#292524] font-medium">Cloud Infrastructure</span>
+                  <span className="h-6 min-w-[80px] text-[11px] font-medium px-2 flex items-center justify-center rounded bg-[#E8F5E8] text-[#2D7A2D]">
+                    Yes
+                  </span>
+                </div>
+                <p className="text-xs text-[#666666] leading-relaxed">
+                  GCP at {candidate.roles[0]?.company || 'current company'} (Bigtable, Cloud SQL). AWS at {candidate.roles[1]?.company || 'previous company'} (Step Functions, DynamoDB, S3).
+                </p>
               </div>
               
               {/* AI/ML Understanding */}
-              <div className="flex items-center justify-between py-2.5">
-                <span className="text-sm text-[#292524]">AI/ML Understanding</span>
-                <span className="h-7 min-w-[100px] text-xs font-medium px-2.5 flex items-center justify-center rounded bg-[#FDEAEA] text-[#D32F2F]">
-                  No match
-                </span>
+              <div className="py-3 px-3">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-sm text-[#292524] font-medium">AI/ML Understanding</span>
+                  <span className="h-6 min-w-[80px] text-[11px] font-medium px-2 flex items-center justify-center rounded bg-[#FDEAEA] text-[#D32F2F]">
+                    No
+                  </span>
+                </div>
+                <p className="text-xs text-[#666666] leading-relaxed">
+                  No AI/ML experience visible. Early career research was neuroscience-adjacent, not ML.
+                </p>
               </div>
             </div>
           </div>
