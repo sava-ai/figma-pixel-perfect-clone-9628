@@ -117,18 +117,18 @@ const JobBrain = () => {
                         onClick={() => setSelectedVersion(version)}
                         className={`w-full text-left px-3 py-3 rounded-lg transition-colors mb-1 ${
                           selectedVersion.id === version.id
-                            ? 'bg-violet-50 border border-violet-200'
-                            : 'hover:bg-gray-50'
+                            ? 'bg-[#FDF8F6] border border-[#E8D5CE]'
+                            : 'hover:bg-[#FAFAF7]'
                         }`}
                       >
                         <div className="flex items-center justify-between">
                           <span className={`text-sm font-medium ${
-                            selectedVersion.id === version.id ? 'text-violet-700' : 'text-gray-900'
+                            selectedVersion.id === version.id ? 'text-[#CC785C]' : 'text-gray-900'
                           }`}>
                             {version.label}
                           </span>
                           {version.active && (
-                            <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full">
+                            <span className="text-xs px-2 py-0.5 bg-[#E8F5E8] text-[#2E7D32] rounded-full">
                               Active
                             </span>
                           )}
@@ -141,202 +141,227 @@ const JobBrain = () => {
               </div>
 
               {/* Right Panel - Context Accordions */}
-              <div className="flex-1 bg-white border border-[#EEEDEC] rounded-xl overflow-y-auto p-6">
-            {/* Company Context Section */}
-            <div className="mb-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
+              <div className="flex-1 bg-white border border-[#EEEDEC] rounded-xl overflow-hidden flex flex-col">
+                {/* Panel Header */}
+                <div className="p-5 border-b border-[#EEEDEC]">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 style={{ fontFamily: 'CooperLight, sans-serif', fontSize: '1.25rem', color: '#333333' }}>
+                        {selectedVersion.label} - Brain Context
+                      </h2>
+                      <p className="text-sm text-gray-500 mt-1">{selectedVersion.date}</p>
+                    </div>
+                    {selectedVersion.active && (
+                      <span className="text-xs px-3 py-1 bg-[#E8F5E8] text-[#2E7D32] rounded-full font-medium">
+                        Active Version
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <h2 className="text-lg font-semibold text-gray-900">Company Context</h2>
+                
+                <ScrollArea className="flex-1">
+                  <div className="p-5 space-y-6">
+                    {/* Company Context Section */}
+                    <div>
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#E8F5E8' }}>
+                          <svg className="w-4 h-4" style={{ color: '#2E7D32' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                          </svg>
+                        </div>
+                        <h3 className="text-sm font-medium" style={{ color: '#333333' }}>Company Context</h3>
+                      </div>
+
+                      <div className="rounded-lg border border-[#E6E6E6] overflow-hidden" style={{ backgroundColor: '#FAFAF9' }}>
+                        <Accordion type="multiple" className="divide-y divide-[#E6E6E6]">
+                          <AccordionItem value="mission" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Mission</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {companyContext.mission}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="vision" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Vision</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {companyContext.vision}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="values" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Values</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {companyContext.values}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="sizeLocation" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Size & Location</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {companyContext.sizeLocation}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="productServices" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Product & Services</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {companyContext.productServices}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="leadership" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Leadership</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {companyContext.leadership}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="uniqueDifferentiators" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Unique Differentiators</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {companyContext.uniqueDifferentiators}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="workingCulture" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Working Culture</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {companyContext.workingCulture}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="keyAchievements" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Key Achievements</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {companyContext.keyAchievements}
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Accordion>
+                      </div>
+                    </div>
+
+                    {/* Job Context Section */}
+                    <div>
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#FDF8F6' }}>
+                          <svg className="w-4 h-4" style={{ color: '#CC785C' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                        <h3 className="text-sm font-medium" style={{ color: '#333333' }}>Job Context</h3>
+                      </div>
+
+                      <div className="rounded-lg border border-[#E6E6E6] overflow-hidden" style={{ backgroundColor: '#FAFAF9' }}>
+                        <Accordion type="multiple" className="divide-y divide-[#E6E6E6]">
+                          <AccordionItem value="hiringPhilosophy" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Hiring Philosophy</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {jobContext.hiringPhilosophy}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="cultureFitPreferences" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Culture Fit Preferences</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {jobContext.cultureFitPreferences}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="technicalChallenges" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Technical Challenges</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {jobContext.technicalChallenges}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="coreRequirements" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Core Requirements</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {jobContext.coreRequirements}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="softRequirements" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Soft Requirements</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {jobContext.softRequirements}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="redFlags" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Red Flags</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {jobContext.redFlags}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="technicalSkills" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Technical Skills</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {jobContext.technicalSkills}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="culturalFit" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Cultural Fit</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {jobContext.culturalFit}
+                            </AccordionContent>
+                          </AccordionItem>
+
+                          <AccordionItem value="derivedSignals" className="border-none px-3">
+                            <AccordionTrigger className="py-3 hover:no-underline">
+                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Derived Signals</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm pb-3" style={{ color: '#666663' }}>
+                              {jobContext.derivedSignals}
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Accordion>
+                      </div>
+                    </div>
+                  </div>
+                </ScrollArea>
               </div>
-
-              <Accordion type="multiple" className="divide-y divide-[#EEEDEC]">
-                <AccordionItem value="mission" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Mission</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {companyContext.mission}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="vision" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Vision</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {companyContext.vision}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="values" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Values</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {companyContext.values}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="sizeLocation" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Size & Location</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {companyContext.sizeLocation}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="productServices" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Product & Services</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {companyContext.productServices}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="leadership" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Leadership</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {companyContext.leadership}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="uniqueDifferentiators" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Unique Differentiators</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {companyContext.uniqueDifferentiators}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="workingCulture" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Working Culture</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {companyContext.workingCulture}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="keyAchievements" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Key Achievements</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {companyContext.keyAchievements}
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-
-            {/* Job Context Section */}
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <h2 className="text-lg font-semibold text-gray-900">Job Context</h2>
-              </div>
-
-              <Accordion type="multiple" className="divide-y divide-[#EEEDEC]">
-                <AccordionItem value="hiringPhilosophy" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Hiring Philosophy</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {jobContext.hiringPhilosophy}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="cultureFitPreferences" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Culture Fit Preferences</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {jobContext.cultureFitPreferences}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="technicalChallenges" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Technical Challenges</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {jobContext.technicalChallenges}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="coreRequirements" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Core Requirements</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {jobContext.coreRequirements}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="softRequirements" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Soft Requirements</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {jobContext.softRequirements}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="redFlags" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Red Flags</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {jobContext.redFlags}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="technicalSkills" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Technical Skills</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {jobContext.technicalSkills}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="culturalFit" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Cultural Fit</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {jobContext.culturalFit}
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="derivedSignals" className="border-none">
-                  <AccordionTrigger className="py-4 hover:no-underline">
-                    <span className="text-sm font-normal text-gray-900">Derived Signals</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-gray-600 pb-4">
-                    {jobContext.derivedSignals}
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
   );
 };
 
