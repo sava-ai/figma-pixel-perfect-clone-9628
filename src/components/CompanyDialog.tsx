@@ -72,11 +72,11 @@ export const CompanyDialog: React.FC<CompanyDialogProps> = ({ open, onOpenChange
           <div className="p-6 space-y-4 max-h-[500px] overflow-y-auto">
             <div>
               <label className="block text-sm font-medium mb-1.5" style={{ color: '#333333' }}>
-                Company Name <span className="text-red-500">*</span>
+                Company Name <span style={{ color: '#CC785C' }}>*</span>
               </label>
               <Input 
                 placeholder="Enter company name" 
-                className="border-[#D9D9D9] focus:border-[#333333]"
+                className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] bg-white"
                 defaultValue={company.name}
               />
             </div>
@@ -87,20 +87,20 @@ export const CompanyDialog: React.FC<CompanyDialogProps> = ({ open, onOpenChange
               </label>
               <Input 
                 placeholder="https://example.com" 
-                className="border-[#D9D9D9] focus:border-[#333333]"
+                className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] bg-white"
                 defaultValue={company.website}
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium mb-1.5" style={{ color: '#333333' }}>
-                What do you sell? <span className="text-red-500">*</span>
+                What do you sell? <span style={{ color: '#CC785C' }}>*</span>
               </label>
               <Textarea 
                 placeholder="Describe your product or service..." 
-                className="border-[#D9D9D9] focus:border-[#333333] min-h-[80px] resize-none"
+                className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] min-h-[80px] resize-none bg-white"
               />
-              <p className="text-xs mt-1" style={{ color: '#888888' }}>
+              <p className="text-xs mt-1" style={{ color: '#91918D' }}>
                 Used to qualify prospects and craft relevant messages
               </p>
             </div>
@@ -111,7 +111,7 @@ export const CompanyDialog: React.FC<CompanyDialogProps> = ({ open, onOpenChange
               </label>
               <Textarea 
                 placeholder="Ideal buyer profile—role, company size, industry..." 
-                className="border-[#D9D9D9] focus:border-[#333333] min-h-[80px] resize-none"
+                className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] min-h-[80px] resize-none bg-white"
               />
             </div>
 
@@ -121,7 +121,7 @@ export const CompanyDialog: React.FC<CompanyDialogProps> = ({ open, onOpenChange
               </label>
               <Input 
                 placeholder="e.g., 50-200" 
-                className="border-[#D9D9D9] focus:border-[#333333]"
+                className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] bg-white"
                 defaultValue={company.employees}
               />
             </div>
@@ -132,17 +132,17 @@ export const CompanyDialog: React.FC<CompanyDialogProps> = ({ open, onOpenChange
               </label>
               <Input 
                 placeholder="Enter tags separated by commas" 
-                className="border-[#D9D9D9] focus:border-[#333333]"
+                className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] bg-white"
               />
             </div>
 
             <div className="pt-2 border-t border-[#E6E6E6]">
-              <p className="text-xs uppercase tracking-wide mb-3" style={{ color: '#666666' }}>
+              <p className="text-xs uppercase tracking-wide mb-3" style={{ color: '#91918D' }}>
                 About You
               </p>
               <Textarea 
                 placeholder="Your background for more personal messages..." 
-                className="border-[#D9D9D9] focus:border-[#333333] min-h-[80px] resize-none"
+                className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] min-h-[80px] resize-none bg-white"
               />
             </div>
 
@@ -159,14 +159,15 @@ export const CompanyDialog: React.FC<CompanyDialogProps> = ({ open, onOpenChange
             <div className="pt-2 flex gap-3">
               <Button 
                 variant="outline"
-                className="flex-1 border-[#D9D9D9]"
+                className="flex-1 border-[#E6E6E6] hover:bg-[#F0F0EB]"
                 onClick={() => onOpenChange(false)}
+                style={{ color: '#333333' }}
               >
                 Cancel
               </Button>
               <Button 
                 className="flex-1"
-                style={{ backgroundColor: '#333333', color: 'white' }}
+                style={{ backgroundColor: '#CC785C', color: 'white' }}
               >
                 Save changes
               </Button>
@@ -177,7 +178,7 @@ export const CompanyDialog: React.FC<CompanyDialogProps> = ({ open, onOpenChange
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent className="sm:max-w-[400px] bg-white">
+        <AlertDialogContent className="sm:max-w-[400px] bg-white border-[#E6E6E6]">
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2" style={{ color: '#333333' }}>
               <AlertTriangle className="w-5 h-5 text-red-500" />
@@ -194,7 +195,7 @@ export const CompanyDialog: React.FC<CompanyDialogProps> = ({ open, onOpenChange
                       This company is currently assigned to published jobs. To delete it, first archive or delete the associated jobs, or reassign them to a different company.
                     </p>
                   </div>
-                  <p className="text-xs" style={{ color: '#888888' }}>
+                  <p className="text-xs" style={{ color: '#91918D' }}>
                     Associated jobs: {company.jobs?.join(', ')}
                   </p>
                 </div>
@@ -211,7 +212,7 @@ export const CompanyDialog: React.FC<CompanyDialogProps> = ({ open, onOpenChange
                       placeholder={company.name}
                       value={confirmName}
                       onChange={(e) => setConfirmName(e.target.value)}
-                      className="border-[#D9D9D9] focus:border-[#333333]"
+                      className="border-[#E6E6E6] focus:border-[#CC785C] focus:ring-[#CC785C] bg-white"
                     />
                   </div>
                 </div>
@@ -219,7 +220,10 @@ export const CompanyDialog: React.FC<CompanyDialogProps> = ({ open, onOpenChange
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="border-[#D9D9D9]">
+            <AlertDialogCancel 
+              className="border-[#E6E6E6] hover:bg-[#F0F0EB]"
+              style={{ color: '#333333' }}
+            >
               {hasPublishedJobs ? 'Close' : 'Cancel'}
             </AlertDialogCancel>
             {!hasPublishedJobs && (
