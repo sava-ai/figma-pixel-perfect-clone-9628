@@ -44,11 +44,11 @@ import { User, Plug, CreditCard, BarChart3, Building2, LogOut } from 'lucide-rea
              <UserAvatar initials={initials} src={src} />
            </button>
          </PopoverTrigger>
-         <PopoverContent 
-           className="w-52 p-2 bg-white border-[#E6E6E6]" 
-           align="end"
-           sideOffset={8}
-         >
+        <PopoverContent 
+            className="w-52 p-2 bg-white border-[#E6E6E6]" 
+            align="end"
+            sideOffset={8}
+          >
           <div className="space-y-1">
               {menuItems.map((item) => {
                 const Icon = item.icon;
@@ -56,7 +56,7 @@ import { User, Plug, CreditCard, BarChart3, Building2, LogOut } from 'lucide-rea
                   <button
                     key={item.id}
                     onClick={() => handleItemClick(item.id)}
-                    className="w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-md hover:bg-[#F5F5F3] transition-colors text-left"
+                    className="w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-md hover:bg-[#FAFAF7] transition-colors text-left"
                     style={{ color: '#333333' }}
                   >
                     <div className="w-7 h-7 rounded-md flex items-center justify-center bg-[#F0F0EB]">
@@ -70,7 +70,7 @@ import { User, Plug, CreditCard, BarChart3, Building2, LogOut } from 'lucide-rea
             <div className="border-t border-[#E6E6E6] mt-2 pt-2">
               <button
                 onClick={() => setPopoverOpen(false)}
-                className="w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-md hover:bg-[#F5F5F3] transition-colors text-left"
+                className="w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-md hover:bg-[#FAFAF7] transition-colors text-left"
                 style={{ color: '#333333' }}
               >
                 <div className="w-7 h-7 rounded-md flex items-center justify-center bg-[#F0F0EB]">
