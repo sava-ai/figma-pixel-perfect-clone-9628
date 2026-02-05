@@ -5,6 +5,7 @@ import { ProfileDialog } from '@/components/ProfileDialog';
 import { ApplicantReviewDialog } from '@/components/ApplicantReviewDialog';
 import { RejectionDialog } from '@/components/RejectionDialog';
 import { InviteDialog } from '@/components/InviteDialog';
+import { UserMenu } from '@/components/UserMenu';
 
 import { BulkContactDialog } from '@/components/BulkContactDialog';
 import CandidateDetailPanel from '@/components/CandidateDetailPanel';
@@ -208,7 +209,7 @@ const JobPeopleView = () => {
 
         {/* Right side - Profile */}
         <div className="flex items-center gap-2">
-          <img src={userAvatarImage} alt="Profile" className="w-7 h-7 rounded-full object-cover border-2 border-gray-200" />
+          <UserMenu initials="TW" src={userAvatarImage} />
         </div>
       </header>
 

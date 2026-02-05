@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronDown, MoreVertical } from 'lucide-react';
 import { InviteDialog } from '@/components/InviteDialog';
+import { UserMenu } from '@/components/UserMenu';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon-new.png';
 import profile1 from '@/assets/profile-1.jpg';
@@ -185,7 +186,7 @@ const JobPeople = () => {
 
         {/* Right side - Profile */}
         <div className="flex items-center gap-2">
-          <img src={userAvatarImage} alt="Profile" className="w-7 h-7 rounded-full object-cover border-2 border-gray-200" />
+          <UserMenu initials="TW" src={userAvatarImage} />
         </div>
       </header>
 

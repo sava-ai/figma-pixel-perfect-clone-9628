@@ -7,6 +7,7 @@ import CandidateDetailPanel from '@/components/CandidateDetailPanel';
 import CandidateProfilePanel from '@/components/CandidateProfilePanel';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { UserMenu } from '@/components/UserMenu';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon-new.png';
 import { bestCandidates } from '@/data/candidates';
@@ -244,7 +245,7 @@ const JobBestMatches = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 3v18" />
             </svg>
           </button>
-          <img src={userAvatarImage} alt="Profile" className="w-7 h-7 rounded-full object-cover border-2 border-gray-200" />
+          <UserMenu initials="TW" src={userAvatarImage} />
         </div>
       </header>
 

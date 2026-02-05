@@ -8,6 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { InviteDialog } from '@/components/InviteDialog';
 import { PublishingPlatformsDialog } from '@/components/PublishingPlatformsDialog';
+import { UserMenu } from '@/components/UserMenu';
 import userAvatarImage from '@/assets/user-avatar.png';
 import jobDropdownIcon from '@/assets/job-dropdown-icon-new.png';
 
@@ -355,11 +356,7 @@ Qualifications
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 3v18" />
             </svg>
           </button>
-          <img 
-            src={userAvatarImage} 
-            alt="Profile" 
-            className="w-7 h-7 rounded-full object-cover border-2 border-gray-200"
-          />
+          <UserMenu initials="TW" src={userAvatarImage} />
         </div>
       </header>
 
