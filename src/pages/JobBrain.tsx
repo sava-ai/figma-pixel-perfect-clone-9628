@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronRight } from 'lucide-react';
+import { ChevronDown, ChevronRight, Target, Eye, Heart, MapPin, Package, Users, Sparkles, Briefcase, Trophy, Brain, UserCheck, Wrench, CheckCircle, FileText, AlertTriangle, Code, Compass, Lightbulb } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Accordion,
@@ -183,41 +183,51 @@ const JobBrain = () => {
                           </svg>
                         </div>
                         <h3 className="text-sm font-medium" style={{ color: '#333333' }}>Company Context</h3>
-                        <span className="text-xs text-[#999999] ml-auto">9 items</span>
+                        <span className="text-xs text-[#999999] ml-auto">7 items</span>
                       </CollapsibleTrigger>
 
                       <CollapsibleContent>
                         <Accordion type="multiple" className="space-y-2 ml-7">
-                          <AccordionItem value="mission" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
+                          <AccordionItem value="missionVisionValues" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Mission</span>
+                              <div className="flex items-center gap-2">
+                                <Target className="w-4 h-4" style={{ color: '#2E7D32' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Mission, Vision & Values</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <p className="text-sm pt-3" style={{ color: '#666663' }}>{companyContext.mission}</p>
-                            </AccordionContent>
-                          </AccordionItem>
-
-                          <AccordionItem value="vision" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
-                            <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Vision</span>
-                            </AccordionTrigger>
-                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <p className="text-sm pt-3" style={{ color: '#666663' }}>{companyContext.vision}</p>
-                            </AccordionContent>
-                          </AccordionItem>
-
-                          <AccordionItem value="values" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
-                            <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Values</span>
-                            </AccordionTrigger>
-                            <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
-                              <p className="text-sm pt-3" style={{ color: '#666663' }}>{companyContext.values}</p>
+                              <div className="space-y-4 pt-3">
+                                <div>
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <Target className="w-3 h-3" style={{ color: '#666663' }} />
+                                    <span className="text-xs font-medium" style={{ color: '#333333' }}>Mission</span>
+                                  </div>
+                                  <p className="text-sm pl-5" style={{ color: '#666663' }}>{companyContext.mission}</p>
+                                </div>
+                                <div>
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <Eye className="w-3 h-3" style={{ color: '#666663' }} />
+                                    <span className="text-xs font-medium" style={{ color: '#333333' }}>Vision</span>
+                                  </div>
+                                  <p className="text-sm pl-5" style={{ color: '#666663' }}>{companyContext.vision}</p>
+                                </div>
+                                <div>
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <Heart className="w-3 h-3" style={{ color: '#666663' }} />
+                                    <span className="text-xs font-medium" style={{ color: '#333333' }}>Values</span>
+                                  </div>
+                                  <p className="text-sm pl-5" style={{ color: '#666663' }}>{companyContext.values}</p>
+                                </div>
+                              </div>
                             </AccordionContent>
                           </AccordionItem>
 
                           <AccordionItem value="sizeLocation" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Size & Location</span>
+                              <div className="flex items-center gap-2">
+                                <MapPin className="w-4 h-4" style={{ color: '#2E7D32' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Size & Location</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{companyContext.sizeLocation}</p>
@@ -226,7 +236,10 @@ const JobBrain = () => {
 
                           <AccordionItem value="productServices" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Product & Services</span>
+                              <div className="flex items-center gap-2">
+                                <Package className="w-4 h-4" style={{ color: '#2E7D32' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Product & Services</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{companyContext.productServices}</p>
@@ -235,7 +248,10 @@ const JobBrain = () => {
 
                           <AccordionItem value="leadership" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Leadership</span>
+                              <div className="flex items-center gap-2">
+                                <Users className="w-4 h-4" style={{ color: '#2E7D32' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Leadership</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{companyContext.leadership}</p>
@@ -244,7 +260,10 @@ const JobBrain = () => {
 
                           <AccordionItem value="uniqueDifferentiators" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Unique Differentiators</span>
+                              <div className="flex items-center gap-2">
+                                <Sparkles className="w-4 h-4" style={{ color: '#2E7D32' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Unique Differentiators</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{companyContext.uniqueDifferentiators}</p>
@@ -253,7 +272,10 @@ const JobBrain = () => {
 
                           <AccordionItem value="workingCulture" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Working Culture</span>
+                              <div className="flex items-center gap-2">
+                                <Briefcase className="w-4 h-4" style={{ color: '#2E7D32' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Working Culture</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{companyContext.workingCulture}</p>
@@ -262,7 +284,10 @@ const JobBrain = () => {
 
                           <AccordionItem value="keyAchievements" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Key Achievements</span>
+                              <div className="flex items-center gap-2">
+                                <Trophy className="w-4 h-4" style={{ color: '#2E7D32' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Key Achievements</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{companyContext.keyAchievements}</p>
@@ -293,7 +318,10 @@ const JobBrain = () => {
                         <Accordion type="multiple" className="space-y-2 ml-7">
                           <AccordionItem value="hiringPhilosophy" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Hiring Philosophy</span>
+                              <div className="flex items-center gap-2">
+                                <Brain className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Hiring Philosophy</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.hiringPhilosophy}</p>
@@ -302,7 +330,10 @@ const JobBrain = () => {
 
                           <AccordionItem value="cultureFitPreferences" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Culture Fit Preferences</span>
+                              <div className="flex items-center gap-2">
+                                <UserCheck className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Culture Fit Preferences</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.cultureFitPreferences}</p>
@@ -311,7 +342,10 @@ const JobBrain = () => {
 
                           <AccordionItem value="technicalChallenges" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Technical Challenges</span>
+                              <div className="flex items-center gap-2">
+                                <Wrench className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Technical Challenges</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.technicalChallenges}</p>
@@ -320,7 +354,10 @@ const JobBrain = () => {
 
                           <AccordionItem value="coreRequirements" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Core Requirements</span>
+                              <div className="flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Core Requirements</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.coreRequirements}</p>
@@ -329,7 +366,10 @@ const JobBrain = () => {
 
                           <AccordionItem value="softRequirements" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Soft Requirements</span>
+                              <div className="flex items-center gap-2">
+                                <FileText className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Soft Requirements</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.softRequirements}</p>
@@ -338,7 +378,10 @@ const JobBrain = () => {
 
                           <AccordionItem value="redFlags" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Red Flags</span>
+                              <div className="flex items-center gap-2">
+                                <AlertTriangle className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Red Flags</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.redFlags}</p>
@@ -347,7 +390,10 @@ const JobBrain = () => {
 
                           <AccordionItem value="technicalSkills" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Technical Skills</span>
+                              <div className="flex items-center gap-2">
+                                <Code className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Technical Skills</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.technicalSkills}</p>
@@ -356,7 +402,10 @@ const JobBrain = () => {
 
                           <AccordionItem value="culturalFit" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Cultural Fit</span>
+                              <div className="flex items-center gap-2">
+                                <Compass className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Cultural Fit</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.culturalFit}</p>
@@ -365,7 +414,10 @@ const JobBrain = () => {
 
                           <AccordionItem value="derivedSignals" className="border border-[#EEEDEC] rounded-lg bg-white overflow-hidden">
                             <AccordionTrigger className="py-3 px-4 hover:no-underline hover:bg-[#FAFAF7]">
-                              <span className="text-sm font-normal" style={{ color: '#333333' }}>Derived Signals</span>
+                              <div className="flex items-center gap-2">
+                                <Lightbulb className="w-4 h-4" style={{ color: '#CC785C' }} />
+                                <span className="text-sm font-normal" style={{ color: '#333333' }}>Derived Signals</span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-3 pt-0 border-t border-[#EEEDEC]">
                               <p className="text-sm pt-3" style={{ color: '#666663' }}>{jobContext.derivedSignals}</p>
