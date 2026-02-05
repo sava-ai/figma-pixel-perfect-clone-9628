@@ -21,6 +21,8 @@ interface ReviewBatch {
   candidatesReviewed: number;
   saved: number;
   rejected: number;
+  keyInsights: string;
+  brainAdjustments: string[];
   candidates: ReviewedCandidate[];
 }
 
@@ -32,6 +34,13 @@ const reviewBatches: ReviewBatch[] = [
     candidatesReviewed: 10,
     saved: 4,
     rejected: 6,
+    keyInsights: 'Based on your ratings, you prefer candidates with strong B2B sales experience at SaaS companies. You rated international experience highly and rejected candidates lacking CRM proficiency.',
+    brainAdjustments: [
+      'Increased weight on B2B SaaS experience (+15%)',
+      'CRM proficiency now marked as critical requirement',
+      'International experience boosted in scoring',
+      'Candidates without direct sales roles deprioritized',
+    ],
     candidates: [
       { id: 1, action: 'saved', rating: 3, feedback: 'Great experience at top companies, strong B2B sales background.' },
       { id: 2, action: 'rejected', rating: 2, feedback: 'Missing required CRM experience.' },
@@ -47,6 +56,12 @@ const reviewBatches: ReviewBatch[] = [
     candidatesReviewed: 8,
     saved: 3,
     rejected: 5,
+    keyInsights: 'You showed preference for candidates with enterprise sales backgrounds. Communication skills were valued but SaaS experience remained a differentiator.',
+    brainAdjustments: [
+      'Enterprise experience weight increased (+10%)',
+      'SaaS background remains priority filter',
+      'Communication skills added as soft signal',
+    ],
     candidates: [
       { id: 6, action: 'saved', rating: 3, feedback: 'Strong enterprise sales background.' },
       { id: 7, action: 'rejected', rating: 2, feedback: 'Limited SaaS experience.' },
@@ -60,6 +75,12 @@ const reviewBatches: ReviewBatch[] = [
     candidatesReviewed: 12,
     saved: 5,
     rejected: 7,
+    keyInsights: 'Industry background became a key factor in this batch. You consistently rejected candidates from unrelated industries while saving those with B2B track records.',
+    brainAdjustments: [
+      'Industry relevance check added to initial filter',
+      'B2B track record weight increased (+12%)',
+      'Unrelated industry experience flagged as concern',
+    ],
     candidates: [
       { id: 9, action: 'saved', rating: 3, feedback: 'Excellent track record in B2B.' },
       { id: 10, action: 'rejected', rating: 1, feedback: 'Wrong industry background.' },
@@ -72,6 +93,12 @@ const reviewBatches: ReviewBatch[] = [
     candidatesReviewed: 6,
     saved: 2,
     rejected: 4,
+    keyInsights: 'This batch revealed your openness to junior candidates with potential while being cautious about overqualified profiles that might not stay long-term.',
+    brainAdjustments: [
+      'Growth potential signal added for junior candidates',
+      'Overqualification flagged as retention risk',
+      'Career trajectory analysis improved',
+    ],
     candidates: [
       { id: 11, action: 'saved', rating: 2, feedback: 'Promising junior candidate.' },
       { id: 12, action: 'rejected', rating: 2, feedback: 'Overqualified for the role.' },
@@ -84,6 +111,12 @@ const reviewBatches: ReviewBatch[] = [
     candidatesReviewed: 10,
     saved: 4,
     rejected: 6,
+    keyInsights: 'Culture fit emerged as a strong signal. Candidates matching company values were consistently rated higher regardless of exact experience match.',
+    brainAdjustments: [
+      'Culture fit scoring introduced',
+      'Value alignment signals prioritized',
+      'Soft skills weight increased (+8%)',
+    ],
     candidates: [
       { id: 13, action: 'saved', rating: 3, feedback: 'Perfect culture fit.' },
       { id: 14, action: 'rejected', rating: 1, feedback: 'No relevant experience.' },
@@ -96,6 +129,12 @@ const reviewBatches: ReviewBatch[] = [
     candidatesReviewed: 5,
     saved: 1,
     rejected: 4,
+    keyInsights: 'Initial batch established baseline preferences. You valued potential and coachability in candidates even when experience was limited.',
+    brainAdjustments: [
+      'Baseline scoring model established',
+      'Coachability signals identified',
+      'Experience requirements calibrated',
+    ],
     candidates: [
       { id: 15, action: 'saved', rating: 2, feedback: 'Good potential, needs mentoring.' },
     ],
@@ -162,49 +201,7 @@ const JobReviewHistory = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden justify-center" style={{ backgroundColor: '#FBFAF9' }}>
-        <div className="h-full w-full max-w-[1200px] flex flex-col pt-6 pb-3 overflow-y-auto">
-          <div className="mx-6">
-            {/* Key Insights Section */}
-            <div className="mb-5">
-              <h3 className="mb-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>
-                Key insights
-              </h3>
-              <p className="text-xs font-medium mb-2" style={{ color: '#666663' }}>
-                What Laidback learned from your feedback
-              </p>
-              <div 
-                className="min-h-[100px] text-sm p-3 rounded-md border border-[#D9D9D9]"
-                style={{ backgroundColor: '#FAFAF9', color: '#333333' }}
-              >
-                Based on your ratings, you prefer candidates with strong B2B sales experience at SaaS companies. You rated international experience highly and rejected candidates lacking CRM proficiency. Candidates with proven quota achievement are consistently saved.
-              </div>
-            </div>
-
-            {/* Brain Adjustments Section */}
-            <div className="mb-6">
-              <h3 className="mb-3" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>
-                Brain adjustments
-              </h3>
-              <p className="text-xs font-medium mb-2" style={{ color: '#666663' }}>
-                What will change based on your feedback
-              </p>
-              <div 
-                className="min-h-[100px] text-sm p-3 rounded-md border border-[#D9D9D9]"
-                style={{ backgroundColor: '#FAFAF9', color: '#333333' }}
-              >
-                • Increased weight on B2B SaaS experience (+15%)<br />
-                • CRM proficiency now marked as critical requirement<br />
-                • International experience boosted in scoring<br />
-                • Candidates without direct sales roles deprioritized
-              </div>
-            </div>
-
-            {/* Review History Section Title */}
-            <h3 className="mb-4" style={{ fontSize: '1.5rem', color: '#333333', fontFamily: 'CooperLight, sans-serif' }}>
-              Review history
-            </h3>
-          </div>
-          
+        <div className="h-full w-full max-w-[1200px] flex flex-col pt-6 pb-3">
           <div className="flex-1 overflow-hidden mx-6">
             <div className="flex gap-4 h-full">
               {/* Left Panel - Batches */}
@@ -280,8 +277,45 @@ const JobReviewHistory = () => {
                   </div>
                 </div>
 
-                {/* Candidates List */}
+                {/* Batch-specific Insights */}
                 <ScrollArea className="flex-1">
+                  <div className="p-5 space-y-4">
+                    {/* Key Insights */}
+                    <div>
+                      <h3 className="text-sm font-medium mb-1" style={{ color: '#333333' }}>Key insights</h3>
+                      <p className="text-xs mb-2" style={{ color: '#666663' }}>What Laidback learned from your feedback</p>
+                      <div 
+                        className="text-sm p-3 rounded-md border border-[#E6E6E6]"
+                        style={{ backgroundColor: '#FAFAF9', color: '#333333' }}
+                      >
+                        {selectedBatch.keyInsights}
+                      </div>
+                    </div>
+
+                    {/* Brain Adjustments */}
+                    <div>
+                      <h3 className="text-sm font-medium mb-1" style={{ color: '#333333' }}>Brain adjustments</h3>
+                      <p className="text-xs mb-2" style={{ color: '#666663' }}>What will change based on your feedback</p>
+                      <div 
+                        className="text-sm p-3 rounded-md border border-[#E6E6E6]"
+                        style={{ backgroundColor: '#FAFAF9', color: '#333333' }}
+                      >
+                        {selectedBatch.brainAdjustments.map((adjustment, idx) => (
+                          <div key={idx} className="flex items-start gap-2">
+                            <span>•</span>
+                            <span>{adjustment}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Candidates Reviewed Title */}
+                    <h3 className="text-sm font-medium pt-2" style={{ color: '#333333' }}>
+                      Candidates reviewed ({selectedBatch.candidates.length})
+                    </h3>
+                  </div>
+
+                  {/* Candidates List */}
                   <div className="divide-y divide-[#EEEDEC]">
                     {selectedBatch.candidates.map((item) => {
                       const candidate = getCandidateById(item.id);
