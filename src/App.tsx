@@ -16,6 +16,7 @@ import JobBrain from "./pages/JobBrain";
 import JobReviewHistory from "./pages/JobReviewHistory";
 import Calendar from "./pages/Calendar";
 import Messages from "./pages/Messages";
+import Demo from "./pages/Demo";
 import NotFound from "./pages/NotFound";
 import { EmbedScaleWrapper } from "./components/EmbedScaleWrapper";
 
@@ -42,6 +43,7 @@ const App = () => (
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/joboffer" element={<JobOffer />} />
+            <Route path="/demo" element={<Demo />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
