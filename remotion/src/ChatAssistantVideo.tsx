@@ -261,15 +261,15 @@ const ChatPanelScene: React.FC = () => {
   const ai1Done = aiTyped1.length >= aiText1.length;
 
   // Search result card appears
-  const searchCardSpring = spring({ frame: frame - 145, fps, config: { damping: 16, stiffness: 100 } });
+  const searchCardSpring = spring({ frame: frame - 175, fps, config: { damping: 16, stiffness: 100 } });
 
   // Second AI text
   const aiText2 = "Save 6 standout profiles now to kick off conversations while interest is fresh.";
-  const aiTyped2 = useTypewriter(aiText2, 170, 1.2);
+  const aiTyped2 = useTypewriter(aiText2, 200, 1.2);
   const ai2Done = aiTyped2.length >= aiText2.length;
 
   // Save button
-  const saveBtnSpring = spring({ frame: frame - 220, fps, config: { damping: 14, stiffness: 100 } });
+  const saveBtnSpring = spring({ frame: frame - 250, fps, config: { damping: 14, stiffness: 100 } });
 
   // Camera zoom into chat
   const zoomProgress = interpolate(frame, [0, 60], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) });
