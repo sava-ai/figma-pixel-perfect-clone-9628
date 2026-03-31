@@ -366,7 +366,7 @@ const ChatPanelScene: React.FC = () => {
             )}
 
             {/* Search result card */}
-            {frame >= 145 && (
+            {frame >= 175 && (
               <div style={{
                 background: CARD, borderRadius: 14, padding: "14px 18px",
                 border: `1px solid ${BORDER}`, marginBottom: 20,
@@ -376,17 +376,17 @@ const ChatPanelScene: React.FC = () => {
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <IconSearch size={16} color={TEXT_SEC} />
-                  <span style={{ fontSize: 14, fontFamily: bodyFont, color: TEXT }}>24 best matches, 2 applied</span>
+                  <span style={{ fontSize: 14, fontFamily: bodyFont, color: TEXT }}>24 similar to Sarah Chen, 2 applied</span>
                 </div>
                 <IconChevronRight size={16} color={TEXT_SEC} />
               </div>
             )}
 
             {/* Second AI text */}
-            {frame >= 170 && (
+            {frame >= 200 && (
               <p style={{
                 fontSize: 15, fontFamily: bodyFont, color: TEXT, lineHeight: 1.7, margin: "0 0 20px 0",
-                opacity: spring({ frame: frame - 170, fps, config: { damping: 200 } }),
+                opacity: spring({ frame: frame - 200, fps, config: { damping: 200 } }),
               }}>
                 {aiTyped2}
                 {!ai2Done && <Cursor />}
@@ -394,7 +394,7 @@ const ChatPanelScene: React.FC = () => {
             )}
 
             {/* Save button */}
-            {frame >= 220 && (
+            {frame >= 250 && (
               <div style={{
                 display: "flex", alignItems: "center", gap: 12,
                 opacity: saveBtnSpring,
