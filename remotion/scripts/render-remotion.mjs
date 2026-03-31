@@ -20,7 +20,7 @@ const browser = await openBrowser("chrome", {
 
 const composition = await selectComposition({
   serveUrl: bundled,
-  id: "main",
+  id: "outreach",
   puppeteerInstance: browser,
 });
 
@@ -28,11 +28,11 @@ await renderMedia({
   composition,
   serveUrl: bundled,
   codec: "h264",
-  outputLocation: "/mnt/documents/sava-demo.mp4",
+  outputLocation: "/mnt/documents/sava-outreach.mp4",
   puppeteerInstance: browser,
   muted: true,
   concurrency: 1,
 });
 
 await browser.close({ silent: false });
-console.log("✅ Video rendered to /mnt/documents/sava-demo.mp4");
+console.log("✅ Video rendered to /mnt/documents/sava-outreach.mp4");
