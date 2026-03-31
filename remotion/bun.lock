@@ -8,6 +8,7 @@
         "@remotion/bundler": "^4.0.443",
         "@remotion/cli": "^4.0.443",
         "@remotion/compositor-linux-x64-musl": "^4.0.443",
+        "@remotion/fonts": "^4.0.443",
         "@remotion/google-fonts": "^4.0.443",
         "@remotion/player": "^4.0.443",
         "@remotion/renderer": "^4.0.443",
@@ -131,6 +132,8 @@
     "@remotion/compositor-linux-x64-musl": ["@remotion/compositor-linux-x64-musl@4.0.443", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@remotion/compositor-linux-x64-musl/-/compositor-linux-x64-musl-4.0.443.tgz", { "os": "linux", "cpu": "x64" }, "sha512-G1Vm7+/2OR5ffm9a1aMrEsAWCdzRLA9HV+vJUgQC3lj3W0SOAm311vL7a8iCVdhGmUOK575E6J9C5dv1IFIkfg=="],
 
     "@remotion/compositor-win32-x64-msvc": ["@remotion/compositor-win32-x64-msvc@4.0.443", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@remotion/compositor-win32-x64-msvc/-/compositor-win32-x64-msvc-4.0.443.tgz", { "os": "win32", "cpu": "x64" }, "sha512-U8THh/V1pCrDR70rpGUJQuMKHnYl5LKg/tH6xR2Rnl8nlR6/qnQEGCk/Oq3vEjKkcyuO17OKGiYcUVCM7gqvBg=="],
+
+    "@remotion/fonts": ["@remotion/fonts@4.0.443", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@remotion/fonts/-/fonts-4.0.443.tgz", { "dependencies": { "remotion": "4.0.443" } }, "sha512-k9YOyBwNU+vkkh+RXYv4/+yvo3tvPh5jPV+UOv2zyoE2gwxYoLHl8Yazmr8UYNjrfaCee8c0AxDpYI+480YyGw=="],
 
     "@remotion/google-fonts": ["@remotion/google-fonts@4.0.443", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@remotion/google-fonts/-/google-fonts-4.0.443.tgz", { "dependencies": { "remotion": "4.0.443" } }, "sha512-zGH9kBX8lzZ1Db8bnYByqvY2TkKDNtmx+3tnVMYKPS+CKAm8aaNvPyY+NHOZOQ8WaQmvn69PNwXIJzDo5lB9hQ=="],
 
