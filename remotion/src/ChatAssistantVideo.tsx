@@ -1061,7 +1061,7 @@ export const ChatAssistantVideo: React.FC = () => {
           timing={linearTiming({ durationInFrames: 20 })}
         />
 
-        <TransitionSeries.Sequence durationInFrames={280}>
+        <TransitionSeries.Sequence durationInFrames={310}>
           <ChatPanelScene />
         </TransitionSeries.Sequence>
 
