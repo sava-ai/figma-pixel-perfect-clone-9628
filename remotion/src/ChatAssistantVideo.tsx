@@ -318,6 +318,27 @@ const ChatPanelScene: React.FC = () => {
               </div>
             )}
 
+            {/* Reference profile card — shows WHO we're finding similar to */}
+            {frame >= 60 && (
+              <div style={{
+                display: "flex", justifyContent: "flex-end", marginBottom: 24,
+                opacity: refCardSpring,
+                transform: `translateY(${interpolate(refCardSpring, [0, 1], [12, 0])}px)`,
+              }}>
+                <div style={{
+                  background: CARD, borderRadius: 14, padding: "12px 16px",
+                  border: `1px solid ${BORDER}`, boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+                  display: "flex", alignItems: "center", gap: 12, maxWidth: 320,
+                }}>
+                  <ProfilePhoto src="images/sarah.jpg" size={40} />
+                  <div>
+                    <div style={{ fontSize: 14, fontFamily: bodyFont, color: TEXT, fontWeight: 500 }}>Sarah Chen</div>
+                    <div style={{ fontSize: 12, fontFamily: bodyFont, color: TEXT_SEC, marginTop: 2 }}>Sr. Business Development · SaaS · B2B</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Thinking dots */}
             {showThinking && (
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 24, opacity: interpolate(frame, [thinkingStart, thinkingStart + 5], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) }}>
@@ -326,13 +347,13 @@ const ChatPanelScene: React.FC = () => {
                     <div key={d} style={{ width: 7, height: 7, borderRadius: "50%", background: TEXT, opacity: interpolate((frame + d * 8) % 24, [0, 12, 24], [0.2, 0.8, 0.2]) }} />
                   ))}
                 </div>
-                <span style={{ fontSize: 14, fontFamily: bodyFont, color: TEXT_SEC }}>Thinking...</span>
+                <span style={{ fontSize: 14, fontFamily: bodyFont, color: TEXT_SEC }}>Searching similar profiles...</span>
               </div>
             )}
 
             {/* AI response */}
-            {frame >= 90 && (
-              <div style={{ marginBottom: 20, opacity: spring({ frame: frame - 90, fps, config: { damping: 200 } }) }}>
+            {frame >= 120 && (
+              <div style={{ marginBottom: 20, opacity: spring({ frame: frame - 120, fps, config: { damping: 200 } }) }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                   <IconSparkles size={16} color={ACCENT} />
                   <span style={{ fontSize: 14, fontFamily: bodyFont, color: TEXT }}>Laidback</span>
