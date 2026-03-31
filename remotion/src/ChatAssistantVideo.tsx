@@ -250,14 +250,14 @@ const ChatPanelScene: React.FC = () => {
   // Reference profile card appears after user message
   const refCardSpring = spring({ frame: frame - 60, fps, config: { damping: 16, stiffness: 100 } });
 
-  // Thinking dots (frame 55-85)
-  const thinkingStart = 55;
-  const thinkingEnd = 90;
+  // Thinking dots (frame 85-115)
+  const thinkingStart = 85;
+  const thinkingEnd = 120;
   const showThinking = frame >= thinkingStart && frame < thinkingEnd;
 
   // AI response types in
-  const aiText1 = "I've found 24 strong candidates that match your criteria, including 2 who've already applied.";
-  const aiTyped1 = useTypewriter(aiText1, 95, 1.5);
+  const aiText1 = "I found 24 candidates with a similar profile to Sarah Chen — strong in B2B sales, CRM tools, and SaaS experience. 2 have already applied.";
+  const aiTyped1 = useTypewriter(aiText1, 125, 1.5);
   const ai1Done = aiTyped1.length >= aiText1.length;
 
   // Search result card appears
