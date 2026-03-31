@@ -243,9 +243,12 @@ const ChatPanelScene: React.FC = () => {
   const panelX = interpolate(panelSlide, [0, 1], [-600, 0]);
 
   // User message appears
-  const userMsg = "Find matching candidates";
-  const userTyped = useTypewriter(userMsg, 20, 1.2);
+  const userMsg = "Find candidates similar to Sarah Chen";
+  const userTyped = useTypewriter(userMsg, 20, 1.0);
   const userMsgDone = userTyped.length >= userMsg.length;
+
+  // Reference profile card appears after user message
+  const refCardSpring = spring({ frame: frame - 60, fps, config: { damping: 16, stiffness: 100 } });
 
   // Thinking dots (frame 55-85)
   const thinkingStart = 55;
