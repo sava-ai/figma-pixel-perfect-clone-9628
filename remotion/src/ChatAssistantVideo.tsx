@@ -243,30 +243,33 @@ const ChatPanelScene: React.FC = () => {
   const panelX = interpolate(panelSlide, [0, 1], [-600, 0]);
 
   // User message appears
-  const userMsg = "Find matching candidates";
-  const userTyped = useTypewriter(userMsg, 20, 1.2);
+  const userMsg = "Find candidates similar to Sarah Chen";
+  const userTyped = useTypewriter(userMsg, 20, 1.0);
   const userMsgDone = userTyped.length >= userMsg.length;
 
-  // Thinking dots (frame 55-85)
-  const thinkingStart = 55;
-  const thinkingEnd = 90;
+  // Reference profile card appears after user message
+  const refCardSpring = spring({ frame: frame - 60, fps, config: { damping: 16, stiffness: 100 } });
+
+  // Thinking dots (frame 85-115)
+  const thinkingStart = 85;
+  const thinkingEnd = 120;
   const showThinking = frame >= thinkingStart && frame < thinkingEnd;
 
   // AI response types in
-  const aiText1 = "I've found 24 strong candidates that match your criteria, including 2 who've already applied.";
-  const aiTyped1 = useTypewriter(aiText1, 95, 1.5);
+  const aiText1 = "I found 24 candidates with a similar profile to Sarah Chen — strong in B2B sales, CRM tools, and SaaS experience. 2 have already applied.";
+  const aiTyped1 = useTypewriter(aiText1, 125, 1.5);
   const ai1Done = aiTyped1.length >= aiText1.length;
 
   // Search result card appears
-  const searchCardSpring = spring({ frame: frame - 145, fps, config: { damping: 16, stiffness: 100 } });
+  const searchCardSpring = spring({ frame: frame - 175, fps, config: { damping: 16, stiffness: 100 } });
 
   // Second AI text
   const aiText2 = "Save 6 standout profiles now to kick off conversations while interest is fresh.";
-  const aiTyped2 = useTypewriter(aiText2, 170, 1.2);
+  const aiTyped2 = useTypewriter(aiText2, 200, 1.2);
   const ai2Done = aiTyped2.length >= aiText2.length;
 
   // Save button
-  const saveBtnSpring = spring({ frame: frame - 220, fps, config: { damping: 14, stiffness: 100 } });
+  const saveBtnSpring = spring({ frame: frame - 250, fps, config: { damping: 14, stiffness: 100 } });
 
   // Camera zoom into chat
   const zoomProgress = interpolate(frame, [0, 60], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) });
@@ -315,6 +318,27 @@ const ChatPanelScene: React.FC = () => {
               </div>
             )}
 
+            {/* Reference profile card — shows WHO we're finding similar to */}
+            {frame >= 60 && (
+              <div style={{
+                display: "flex", justifyContent: "flex-end", marginBottom: 24,
+                opacity: refCardSpring,
+                transform: `translateY(${interpolate(refCardSpring, [0, 1], [12, 0])}px)`,
+              }}>
+                <div style={{
+                  background: CARD, borderRadius: 14, padding: "12px 16px",
+                  border: `1px solid ${BORDER}`, boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+                  display: "flex", alignItems: "center", gap: 12, maxWidth: 320,
+                }}>
+                  <ProfilePhoto src="images/sarah.jpg" size={40} />
+                  <div>
+                    <div style={{ fontSize: 14, fontFamily: bodyFont, color: TEXT, fontWeight: 500 }}>Sarah Chen</div>
+                    <div style={{ fontSize: 12, fontFamily: bodyFont, color: TEXT_SEC, marginTop: 2 }}>Sr. Business Development · SaaS · B2B</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Thinking dots */}
             {showThinking && (
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 24, opacity: interpolate(frame, [thinkingStart, thinkingStart + 5], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) }}>
@@ -323,13 +347,13 @@ const ChatPanelScene: React.FC = () => {
                     <div key={d} style={{ width: 7, height: 7, borderRadius: "50%", background: TEXT, opacity: interpolate((frame + d * 8) % 24, [0, 12, 24], [0.2, 0.8, 0.2]) }} />
                   ))}
                 </div>
-                <span style={{ fontSize: 14, fontFamily: bodyFont, color: TEXT_SEC }}>Thinking...</span>
+                <span style={{ fontSize: 14, fontFamily: bodyFont, color: TEXT_SEC }}>Searching similar profiles...</span>
               </div>
             )}
 
             {/* AI response */}
-            {frame >= 90 && (
-              <div style={{ marginBottom: 20, opacity: spring({ frame: frame - 90, fps, config: { damping: 200 } }) }}>
+            {frame >= 120 && (
+              <div style={{ marginBottom: 20, opacity: spring({ frame: frame - 120, fps, config: { damping: 200 } }) }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                   <IconSparkles size={16} color={ACCENT} />
                   <span style={{ fontSize: 14, fontFamily: bodyFont, color: TEXT }}>Laidback</span>
@@ -342,7 +366,7 @@ const ChatPanelScene: React.FC = () => {
             )}
 
             {/* Search result card */}
-            {frame >= 145 && (
+            {frame >= 175 && (
               <div style={{
                 background: CARD, borderRadius: 14, padding: "14px 18px",
                 border: `1px solid ${BORDER}`, marginBottom: 20,
@@ -352,17 +376,17 @@ const ChatPanelScene: React.FC = () => {
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <IconSearch size={16} color={TEXT_SEC} />
-                  <span style={{ fontSize: 14, fontFamily: bodyFont, color: TEXT }}>24 best matches, 2 applied</span>
+                  <span style={{ fontSize: 14, fontFamily: bodyFont, color: TEXT }}>24 similar to Sarah Chen, 2 applied</span>
                 </div>
                 <IconChevronRight size={16} color={TEXT_SEC} />
               </div>
             )}
 
             {/* Second AI text */}
-            {frame >= 170 && (
+            {frame >= 200 && (
               <p style={{
                 fontSize: 15, fontFamily: bodyFont, color: TEXT, lineHeight: 1.7, margin: "0 0 20px 0",
-                opacity: spring({ frame: frame - 170, fps, config: { damping: 200 } }),
+                opacity: spring({ frame: frame - 200, fps, config: { damping: 200 } }),
               }}>
                 {aiTyped2}
                 {!ai2Done && <Cursor />}
@@ -370,7 +394,7 @@ const ChatPanelScene: React.FC = () => {
             )}
 
             {/* Save button */}
-            {frame >= 220 && (
+            {frame >= 250 && (
               <div style={{
                 display: "flex", alignItems: "center", gap: 12,
                 opacity: saveBtnSpring,
@@ -1037,7 +1061,7 @@ export const ChatAssistantVideo: React.FC = () => {
           timing={linearTiming({ durationInFrames: 20 })}
         />
 
-        <TransitionSeries.Sequence durationInFrames={280}>
+        <TransitionSeries.Sequence durationInFrames={310}>
           <ChatPanelScene />
         </TransitionSeries.Sequence>
 
