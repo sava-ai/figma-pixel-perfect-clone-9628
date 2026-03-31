@@ -6,28 +6,35 @@ import {
   spring,
   Sequence,
   Easing,
+  staticFile,
+  Img,
 } from "remotion";
 import { TransitionSeries, linearTiming, springTiming } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { slide } from "@remotion/transitions/slide";
 import { wipe } from "@remotion/transitions/wipe";
-import { loadFont as loadDMSans } from "@remotion/google-fonts/DMSans";
-import { loadFont as loadFraunces } from "@remotion/google-fonts/Fraunces";
+import { loadFont } from "@remotion/fonts";
 
-// ── Load Fonts ──
-const { fontFamily: sansFont } = loadDMSans("normal", {
-  weights: ["400", "500", "600", "700"],
-  subsets: ["latin"],
+// ── Load Custom Fonts ──
+loadFont({
+  family: "CooperLight",
+  url: staticFile("fonts/CooperLtBTLight.ttf"),
+  weight: "400",
 });
-const { fontFamily: serifFont } = loadFraunces("normal", {
-  weights: ["400", "600", "700", "800"],
-  subsets: ["latin"],
+
+loadFont({
+  family: "LabilGrotesk",
+  url: staticFile("fonts/LabilGrotesk-Regular.ttf"),
+  weight: "400",
 });
+
+const headingFont = "CooperLight, serif";
+const bodyFont = "LabilGrotesk, sans-serif";
 
 // ── Colors ──
 const BG = "#f6f4f0";
 const CARD = "#ffffff";
-const TEXT = "#1a1817";
+const TEXT = "#333333";
 const TEXT_SEC = "#7a7570";
 const ACCENT = "#c9956b";
 const ACCENT_DEEP = "#a87a55";
@@ -37,6 +44,17 @@ const GREEN_BG = "rgba(45, 157, 92, 0.08)";
 const BORDER = "#ece8e2";
 const BLUE = "#4a7cff";
 const BLUE_BG = "rgba(74, 124, 255, 0.08)";
+
+// ── Laidback Logo Icon SVG ──
+const LaidbackLogo: React.FC<{ size?: number; color?: string }> = ({ size = 20, color = "currentColor" }) => (
+  <svg width={size} height={size * 0.9} viewBox="0 0 20 18" fill="none">
+    <path d="M12.9707 16.0295L13.0739 16.9326C13.0807 16.992 13.1442 17.0268 13.1979 17.0007C13.2026 16.9984 13.207 16.9958 13.2111 16.9927L13.2321 16.9775C13.2907 16.9347 13.3358 16.8759 13.362 16.8081L13.3757 16.7724C13.3982 16.7141 13.4098 16.6521 13.4098 16.5896V16.4565V16.2287V15.8587V15.7793C13.4098 15.586 13.4294 15.3933 13.4683 15.204C13.5072 15.0147 13.5268 14.822 13.5268 14.6287V14.3501L13.8488 11.9021L14.6098 8.77093L14.7157 8.39986C14.7374 8.32403 14.8196 8.28325 14.893 8.31183C14.8993 8.31427 14.9057 8.31623 14.9123 8.3177L15.2829 8.40088L15.6634 8.45781L16.1902 8.57167C16.5015 8.62843 16.8054 8.71957 17.0966 8.84344L17.1268 8.85632L17.1646 8.86682C17.2746 8.89737 17.3761 8.95254 17.4616 9.02814C17.5861 9.13821 17.6707 9.28639 17.7022 9.44956L17.7109 9.49466C17.7311 9.59959 17.7322 9.7073 17.7142 9.81262L17.7122 9.82413C17.6927 9.8998 17.6649 9.97306 17.6292 10.0425L17.6244 10.0518L17.6106 10.0855C17.5815 10.156 17.5761 10.2341 17.5951 10.308C17.6117 10.3564 17.6624 10.3842 17.7121 10.3721L17.7145 10.3715C17.7322 10.3672 17.7483 10.3583 17.7614 10.3456L17.7629 10.3441C17.7681 10.339 17.7728 10.3335 17.7769 10.3275L17.801 10.2924C17.8198 10.2649 17.836 10.2358 17.8495 10.2053L17.9171 10.0518L17.9309 10.0249C17.9411 10.005 17.9545 9.98699 17.9705 9.97144L17.9953 9.94732C18.0016 9.94118 18.0092 9.93658 18.0176 9.93387C18.0547 9.92185 18.0927 9.94948 18.0927 9.98845V10.0306C18.0927 10.0445 18.0893 10.0583 18.0829 10.0708L18.0634 10.1088C18.0247 10.1841 18 10.2657 17.9903 10.3498L17.9863 10.3855C17.9792 10.4475 17.9796 10.5101 17.9876 10.572L18.0026 10.6889C18.0041 10.7006 18.0076 10.7119 18.013 10.7223C18.0264 10.7485 18.0506 10.7675 18.0791 10.7744L18.0944 10.7781C18.1307 10.7869 18.169 10.7804 18.2003 10.7601L18.2261 10.7434C18.2347 10.7378 18.2427 10.7314 18.2501 10.7242C18.2804 10.6947 18.2976 10.6542 18.2976 10.6119V10.5358V10.365V10.2511V10.2073C18.2976 10.1807 18.3083 10.1552 18.3274 10.1367L18.3378 10.1265C18.3495 10.1152 18.3652 10.1088 18.3816 10.1088C18.4023 10.1088 18.4216 10.119 18.4333 10.136L18.5121 10.251C18.5251 10.27 18.5361 10.2903 18.5449 10.3116L18.5515 10.3276C18.577 10.3898 18.6151 10.4461 18.6633 10.493L18.7073 10.5358L18.7767 10.6032C18.7888 10.615 18.8035 10.6239 18.8196 10.6291C18.8586 10.6417 18.9013 10.6318 18.9306 10.6032L18.9411 10.5931C18.9604 10.5743 18.9736 10.5501 18.9791 10.5237L18.9874 10.483C18.9957 10.4428 18.9947 10.4012 18.9845 10.3615L18.9828 10.3548C18.9748 10.3238 18.9619 10.2943 18.9446 10.2674L18.8244 10.0803L18.5781 9.64608C18.4304 9.38585 18.2581 9.14044 18.0634 8.91325L17.8375 8.69355C17.7736 8.63139 17.7044 8.57491 17.6307 8.52474C17.51 8.44259 17.3783 8.37803 17.2394 8.33301L17.0098 8.25856L16.3659 8.08777L15.9854 8.03084L15.2244 8.00237L15.0832 7.98275C15.0414 7.97695 15.0017 7.9609 14.9676 7.93603L14.9363 7.91319C14.9143 7.89713 14.8977 7.87468 14.8889 7.8489C14.8787 7.81933 14.8793 7.78713 14.8906 7.75797L14.961 7.5754C15.0583 7.29139 15.1285 6.9988 15.1707 6.70154L15.2244 6.32294L15.3298 5.07201C15.357 4.74905 15.355 4.4243 15.3237 4.10171L15.2738 3.58765C15.2412 3.2509 15.1449 2.9234 14.9902 2.6225L14.6098 2.08167L14.3756 1.82548L14.3626 1.81412C14.1766 1.65128 13.9754 1.50657 13.7619 1.38196C13.5859 1.27929 13.4022 1.19062 13.2124 1.11677L13.2049 1.11386L13.1923 1.10928C13.0451 1.05558 12.8922 1.01891 12.7366 1H12.3268H12.0927L12.0536 1.00542C11.9435 1.02073 11.8354 1.04884 11.7318 1.08917L11.6222 1.13179C11.6042 1.13879 11.5869 1.14762 11.5707 1.15814L11.5477 1.17308C11.5212 1.19023 11.4997 1.21401 11.4853 1.24204C11.4805 1.25145 11.4765 1.26127 11.4734 1.27138L11.3902 1.54083L11.2732 1.79702L11.0976 2.08167C10.9433 2.26923 10.7504 2.4213 10.5319 2.5275L10.4537 2.56557L10.278 2.65097L10.2667 2.65466C10.0991 2.70898 9.92636 2.7459 9.75122 2.76483H9.58026C9.53823 2.76483 9.4963 2.76079 9.45505 2.75276C9.39908 2.74187 9.34476 2.72373 9.29348 2.6988L9.19512 2.65097L9.09116 2.60041C9.04352 2.57725 8.99844 2.54917 8.95663 2.51665C8.90126 2.47356 8.85211 2.42303 8.81057 2.36648L8.79305 2.34263C8.74905 2.28271 8.71205 2.21795 8.68277 2.14962L8.60034 1.95721C8.58716 1.92644 8.57015 1.89747 8.54971 1.87097L8.54722 1.86774C8.51135 1.82123 8.46519 1.78365 8.41237 1.75796L8.40882 1.75624C8.38674 1.7455 8.36358 1.73716 8.33973 1.73136C8.28638 1.71839 8.2307 1.71839 8.17735 1.73136C8.15349 1.73716 8.13033 1.7455 8.10825 1.75624L7.94398 1.83612C7.84167 1.88587 7.74369 1.94408 7.65106 2.01014L7.6348 2.02174C7.44683 2.1558 7.2803 2.3176 7.14088 2.50162L6.92806 2.78252C6.66516 3.12952 6.45295 3.51214 6.2978 3.9189L5.85854 5.07049C5.74161 5.5443 5.65867 6.02585 5.61035 6.51148L5.50732 7.54694L5.48315 7.73498C5.4798 7.76106 5.4703 7.78596 5.45543 7.80765C5.43231 7.84139 5.39753 7.8654 5.35778 7.87506L5.22958 7.90623C5.20016 7.91338 5.17017 7.9179 5.13995 7.91974L4.71707 7.94544L4.19024 8.00237L3.37073 8.20163L3.01951 8.31549L2.99974 8.3215C2.70157 8.41212 2.41386 8.53415 2.14146 8.68553L2.07404 8.73597C1.8664 8.89131 1.68212 9.07563 1.52683 9.2833L1.16409 9.91831C1.11342 10.007 1.07386 10.1016 1.04628 10.1999L1.01577 10.3087C1.00531 10.346 1 10.3846 1 10.4234V10.4722C1 10.4954 1.00453 10.5183 1.01333 10.5397L1.04052 10.6058C1.05142 10.6323 1.07724 10.6496 1.1059 10.6496C1.1133 10.6496 1.12066 10.6485 1.1277 10.6462L1.1414 10.6417C1.18206 10.6285 1.21585 10.5998 1.23539 10.5618L1.24883 10.5357C1.25851 10.5168 1.26558 10.4968 1.26984 10.476L1.28269 10.4135C1.28934 10.3812 1.299 10.3496 1.31155 10.3191L1.34082 10.2479C1.34769 10.2312 1.35122 10.2134 1.35122 10.1953V10.1395C1.35122 10.1207 1.36193 10.1036 1.37881 10.0954C1.39738 10.0863 1.41962 10.0899 1.43443 10.1043L1.45236 10.1217C1.4628 10.1319 1.47045 10.1446 1.47456 10.1586L1.5113 10.2836C1.52163 10.3188 1.53527 10.3529 1.55203 10.3855L1.6439 10.5642L1.67138 10.631C1.69187 10.6808 1.72236 10.7259 1.76098 10.7635L1.76557 10.7679C1.78038 10.7823 1.80262 10.7859 1.82119 10.7769C1.83807 10.7687 1.84878 10.7516 1.84878 10.7328V10.6496V10.5073V10.365L1.82214 10.1577C1.82039 10.1441 1.81727 10.1307 1.81282 10.1177L1.80215 10.0866C1.79443 10.0641 1.79443 10.0396 1.80215 10.0171L1.80843 9.99878C1.81541 9.97843 1.83155 9.96255 1.85202 9.95592C1.8839 9.94558 1.91857 9.95988 1.9339 9.98969L1.95876 10.038C1.96347 10.0472 1.96924 10.0558 1.97595 10.0636L2.1122 10.2226L2.18405 10.3158C2.19411 10.3289 2.20965 10.3365 2.22612 10.3365C2.24602 10.3365 2.26426 10.3254 2.27336 10.3077L2.27772 10.2992C2.28428 10.2864 2.28668 10.2719 2.2846 10.2578L2.25854 10.0803L2.19217 9.69304C2.17799 9.61028 2.1784 9.52568 2.19339 9.44306C2.23434 9.2174 2.38042 9.02477 2.58668 8.92447L2.72683 8.85632C3.25284 8.66685 3.79298 8.51917 4.34221 8.41466L4.86341 8.31549L5.11502 8.24875C5.1604 8.23672 5.2086 8.24139 5.25082 8.26192C5.31821 8.29469 5.36098 8.36305 5.36098 8.43798V9.39716L5.27317 10.5927L5.1561 13.2684L5.14425 13.493C5.11317 14.0825 5.12691 14.6735 5.18537 15.2609V16.4869L5.16021 16.8861C5.15851 16.9131 5.16868 16.9394 5.18804 16.9583C5.23429 17.0033 5.31121 16.9883 5.33722 16.9293L5.45087 16.6714C5.46517 16.6389 5.47336 16.6041 5.47503 16.5687L5.50732 15.8872V15.4882C5.50732 15.4317 5.5127 15.3753 5.5234 15.3198C5.56923 15.0821 5.7099 14.8734 5.913 14.7417L5.94634 14.7201L6.12739 14.5734C6.24049 14.4817 6.34313 14.3778 6.43344 14.2637L6.45277 14.2392C6.54405 14.1238 6.62027 13.9973 6.67961 13.8626L6.73609 13.7344C6.75586 13.6896 6.77004 13.6425 6.77832 13.5941L6.79018 13.525C6.81191 13.3981 6.88752 13.2869 6.99749 13.2201C7.03793 13.1955 7.08203 13.1776 7.12814 13.1669L7.67317 13.0407L8.49268 12.9553H9.16585L10.2165 13.0047C10.6984 13.0274 11.1426 13.2719 11.4195 13.6669L11.7193 14.0495C11.8312 14.1924 11.9598 14.3215 12.1024 14.4339L12.2555 14.5546C12.7072 14.9108 12.9707 15.4543 12.9707 16.0295Z" fill={color} stroke={color} strokeWidth="0.5"/>
+    <path d="M9.5567 4.21875L9.21841 4.41102C9.16944 4.43886 9.12596 4.4754 9.09011 4.51886L9.05847 4.55723C9.04706 4.57107 9.03801 4.58669 9.03168 4.60347C9.01196 4.65579 9.02041 4.71456 9.05407 4.75921L9.05642 4.76232C9.07352 4.785 9.09602 4.80303 9.12187 4.81479L9.28846 4.89054C9.35705 4.92172 9.42931 4.94407 9.50352 4.95705L9.65979 4.98438L9.94841 4.99388C10.0717 4.99795 10.1951 4.98766 10.316 4.96322L10.3649 4.95334C10.4171 4.9428 10.4683 4.92802 10.5181 4.90917L10.6806 4.84757C10.7676 4.81461 10.842 4.75509 10.8932 4.67745L10.9238 4.63116C10.9724 4.55751 10.9879 4.46691 10.9668 4.38127C10.9483 4.30673 10.9034 4.24147 10.8403 4.19766L10.7637 4.14444C10.7153 4.11085 10.662 4.08505 10.6057 4.06798L10.5569 4.05317C10.4411 4.01809 10.3195 4.00704 10.1993 4.0207L10.1369 4.0278C10.0256 4.04045 9.91659 4.06875 9.81317 4.11186L9.5567 4.21875Z" fill="#F9F9F9" stroke="#F9F9F9" strokeWidth="0.5"/>
+    <path d="M12.691 3.28286L12.6723 3.30709C12.5991 3.40204 12.5525 3.51475 12.5372 3.63367L12.5312 3.67979V3.83335C12.5312 3.88245 12.5394 3.93122 12.5553 3.97768C12.578 4.04383 12.6159 4.10371 12.666 4.15247L12.6758 4.16198C12.7346 4.21919 12.8066 4.26111 12.8853 4.28409L12.9378 4.2994C13.0168 4.32246 13.1002 4.32629 13.1811 4.31057L13.1873 4.30936C13.2934 4.28872 13.3899 4.2341 13.4621 4.15376C13.5233 4.08579 13.5645 4.0023 13.5813 3.91243L13.5893 3.86978C13.6057 3.78201 13.6039 3.69181 13.584 3.60476L13.58 3.58726C13.5639 3.5165 13.5373 3.44851 13.5013 3.38549L13.4611 3.31505C13.4271 3.25545 13.3792 3.20487 13.3217 3.16753C13.2639 3.13006 13.1979 3.10702 13.1293 3.10035L13.1158 3.09903C13.0029 3.08805 12.8899 3.11753 12.7968 3.1822C12.7566 3.21014 12.7209 3.24409 12.691 3.28286Z" fill="#F9F9F9" stroke="#F9F9F9" strokeWidth="0.5"/>
+    <path d="M9.1632 11.9798L7.55256 11.9576C7.25515 11.9535 7.02479 11.696 7.05369 11.4L7.13423 10.75L7.21477 10.05L7.42953 9.125L7.5113 8.88703C7.59976 8.62961 7.7129 8.38135 7.84915 8.14572L7.89989 8.05796C7.97992 7.91955 8.071 7.78782 8.17225 7.66408L8.32943 7.47196C8.40915 7.37451 8.50275 7.2893 8.60722 7.21903C8.8195 7.07626 9.06953 7 9.32536 7H9.42968C9.52777 7 9.62561 7.0098 9.72175 7.02927C10.029 7.09146 10.3083 7.2501 10.5191 7.48209L10.5425 7.5079C10.7023 7.6837 10.8203 7.89328 10.8877 8.12102L10.9167 8.21865C10.9719 8.40524 11 8.59883 11 8.79343V9.65V10.1682C11 10.3056 10.9844 10.4426 10.9534 10.5765C10.7613 11.4072 10.0158 11.9916 9.1632 11.9798Z" fill="#F9F9F9" stroke="#F9F9F9" strokeWidth="0.5"/>
+    <path d="M7.19145 5.11569L7.15761 5.13762C7.11145 5.16755 7.05547 5.17841 7.00147 5.16791C6.96091 5.16002 6.92353 5.14047 6.89391 5.11166L6.86559 5.08412C6.85622 5.07501 6.84778 5.06499 6.8404 5.05422C6.81009 5.01 6.79907 4.95536 6.80987 4.90286L6.81511 4.87737C6.81984 4.85436 6.82768 4.83211 6.83842 4.81122L6.91004 4.67191L6.96958 4.5754C6.98792 4.54567 7.01546 4.52273 7.04802 4.51007C7.1066 4.48728 7.1731 4.50077 7.21817 4.5446L7.23199 4.55805L7.2735 4.60851C7.32236 4.6679 7.34907 4.74242 7.34907 4.81932C7.34907 4.8721 7.33648 4.92411 7.31235 4.97105L7.29931 4.99642C7.27438 5.04491 7.23719 5.08603 7.19145 5.11569Z" fill="#F9F9F9" stroke="#F9F9F9" strokeWidth="0.5"/>
+  </svg>
+);
 
 // ── SVG Icon Components ──
 const IconMail: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = TEXT_SEC }) => (
@@ -56,10 +74,8 @@ const IconSend: React.FC<{ size?: number; color?: string }> = ({ size = 18, colo
 const IconSparkles: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = ACCENT }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
     <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
-    <path d="M20 3v4" />
-    <path d="M22 5h-4" />
-    <path d="M4 17v2" />
-    <path d="M5 18H3" />
+    <path d="M20 3v4" /><path d="M22 5h-4" />
+    <path d="M4 17v2" /><path d="M5 18H3" />
   </svg>
 );
 
@@ -151,6 +167,17 @@ const IconZap: React.FC<{ size?: number; color?: string }> = ({ size = 18, color
   </svg>
 );
 
+// ── Profile Photo Component ──
+const ProfilePhoto: React.FC<{ src: string; size: number }> = ({ src, size }) => (
+  <div style={{
+    width: size, height: size, borderRadius: "50%",
+    overflow: "hidden", flexShrink: 0,
+    border: `2px solid ${BORDER}`,
+  }}>
+    <Img src={staticFile(src)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+  </div>
+);
+
 // ── Animated Cursor Component ──
 const AnimatedCursor: React.FC<{
   x: number;
@@ -160,7 +187,6 @@ const AnimatedCursor: React.FC<{
   scale?: number;
 }> = ({ x, y, visible, clicking = false, scale = 1 }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
 
   if (!visible) return null;
 
@@ -183,7 +209,6 @@ const AnimatedCursor: React.FC<{
         pointerEvents: "none",
       }}
     >
-      {/* Click ripple */}
       {clicking && (
         <div
           style={{
@@ -199,7 +224,6 @@ const AnimatedCursor: React.FC<{
           }}
         />
       )}
-      {/* Cursor SVG */}
       <svg
         width={24}
         height={24}
@@ -269,8 +293,7 @@ const Cursor: React.FC<{ color?: string }> = ({ color = ACCENT }) => {
 };
 
 // ═══════════════════════════════════════════════════════
-// SCENE 1: INTRO — Logo + Staggered word reveal
-// 80 frames
+// SCENE 1: INTRO — Laidback Logo + Staggered word reveal
 // ═══════════════════════════════════════════════════════
 const IntroScene: React.FC = () => {
   const frame = useCurrentFrame();
@@ -338,11 +361,11 @@ const IntroScene: React.FC = () => {
           display: "flex", alignItems: "center", justifyContent: "center",
           boxShadow: `0 12px 40px rgba(201, 149, 107, 0.35), 0 0 0 1px rgba(201, 149, 107, 0.1)`,
         }}>
-          <span style={{ fontSize: 40, color: "#fff", fontFamily: sansFont, fontWeight: 700 }}>S</span>
+          <LaidbackLogo size={50} color="#fff" />
         </div>
 
         <h1 style={{
-          fontSize: 76, fontFamily: serifFont, fontWeight: 700, color: TEXT,
+          fontSize: 76, fontFamily: headingFont, fontWeight: 400, color: TEXT,
           margin: 0, letterSpacing: -2, lineHeight: 1.1,
         }}>
           {wordElements}
@@ -354,7 +377,7 @@ const IntroScene: React.FC = () => {
         }} />
 
         <p style={{
-          fontSize: 24, fontFamily: sansFont, color: TEXT_SEC,
+          fontSize: 24, fontFamily: bodyFont, color: TEXT_SEC,
           opacity: subProgress, transform: `translateY(${subY}px)`,
           margin: 0, fontWeight: 400, letterSpacing: 0.5,
         }}>
@@ -367,19 +390,17 @@ const IntroScene: React.FC = () => {
 
 // ═══════════════════════════════════════════════════════
 // SCENE 2: PIPELINE — Select candidates with cursor
-// 220 frames
 // ═══════════════════════════════════════════════════════
 const CANDIDATES = [
-  { name: "Sarah Chapman", role: "Senior Product Designer", company: "Fintech Corp", loc: "Stockholm", match: "10/12", matchPct: 83, avatar: "SC", skills: ["Product Design", "UX Strategy", "Figma"] },
-  { name: "Sam Morris", role: "UX Designer", company: "CreativeLab", loc: "London", match: "9/12", matchPct: 75, avatar: "SM", skills: ["UI Design", "Research", "Prototyping"] },
-  { name: "Esther Howard", role: "Product Designer", company: "TechStart", loc: "Berlin", match: "8/12", matchPct: 67, avatar: "EH", skills: ["Design Systems", "Interaction", "Framer"] },
+  { name: "Sarah Chapman", role: "Senior Product Designer", company: "Fintech Corp", loc: "Stockholm", match: "10/12", matchPct: 83, photo: "images/sarah.jpg", skills: ["Product Design", "UX Strategy", "Figma"] },
+  { name: "Sam Morris", role: "UX Designer", company: "CreativeLab", loc: "London", match: "9/12", matchPct: 75, photo: "images/sam.jpg", skills: ["UI Design", "Research", "Prototyping"] },
+  { name: "Esther Howard", role: "Product Designer", company: "TechStart", loc: "Berlin", match: "8/12", matchPct: 67, photo: "images/esther.jpg", skills: ["Design Systems", "Interaction", "Framer"] },
 ];
 
 const PipelineScene: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Camera zoom: slow zoom in toward candidates
   const zoomProgress = interpolate(frame, [0, 200], [0, 1], {
     extrapolateRight: "clamp",
     easing: Easing.inOut(Easing.quad),
@@ -387,15 +408,13 @@ const PipelineScene: React.FC = () => {
   const cameraScale = interpolate(zoomProgress, [0, 0.5, 1], [0.82, 0.92, 1.05]);
   const cameraY = interpolate(zoomProgress, [0, 0.5, 1], [30, 10, -20]);
 
-  // Cursor positions for selecting each candidate
   const cursorTargets = [
-    { x: 1390, y: 495, clickFrame: 65 },  // card 1 checkbox
-    { x: 1390, y: 595, clickFrame: 85 },  // card 2 checkbox
-    { x: 1390, y: 695, clickFrame: 105 }, // card 3 checkbox
-    { x: 870, y: 790, clickFrame: 155 },  // contact button
+    { x: 1390, y: 495, clickFrame: 65 },
+    { x: 1390, y: 595, clickFrame: 85 },
+    { x: 1390, y: 695, clickFrame: 105 },
+    { x: 870, y: 790, clickFrame: 155 },
   ];
 
-  // Determine cursor position based on frame
   let cursorX = 960;
   let cursorY = 300;
   let cursorVisible = frame > 40;
@@ -422,7 +441,6 @@ const PipelineScene: React.FC = () => {
     }
   }
 
-  // First cursor position (entering)
   if (frame <= 65) {
     const enterProgress = interpolate(frame, [40, 60], [0, 1], {
       extrapolateLeft: "clamp",
@@ -456,16 +474,16 @@ const PipelineScene: React.FC = () => {
               background: `linear-gradient(135deg, ${ACCENT}, ${ACCENT_DEEP})`,
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>
-              <span style={{ color: "#fff", fontSize: 14, fontWeight: 700, fontFamily: sansFont }}>S</span>
+              <LaidbackLogo size={18} color="#fff" />
             </div>
-            <span style={{ fontSize: 15, fontWeight: 600, color: TEXT, fontFamily: sansFont }}>
+            <span style={{ fontSize: 15, fontWeight: 400, color: TEXT, fontFamily: bodyFont }}>
               BD Representative / Sales Manager
             </span>
           </div>
           <div style={{ display: "flex", gap: 24 }}>
             {["Job", "Review (10)", "Pipeline"].map((tab, i) => (
               <span key={i} style={{
-                fontSize: 14, fontFamily: sansFont, fontWeight: i === 2 ? 600 : 400,
+                fontSize: 14, fontFamily: bodyFont, fontWeight: 400,
                 color: i === 2 ? TEXT : TEXT_SEC,
                 padding: "6px 16px", borderRadius: 8,
                 background: i === 2 ? CARD : "transparent",
@@ -505,9 +523,9 @@ const PipelineScene: React.FC = () => {
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
                   {stat.icon}
-                  <span style={{ fontSize: 13, color: TEXT_SEC, fontFamily: sansFont, fontWeight: 500 }}>{stat.label}</span>
+                  <span style={{ fontSize: 13, color: TEXT_SEC, fontFamily: bodyFont }}>{stat.label}</span>
                 </div>
-                <span style={{ fontSize: 28, fontWeight: 700, color: TEXT, fontFamily: sansFont }}>{countUp}</span>
+                <span style={{ fontSize: 28, fontWeight: 400, color: TEXT, fontFamily: headingFont }}>{countUp}</span>
               </div>
             );
           })}
@@ -518,8 +536,8 @@ const PipelineScene: React.FC = () => {
           width: 900, display: "flex", justifyContent: "space-between", alignItems: "center",
           opacity: spring({ frame: frame - 20, fps, config: { damping: 200 } }),
         }}>
-          <span style={{ fontSize: 20, fontWeight: 700, color: TEXT, fontFamily: serifFont }}>Best Matches</span>
-          <span style={{ fontSize: 13, color: ACCENT, fontFamily: sansFont, fontWeight: 600, display: "flex", alignItems: "center", gap: 4 }}>
+          <span style={{ fontSize: 20, fontFamily: headingFont, color: TEXT }}>Best Matches</span>
+          <span style={{ fontSize: 13, color: ACCENT, fontFamily: bodyFont, display: "flex", alignItems: "center", gap: 4 }}>
             View all <IconArrowRight size={14} color={ACCENT} />
           </span>
         </div>
@@ -543,7 +561,6 @@ const PipelineScene: React.FC = () => {
 
             const floatY = Math.sin((frame + i * 30) * 0.03) * 1.5;
 
-            // Highlight effect when selected
             const highlightOpacity = isSelected
               ? interpolate(frame - checkClickFrame, [0, 10, 30], [0, 0.15, 0], { extrapolateRight: "clamp" })
               : 0;
@@ -565,7 +582,6 @@ const PipelineScene: React.FC = () => {
                 position: "relative",
                 overflow: "hidden",
               }}>
-                {/* Selection flash */}
                 <div style={{
                   position: "absolute", inset: 0,
                   background: ACCENT,
@@ -573,30 +589,22 @@ const PipelineScene: React.FC = () => {
                   borderRadius: 16,
                 }} />
 
-                {/* Avatar */}
-                <div style={{
-                  width: 48, height: 48, borderRadius: "50%",
-                  background: `linear-gradient(135deg, ${ACCENT}25, ${ACCENT}50)`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 16, fontWeight: 600, color: ACCENT_DEEP, fontFamily: sansFont,
-                  flexShrink: 0,
-                }}>
-                  {c.avatar}
-                </div>
+                {/* Profile Photo */}
+                <ProfilePhoto src={c.photo} size={48} />
 
                 {/* Info */}
                 <div style={{ flex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ fontSize: 16, fontWeight: 600, color: TEXT, fontFamily: sansFont }}>{c.name}</span>
-                    <span style={{ fontSize: 12, color: GREEN, fontWeight: 600, fontFamily: sansFont }}>{c.match} Match</span>
+                    <span style={{ fontSize: 16, fontFamily: bodyFont, color: TEXT }}>{c.name}</span>
+                    <span style={{ fontSize: 12, color: GREEN, fontFamily: bodyFont }}>{c.match} Match</span>
                   </div>
-                  <div style={{ fontSize: 13, color: TEXT_SEC, fontFamily: sansFont, marginTop: 2 }}>
+                  <div style={{ fontSize: 13, color: TEXT_SEC, fontFamily: bodyFont, marginTop: 2 }}>
                     {c.role} · {c.company} · {c.loc}
                   </div>
                   <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
                     {c.skills.map((skill, si) => (
                       <span key={si} style={{
-                        fontSize: 11, color: TEXT_SEC, fontFamily: sansFont, fontWeight: 500,
+                        fontSize: 11, color: TEXT_SEC, fontFamily: bodyFont,
                         background: "#f5f3ef", padding: "3px 10px", borderRadius: 10,
                       }}>{skill}</span>
                     ))}
@@ -612,7 +620,7 @@ const PipelineScene: React.FC = () => {
                     }} />
                   </div>
                   <div style={{
-                    fontSize: 11, color: TEXT_SEC, fontFamily: sansFont, textAlign: "right", marginTop: 3,
+                    fontSize: 11, color: TEXT_SEC, fontFamily: bodyFont, textAlign: "right", marginTop: 3,
                   }}>{Math.round(barProgress)}%</div>
                 </div>
 
@@ -637,7 +645,6 @@ const PipelineScene: React.FC = () => {
           const btnSpring = spring({ frame: frame - btnDelay, fps, config: { damping: 14, stiffness: 100 } });
           const btnScale = interpolate(btnSpring, [0, 1], [0.85, 1]);
 
-          // Button click effect
           const btnClickFrame = cursorTargets[3].clickFrame;
           const isClicked = frame > btnClickFrame;
           const clickPulse = isClicked
@@ -652,7 +659,7 @@ const PipelineScene: React.FC = () => {
             }}>
               <div style={{
                 background: `linear-gradient(135deg, ${ACCENT}, ${ACCENT_DEEP})`,
-                color: "#fff", fontSize: 16, fontWeight: 600, fontFamily: sansFont,
+                color: "#fff", fontSize: 16, fontFamily: bodyFont,
                 padding: "14px 32px", borderRadius: 14,
                 boxShadow: isClicked
                   ? `0 4px 12px rgba(201, 149, 107, 0.2)`
@@ -667,7 +674,6 @@ const PipelineScene: React.FC = () => {
         })()}
       </div>
 
-      {/* Animated cursor */}
       <AnimatedCursor
         x={cursorX}
         y={cursorY}
@@ -681,7 +687,6 @@ const PipelineScene: React.FC = () => {
 
 // ═══════════════════════════════════════════════════════
 // SCENE 3: AI COMPOSE — Template then "Make Relevant" click
-// 350 frames
 // ═══════════════════════════════════════════════════════
 const GENERIC_MESSAGE = `Hi there,
 
@@ -709,16 +714,12 @@ const ComposeScene: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Panel enters
   const panelSpring = spring({ frame, fps, config: { damping: 20, stiffness: 80 } });
   const panelY = interpolate(panelSpring, [0, 1], [80, 0]);
   const panelScale = interpolate(panelSpring, [0, 1], [0.92, 1]);
 
-  // Phase 1: Generic message types in (frames 10-70)
   const genericTyped = useTypewriter(GENERIC_MESSAGE, 10, 1.8);
-  const genericDone = genericTyped.length >= GENERIC_MESSAGE.length;
 
-  // Phase 2: Cursor moves to "Make Relevant" button (frame ~80-100)
   const makeRelevantBtnY = 210;
   const makeRelevantBtnX = 780;
 
@@ -731,7 +732,6 @@ const ComposeScene: React.FC = () => {
   const cursorY = interpolate(cursorMoveProgress, [0, 1], [600, makeRelevantBtnY]);
   const cursorClicking = frame >= 105 && frame < 113;
 
-  // Phase 3: Camera zooms into button area (frame 90-115)
   const zoomProgress = interpolate(frame, [90, 115], [0, 1], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp",
     easing: Easing.inOut(Easing.quad),
@@ -740,7 +740,6 @@ const ComposeScene: React.FC = () => {
   const cameraX = interpolate(zoomProgress, [0, 1], [0, -200]);
   const cameraCY = interpolate(zoomProgress, [0, 1], [0, -80]);
 
-  // Phase 4: Zoom back out after click (frame 120-145)
   const zoomOutProgress = interpolate(frame, [120, 145], [0, 1], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp",
     easing: Easing.inOut(Easing.quad),
@@ -753,34 +752,25 @@ const ComposeScene: React.FC = () => {
   const finalCameraX = frame < 120 ? cameraX : cameraXOut;
   const finalCameraCY = frame < 120 ? cameraCY : cameraCYOut;
 
-  // Phase 5: AI processing animation (frame 113-150)
   const aiProcessing = frame >= 113 && frame < 150;
   const aiProcessingProgress = interpolate(frame, [113, 150], [0, 1], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp",
   });
 
-  // Phase 6: AI message replaces generic (frame 150+)
   const aiMessageStart = 155;
   const showAiMessage = frame >= aiMessageStart;
 
-  // AI message types in
   const aiTyped = useTypewriter(AI_MESSAGE, aiMessageStart, 2.0, "Hi Sarah,", 12);
 
-  // Button click state
   const btnClicked = frame >= 105;
   const btnClickScale = btnClicked
     ? interpolate(frame - 105, [0, 4, 12], [1, 0.92, 1], { extrapolateRight: "clamp" })
     : 1;
 
-  // Processing shimmer on button
-  const btnProcessing = aiProcessing;
-
-  // AI Badge glow
   const aiBadgeVisible = frame > 113;
   const aiBadgeSpring = spring({ frame: frame - 113, fps, config: { damping: 14 } });
   const aiBadgeGlow = 0.6 + Math.sin(frame * 0.15) * 0.4;
 
-  // "Send" button appears after AI message is fully typed
   const aiTypingDone = aiTyped.length >= AI_MESSAGE.length;
   const sendSpring = spring({
     frame: aiTypingDone ? frame : -999,
@@ -788,7 +778,6 @@ const ComposeScene: React.FC = () => {
     config: { damping: 12, stiffness: 120 },
   });
 
-  // Subtle old text fade out
   const oldTextOpacity = interpolate(frame, [110, 145], [1, 0], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp",
   });
@@ -815,15 +804,10 @@ const ComposeScene: React.FC = () => {
             display: "flex", alignItems: "center", justifyContent: "space-between",
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-              <div style={{
-                width: 40, height: 40, borderRadius: "50%",
-                background: `linear-gradient(135deg, ${ACCENT}25, ${ACCENT}55)`,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 15, fontWeight: 600, color: ACCENT_DEEP, fontFamily: sansFont,
-              }}>SC</div>
+              <ProfilePhoto src="images/sarah.jpg" size={40} />
               <div>
-                <div style={{ fontSize: 15, fontWeight: 600, color: TEXT, fontFamily: sansFont }}>Sarah Chapman</div>
-                <div style={{ fontSize: 12, color: TEXT_SEC, fontFamily: sansFont }}>Senior Product Designer · Stockholm · 10/12 Match</div>
+                <div style={{ fontSize: 15, fontFamily: bodyFont, color: TEXT }}>Sarah Chapman</div>
+                <div style={{ fontSize: 12, color: TEXT_SEC, fontFamily: bodyFont }}>Senior Product Designer · Stockholm · 10/12 Match</div>
               </div>
             </div>
 
@@ -840,72 +824,45 @@ const ComposeScene: React.FC = () => {
                   boxShadow: `0 0 ${12 * aiBadgeGlow}px rgba(201, 149, 107, ${0.15 * aiBadgeGlow})`,
                 }}>
                   <IconSparkles size={14} color={ACCENT_DEEP} />
-                  <span style={{ fontSize: 12, fontWeight: 600, color: ACCENT_DEEP, fontFamily: sansFont }}>
-                    {aiProcessing ? "Personalizing..." : "AI Personalized"}
-                  </span>
+                  <span style={{ fontSize: 12, color: ACCENT_DEEP, fontFamily: bodyFont }}>AI Enhanced</span>
                 </div>
               )}
-
               <div style={{
                 background: btnClicked
-                  ? `linear-gradient(135deg, ${ACCENT}30, ${ACCENT}15)`
-                  : `linear-gradient(135deg, ${BLUE}, #3a6ce8)`,
-                padding: "8px 20px", borderRadius: 12,
+                  ? `linear-gradient(135deg, ${ACCENT}, ${ACCENT_DEEP})`
+                  : ACCENT_BG,
+                padding: "10px 20px", borderRadius: 12,
                 display: "flex", alignItems: "center", gap: 8,
                 transform: `scale(${btnClickScale})`,
-                boxShadow: btnClicked
-                  ? "none"
-                  : `0 4px 16px rgba(74, 124, 255, 0.25)`,
-                position: "relative",
-                overflow: "hidden",
+                boxShadow: btnClicked ? `0 4px 16px rgba(201, 149, 107, 0.3)` : "none",
               }}>
-                {/* Processing shimmer */}
-                {btnProcessing && (
-                  <div style={{
-                    position: "absolute", inset: 0,
-                    background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)`,
-                    transform: `translateX(${interpolate(frame % 30, [0, 30], [-100, 200])}%)`,
-                  }} />
-                )}
-                <IconSparkles size={14} color={btnClicked ? ACCENT_DEEP : "#fff"} />
+                <IconSparkles size={16} color={btnClicked ? "#fff" : ACCENT_DEEP} />
                 <span style={{
-                  fontSize: 13, fontWeight: 600, fontFamily: sansFont,
-                  color: btnClicked ? ACCENT_DEEP : "#fff",
-                }}>
-                  Make Relevant
-                </span>
+                  fontSize: 14, fontFamily: bodyFont,
+                  color: btnClicked ? "#fff" : ACCENT_DEEP,
+                }}>Make Relevant</span>
               </div>
             </div>
           </div>
 
-          {/* To / Subject */}
-          <div style={{ padding: "0 28px" }}>
-            <div style={{
-              padding: "12px 0", borderBottom: `1px solid ${BORDER}`,
-              display: "flex", gap: 10, alignItems: "center",
-            }}>
-              <span style={{ fontSize: 13, color: TEXT_SEC, fontFamily: sansFont, fontWeight: 500, width: 60 }}>To:</span>
-              <span style={{ fontSize: 13, color: TEXT, fontFamily: sansFont }}>sarah.chapman@email.com</span>
-            </div>
-            <div style={{
-              padding: "12px 0", borderBottom: `1px solid ${BORDER}`,
-              display: "flex", gap: 10, alignItems: "center",
-            }}>
-              <span style={{ fontSize: 13, color: TEXT_SEC, fontFamily: sansFont, fontWeight: 500, width: 60 }}>Subject:</span>
-              <span style={{ fontSize: 13, color: TEXT, fontFamily: sansFont }}>
-                {showAiMessage ? "Opportunity: Lead Product Designer at PriceMind AI" : "Job opportunity — interested?"}
-              </span>
-            </div>
+          {/* Subject line */}
+          <div style={{
+            padding: "12px 28px", borderBottom: `1px solid ${BORDER}`,
+            display: "flex", alignItems: "center", gap: 10,
+          }}>
+            <span style={{ fontSize: 13, color: TEXT_SEC, fontFamily: bodyFont }}>Subject:</span>
+            <span style={{ fontSize: 14, color: TEXT, fontFamily: bodyFont }}>
+              {showAiMessage ? "Opportunity at PriceMind AI — Lead Product Designer" : "Exciting Job Opportunity"}
+            </span>
           </div>
 
           {/* Body */}
           <div style={{
             padding: "20px 28px", minHeight: 320,
-            fontSize: 14.5, fontFamily: sansFont, color: TEXT,
+            fontSize: 14.5, fontFamily: bodyFont, color: TEXT,
             lineHeight: 1.75, whiteSpace: "pre-wrap",
             position: "relative",
           }}>
-            {/* Generic message (fades out) */}
             {!showAiMessage && (
               <div style={{ opacity: frame < 110 ? 1 : oldTextOpacity }}>
                 {genericTyped}
@@ -913,7 +870,6 @@ const ComposeScene: React.FC = () => {
               </div>
             )}
 
-            {/* AI processing overlay */}
             {aiProcessing && !showAiMessage && (
               <div style={{
                 position: "absolute", inset: 0,
@@ -928,7 +884,6 @@ const ComposeScene: React.FC = () => {
                   }}>
                     <IconSparkles size={16} color="#fff" />
                   </div>
-                  {/* Animated dots */}
                   <div style={{ display: "flex", gap: 4 }}>
                     {[0, 1, 2].map((d) => (
                       <div key={d} style={{
@@ -938,14 +893,13 @@ const ComposeScene: React.FC = () => {
                       }} />
                     ))}
                   </div>
-                  <span style={{ fontSize: 14, fontWeight: 600, color: ACCENT_DEEP, fontFamily: sansFont }}>
+                  <span style={{ fontSize: 14, color: ACCENT_DEEP, fontFamily: bodyFont }}>
                     AI is personalizing your message...
                   </span>
                 </div>
               </div>
             )}
 
-            {/* AI personalized message */}
             {showAiMessage && (
               <div style={{
                 opacity: spring({ frame: frame - aiMessageStart, fps, config: { damping: 200 } }),
@@ -968,7 +922,7 @@ const ComposeScene: React.FC = () => {
                 { icon: <IconRefresh size={14} color={TEXT_SEC} />, label: "Regenerate" },
               ].map((btn, i) => (
                 <span key={i} style={{
-                  fontSize: 13, color: TEXT_SEC, fontFamily: sansFont, fontWeight: 500,
+                  fontSize: 13, color: TEXT_SEC, fontFamily: bodyFont,
                   background: "#f5f3ef", padding: "7px 14px", borderRadius: 10,
                   display: "flex", alignItems: "center", gap: 6,
                 }}>
@@ -982,7 +936,7 @@ const ComposeScene: React.FC = () => {
               <div style={{
                 transform: `scale(${sendSpring})`,
                 background: `linear-gradient(135deg, ${ACCENT}, ${ACCENT_DEEP})`,
-                color: "#fff", fontSize: 14, fontWeight: 600, fontFamily: sansFont,
+                color: "#fff", fontSize: 14, fontFamily: bodyFont,
                 padding: "10px 24px", borderRadius: 12,
                 boxShadow: `0 4px 16px rgba(201, 149, 107, 0.3)`,
                 display: "flex", alignItems: "center", gap: 8,
@@ -995,7 +949,6 @@ const ComposeScene: React.FC = () => {
         </div>
       </div>
 
-      {/* Animated cursor */}
       <AnimatedCursor
         x={cursorX}
         y={cursorY}
@@ -1008,7 +961,6 @@ const ComposeScene: React.FC = () => {
 
 // ═══════════════════════════════════════════════════════
 // SCENE 4: OUTREACH DASHBOARD — Stats + Status
-// 160 frames
 // ═══════════════════════════════════════════════════════
 const OutreachDashScene: React.FC = () => {
   const frame = useCurrentFrame();
@@ -1024,9 +976,9 @@ const OutreachDashScene: React.FC = () => {
   ];
 
   const STATUSES = [
-    { name: "Sarah Chapman", status: "Replied", time: "2 min ago", statusColor: GREEN, bgColor: GREEN_BG, icon: <IconMessageCircle size={20} color={GREEN} /> },
-    { name: "Sam Morris", status: "Opened", time: "5 min ago", statusColor: "#e8a230", bgColor: "rgba(232, 162, 48, 0.08)", icon: <IconZap size={20} color="#e8a230" /> },
-    { name: "Esther Howard", status: "Sent", time: "8 min ago", statusColor: ACCENT, bgColor: ACCENT_BG, icon: <IconSend size={20} color={ACCENT} /> },
+    { name: "Sarah Chapman", status: "Replied", time: "2 min ago", statusColor: GREEN, bgColor: GREEN_BG, icon: <IconMessageCircle size={20} color={GREEN} />, photo: "images/sarah.jpg" },
+    { name: "Sam Morris", status: "Opened", time: "5 min ago", statusColor: "#e8a230", bgColor: "rgba(232, 162, 48, 0.08)", icon: <IconZap size={20} color="#e8a230" />, photo: "images/sam.jpg" },
+    { name: "Esther Howard", status: "Sent", time: "8 min ago", statusColor: ACCENT, bgColor: ACCENT_BG, icon: <IconSend size={20} color={ACCENT} />, photo: "images/esther.jpg" },
   ];
 
   return (
@@ -1035,8 +987,8 @@ const OutreachDashScene: React.FC = () => {
         display: "flex", flexDirection: "column", gap: 20, alignItems: "center",
         width: 800, opacity: containerSpring,
       }}>
-        <div style={{ textAlign: "center", marginBottom: 8, opacity: spring({ frame, fps, config: { damping: 200 } }) }}>
-          <h2 style={{ fontSize: 32, fontFamily: serifFont, fontWeight: 700, color: TEXT, margin: 0 }}>
+        <div style={{ textAlign: "center", marginBottom: 8 }}>
+          <h2 style={{ fontSize: 32, fontFamily: headingFont, color: TEXT, margin: 0 }}>
             Outreach Performance
           </h2>
         </div>
@@ -1061,11 +1013,11 @@ const OutreachDashScene: React.FC = () => {
               }}>
                 <div style={{ display: "flex", justifyContent: "center", marginBottom: 4 }}>{s.icon}</div>
                 <div style={{
-                  fontSize: 34, fontWeight: 800, color: s.color, fontFamily: sansFont, marginTop: 4,
+                  fontSize: 34, fontFamily: headingFont, color: s.color, marginTop: 4,
                 }}>
                   {countUp}{s.suffix || ""}
                 </div>
-                <div style={{ fontSize: 12, color: TEXT_SEC, fontFamily: sansFont, marginTop: 4, fontWeight: 500 }}>
+                <div style={{ fontSize: 12, color: TEXT_SEC, fontFamily: bodyFont, marginTop: 4 }}>
                   {s.label}
                 </div>
               </div>
@@ -1090,14 +1042,14 @@ const OutreachDashScene: React.FC = () => {
                 boxShadow: isReply ? `0 4px 20px rgba(45, 157, 92, 0.08)` : "0 1px 4px rgba(0,0,0,0.02)",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                  {r.icon}
+                  <ProfilePhoto src={r.photo} size={36} />
                   <div>
-                    <div style={{ fontSize: 15, fontWeight: 600, color: TEXT, fontFamily: sansFont }}>{r.name}</div>
-                    <div style={{ fontSize: 12, color: TEXT_SEC, fontFamily: sansFont }}>{r.time}</div>
+                    <div style={{ fontSize: 15, fontFamily: bodyFont, color: TEXT }}>{r.name}</div>
+                    <div style={{ fontSize: 12, color: TEXT_SEC, fontFamily: bodyFont }}>{r.time}</div>
                   </div>
                 </div>
                 <div style={{
-                  fontSize: 13, fontWeight: 600, color: r.statusColor, fontFamily: sansFont,
+                  fontSize: 13, color: r.statusColor, fontFamily: bodyFont,
                   background: r.bgColor, padding: "5px 14px", borderRadius: 20,
                 }}>
                   {r.status}
@@ -1113,7 +1065,6 @@ const OutreachDashScene: React.FC = () => {
 
 // ═══════════════════════════════════════════════════════
 // SCENE 5: REPLY THREAD — Notification + conversation
-// 180 frames
 // ═══════════════════════════════════════════════════════
 const REPLY_TEXT = `Hi! Thanks for reaching out — I've actually been following PriceMind AI and the product challenges sound really exciting.
 
@@ -1152,7 +1103,7 @@ const ReplyScene: React.FC = () => {
         padding: "14px 28px",
         display: "flex", alignItems: "center", gap: 12,
         boxShadow: "0 10px 30px rgba(45, 157, 92, 0.25)",
-        fontSize: 15, fontWeight: 600, fontFamily: sansFont,
+        fontSize: 15, fontFamily: bodyFont,
       }}>
         <IconMessageCircle size={18} color="#fff" />
         New reply from Sarah Chapman
@@ -1174,17 +1125,12 @@ const ReplyScene: React.FC = () => {
           padding: "16px 28px", borderBottom: `1px solid ${BORDER}`,
           display: "flex", alignItems: "center", gap: 14,
         }}>
-          <div style={{
-            width: 42, height: 42, borderRadius: "50%",
-            background: `linear-gradient(135deg, ${ACCENT}25, ${ACCENT}55)`,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 15, fontWeight: 600, color: ACCENT_DEEP, fontFamily: sansFont,
-          }}>SC</div>
+          <ProfilePhoto src="images/sarah.jpg" size={42} />
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 16, fontWeight: 600, color: TEXT, fontFamily: sansFont }}>Sarah Chapman</div>
+            <div style={{ fontSize: 16, fontFamily: bodyFont, color: TEXT }}>Sarah Chapman</div>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
               <div style={{ width: 8, height: 8, borderRadius: "50%", background: GREEN }} />
-              <span style={{ fontSize: 12, color: GREEN, fontFamily: sansFont, fontWeight: 500 }}>Online</span>
+              <span style={{ fontSize: 12, color: GREEN, fontFamily: bodyFont }}>Online</span>
             </div>
           </div>
           <div style={{ display: "flex", gap: 8 }}>
@@ -1213,7 +1159,7 @@ const ReplyScene: React.FC = () => {
               borderRadius: "18px 18px 4px 18px",
               padding: "14px 20px",
               maxWidth: 480,
-              fontSize: 14, color: TEXT, fontFamily: sansFont, lineHeight: 1.6,
+              fontSize: 14, color: TEXT, fontFamily: bodyFont, lineHeight: 1.6,
             }}>
               Hi Sarah, I came across your profile and was impressed by your work as a Senior Product Designer, especially your experience in fintech at Fintech Corp...
               <div style={{ fontSize: 11, color: TEXT_SEC, marginTop: 8, textAlign: "right" }}>You · 10:32 AM</div>
@@ -1228,7 +1174,7 @@ const ReplyScene: React.FC = () => {
                 borderRadius: "18px 18px 18px 4px",
                 padding: "14px 20px",
                 maxWidth: 480,
-                fontSize: 14, color: TEXT, fontFamily: sansFont, lineHeight: 1.6,
+                fontSize: 14, color: TEXT, fontFamily: bodyFont, lineHeight: 1.6,
                 whiteSpace: "pre-wrap",
                 border: `1px solid ${GREEN}15`,
               }}>
@@ -1249,7 +1195,7 @@ const ReplyScene: React.FC = () => {
             <div style={{
               transform: `scale(${schedBtnSpring})`,
               background: `linear-gradient(135deg, ${GREEN}, #238c4d)`,
-              color: "#fff", fontSize: 14, fontWeight: 600, fontFamily: sansFont,
+              color: "#fff", fontSize: 14, fontFamily: bodyFont,
               padding: "12px 28px", borderRadius: 12,
               boxShadow: `0 6px 20px rgba(45, 157, 92, 0.25)`,
               display: "flex", alignItems: "center", gap: 8,
@@ -1265,8 +1211,7 @@ const ReplyScene: React.FC = () => {
 };
 
 // ═══════════════════════════════════════════════════════
-// SCENE 6: OUTRO
-// 100 frames
+// SCENE 6: OUTRO — Laidback branding
 // ═══════════════════════════════════════════════════════
 const OutroScene: React.FC = () => {
   const frame = useCurrentFrame();
@@ -1307,11 +1252,11 @@ const OutroScene: React.FC = () => {
           display: "flex", alignItems: "center", justifyContent: "center",
           boxShadow: `0 12px 40px rgba(201, 149, 107, 0.3)`,
         }}>
-          <span style={{ fontSize: 34, color: "#fff", fontFamily: sansFont, fontWeight: 700 }}>S</span>
+          <LaidbackLogo size={42} color="#fff" />
         </div>
 
         <h1 style={{
-          fontSize: 64, fontFamily: serifFont, fontWeight: 700, color: TEXT,
+          fontSize: 64, fontFamily: headingFont, color: TEXT,
           margin: 0, letterSpacing: -1,
         }}>
           {wordEls}
@@ -1323,12 +1268,12 @@ const OutroScene: React.FC = () => {
         }} />
 
         <p style={{
-          fontSize: 22, fontFamily: sansFont, color: TEXT_SEC,
-          margin: 0, fontWeight: 500, letterSpacing: 1,
+          fontSize: 22, fontFamily: bodyFont, color: TEXT_SEC,
+          margin: 0, letterSpacing: 1,
           opacity: urlSpring,
           transform: `translateY(${interpolate(urlSpring, [0, 1], [15, 0])}px)`,
         }}>
-          sava.ai
+          laidback.ai
         </p>
       </div>
     </AbsoluteFill>
@@ -1337,9 +1282,6 @@ const OutroScene: React.FC = () => {
 
 // ═══════════════════════════════════════════════════════
 // MAIN VIDEO — TransitionSeries
-// Scenes: Intro(80) + Pipeline(220) + Compose(350) + Dashboard(160) + Reply(180) + Outro(100)
-// Transitions: 5 × 20f = 100f overlap
-// Total: 1090 - 100 = 990f = 33s
 // ═══════════════════════════════════════════════════════
 export const OutreachVideoV2: React.FC = () => {
   return (
