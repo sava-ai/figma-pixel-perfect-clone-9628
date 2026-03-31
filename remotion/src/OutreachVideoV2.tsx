@@ -7,9 +7,10 @@ import {
   Sequence,
   Easing,
 } from "remotion";
-import { TransitionSeries, linearTiming } from "@remotion/transitions";
+import { TransitionSeries, linearTiming, springTiming } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { slide } from "@remotion/transitions/slide";
+import { wipe } from "@remotion/transitions/wipe";
 import { loadFont as loadDMSans } from "@remotion/google-fonts/DMSans";
 import { loadFont as loadFraunces } from "@remotion/google-fonts/Fraunces";
 
@@ -25,7 +26,6 @@ const { fontFamily: serifFont } = loadFraunces("normal", {
 
 // ── Colors ──
 const BG = "#f6f4f0";
-const BG_WARM = "#faf8f5";
 const CARD = "#ffffff";
 const TEXT = "#1a1817";
 const TEXT_SEC = "#7a7570";
@@ -35,11 +35,189 @@ const ACCENT_BG = "rgba(201, 149, 107, 0.10)";
 const GREEN = "#2d9d5c";
 const GREEN_BG = "rgba(45, 157, 92, 0.08)";
 const BORDER = "#ece8e2";
-const SKELETON = "#e8e4de";
+const BLUE = "#4a7cff";
+const BLUE_BG = "rgba(74, 124, 255, 0.08)";
+
+// ── SVG Icon Components ──
+const IconMail: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = TEXT_SEC }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2" />
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+  </svg>
+);
+
+const IconSend: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = "#fff" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+    <path d="m21.854 2.147-10.94 10.939" />
+  </svg>
+);
+
+const IconSparkles: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = ACCENT }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+    <path d="M20 3v4" />
+    <path d="M22 5h-4" />
+    <path d="M4 17v2" />
+    <path d="M5 18H3" />
+  </svg>
+);
+
+const IconUsers: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = TEXT_SEC }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+);
+
+const IconCalendar: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = TEXT_SEC }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M8 2v4" /><path d="M16 2v4" />
+    <rect width="18" height="18" x="3" y="4" rx="2" />
+    <path d="M3 10h18" />
+  </svg>
+);
+
+const IconMessageCircle: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = TEXT_SEC }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z" />
+  </svg>
+);
+
+const IconCheck: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = "#fff" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20 6 9 17l-5-5" />
+  </svg>
+);
+
+const IconArrowRight: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = "#fff" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+  </svg>
+);
+
+const IconPaperclip: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = TEXT_SEC }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+  </svg>
+);
+
+const IconRefresh: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = TEXT_SEC }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+    <path d="M21 3v5h-5" />
+    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+    <path d="M8 16H3v5" />
+  </svg>
+);
+
+const IconPhone: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = TEXT_SEC }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+
+const IconVideo: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = TEXT_SEC }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.934a.5.5 0 0 0-.777-.416L16 11" />
+    <rect x="2" y="6" width="14" height="12" rx="2" />
+  </svg>
+);
+
+const IconMoreHorizontal: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = TEXT_SEC }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" />
+  </svg>
+);
+
+const IconTrendingUp: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = GREEN }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+    <polyline points="16 7 22 7 22 13" />
+  </svg>
+);
+
+const IconTarget: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = ACCENT }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" />
+  </svg>
+);
+
+const IconZap: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = "#e8a230" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
+  </svg>
+);
+
+// ── Animated Cursor Component ──
+const AnimatedCursor: React.FC<{
+  x: number;
+  y: number;
+  visible: boolean;
+  clicking?: boolean;
+  scale?: number;
+}> = ({ x, y, visible, clicking = false, scale = 1 }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+
+  if (!visible) return null;
+
+  const clickScale = clicking ? 0.85 : 1;
+  const rippleOpacity = clicking
+    ? interpolate(frame % 20, [0, 20], [0.6, 0], { extrapolateRight: "clamp" })
+    : 0;
+  const rippleScale = clicking
+    ? interpolate(frame % 20, [0, 20], [1, 2.5], { extrapolateRight: "clamp" })
+    : 1;
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: x,
+        top: y,
+        zIndex: 9999,
+        transform: `scale(${scale})`,
+        pointerEvents: "none",
+      }}
+    >
+      {/* Click ripple */}
+      {clicking && (
+        <div
+          style={{
+            position: "absolute",
+            width: 30,
+            height: 30,
+            borderRadius: "50%",
+            border: `2px solid ${ACCENT}`,
+            opacity: rippleOpacity,
+            transform: `translate(-50%, -50%) scale(${rippleScale})`,
+            left: 4,
+            top: 4,
+          }}
+        />
+      )}
+      {/* Cursor SVG */}
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        style={{ transform: `scale(${clickScale})`, filter: "drop-shadow(1px 2px 3px rgba(0,0,0,0.3))" }}
+      >
+        <path
+          d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.85a.5.5 0 0 0-.85.36Z"
+          fill="#fff"
+          stroke="#1a1817"
+          strokeWidth={1.5}
+        />
+      </svg>
+    </div>
+  );
+};
 
 // ── Helpers ──
-const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
-
 const useTypewriter = (
   text: string,
   startFrame: number,
@@ -90,60 +268,6 @@ const Cursor: React.FC<{ color?: string }> = ({ color = ACCENT }) => {
   );
 };
 
-// Skeleton placeholder bar
-const SkeletonBar: React.FC<{
-  width: number;
-  height?: number;
-  delay: number;
-  revealFrame: number;
-  children?: React.ReactNode;
-}> = ({ width, height = 16, delay, revealFrame, children }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-
-  const enterProgress = spring({ frame: frame - delay, fps, config: { damping: 200 } });
-  const revealProgress = spring({
-    frame: frame - revealFrame,
-    fps,
-    config: { damping: 200 },
-  });
-
-  const shimmerX = interpolate(frame % 60, [0, 60], [-width, width * 2]);
-
-  if (revealProgress > 0.5 && children) {
-    return (
-      <div style={{ opacity: revealProgress }}>
-        {children}
-      </div>
-    );
-  }
-
-  return (
-    <div
-      style={{
-        width,
-        height,
-        borderRadius: height / 2,
-        background: SKELETON,
-        opacity: enterProgress,
-        overflow: "hidden",
-        position: "relative",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: shimmerX,
-          width: width * 0.4,
-          height: "100%",
-          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)",
-        }}
-      />
-    </div>
-  );
-};
-
 // ═══════════════════════════════════════════════════════
 // SCENE 1: INTRO — Logo + Staggered word reveal
 // 80 frames
@@ -152,7 +276,6 @@ const IntroScene: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Logo bounces in
   const logoScale = spring({ frame, fps, config: { damping: 12, stiffness: 100 } });
   const logoRotate = interpolate(
     spring({ frame, fps, config: { damping: 15, stiffness: 60 } }),
@@ -160,7 +283,6 @@ const IntroScene: React.FC = () => {
     [-15, 0]
   );
 
-  // Words stagger in
   const words = ["Personalized", "Outreach"];
   const wordElements = words.map((word, i) => {
     const wordDelay = 12 + i * 10;
@@ -182,38 +304,33 @@ const IntroScene: React.FC = () => {
     );
   });
 
-  // Subtitle
   const subDelay = 30;
   const subProgress = spring({ frame: frame - subDelay, fps, config: { damping: 200 } });
   const subY = interpolate(subProgress, [0, 1], [20, 0]);
 
-  // Accent line
   const lineW = interpolate(frame, [20, 55], [0, 140], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.out(Easing.quad),
   });
 
-  // Floating ambient shapes
   const orb1Y = Math.sin(frame * 0.05) * 8;
   const orb2Y = Math.cos(frame * 0.04) * 10;
 
   return (
-    <AbsoluteFill style={{ background: BG, justifyContent: "center", alignItems: "center" }}>
-      {/* Ambient orbs */}
+    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #f0ece5 100%)`, justifyContent: "center", alignItems: "center" }}>
       <div style={{
         position: "absolute", top: 200 + orb1Y, right: 300,
         width: 200, height: 200, borderRadius: "50%",
-        background: `radial-gradient(circle, ${ACCENT}12 0%, transparent 70%)`,
+        background: `radial-gradient(circle, ${ACCENT}15 0%, transparent 70%)`,
       }} />
       <div style={{
         position: "absolute", bottom: 180 + orb2Y, left: 250,
         width: 260, height: 260, borderRadius: "50%",
-        background: `radial-gradient(circle, ${ACCENT}08 0%, transparent 70%)`,
+        background: `radial-gradient(circle, ${ACCENT}0a 0%, transparent 70%)`,
       }} />
 
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
-        {/* Logo */}
         <div style={{
           width: 88, height: 88, borderRadius: 22,
           background: `linear-gradient(145deg, ${ACCENT}, ${ACCENT_DEEP})`,
@@ -224,7 +341,6 @@ const IntroScene: React.FC = () => {
           <span style={{ fontSize: 40, color: "#fff", fontFamily: sansFont, fontWeight: 700 }}>S</span>
         </div>
 
-        {/* Title */}
         <h1 style={{
           fontSize: 76, fontFamily: serifFont, fontWeight: 700, color: TEXT,
           margin: 0, letterSpacing: -2, lineHeight: 1.1,
@@ -232,13 +348,11 @@ const IntroScene: React.FC = () => {
           {wordElements}
         </h1>
 
-        {/* Line */}
         <div style={{
           width: lineW, height: 3, borderRadius: 2,
           background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)`,
         }} />
 
-        {/* Subtitle */}
         <p style={{
           fontSize: 24, fontFamily: sansFont, color: TEXT_SEC,
           opacity: subProgress, transform: `translateY(${subY}px)`,
@@ -252,8 +366,8 @@ const IntroScene: React.FC = () => {
 };
 
 // ═══════════════════════════════════════════════════════
-// SCENE 2: PIPELINE — Select candidates (camera zoom)
-// 200 frames
+// SCENE 2: PIPELINE — Select candidates with cursor
+// 220 frames
 // ═══════════════════════════════════════════════════════
 const CANDIDATES = [
   { name: "Sarah Chapman", role: "Senior Product Designer", company: "Fintech Corp", loc: "Stockholm", match: "10/12", matchPct: 83, avatar: "SC", skills: ["Product Design", "UX Strategy", "Figma"] },
@@ -265,30 +379,73 @@ const PipelineScene: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Camera zoom: starts showing full view, slowly zooms to candidates
-  const zoomProgress = interpolate(frame, [0, 180], [0, 1], {
+  // Camera zoom: slow zoom in toward candidates
+  const zoomProgress = interpolate(frame, [0, 200], [0, 1], {
     extrapolateRight: "clamp",
     easing: Easing.inOut(Easing.quad),
   });
-  const scale = interpolate(zoomProgress, [0, 1], [0.88, 1.0]);
-  const translateY = interpolate(zoomProgress, [0, 1], [20, 0]);
+  const cameraScale = interpolate(zoomProgress, [0, 0.5, 1], [0.82, 0.92, 1.05]);
+  const cameraY = interpolate(zoomProgress, [0, 0.5, 1], [30, 10, -20]);
 
-  // Header
+  // Cursor positions for selecting each candidate
+  const cursorTargets = [
+    { x: 1390, y: 495, clickFrame: 65 },  // card 1 checkbox
+    { x: 1390, y: 595, clickFrame: 85 },  // card 2 checkbox
+    { x: 1390, y: 695, clickFrame: 105 }, // card 3 checkbox
+    { x: 870, y: 790, clickFrame: 155 },  // contact button
+  ];
+
+  // Determine cursor position based on frame
+  let cursorX = 960;
+  let cursorY = 300;
+  let cursorVisible = frame > 40;
+  let cursorClicking = false;
+
+  for (let i = cursorTargets.length - 1; i >= 0; i--) {
+    const target = cursorTargets[i];
+    const prevTarget = i > 0 ? cursorTargets[i - 1] : { x: 960, y: 300, clickFrame: 40 };
+    const moveStart = prevTarget.clickFrame + 8;
+    const moveEnd = target.clickFrame - 5;
+
+    if (frame >= moveStart) {
+      const moveProgress = interpolate(frame, [moveStart, moveEnd], [0, 1], {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+        easing: Easing.inOut(Easing.cubic),
+      });
+      cursorX = interpolate(moveProgress, [0, 1], [prevTarget.x, target.x]);
+      cursorY = interpolate(moveProgress, [0, 1], [prevTarget.y, target.y]);
+    }
+
+    if (frame >= target.clickFrame && frame < target.clickFrame + 8) {
+      cursorClicking = true;
+    }
+  }
+
+  // First cursor position (entering)
+  if (frame <= 65) {
+    const enterProgress = interpolate(frame, [40, 60], [0, 1], {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.out(Easing.cubic),
+    });
+    cursorX = interpolate(enterProgress, [0, 1], [1600, cursorTargets[0].x]);
+    cursorY = interpolate(enterProgress, [0, 1], [200, cursorTargets[0].y]);
+  }
+
   const headerSpring = spring({ frame, fps, config: { damping: 200 } });
-
-  // Stats bar
   const statsDelay = 8;
 
   return (
-    <AbsoluteFill style={{ background: BG }}>
+    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #f0ece5 100%)` }}>
       <div style={{
-        transform: `scale(${scale}) translateY(${translateY}px)`,
+        transform: `scale(${cameraScale}) translateY(${cameraY}px)`,
         transformOrigin: "center 40%",
         width: "100%", height: "100%",
         display: "flex", flexDirection: "column", alignItems: "center",
         justifyContent: "center", gap: 24,
       }}>
-        {/* Top nav bar mockup */}
+        {/* Top nav bar */}
         <div style={{
           width: 900, display: "flex", alignItems: "center",
           justifyContent: "space-between", opacity: headerSpring, padding: "0 4px",
@@ -304,7 +461,6 @@ const PipelineScene: React.FC = () => {
             <span style={{ fontSize: 15, fontWeight: 600, color: TEXT, fontFamily: sansFont }}>
               BD Representative / Sales Manager
             </span>
-            <span style={{ fontSize: 12, color: TEXT_SEC, fontFamily: sansFont }}>▾</span>
           </div>
           <div style={{ display: "flex", gap: 24 }}>
             {["Job", "Review (10)", "Pipeline"].map((tab, i) => (
@@ -322,9 +478,9 @@ const PipelineScene: React.FC = () => {
         {/* Stats row */}
         <div style={{ display: "flex", gap: 16, width: 900 }}>
           {[
-            { label: "To contact", value: 6, icon: "📋" },
-            { label: "To Schedule", value: 4, icon: "📅" },
-            { label: "Interviewing", value: 2, icon: "💬" },
+            { label: "To contact", value: 6, icon: <IconUsers size={20} color={ACCENT} /> },
+            { label: "To Schedule", value: 4, icon: <IconCalendar size={20} color={BLUE} /> },
+            { label: "Interviewing", value: 2, icon: <IconMessageCircle size={20} color={GREEN} /> },
           ].map((stat, i) => {
             const statSpring = spring({
               frame: frame - statsDelay - i * 6,
@@ -348,7 +504,7 @@ const PipelineScene: React.FC = () => {
                 boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                  <span style={{ fontSize: 14 }}>{stat.icon}</span>
+                  {stat.icon}
                   <span style={{ fontSize: 13, color: TEXT_SEC, fontFamily: sansFont, fontWeight: 500 }}>{stat.label}</span>
                 </div>
                 <span style={{ fontSize: 28, fontWeight: 700, color: TEXT, fontFamily: sansFont }}>{countUp}</span>
@@ -363,7 +519,9 @@ const PipelineScene: React.FC = () => {
           opacity: spring({ frame: frame - 20, fps, config: { damping: 200 } }),
         }}>
           <span style={{ fontSize: 20, fontWeight: 700, color: TEXT, fontFamily: serifFont }}>Best Matches</span>
-          <span style={{ fontSize: 13, color: ACCENT, fontFamily: sansFont, fontWeight: 600 }}>View all →</span>
+          <span style={{ fontSize: 13, color: ACCENT, fontFamily: sansFont, fontWeight: 600, display: "flex", alignItems: "center", gap: 4 }}>
+            View all <IconArrowRight size={14} color={ACCENT} />
+          </span>
         </div>
 
         {/* Candidate cards */}
@@ -373,20 +531,22 @@ const PipelineScene: React.FC = () => {
             const cardSpring = spring({ frame: frame - cardDelay, fps, config: { damping: 20, stiffness: 120 } });
             const cardY = interpolate(cardSpring, [0, 1], [35, 0]);
 
-            // Checkbox appears after card
-            const checkDelay = cardDelay + 25;
-            const checkSpring = spring({ frame: frame - checkDelay, fps, config: { damping: 10, stiffness: 150 } });
-            const isSelected = frame > checkDelay;
+            const checkClickFrame = cursorTargets[i].clickFrame;
+            const isSelected = frame > checkClickFrame;
+            const checkSpring = spring({ frame: frame - checkClickFrame, fps, config: { damping: 10, stiffness: 150 } });
 
-            // Match bar animation
             const barProgress = interpolate(
               spring({ frame: frame - cardDelay - 10, fps, config: { damping: 200 } }),
               [0, 1],
               [0, c.matchPct]
             );
 
-            // Subtle hover-like float
             const floatY = Math.sin((frame + i * 30) * 0.03) * 1.5;
+
+            // Highlight effect when selected
+            const highlightOpacity = isSelected
+              ? interpolate(frame - checkClickFrame, [0, 10, 30], [0, 0.15, 0], { extrapolateRight: "clamp" })
+              : 0;
 
             return (
               <div key={i} style={{
@@ -400,9 +560,19 @@ const PipelineScene: React.FC = () => {
                 alignItems: "center",
                 gap: 18,
                 boxShadow: isSelected
-                  ? `0 6px 24px rgba(201, 149, 107, 0.12)`
+                  ? `0 6px 24px rgba(201, 149, 107, 0.15)`
                   : "0 2px 8px rgba(0,0,0,0.03)",
+                position: "relative",
+                overflow: "hidden",
               }}>
+                {/* Selection flash */}
+                <div style={{
+                  position: "absolute", inset: 0,
+                  background: ACCENT,
+                  opacity: highlightOpacity,
+                  borderRadius: 16,
+                }} />
+
                 {/* Avatar */}
                 <div style={{
                   width: 48, height: 48, borderRadius: "50%",
@@ -423,7 +593,6 @@ const PipelineScene: React.FC = () => {
                   <div style={{ fontSize: 13, color: TEXT_SEC, fontFamily: sansFont, marginTop: 2 }}>
                     {c.role} · {c.company} · {c.loc}
                   </div>
-                  {/* Skill tags */}
                   <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
                     {c.skills.map((skill, si) => (
                       <span key={si} style={{
@@ -434,11 +603,9 @@ const PipelineScene: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Match progress bar */}
+                {/* Match bar */}
                 <div style={{ width: 80, flexShrink: 0 }}>
-                  <div style={{
-                    width: "100%", height: 4, borderRadius: 2, background: "#f0ede8",
-                  }}>
+                  <div style={{ width: "100%", height: 4, borderRadius: 2, background: "#f0ede8" }}>
                     <div style={{
                       width: `${barProgress}%`, height: "100%", borderRadius: 2,
                       background: `linear-gradient(90deg, ${ACCENT}, ${GREEN})`,
@@ -457,7 +624,7 @@ const PipelineScene: React.FC = () => {
                   display: "flex", alignItems: "center", justifyContent: "center",
                   transform: `scale(${isSelected ? checkSpring : 1})`,
                 }}>
-                  {isSelected && <span style={{ color: "#fff", fontSize: 14, fontWeight: 700 }}>✓</span>}
+                  {isSelected && <IconCheck size={14} />}
                 </div>
               </div>
             );
@@ -466,40 +633,66 @@ const PipelineScene: React.FC = () => {
 
         {/* Contact button */}
         {(() => {
-          const btnDelay = 85;
+          const btnDelay = 120;
           const btnSpring = spring({ frame: frame - btnDelay, fps, config: { damping: 14, stiffness: 100 } });
           const btnScale = interpolate(btnSpring, [0, 1], [0.85, 1]);
-          const btnPulse = 1 + Math.sin((frame - btnDelay) * 0.08) * 0.015;
+
+          // Button click effect
+          const btnClickFrame = cursorTargets[3].clickFrame;
+          const isClicked = frame > btnClickFrame;
+          const clickPulse = isClicked
+            ? interpolate(frame - btnClickFrame, [0, 5, 10], [1, 0.95, 1.02], { extrapolateRight: "clamp" })
+            : 1;
+
           return (
             <div style={{
               opacity: btnSpring,
-              transform: `scale(${btnScale * (frame > btnDelay + 20 ? btnPulse : 1)})`,
+              transform: `scale(${btnScale * clickPulse})`,
               marginTop: 8,
             }}>
               <div style={{
                 background: `linear-gradient(135deg, ${ACCENT}, ${ACCENT_DEEP})`,
                 color: "#fff", fontSize: 16, fontWeight: 600, fontFamily: sansFont,
                 padding: "14px 32px", borderRadius: 14,
-                boxShadow: `0 8px 24px rgba(201, 149, 107, 0.3), 0 2px 6px rgba(201, 149, 107, 0.2)`,
+                boxShadow: isClicked
+                  ? `0 4px 12px rgba(201, 149, 107, 0.2)`
+                  : `0 8px 24px rgba(201, 149, 107, 0.3), 0 2px 6px rgba(201, 149, 107, 0.2)`,
                 display: "flex", alignItems: "center", gap: 10,
               }}>
-                <span style={{ fontSize: 18 }}>✉</span>
+                <IconMail size={18} color="#fff" />
                 Contact 3 selected candidates
               </div>
             </div>
           );
         })()}
       </div>
+
+      {/* Animated cursor */}
+      <AnimatedCursor
+        x={cursorX}
+        y={cursorY}
+        visible={cursorVisible}
+        clicking={cursorClicking}
+        scale={1 / cameraScale}
+      />
     </AbsoluteFill>
   );
 };
 
 // ═══════════════════════════════════════════════════════
-// SCENE 3: AI COMPOSE — Typing animation with detail
-// 300 frames
+// SCENE 3: AI COMPOSE — Template then "Make Relevant" click
+// 350 frames
 // ═══════════════════════════════════════════════════════
-const MESSAGE_SUBJECT = "Opportunity: Lead Product Designer at PriceMind AI";
-const MESSAGE_BODY = `Hi Sarah,
+const GENERIC_MESSAGE = `Hi there,
+
+I came across your profile and thought you might be a good fit for a role we're looking to fill. We're a growing company looking for talented individuals.
+
+If you're interested, I'd love to chat. Let me know if you have time for a quick call.
+
+Best regards,
+Tom`;
+
+const AI_MESSAGE = `Hi Sarah,
 
 I came across your profile and was genuinely impressed by your work as a Senior Product Designer — especially your experience leading design in the fintech space at Fintech Corp.
 
@@ -521,141 +714,294 @@ const ComposeScene: React.FC = () => {
   const panelY = interpolate(panelSpring, [0, 1], [80, 0]);
   const panelScale = interpolate(panelSpring, [0, 1], [0.92, 1]);
 
-  // Subject types
-  const typedSubject = useTypewriter(MESSAGE_SUBJECT, 15, 1.2);
+  // Phase 1: Generic message types in (frames 10-70)
+  const genericTyped = useTypewriter(GENERIC_MESSAGE, 10, 1.8);
+  const genericDone = genericTyped.length >= GENERIC_MESSAGE.length;
 
-  // Body types after subject is done
-  const bodyStart = 15 + Math.ceil(MESSAGE_SUBJECT.length / 1.2) + 10;
-  const typedBody = useTypewriter(MESSAGE_BODY, bodyStart, 1.4, "Hi Sarah,", 15);
+  // Phase 2: Cursor moves to "Make Relevant" button (frame ~80-100)
+  const makeRelevantBtnY = 210;
+  const makeRelevantBtnX = 780;
 
-  // AI badge
-  const aiBadgeGlow = 0.6 + Math.sin(frame * 0.12) * 0.4;
+  const cursorVisible = frame > 75 && frame < 180;
+  const cursorMoveProgress = interpolate(frame, [75, 100], [0, 1], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp",
+    easing: Easing.inOut(Easing.cubic),
+  });
+  const cursorX = interpolate(cursorMoveProgress, [0, 1], [500, makeRelevantBtnX]);
+  const cursorY = interpolate(cursorMoveProgress, [0, 1], [600, makeRelevantBtnY]);
+  const cursorClicking = frame >= 105 && frame < 113;
 
-  // "Send" button appears after typing
-  const typingDone = typedBody.length >= MESSAGE_BODY.length;
+  // Phase 3: Camera zooms into button area (frame 90-115)
+  const zoomProgress = interpolate(frame, [90, 115], [0, 1], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp",
+    easing: Easing.inOut(Easing.quad),
+  });
+  const cameraScale = interpolate(zoomProgress, [0, 1], [1, 1.3]);
+  const cameraX = interpolate(zoomProgress, [0, 1], [0, -200]);
+  const cameraCY = interpolate(zoomProgress, [0, 1], [0, -80]);
+
+  // Phase 4: Zoom back out after click (frame 120-145)
+  const zoomOutProgress = interpolate(frame, [120, 145], [0, 1], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp",
+    easing: Easing.inOut(Easing.quad),
+  });
+  const cameraScaleOut = interpolate(zoomOutProgress, [0, 1], [1.3, 1]);
+  const cameraXOut = interpolate(zoomOutProgress, [0, 1], [-200, 0]);
+  const cameraCYOut = interpolate(zoomOutProgress, [0, 1], [-80, 0]);
+
+  const finalCameraScale = frame < 120 ? cameraScale : cameraScaleOut;
+  const finalCameraX = frame < 120 ? cameraX : cameraXOut;
+  const finalCameraCY = frame < 120 ? cameraCY : cameraCYOut;
+
+  // Phase 5: AI processing animation (frame 113-150)
+  const aiProcessing = frame >= 113 && frame < 150;
+  const aiProcessingProgress = interpolate(frame, [113, 150], [0, 1], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp",
+  });
+
+  // Phase 6: AI message replaces generic (frame 150+)
+  const aiMessageStart = 155;
+  const showAiMessage = frame >= aiMessageStart;
+
+  // AI message types in
+  const aiTyped = useTypewriter(AI_MESSAGE, aiMessageStart, 2.0, "Hi Sarah,", 12);
+
+  // Button click state
+  const btnClicked = frame >= 105;
+  const btnClickScale = btnClicked
+    ? interpolate(frame - 105, [0, 4, 12], [1, 0.92, 1], { extrapolateRight: "clamp" })
+    : 1;
+
+  // Processing shimmer on button
+  const btnProcessing = aiProcessing;
+
+  // AI Badge glow
+  const aiBadgeVisible = frame > 113;
+  const aiBadgeSpring = spring({ frame: frame - 113, fps, config: { damping: 14 } });
+  const aiBadgeGlow = 0.6 + Math.sin(frame * 0.15) * 0.4;
+
+  // "Send" button appears after AI message is fully typed
+  const aiTypingDone = aiTyped.length >= AI_MESSAGE.length;
   const sendSpring = spring({
-    frame: typingDone ? frame : -999,
+    frame: aiTypingDone ? frame : -999,
     fps,
     config: { damping: 12, stiffness: 120 },
   });
 
-  // Floating orb
-  const orbY = Math.sin(frame * 0.04) * 6;
+  // Subtle old text fade out
+  const oldTextOpacity = interpolate(frame, [110, 145], [1, 0], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp",
+  });
 
   return (
-    <AbsoluteFill style={{ background: BG, justifyContent: "center", alignItems: "center" }}>
-      {/* Ambient orb */}
+    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #f0ece5 100%)`, justifyContent: "center", alignItems: "center" }}>
       <div style={{
-        position: "absolute", top: 100 + orbY, left: 200,
-        width: 300, height: 300, borderRadius: "50%",
-        background: `radial-gradient(circle, ${ACCENT}08 0%, transparent 70%)`,
-      }} />
-
-      <div style={{
-        opacity: panelSpring,
-        transform: `translateY(${panelY}px) scale(${panelScale})`,
-        width: 920,
-        background: CARD,
-        borderRadius: 20,
-        boxShadow: `0 30px 80px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.03)`,
-        overflow: "hidden",
+        transform: `scale(${finalCameraScale}) translate(${finalCameraX}px, ${finalCameraCY}px)`,
+        transformOrigin: "center center",
       }}>
-        {/* Header */}
         <div style={{
-          padding: "16px 28px",
-          borderBottom: `1px solid ${BORDER}`,
-          display: "flex", alignItems: "center", justifyContent: "space-between",
+          opacity: panelSpring,
+          transform: `translateY(${panelY}px) scale(${panelScale})`,
+          width: 920,
+          background: CARD,
+          borderRadius: 20,
+          boxShadow: `0 30px 80px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.03)`,
+          overflow: "hidden",
         }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div style={{
-              width: 40, height: 40, borderRadius: "50%",
-              background: `linear-gradient(135deg, ${ACCENT}25, ${ACCENT}55)`,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: 15, fontWeight: 600, color: ACCENT_DEEP, fontFamily: sansFont,
-            }}>SC</div>
-            <div>
-              <div style={{ fontSize: 15, fontWeight: 600, color: TEXT, fontFamily: sansFont }}>Sarah Chapman</div>
-              <div style={{ fontSize: 12, color: TEXT_SEC, fontFamily: sansFont }}>Senior Product Designer · Stockholm · 10/12 Match</div>
+          {/* Header */}
+          <div style={{
+            padding: "16px 28px",
+            borderBottom: `1px solid ${BORDER}`,
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+              <div style={{
+                width: 40, height: 40, borderRadius: "50%",
+                background: `linear-gradient(135deg, ${ACCENT}25, ${ACCENT}55)`,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                fontSize: 15, fontWeight: 600, color: ACCENT_DEEP, fontFamily: sansFont,
+              }}>SC</div>
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 600, color: TEXT, fontFamily: sansFont }}>Sarah Chapman</div>
+                <div style={{ fontSize: 12, color: TEXT_SEC, fontFamily: sansFont }}>Senior Product Designer · Stockholm · 10/12 Match</div>
+              </div>
             </div>
-          </div>
-          <div style={{
-            background: ACCENT_BG, padding: "6px 16px", borderRadius: 20,
-            display: "flex", alignItems: "center", gap: 8,
-            boxShadow: `0 0 ${12 * aiBadgeGlow}px rgba(201, 149, 107, ${0.15 * aiBadgeGlow})`,
-          }}>
-            <span style={{ fontSize: 13 }}>✨</span>
-            <span style={{ fontSize: 13, fontWeight: 600, color: ACCENT_DEEP, fontFamily: sansFont }}>AI Composing</span>
-          </div>
-        </div>
 
-        {/* To / Subject */}
-        <div style={{ padding: "0 28px" }}>
-          <div style={{
-            padding: "12px 0", borderBottom: `1px solid ${BORDER}`,
-            display: "flex", gap: 10, alignItems: "center",
-          }}>
-            <span style={{ fontSize: 13, color: TEXT_SEC, fontFamily: sansFont, fontWeight: 500, width: 60 }}>To:</span>
-            <span style={{ fontSize: 13, color: TEXT, fontFamily: sansFont }}>sarah.chapman@email.com</span>
-          </div>
-          <div style={{
-            padding: "12px 0", borderBottom: `1px solid ${BORDER}`,
-            display: "flex", gap: 10, alignItems: "center",
-          }}>
-            <span style={{ fontSize: 13, color: TEXT_SEC, fontFamily: sansFont, fontWeight: 500, width: 60 }}>Subject:</span>
-            <span style={{ fontSize: 13, color: TEXT, fontFamily: sansFont }}>
-              {typedSubject}
-              {typedSubject.length < MESSAGE_SUBJECT.length && <Cursor />}
-            </span>
-          </div>
-        </div>
-
-        {/* Body */}
-        <div style={{
-          padding: "20px 28px", minHeight: 340,
-          fontSize: 14.5, fontFamily: sansFont, color: TEXT,
-          lineHeight: 1.75, whiteSpace: "pre-wrap",
-        }}>
-          {typedBody}
-          {typedBody.length < MESSAGE_BODY.length && typedSubject.length >= MESSAGE_SUBJECT.length && <Cursor />}
-        </div>
-
-        {/* Bottom toolbar */}
-        <div style={{
-          padding: "12px 28px", borderTop: `1px solid ${BORDER}`,
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-        }}>
-          <div style={{ display: "flex", gap: 10 }}>
-            {[
-              { icon: "📎", label: "Attach" },
-              { icon: "📅", label: "Schedule" },
-              { icon: "🔄", label: "Regenerate" },
-            ].map((btn, i) => (
-              <span key={i} style={{
-                fontSize: 13, color: TEXT_SEC, fontFamily: sansFont, fontWeight: 500,
-                background: "#f5f3ef", padding: "7px 14px", borderRadius: 10,
-                display: "flex", alignItems: "center", gap: 6,
-              }}>
-                <span style={{ fontSize: 13 }}>{btn.icon}</span>
-                {btn.label}
-              </span>
-            ))}
-          </div>
-
-          {typingDone && (
+            {/* Make Relevant Button */}
             <div style={{
-              transform: `scale(${sendSpring})`,
-              background: `linear-gradient(135deg, ${ACCENT}, ${ACCENT_DEEP})`,
-              color: "#fff", fontSize: 14, fontWeight: 600, fontFamily: sansFont,
-              padding: "10px 24px", borderRadius: 12,
-              boxShadow: `0 4px 16px rgba(201, 149, 107, 0.3)`,
-              display: "flex", alignItems: "center", gap: 8,
+              display: "flex", alignItems: "center", gap: 10,
             }}>
-              Send message
-              <span style={{ fontSize: 16 }}>→</span>
+              {aiBadgeVisible && (
+                <div style={{
+                  background: ACCENT_BG, padding: "6px 14px", borderRadius: 20,
+                  display: "flex", alignItems: "center", gap: 6,
+                  opacity: aiBadgeSpring,
+                  transform: `scale(${aiBadgeSpring})`,
+                  boxShadow: `0 0 ${12 * aiBadgeGlow}px rgba(201, 149, 107, ${0.15 * aiBadgeGlow})`,
+                }}>
+                  <IconSparkles size={14} color={ACCENT_DEEP} />
+                  <span style={{ fontSize: 12, fontWeight: 600, color: ACCENT_DEEP, fontFamily: sansFont }}>
+                    {aiProcessing ? "Personalizing..." : "AI Personalized"}
+                  </span>
+                </div>
+              )}
+
+              <div style={{
+                background: btnClicked
+                  ? `linear-gradient(135deg, ${ACCENT}30, ${ACCENT}15)`
+                  : `linear-gradient(135deg, ${BLUE}, #3a6ce8)`,
+                padding: "8px 20px", borderRadius: 12,
+                display: "flex", alignItems: "center", gap: 8,
+                transform: `scale(${btnClickScale})`,
+                boxShadow: btnClicked
+                  ? "none"
+                  : `0 4px 16px rgba(74, 124, 255, 0.25)`,
+                position: "relative",
+                overflow: "hidden",
+              }}>
+                {/* Processing shimmer */}
+                {btnProcessing && (
+                  <div style={{
+                    position: "absolute", inset: 0,
+                    background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)`,
+                    transform: `translateX(${interpolate(frame % 30, [0, 30], [-100, 200])}%)`,
+                  }} />
+                )}
+                <IconSparkles size={14} color={btnClicked ? ACCENT_DEEP : "#fff"} />
+                <span style={{
+                  fontSize: 13, fontWeight: 600, fontFamily: sansFont,
+                  color: btnClicked ? ACCENT_DEEP : "#fff",
+                }}>
+                  Make Relevant
+                </span>
+              </div>
             </div>
-          )}
+          </div>
+
+          {/* To / Subject */}
+          <div style={{ padding: "0 28px" }}>
+            <div style={{
+              padding: "12px 0", borderBottom: `1px solid ${BORDER}`,
+              display: "flex", gap: 10, alignItems: "center",
+            }}>
+              <span style={{ fontSize: 13, color: TEXT_SEC, fontFamily: sansFont, fontWeight: 500, width: 60 }}>To:</span>
+              <span style={{ fontSize: 13, color: TEXT, fontFamily: sansFont }}>sarah.chapman@email.com</span>
+            </div>
+            <div style={{
+              padding: "12px 0", borderBottom: `1px solid ${BORDER}`,
+              display: "flex", gap: 10, alignItems: "center",
+            }}>
+              <span style={{ fontSize: 13, color: TEXT_SEC, fontFamily: sansFont, fontWeight: 500, width: 60 }}>Subject:</span>
+              <span style={{ fontSize: 13, color: TEXT, fontFamily: sansFont }}>
+                {showAiMessage ? "Opportunity: Lead Product Designer at PriceMind AI" : "Job opportunity — interested?"}
+              </span>
+            </div>
+          </div>
+
+          {/* Body */}
+          <div style={{
+            padding: "20px 28px", minHeight: 320,
+            fontSize: 14.5, fontFamily: sansFont, color: TEXT,
+            lineHeight: 1.75, whiteSpace: "pre-wrap",
+            position: "relative",
+          }}>
+            {/* Generic message (fades out) */}
+            {!showAiMessage && (
+              <div style={{ opacity: frame < 110 ? 1 : oldTextOpacity }}>
+                {genericTyped}
+                {genericTyped.length < GENERIC_MESSAGE.length && <Cursor />}
+              </div>
+            )}
+
+            {/* AI processing overlay */}
+            {aiProcessing && !showAiMessage && (
+              <div style={{
+                position: "absolute", inset: 0,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                background: `rgba(255,255,255,${interpolate(aiProcessingProgress, [0, 0.3], [0, 0.9], { extrapolateRight: "clamp" })})`,
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{
+                    width: 32, height: 32, borderRadius: "50%",
+                    background: `linear-gradient(135deg, ${ACCENT}, ${ACCENT_DEEP})`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <IconSparkles size={16} color="#fff" />
+                  </div>
+                  {/* Animated dots */}
+                  <div style={{ display: "flex", gap: 4 }}>
+                    {[0, 1, 2].map((d) => (
+                      <div key={d} style={{
+                        width: 8, height: 8, borderRadius: "50%",
+                        background: ACCENT,
+                        opacity: interpolate((frame + d * 8) % 24, [0, 12, 24], [0.3, 1, 0.3]),
+                      }} />
+                    ))}
+                  </div>
+                  <span style={{ fontSize: 14, fontWeight: 600, color: ACCENT_DEEP, fontFamily: sansFont }}>
+                    AI is personalizing your message...
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* AI personalized message */}
+            {showAiMessage && (
+              <div style={{
+                opacity: spring({ frame: frame - aiMessageStart, fps, config: { damping: 200 } }),
+              }}>
+                {aiTyped}
+                {aiTyped.length < AI_MESSAGE.length && <Cursor />}
+              </div>
+            )}
+          </div>
+
+          {/* Bottom toolbar */}
+          <div style={{
+            padding: "12px 28px", borderTop: `1px solid ${BORDER}`,
+            display: "flex", justifyContent: "space-between", alignItems: "center",
+          }}>
+            <div style={{ display: "flex", gap: 10 }}>
+              {[
+                { icon: <IconPaperclip size={14} color={TEXT_SEC} />, label: "Attach" },
+                { icon: <IconCalendar size={14} color={TEXT_SEC} />, label: "Schedule" },
+                { icon: <IconRefresh size={14} color={TEXT_SEC} />, label: "Regenerate" },
+              ].map((btn, i) => (
+                <span key={i} style={{
+                  fontSize: 13, color: TEXT_SEC, fontFamily: sansFont, fontWeight: 500,
+                  background: "#f5f3ef", padding: "7px 14px", borderRadius: 10,
+                  display: "flex", alignItems: "center", gap: 6,
+                }}>
+                  {btn.icon}
+                  {btn.label}
+                </span>
+              ))}
+            </div>
+
+            {aiTypingDone && (
+              <div style={{
+                transform: `scale(${sendSpring})`,
+                background: `linear-gradient(135deg, ${ACCENT}, ${ACCENT_DEEP})`,
+                color: "#fff", fontSize: 14, fontWeight: 600, fontFamily: sansFont,
+                padding: "10px 24px", borderRadius: 12,
+                boxShadow: `0 4px 16px rgba(201, 149, 107, 0.3)`,
+                display: "flex", alignItems: "center", gap: 8,
+              }}>
+                <IconSend size={15} />
+                Send message
+              </div>
+            )}
+          </div>
         </div>
       </div>
+
+      {/* Animated cursor */}
+      <AnimatedCursor
+        x={cursorX}
+        y={cursorY}
+        visible={cursorVisible}
+        clicking={cursorClicking}
+      />
     </AbsoluteFill>
   );
 };
@@ -671,35 +1017,30 @@ const OutreachDashScene: React.FC = () => {
   const containerSpring = spring({ frame, fps, config: { damping: 200 } });
 
   const STATS = [
-    { label: "Messages Sent", value: 3, color: ACCENT, icon: "📤" },
-    { label: "Opened", value: 2, color: "#e8a230", icon: "📬" },
-    { label: "Replied", value: 1, color: GREEN, icon: "💬" },
-    { label: "Response Rate", value: 33, suffix: "%", color: GREEN, icon: "📊" },
+    { label: "Messages Sent", value: 3, color: ACCENT, icon: <IconSend size={22} color={ACCENT} /> },
+    { label: "Opened", value: 2, color: "#e8a230", icon: <IconZap size={22} color="#e8a230" /> },
+    { label: "Replied", value: 1, color: GREEN, icon: <IconMessageCircle size={22} color={GREEN} /> },
+    { label: "Response Rate", value: 33, suffix: "%", color: GREEN, icon: <IconTrendingUp size={22} color={GREEN} /> },
   ];
 
   const STATUSES = [
-    { name: "Sarah Chapman", status: "Replied", time: "2 min ago", statusColor: GREEN, bgColor: GREEN_BG, icon: "💬" },
-    { name: "Sam Morris", status: "Opened", time: "5 min ago", statusColor: "#e8a230", bgColor: "rgba(232, 162, 48, 0.08)", icon: "📬" },
-    { name: "Esther Howard", status: "Sent", time: "8 min ago", statusColor: ACCENT, bgColor: ACCENT_BG, icon: "📤" },
+    { name: "Sarah Chapman", status: "Replied", time: "2 min ago", statusColor: GREEN, bgColor: GREEN_BG, icon: <IconMessageCircle size={20} color={GREEN} /> },
+    { name: "Sam Morris", status: "Opened", time: "5 min ago", statusColor: "#e8a230", bgColor: "rgba(232, 162, 48, 0.08)", icon: <IconZap size={20} color="#e8a230" /> },
+    { name: "Esther Howard", status: "Sent", time: "8 min ago", statusColor: ACCENT, bgColor: ACCENT_BG, icon: <IconSend size={20} color={ACCENT} /> },
   ];
 
   return (
-    <AbsoluteFill style={{ background: BG, justifyContent: "center", alignItems: "center" }}>
+    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #f0ece5 100%)`, justifyContent: "center", alignItems: "center" }}>
       <div style={{
         display: "flex", flexDirection: "column", gap: 20, alignItems: "center",
         width: 800, opacity: containerSpring,
       }}>
-        {/* Title */}
-        <div style={{
-          textAlign: "center", marginBottom: 8,
-          opacity: spring({ frame, fps, config: { damping: 200 } }),
-        }}>
+        <div style={{ textAlign: "center", marginBottom: 8, opacity: spring({ frame, fps, config: { damping: 200 } }) }}>
           <h2 style={{ fontSize: 32, fontFamily: serifFont, fontWeight: 700, color: TEXT, margin: 0 }}>
             Outreach Performance
           </h2>
         </div>
 
-        {/* Stats grid */}
         <div style={{ display: "flex", gap: 14, width: "100%" }}>
           {STATS.map((s, i) => {
             const statSpring = spring({ frame: frame - 8 - i * 8, fps, config: { damping: 18 } });
@@ -718,7 +1059,7 @@ const OutreachDashScene: React.FC = () => {
                 transform: `translateY(${interpolate(statSpring, [0, 1], [25, 0])}px)`,
                 boxShadow: "0 2px 10px rgba(0,0,0,0.03)",
               }}>
-                <span style={{ fontSize: 22 }}>{s.icon}</span>
+                <div style={{ display: "flex", justifyContent: "center", marginBottom: 4 }}>{s.icon}</div>
                 <div style={{
                   fontSize: 34, fontWeight: 800, color: s.color, fontFamily: sansFont, marginTop: 4,
                 }}>
@@ -732,7 +1073,6 @@ const OutreachDashScene: React.FC = () => {
           })}
         </div>
 
-        {/* Status list */}
         <div style={{ display: "flex", flexDirection: "column", gap: 10, width: "100%" }}>
           {STATUSES.map((r, i) => {
             const rowDelay = 40 + i * 14;
@@ -750,7 +1090,7 @@ const OutreachDashScene: React.FC = () => {
                 boxShadow: isReply ? `0 4px 20px rgba(45, 157, 92, 0.08)` : "0 1px 4px rgba(0,0,0,0.02)",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                  <span style={{ fontSize: 20 }}>{r.icon}</span>
+                  {r.icon}
                   <div>
                     <div style={{ fontSize: 15, fontWeight: 600, color: TEXT, fontFamily: sansFont }}>{r.name}</div>
                     <div style={{ fontSize: 12, color: TEXT_SEC, fontFamily: sansFont }}>{r.time}</div>
@@ -783,22 +1123,17 @@ const ReplyScene: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Notification slides in from top
   const notifSpring = spring({ frame: frame - 5, fps, config: { damping: 14, stiffness: 120 } });
   const notifY = interpolate(notifSpring, [0, 1], [-60, 0]);
 
-  // Chat panel
   const panelSpring = spring({ frame: frame - 15, fps, config: { damping: 20, stiffness: 80 } });
   const panelY = interpolate(panelSpring, [0, 1], [50, 0]);
   const panelScale = interpolate(panelSpring, [0, 1], [0.95, 1]);
 
-  // Your sent message appears
   const sentSpring = spring({ frame: frame - 25, fps, config: { damping: 200 } });
 
-  // Reply types
   const replyTyped = useTypewriter(REPLY_TEXT, 45, 1.0, "really exciting.", 18);
 
-  // Schedule button appears when reply is done
   const replyDone = replyTyped.length >= REPLY_TEXT.length;
   const schedBtnSpring = spring({
     frame: replyDone ? frame : -999,
@@ -807,7 +1142,7 @@ const ReplyScene: React.FC = () => {
   });
 
   return (
-    <AbsoluteFill style={{ background: BG, justifyContent: "center", alignItems: "center" }}>
+    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #f0ece5 100%)`, justifyContent: "center", alignItems: "center" }}>
       {/* Notification toast */}
       <div style={{
         position: "absolute", top: 60,
@@ -819,7 +1154,7 @@ const ReplyScene: React.FC = () => {
         boxShadow: "0 10px 30px rgba(45, 157, 92, 0.25)",
         fontSize: 15, fontWeight: 600, fontFamily: sansFont,
       }}>
-        <span style={{ fontSize: 18 }}>💬</span>
+        <IconMessageCircle size={18} color="#fff" />
         New reply from Sarah Chapman
       </div>
 
@@ -853,11 +1188,14 @@ const ReplyScene: React.FC = () => {
             </div>
           </div>
           <div style={{ display: "flex", gap: 8 }}>
-            {["📞", "📹", "⋯"].map((icon, i) => (
+            {[
+              <IconPhone size={16} color={TEXT_SEC} />,
+              <IconVideo size={16} color={TEXT_SEC} />,
+              <IconMoreHorizontal size={16} color={TEXT_SEC} />,
+            ].map((icon, i) => (
               <span key={i} style={{
                 width: 36, height: 36, borderRadius: 10,
                 background: "#f5f3ef", display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 16,
               }}>{icon}</span>
             ))}
           </div>
@@ -865,7 +1203,7 @@ const ReplyScene: React.FC = () => {
 
         {/* Messages */}
         <div style={{ padding: "24px 28px", minHeight: 300 }}>
-          {/* Your sent message */}
+          {/* Sent message */}
           <div style={{
             display: "flex", justifyContent: "flex-end", marginBottom: 20,
             opacity: sentSpring,
@@ -902,7 +1240,7 @@ const ReplyScene: React.FC = () => {
           )}
         </div>
 
-        {/* Bottom — Schedule button */}
+        {/* Schedule button */}
         {replyDone && (
           <div style={{
             padding: "12px 28px", borderTop: `1px solid ${BORDER}`,
@@ -916,7 +1254,7 @@ const ReplyScene: React.FC = () => {
               boxShadow: `0 6px 20px rgba(45, 157, 92, 0.25)`,
               display: "flex", alignItems: "center", gap: 8,
             }}>
-              <span style={{ fontSize: 16 }}>📅</span>
+              <IconCalendar size={16} color="#fff" />
               Schedule Interview
             </div>
           </div>
@@ -960,7 +1298,7 @@ const OutroScene: React.FC = () => {
   const urlSpring = spring({ frame: frame - 40, fps, config: { damping: 200 } });
 
   return (
-    <AbsoluteFill style={{ background: BG, justifyContent: "center", alignItems: "center" }}>
+    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #f0ece5 100%)`, justifyContent: "center", alignItems: "center" }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
         <div style={{
           width: 72, height: 72, borderRadius: 18,
@@ -998,7 +1336,10 @@ const OutroScene: React.FC = () => {
 };
 
 // ═══════════════════════════════════════════════════════
-// MAIN VIDEO — TransitionSeries with fades/slides
+// MAIN VIDEO — TransitionSeries
+// Scenes: Intro(80) + Pipeline(220) + Compose(350) + Dashboard(160) + Reply(180) + Outro(100)
+// Transitions: 5 × 20f = 100f overlap
+// Total: 1090 - 100 = 990f = 33s
 // ═══════════════════════════════════════════════════════
 export const OutreachVideoV2: React.FC = () => {
   return (
@@ -1013,22 +1354,22 @@ export const OutreachVideoV2: React.FC = () => {
           timing={linearTiming({ durationInFrames: 20 })}
         />
 
-        <TransitionSeries.Sequence durationInFrames={200}>
+        <TransitionSeries.Sequence durationInFrames={220}>
           <PipelineScene />
         </TransitionSeries.Sequence>
 
         <TransitionSeries.Transition
-          presentation={slide({ direction: "from-right" })}
+          presentation={wipe({ direction: "from-left" })}
           timing={linearTiming({ durationInFrames: 20 })}
         />
 
-        <TransitionSeries.Sequence durationInFrames={300}>
+        <TransitionSeries.Sequence durationInFrames={350}>
           <ComposeScene />
         </TransitionSeries.Sequence>
 
         <TransitionSeries.Transition
           presentation={fade()}
-          timing={linearTiming({ durationInFrames: 20 })}
+          timing={springTiming({ config: { damping: 200 }, durationInFrames: 20 })}
         />
 
         <TransitionSeries.Sequence durationInFrames={160}>
