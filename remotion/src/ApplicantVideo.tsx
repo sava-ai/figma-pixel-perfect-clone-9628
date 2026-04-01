@@ -245,6 +245,7 @@ const S1_CareerPage: React.FC = () => {
         </div>
       </div>
       {cursorShow && <Cursor x={cx} y={cy} frame={frame} click={applyBtnFrame} />}
+      <div style={{ position: "absolute", left: click.x - 5, top: click.y - 5, width: 10, height: 10, borderRadius: "50%", background: "red", zIndex: 9999 }} />
     </AbsoluteFill>
   );
 };
