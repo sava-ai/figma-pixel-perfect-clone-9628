@@ -465,7 +465,7 @@ const PipelineScene: React.FC = () => {
             const floatY = Math.sin((frame + i * 30) * 0.03) * 1.5;
 
             const highlightOpacity = isSelected
-              ? interpolate(frame - checkClickFrame, [0, 10, 30], [0, 0.15, 0], { extrapolateRight: "clamp" })
+              ? interpolate(frame - checkFrame, [0, 10, 30], [0, 0.15, 0], { extrapolateRight: "clamp" })
               : 0;
 
             return (
