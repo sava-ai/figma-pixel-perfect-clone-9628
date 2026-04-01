@@ -253,11 +253,11 @@ const SourceScanScene: React.FC = () => {
   const containerSpring = spring({ frame, fps, config: { damping: 200 } });
 
   const externalSources = [
-    { name: "LinkedIn", color: "#0A66C2", letter: "in" },
-    { name: "GitHub", color: "#24292e", letter: "G" },
-    { name: "Behance", color: "#1769FF", letter: "Bē" },
-    { name: "Dribbble", color: "#EA4C89", letter: "D" },
-    { name: "HuggingFace", color: "#FFD21E", letter: "🤗" },
+    { name: "LinkedIn", color: "#0A66C2", icon: "images/linkedin.svg" },
+    { name: "GitHub", color: "#24292e", icon: "images/github.svg" },
+    { name: "Behance", color: "#1769FF", icon: "images/behance.svg" },
+    { name: "Dribbble", color: "#EA4C89", icon: "images/dribbble.svg" },
+    { name: "HuggingFace", color: "#FFD21E", icon: "images/huggingface.svg" },
   ];
 
   const internalSources = [
@@ -297,12 +297,12 @@ const SourceScanScene: React.FC = () => {
               }}>
                 <div style={{
                   width: 72, height: 72, borderRadius: 20,
-                  background: src.color, display: "flex", alignItems: "center", justifyContent: "center",
+                  overflow: "hidden",
                   boxShadow: `0 8px 24px ${src.color}30`,
-                  fontSize: src.letter === "🤗" ? 32 : 22, fontWeight: 700, color: "#fff",
-                  fontFamily: bodyFont,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  background: src.name === "GitHub" ? "#f6f8fa" : "transparent",
                 }}>
-                  {src.letter}
+                  <Img src={staticFile(src.icon)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
                 <span style={{ fontSize: 12, fontFamily: bodyFont, color: TEXT_SEC }}>{src.name}</span>
               </div>
@@ -582,6 +582,34 @@ const CandidateDetailScene: React.FC = () => {
               </div>
             </div>
 
+            {/* Criteria Benchmark */}
+            <div style={{ marginBottom: 28 }}>
+              <div style={{ fontSize: 20, fontFamily: headingFont, color: TEXT, marginBottom: 16 }}>Criteria benchmark</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                {[
+                  { label: "Fintech experience", score: 95, color: GREEN },
+                  { label: "Design systems", score: 88, color: GREEN },
+                  { label: "Leadership", score: 82, color: ACCENT },
+                  { label: "Scale experience", score: 78, color: ACCENT },
+                  { label: "Cultural fit", score: 91, color: GREEN },
+                ].map((criteria, i) => {
+                  const cSpring = spring({ frame: frame - 100 - i * 8, fps, config: { damping: 200 } });
+                  const barWidth = interpolate(cSpring, [0, 1], [0, criteria.score]);
+                  return (
+                    <div key={i} style={{ opacity: cSpring }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+                        <span style={{ fontSize: 13, fontFamily: bodyFont, color: TEXT }}>{criteria.label}</span>
+                        <span style={{ fontSize: 13, fontFamily: bodyFont, color: criteria.color, fontWeight: 500 }}>{Math.round(barWidth)}%</span>
+                      </div>
+                      <div style={{ width: "100%", height: 6, borderRadius: 3, background: BORDER }}>
+                        <div style={{ width: `${barWidth}%`, height: "100%", borderRadius: 3, background: criteria.color, transition: "none" }} />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* Cross-referenced sources */}
             <div>
               <div style={{ fontSize: 20, fontFamily: headingFont, color: TEXT, marginBottom: 16 }}>Cross-referenced sources</div>
@@ -598,10 +626,14 @@ const CandidateDetailScene: React.FC = () => {
                     }}>
                       <div style={{
                         width: 36, height: 36, borderRadius: 10,
-                        background: src.color, display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: 14, fontWeight: 700, color: "#fff", fontFamily: bodyFont,
+                        overflow: "hidden",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        background: src.platform === "GitHub" ? "#f6f8fa" : src.platform === "Applicant" ? src.color : "transparent",
                       }}>
-                        {src.platform === "LinkedIn" ? "in" : src.platform === "GitHub" ? "G" : src.platform === "Behance" ? "Bē" : "✦"}
+                        {src.platform === "Applicant" 
+                          ? <IconStar size={18} color="#fff" /> 
+                          : <Img src={staticFile(src.platform === "LinkedIn" ? "images/linkedin.svg" : src.platform === "GitHub" ? "images/github.svg" : "images/behance.svg")} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        }
                       </div>
                       <div style={{ flex: 1 }}>
                         <div style={{ fontSize: 13, fontFamily: bodyFont, color: TEXT, fontWeight: 500 }}>{src.platform}</div>
@@ -742,9 +774,9 @@ const OutroScene: React.FC = () => {
 
 // ═══════════════════════════════════════════════════════
 // MAIN VIDEO
-// Intro(90) + ChatQuery(200) + SourceScan(200) + Results(180) + CandidateDetail(280) + PipelineSave(120) + Outro(90)
+// Intro(90) + ChatQuery(200) + SourceScan(200) + Results(180) + CandidateDetail(340) + PipelineSave(120) + Outro(90)
 // Transitions: 6 × 20f = 120f overlap
-// Total: 1160 - 120 = 1040f ≈ 34.7s
+// Total: 1220 - 120 = 1100f ≈ 36.7s
 // ═══════════════════════════════════════════════════════
 export const SearchVideo: React.FC = () => {
   return (
@@ -758,7 +790,7 @@ export const SearchVideo: React.FC = () => {
         <TransitionSeries.Transition presentation={fade()} timing={springTiming({ config: { damping: 200 }, durationInFrames: 20 })} />
         <TransitionSeries.Sequence durationInFrames={180}><ResultsScene /></TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={slide({ direction: "from-right" })} timing={linearTiming({ durationInFrames: 20 })} />
-        <TransitionSeries.Sequence durationInFrames={280}><CandidateDetailScene /></TransitionSeries.Sequence>
+        <TransitionSeries.Sequence durationInFrames={340}><CandidateDetailScene /></TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={linearTiming({ durationInFrames: 20 })} />
         <TransitionSeries.Sequence durationInFrames={120}><PipelineSaveScene /></TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={linearTiming({ durationInFrames: 20 })} />
