@@ -3,6 +3,7 @@ import { OutreachVideoV2 } from "./OutreachVideoV2";
 import { ChatAssistantVideo } from "./ChatAssistantVideo";
 import { InterviewVideo } from "./InterviewVideo";
 import { SearchVideo } from "./SearchVideo";
+import { JobBriefVideo } from "./JobBriefVideo";
 
 export const RemotionRoot: React.FC = () => (
   <>
