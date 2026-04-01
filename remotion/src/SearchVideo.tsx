@@ -598,10 +598,14 @@ const CandidateDetailScene: React.FC = () => {
                     }}>
                       <div style={{
                         width: 36, height: 36, borderRadius: 10,
-                        background: src.color, display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: 14, fontWeight: 700, color: "#fff", fontFamily: bodyFont,
+                        overflow: "hidden",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        background: src.platform === "GitHub" ? "#f6f8fa" : src.platform === "Applicant" ? src.color : "transparent",
                       }}>
-                        {src.platform === "LinkedIn" ? "in" : src.platform === "GitHub" ? "G" : src.platform === "Behance" ? "Bē" : "✦"}
+                        {src.platform === "Applicant" 
+                          ? <IconStar size={18} color="#fff" /> 
+                          : <Img src={staticFile(src.platform === "LinkedIn" ? "images/linkedin.svg" : src.platform === "GitHub" ? "images/github.svg" : "images/behance.svg")} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        }
                       </div>
                       <div style={{ flex: 1 }}>
                         <div style={{ fontSize: 13, fontFamily: bodyFont, color: TEXT, fontWeight: 500 }}>{src.platform}</div>
