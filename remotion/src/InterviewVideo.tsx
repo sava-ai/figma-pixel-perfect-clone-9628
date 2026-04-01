@@ -186,7 +186,7 @@ const IntroScene: React.FC = () => {
             display: "flex", alignItems: "center", justifyContent: "center",
             boxShadow: `0 16px 50px rgba(201, 149, 107, 0.35)`,
           }}>
-            <IconCalendar size={55} color="#fff" />
+            <IconCalendar size={55} />
           </div>
           {sparkles.map((s, i) => {
             const sSpring = spring({ frame: frame - s.delay, fps, config: { damping: 12 } });
@@ -383,13 +383,13 @@ const ScheduleScene: React.FC = () => {
                 width: 34, height: 34, borderRadius: "50%",
                 background: TEXT, display: "flex", alignItems: "center", justifyContent: "center",
               }}>
-                <IconArrowUp size={16} color="#fff" />
+                <IconArrowUp size={16} />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <AnimatedCursor x={cursorX} y={cursorY} visible={cursorVisible} clicking={cursorClicking} />
+      
     </AbsoluteFill>
   );
 };
@@ -433,7 +433,7 @@ const MeetingConfirmScene: React.FC = () => {
               display: "flex", alignItems: "center", justifyContent: "center",
               boxShadow: `0 8px 24px rgba(201, 149, 107, 0.25)`,
             }}>
-              <IconCalendar size={26} color="#fff" />
+              <IconCalendar size={26} />
             </div>
             <div>
               <div style={{ fontSize: 22, fontFamily: headingFont, color: TEXT }}>Interview scheduled</div>
@@ -519,13 +519,13 @@ const MeetingConfirmScene: React.FC = () => {
               {btnClicked ? (
                 <>
                   <div style={{ transform: `scale(${checkScale})` }}>
-                    <IconCheck size={20} color="#fff" />
+                    <IconCheck size={20} />
                   </div>
                   Confirmed
                 </>
               ) : (
                 <>
-                  <IconCheck size={18} color="#fff" />
+                  <IconCheck size={18} />
                   Proceed
                 </>
               )}
@@ -533,7 +533,7 @@ const MeetingConfirmScene: React.FC = () => {
           </div>
         </div>
       </div>
-      <AnimatedCursor x={cursorX} y={cursorY} visible={cursorVisible} clicking={cursorClicking} />
+      
     </AbsoluteFill>
   );
 };
@@ -811,7 +811,7 @@ const OutroScene: React.FC = () => {
           display: "flex", alignItems: "center", justifyContent: "center",
           boxShadow: `0 12px 40px rgba(201, 149, 107, 0.3)`,
         }}>
-          <LaidbackLogo size={42} color="#fff" />
+          <LaidbackLogo size={42} />
         </div>
         <h1 style={{ fontSize: 64, fontFamily: headingFont, color: TEXT, margin: 0, letterSpacing: -1 }}>
           {wordEls}

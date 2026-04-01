@@ -193,7 +193,7 @@ const IntroScene: React.FC = () => {
             display: "flex", alignItems: "center", justifyContent: "center",
             boxShadow: `0 16px 50px rgba(201, 149, 107, 0.35)`,
           }}>
-            <LaidbackLogo size={55} color="#fff" />
+            <LaidbackLogo size={55} />
           </div>
           {sparkles.map((s, i) => {
             const sSpring = spring({ frame: frame - s.delay, fps, config: { damping: 12 } });
@@ -405,7 +405,7 @@ const ChatPanelScene: React.FC = () => {
                   fontSize: 14, fontFamily: bodyFont,
                   boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
                 }}>
-                  <IconMessageSquare size={14} color="#fff" />
+                  <IconMessageSquare size={14} />
                   Save top 6 matches
                 </div>
                 <div style={{
@@ -434,7 +434,7 @@ const ChatPanelScene: React.FC = () => {
                 width: 34, height: 34, borderRadius: "50%",
                 background: TEXT, display: "flex", alignItems: "center", justifyContent: "center",
               }}>
-                <IconArrowUp size={16} color="#fff" />
+                <IconArrowUp size={16} />
               </div>
             </div>
           </div>
@@ -567,14 +567,14 @@ const CompareScene: React.FC = () => {
                 width: 34, height: 34, borderRadius: "50%",
                 background: TEXT, display: "flex", alignItems: "center", justifyContent: "center",
               }}>
-                <IconArrowUp size={16} color="#fff" />
+                <IconArrowUp size={16} />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <AnimatedCursor x={cursorX} y={cursorY} visible={cursorVisible} clicking={cursorClicking} />
+      
     </AbsoluteFill>
   );
 };
@@ -727,7 +727,7 @@ const ComparisonScene: React.FC = () => {
               fontSize: 14, fontFamily: bodyFont,
               boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
             }}>
-              <IconMessageSquare size={14} color="#fff" />
+              <IconMessageSquare size={14} />
               Shortlist Ralph Edwards
             </div>
             <div style={{
@@ -974,7 +974,7 @@ const FullAppScene: React.FC = () => {
             boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
             opacity: spring({ frame: frame - 60, fps, config: { damping: 200 } }),
           }}>
-            <IconMessageSquare size={12} color="#fff" />
+            <IconMessageSquare size={12} />
             Shortlist Ralph Edwards
           </div>
         </div>
@@ -1020,7 +1020,7 @@ const OutroScene: React.FC = () => {
           display: "flex", alignItems: "center", justifyContent: "center",
           boxShadow: `0 12px 40px rgba(201, 149, 107, 0.3)`,
         }}>
-          <LaidbackLogo size={42} color="#fff" />
+          <LaidbackLogo size={42} />
         </div>
 
         <h1 style={{ fontSize: 64, fontFamily: headingFont, color: TEXT, margin: 0, letterSpacing: -1 }}>
