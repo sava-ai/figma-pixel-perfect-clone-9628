@@ -453,7 +453,6 @@ const PipelineScene: React.FC = () => {
             const checkFrame = checkClickFrames[i];
             const isSelected = frame > checkFrame;
             const checkSpring = spring({ frame: frame - checkFrame, fps, config: { damping: 10, stiffness: 150 } });
-            const checkSpring = spring({ frame: frame - checkClickFrame, fps, config: { damping: 10, stiffness: 150 } });
 
             const barProgress = interpolate(
               spring({ frame: frame - cardDelay - 10, fps, config: { damping: 200 } }),
