@@ -636,7 +636,7 @@ const CandidateDetailScene: React.FC = () => {
                       }}>
                         {src.platform === "Applicant" 
                           ? <IconStar size={18} color="#fff" /> 
-                          : <Img src={staticFile(src.platform === "LinkedIn" ? "images/linkedin.svg" : src.platform === "GitHub" ? "images/github.svg" : "images/behance.svg")} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                          : <Img src={staticFile(src.platform === "LinkedIn" ? "images/linkedin.svg" : src.platform === "GitHub" ? "images/github.svg" : "images/behance.svg")} style={{ width: src.platform === "GitHub" ? "60%" : "100%", height: src.platform === "GitHub" ? "60%" : "100%", objectFit: "cover", filter: src.platform === "GitHub" ? "invert(1)" : "none" }} />
                         }
                       </div>
                       <div style={{ flex: 1 }}>
