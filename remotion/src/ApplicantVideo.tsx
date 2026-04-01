@@ -489,20 +489,16 @@ const S4_TaskSubmit: React.FC = () => {
   const click4 = { x: 148, y: 387 };
   const cursorShow = frame >= 100 && frame < 135;
 
-  // Zoom anchored to submit button
-  const W = 1920, HH = 1080;
+  // Simple zoom anchored at submit button
   const s4z = interpolate(frame, [0, 30, 115, 135, 175, 230], [1.04, 1, 1, 1.3, 1.3, 1.1], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.22, 1, 0.36, 1),
   });
-  const s4tx = -(click4.x - W / 2) * (s4z - 1);
-  const s4ty = -(click4.y - HH / 2) * (s4z - 1);
 
-  // Cursor inside transform — use raw coords
   const cx = interpolate(frame, [100, 115], [500, click4.x], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
   const cy = interpolate(frame, [100, 115], [200, click4.y], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
 
   return (
-    <AbsoluteFill style={{ background: BG, transform: `translate(${s4tx}px, ${s4ty}px) scale(${s4z})`, transformOrigin: `${click4.x}px ${click4.y}px` }}>
+    <AbsoluteFill style={{ background: BG, transform: `scale(${s4z})`, transformOrigin: `${click4.x}px ${click4.y}px` }}>
       <Logo />
       <div style={{ position: "absolute", top: 68, left: 0, right: 0, bottom: 0, display: "flex" }}>
         {/* Left sidebar tabs */}
