@@ -285,7 +285,7 @@ const S2_Screening: React.FC = () => {
   ];
 
   return (
-    <AbsoluteFill style={{ background: BG, transform: `scale(${zoom})`, transformOrigin: "50% 50%" }}>
+    <AbsoluteFill style={{ background: BG, transform: `scale(${zoom}) translateY(${panY2}px)`, transformOrigin: "45% 50%" }}>
       <Logo />
       <div style={{ position: "absolute", top: 96, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
         <div style={{ width: 740 }}>
