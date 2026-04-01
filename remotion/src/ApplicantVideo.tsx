@@ -366,7 +366,7 @@ const ScreeningScene: React.FC = () => {
       <div style={{
         width: 640, background: CHAT_BG, borderRadius: 24,
         boxShadow: `0 30px 80px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04)`,
-        transform: `translateY(${interpolate(panelSlide, [0, 1], [40, 0])}px) scale(${zAssess})`,
+        transform: `translateY(${interpolate(panelSlide, [0, 1], [40, 0])}px) scale(${zoomOut})`,
         transformOrigin: "center 80%",
         opacity: panelSlide,
         display: "flex", flexDirection: "column", overflow: "hidden",
