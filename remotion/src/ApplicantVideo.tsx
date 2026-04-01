@@ -591,9 +591,8 @@ const TaskSubmitScene: React.FC = () => {
   const submitBtnFrame = 120;
   const confirmStart = 130;
   const confirmSpring = spring({ frame: frame - confirmStart, fps, config: { damping: 18 } });
-  // Zoom pulse on submit + success
-  const zSubmit = interpolate(frame, [submitBtnFrame, submitBtnFrame + 12, submitBtnFrame + 35], [1, 1.06, 1.02], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
-  const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) }) * zSubmit;
+  // No end zoom needed on last scene
+  const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) });
 
   const files = [
     { name: "payment-flow.fig", size: "2.4 MB", icon: <IcoFigma s={18} />, uploadFrame: 25 },
