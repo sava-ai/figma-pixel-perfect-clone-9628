@@ -588,6 +588,9 @@ const TaskSubmitScene: React.FC = () => {
   const { fps } = useVideoConfig();
 
   const cardSpring = spring({ frame, fps, config: { damping: 20, stiffness: 80 } });
+  const submitBtnFrame = 120;
+  const confirmStart = 130;
+  const confirmSpring = spring({ frame: frame - confirmStart, fps, config: { damping: 18 } });
   // Zoom pulse on submit + success
   const zSubmit = interpolate(frame, [submitBtnFrame, submitBtnFrame + 12, submitBtnFrame + 35], [1, 1.06, 1.02], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
   const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) }) * zSubmit;
@@ -597,10 +600,6 @@ const TaskSubmitScene: React.FC = () => {
     { name: "component-docs.pdf", size: "890 KB", icon: <IcoPDF s={18} />, uploadFrame: 40 },
     { name: "prototype-demo.mp4", size: "12 MB", icon: <IcoVideo s={18} />, uploadFrame: 55 },
   ];
-
-  const submitBtnFrame = 120;
-  const confirmStart = 130;
-  const confirmSpring = spring({ frame: frame - confirmStart, fps, config: { damping: 18 } });
 
   return (
     <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #eee9e1 100%)`, justifyContent: "center", alignItems: "center" }}>
