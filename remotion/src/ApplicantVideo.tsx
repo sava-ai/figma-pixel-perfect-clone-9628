@@ -635,7 +635,6 @@ const S4_TaskSubmit: React.FC = () => {
           </div>
         </div>
       </div>
-      </div>
       {cursorShow && <Cursor x={cx} y={cy} frame={frame} click={submitBtnFrame} />}
     </AbsoluteFill>
   );
