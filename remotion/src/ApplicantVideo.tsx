@@ -141,9 +141,12 @@ const IntroScene: React.FC = () => {
   const subtitleSpring = spring({ frame: frame - 30, fps, config: { damping: 200 } });
   const lineW = interpolate(frame, [25, 60], [0, 140], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
   const orbY = Math.sin(frame * 0.05) * 8;
+  // End-of-scene zoom-in
+  const sceneLen = 90;
+  const endZoom = interpolate(frame, [sceneLen - 30, sceneLen], [1, 1.2], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.in(Easing.quad) });
 
   return (
-    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #f0ece5 100%)`, justifyContent: "center", alignItems: "center" }}>
+    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #f0ece5 100%)`, justifyContent: "center", alignItems: "center", transform: `scale(${endZoom})`, transformOrigin: "center center" }}>
       <div style={{ position: "absolute", top: 180 + orbY, right: 350, width: 240, height: 240, borderRadius: "50%", background: `radial-gradient(circle, ${ACC}12 0%, transparent 70%)` }} />
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24 }}>
         <div style={{ position: "relative", transform: `scale(${iconScale}) rotate(${iconRotate}deg)` }}>
