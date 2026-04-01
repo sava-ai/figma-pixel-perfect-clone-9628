@@ -575,13 +575,6 @@ const PipelineScene: React.FC = () => {
         })()}
       </div>
 
-      <AnimatedCursor
-        x={cursorX}
-        y={cursorY}
-        visible={cursorVisible}
-        clicking={cursorClicking}
-        scale={1 / cameraScale}
-      />
     </AbsoluteFill>
   );
 };
