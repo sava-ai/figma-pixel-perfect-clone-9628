@@ -191,28 +191,30 @@ const CareerPageScene: React.FC = () => {
   const userA1 = "Product designer, 6 years — focused on design systems and fintech.";
   const aiQ2 = "We have a role that fits perfectly:";
 
+  // Timing: each message waits for previous to finish + pause
   const aiQ1Typed = useType(aiQ1, frame, 15, 1.4);
   const aiQ1Done = aiQ1Typed.length >= aiQ1.length;
-  const userA1Start = 70;
-  const userA1Typed = useType(userA1, frame, userA1Start, 0.9);
+  // aiQ1 finishes ~15 + 65/1.4 ≈ 61, add 15f pause
+  const userA1Start = 78;
+  const userA1Typed = useType(userA1, frame, userA1Start, 1.1);
   const userA1Done = userA1Typed.length >= userA1.length;
-  const aiQ2Start = 130;
+  // userA1 finishes ~78 + 66/1.1 ≈ 138, add 18f pause
+  const aiQ2Start = 158;
   const aiQ2Typed = useType(aiQ2, frame, aiQ2Start, 1.4);
 
-  // Role card after AI says "fits perfectly"
-  const roleStart = 160;
+  // Role card after AI finishes ~158 + 33/1.4 ≈ 182, add 10f
+  const roleStart = 192;
   const roleSpring = spring({ frame: frame - roleStart, fps, config: { damping: 22, stiffness: 180 } });
 
-  // Cursor moves to Apply button
-  const applyBtnFrame = 210;
-  const cursorShow = frame >= 190 && frame < 230;
-  // Apply button is inside the panel, positioned roughly at center
-  const cx = interpolate(frame, [190, 208], [700, 490], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cy = interpolate(frame, [190, 208], [300, 565], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  // Cursor moves to Apply button after role card settles
+  const applyBtnFrame = 230;
+  const cursorShow = frame >= 215 && frame < 248;
+  const cx = interpolate(frame, [215, 228], [700, 490], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cy = interpolate(frame, [215, 228], [300, 565], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
   const applyClicked = frame >= applyBtnFrame;
 
-  // Confirmation message
-  const confirmStart = 230;
+  // Confirmation message after click settles
+  const confirmStart = 250;
   const confirmText = "Great choice! Let's get started with a quick screening.";
   const confirmTyped = useType(confirmText, frame, confirmStart + 8, 1.4);
 
