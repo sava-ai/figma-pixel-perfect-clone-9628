@@ -13,12 +13,13 @@ import { TransitionSeries, linearTiming, springTiming } from "@remotion/transiti
 import { fade } from "@remotion/transitions/fade";
 import { wipe } from "@remotion/transitions/wipe";
 import { loadFont } from "@remotion/fonts";
+import { loadFont as loadGoogleFont } from "@remotion/google-fonts/Inter";
 
+loadGoogleFont("normal", { weights: ["400", "500", "600"], subsets: ["latin"] });
 loadFont({ family: "CooperLight", url: staticFile("fonts/CooperLtBTLight.ttf"), weight: "400" });
-loadFont({ family: "LabilGrotesk", url: staticFile("fonts/LabilGrotesk-Regular.ttf"), weight: "400" });
 
 const H = "CooperLight, serif";
-const B = "LabilGrotesk, sans-serif";
+const B = "Inter, sans-serif";
 
 const BG = "#f6f4f0";
 const CARD = "#ffffff";
@@ -192,28 +193,30 @@ const CareerPageScene: React.FC = () => {
   const userA1 = "Product designer, 6 years — focused on design systems and fintech.";
   const aiQ2 = "We have a role that fits perfectly:";
 
+  // Timing: each message waits for previous to finish + pause
   const aiQ1Typed = useType(aiQ1, frame, 15, 1.4);
   const aiQ1Done = aiQ1Typed.length >= aiQ1.length;
-  const userA1Start = 70;
-  const userA1Typed = useType(userA1, frame, userA1Start, 0.9);
+  // aiQ1 finishes ~15 + 65/1.4 ≈ 61, add 15f pause
+  const userA1Start = 78;
+  const userA1Typed = useType(userA1, frame, userA1Start, 1.1);
   const userA1Done = userA1Typed.length >= userA1.length;
-  const aiQ2Start = 130;
+  // userA1 finishes ~78 + 66/1.1 ≈ 138, add 18f pause
+  const aiQ2Start = 158;
   const aiQ2Typed = useType(aiQ2, frame, aiQ2Start, 1.4);
 
-  // Role card after AI says "fits perfectly"
-  const roleStart = 160;
+  // Role card after AI finishes ~158 + 33/1.4 ≈ 182, add 10f
+  const roleStart = 192;
   const roleSpring = spring({ frame: frame - roleStart, fps, config: { damping: 22, stiffness: 180 } });
 
-  // Cursor moves to Apply button
-  const applyBtnFrame = 210;
-  const cursorShow = frame >= 190 && frame < 230;
-  // Apply button is inside the panel, positioned roughly at center
-  const cx = interpolate(frame, [190, 208], [700, 490], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cy = interpolate(frame, [190, 208], [300, 565], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  // Cursor moves to Apply button after role card settles
+  const applyBtnFrame = 230;
+  const cursorShow = frame >= 215 && frame < 248;
+  const cx = interpolate(frame, [215, 228], [700, 490], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cy = interpolate(frame, [215, 228], [300, 565], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
   const applyClicked = frame >= applyBtnFrame;
 
-  // Confirmation message
-  const confirmStart = 230;
+  // Confirmation message after click settles
+  const confirmStart = 250;
   const confirmText = "Great choice! Let's get started with a quick screening.";
   const confirmTyped = useType(confirmText, frame, confirmStart + 8, 1.4);
 
@@ -339,24 +342,28 @@ const ScreeningScene: React.FC = () => {
   const panelSlide = spring({ frame, fps, config: { damping: 20, stiffness: 80 } });
 
   const aiQ1 = "What's your experience with design tokens and component libraries?";
-  const userA1 = "Built a design system from scratch at Stripe — 200+ components, used by 40 engineers.";
+  const userA1 = "Built a design system at Stripe — 200+ components, 40 engineers.";
   const aiQ2 = "How do you handle collaboration with engineering?";
-  const userA2 = "Figma dev mode + shared Storybook. Weekly syncs with eng leads.";
+  const userA2 = "Figma dev mode + shared Storybook. Weekly syncs.";
 
+  // aiQ1: 66 chars, speed 1.4, starts 15 → finishes ~62, +15 pause
   const aiQ1Typed = useType(aiQ1, frame, 15, 1.4);
   const aiQ1Done = aiQ1Typed.length >= aiQ1.length;
-  const userA1Start = 65;
-  const userA1Typed = useType(userA1, frame, userA1Start, 0.9);
+  const userA1Start = 78;
+  // userA1: 63 chars, speed 1.1 → finishes ~78+57=135, +18 pause
+  const userA1Typed = useType(userA1, frame, userA1Start, 1.1);
   const userA1Done = userA1Typed.length >= userA1.length;
-  const aiQ2Start = 130;
+  const aiQ2Start = 155;
+  // aiQ2: 49 chars, speed 1.4 → finishes ~155+35=190, +15 pause
   const aiQ2Typed = useType(aiQ2, frame, aiQ2Start, 1.4);
   const aiQ2Done = aiQ2Typed.length >= aiQ2.length;
-  const userA2Start = 170;
-  const userA2Typed = useType(userA2, frame, userA2Start, 0.9);
+  const userA2Start = 208;
+  // userA2: 48 chars, speed 1.1 → finishes ~208+44=252
+  const userA2Typed = useType(userA2, frame, userA2Start, 1.1);
   const userA2Done = userA2Typed.length >= userA2.length;
 
-  // Assessment card
-  const assessStart = 215;
+  // Assessment card after last answer settles
+  const assessStart = 260;
   const assessSpring = spring({ frame: frame - assessStart, fps, config: { damping: 22 } });
   const criteria = [
     { label: "Design Systems", v: "Exceeds", col: GRN },
@@ -706,14 +713,14 @@ export const ApplicantVideo: React.FC = () => {
           presentation={fade()}
           timing={linearTiming({ durationInFrames: 25 })}
         />
-        <TransitionSeries.Sequence durationInFrames={280}>
+        <TransitionSeries.Sequence durationInFrames={310}>
           <CareerPageScene />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={wipe({ direction: "from-left" })}
           timing={springTiming({ config: { damping: 200 }, durationInFrames: 30 })}
         />
-        <TransitionSeries.Sequence durationInFrames={280}>
+        <TransitionSeries.Sequence durationInFrames={330}>
           <ScreeningScene />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
