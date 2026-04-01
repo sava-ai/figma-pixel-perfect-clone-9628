@@ -253,11 +253,11 @@ const SourceScanScene: React.FC = () => {
   const containerSpring = spring({ frame, fps, config: { damping: 200 } });
 
   const externalSources = [
-    { name: "LinkedIn", color: "#0A66C2", letter: "in" },
-    { name: "GitHub", color: "#24292e", letter: "G" },
-    { name: "Behance", color: "#1769FF", letter: "Bē" },
-    { name: "Dribbble", color: "#EA4C89", letter: "D" },
-    { name: "HuggingFace", color: "#FFD21E", letter: "🤗" },
+    { name: "LinkedIn", color: "#0A66C2", icon: "images/linkedin.svg" },
+    { name: "GitHub", color: "#24292e", icon: "images/github.svg" },
+    { name: "Behance", color: "#1769FF", icon: "images/behance.svg" },
+    { name: "Dribbble", color: "#EA4C89", icon: "images/dribbble.svg" },
+    { name: "HuggingFace", color: "#FFD21E", icon: "images/huggingface.svg" },
   ];
 
   const internalSources = [
