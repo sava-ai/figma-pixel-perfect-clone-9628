@@ -259,7 +259,11 @@ const S2_Screening: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const zoom = interpolate(frame, [0, 30, 200, 250], [1.06, 1, 1, 1.06], {
+  // Zoom into assessment card when it appears
+  const zoom = interpolate(frame, [0, 30, 180, 220, 250], [1.06, 1, 1, 1.3, 1.35], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  });
+  const panY2 = interpolate(frame, [180, 220], [0, -100], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
   });
 
