@@ -16,21 +16,32 @@ import { wipe } from "@remotion/transitions/wipe";
 import { loadFont } from "@remotion/fonts";
 
 // ── Load Custom Fonts ──
-import { loadFont as loadGoogleFont } from "@remotion/google-fonts/Inter";
-
 loadFont({
   family: "CooperLight",
   url: staticFile("fonts/CooperLtBTLight.ttf"),
   weight: "400",
 });
 
-const { fontFamily: interFamily } = loadGoogleFont("normal", {
-  weights: ["400", "500", "600"],
-  subsets: ["latin"],
+loadFont({
+  family: "Inter",
+  url: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2",
+  weight: "400",
+});
+
+loadFont({
+  family: "Inter",
+  url: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fAZ9hiA.woff2",
+  weight: "500",
+});
+
+loadFont({
+  family: "Inter",
+  url: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYAZ9hiA.woff2",
+  weight: "600",
 });
 
 const headingFont = "CooperLight, serif";
-const bodyFont = `${interFamily}, sans-serif`;
+const bodyFont = "Inter, sans-serif";
 
 // ── Colors ──
 const BG = "#f6f4f0";
