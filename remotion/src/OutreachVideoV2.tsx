@@ -849,15 +849,15 @@ const OutreachDashScene: React.FC = () => {
 
   const STATS = [
     { label: "Messages Sent", value: 3, color: ACCENT, icon: <IconSend size={22} color={ACCENT} /> },
-    { label: "Opened", value: 2, color: "#e8a230", icon: <IconZap size={22} color="#e8a230" /> },
-    { label: "Replied", value: 1, color: GREEN, icon: <IconMessageCircle size={22} color={GREEN} /> },
-    { label: "Response Rate", value: 33, suffix: "%", color: GREEN, icon: <IconTrendingUp size={22} color={GREEN} /> },
+    { label: "Opened", value: 3, color: "#e8a230", icon: <IconZap size={22} color="#e8a230" /> },
+    { label: "Replied", value: 2, color: GREEN, icon: <IconMessageCircle size={22} color={GREEN} /> },
+    { label: "Response Rate", value: 67, suffix: "%", color: GREEN, icon: <IconTrendingUp size={22} color={GREEN} /> },
   ];
 
   const STATUSES = [
     { name: "Sarah Chapman", status: "Replied", time: "2 min ago", statusColor: GREEN, bgColor: GREEN_BG, icon: <IconMessageCircle size={20} color={GREEN} />, photo: "images/sarah.jpg" },
-    { name: "Sam Morris", status: "Opened", time: "5 min ago", statusColor: "#e8a230", bgColor: "rgba(232, 162, 48, 0.08)", icon: <IconZap size={20} color="#e8a230" />, photo: "images/sam.jpg" },
-    { name: "Esther Howard", status: "Sent", time: "8 min ago", statusColor: ACCENT, bgColor: ACCENT_BG, icon: <IconSend size={20} color={ACCENT} />, photo: "images/esther.jpg" },
+    { name: "Sam Morris", status: "Replied", time: "5 min ago", statusColor: GREEN, bgColor: GREEN_BG, icon: <IconMessageCircle size={20} color={GREEN} />, photo: "images/sam.jpg" },
+    { name: "Esther Howard", status: "Opened", time: "8 min ago", statusColor: "#e8a230", bgColor: "rgba(232, 162, 48, 0.08)", icon: <IconZap size={20} color="#e8a230" />, photo: "images/esther.jpg" },
   ];
 
   return (
