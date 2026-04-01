@@ -192,19 +192,17 @@ const CareerPageScene: React.FC = () => {
   const roleStart = 192;
   const roleSpring = spring({ frame: frame - roleStart, fps, config: { damping: 22, stiffness: 180 } });
 
-  const applyBtnFrame = 230;
+  const applyBtnFrame = 210;
   const applyClicked = frame >= applyBtnFrame;
 
-  // Confirmation message after click settles
-  const confirmStart = 250;
-  const confirmText = "Great choice! Let's get started with a quick screening.";
-  const confirmTyped = useType(confirmText, frame, confirmStart + 8, 1.4);
+  // Confirmation message after click — must finish before transition
+  const confirmStart = 222;
+  const confirmText = "Great! Let's start with a quick screening.";
+  const confirmTyped = useType(confirmText, frame, confirmStart + 6, 1.8);
 
-  // Cinematic zoom: pulse in on role card, tighter on apply click
-  const z1 = interpolate(frame, [roleStart, roleStart + 18], [1, 1.06], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
-  const z2 = interpolate(frame, [applyBtnFrame, applyBtnFrame + 12, applyBtnFrame + 30], [1, 1.04, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const zoomConfirm = interpolate(frame, [confirmStart, confirmStart + 20, confirmStart + 50], [1, 0.97, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) });
-  const zoom = z1 * z2 * zoomConfirm;
+  // End-of-scene zoom-in (dive into next scene)
+  const sceneLen = 310;
+  const zoom = interpolate(frame, [sceneLen - 40, sceneLen], [1, 1.15], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.in(Easing.quad) });
 
   return (
     <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #eee9e1 100%)`, justifyContent: "center", alignItems: "center" }}>
