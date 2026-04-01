@@ -587,11 +587,6 @@ const TaskSubmitScene: React.FC = () => {
   const confirmStart = 130;
   const confirmSpring = spring({ frame: frame - confirmStart, fps, config: { damping: 18 } });
 
-  // Cursor for submit
-  const cursorShow = frame >= 100 && frame < 135;
-  const cx = interpolate(frame, [100, 115], [600, 395], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cy = interpolate(frame, [100, 115], [300, 508], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-
   return (
     <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #eee9e1 100%)`, justifyContent: "center", alignItems: "center" }}>
       <div style={{ transform: `scale(${zoomProgress})`, transformOrigin: "center center" }}>
