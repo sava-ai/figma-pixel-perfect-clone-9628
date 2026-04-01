@@ -547,7 +547,6 @@ const PipelineScene: React.FC = () => {
           const btnSpring = spring({ frame: frame - btnDelay, fps, config: { damping: 14, stiffness: 100 } });
           const btnScale = interpolate(btnSpring, [0, 1], [0.85, 1]);
 
-          const btnClickFrame = cursorTargets[3].clickFrame;
           const isClicked = frame > btnClickFrame;
           const clickPulse = isClicked
             ? interpolate(frame - btnClickFrame, [0, 5, 10], [1, 0.95, 1.02], { extrapolateRight: "clamp" })
