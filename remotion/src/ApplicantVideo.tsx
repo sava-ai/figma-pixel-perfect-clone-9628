@@ -280,7 +280,7 @@ const S2_Screening: React.FC = () => {
   ];
 
   return (
-    <AbsoluteFill style={{ background: BG, transform: `translate(${tx2}px, ${ty2}px) scale(${z2})`, transformOrigin: `${assessFocus.x}px ${assessFocus.y}px` }}>
+    <AbsoluteFill style={{ background: BG, transform: `scale(${z2})`, transformOrigin: `${assessFocus.x}px ${assessFocus.y}px` }}>
       <Logo />
       <div style={{ position: "absolute", top: 96, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
         <div style={{ width: 740 }}>
