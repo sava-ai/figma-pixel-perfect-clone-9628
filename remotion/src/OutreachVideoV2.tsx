@@ -293,7 +293,7 @@ const IntroScene: React.FC = () => {
           display: "flex", alignItems: "center", justifyContent: "center",
           boxShadow: `0 12px 40px rgba(201, 149, 107, 0.35), 0 0 0 1px rgba(201, 149, 107, 0.1)`,
         }}>
-          <LaidbackLogo size={50} color="#fff" />
+          <LaidbackLogo size={50} />
         </div>
 
         <h1 style={{
@@ -366,7 +366,7 @@ const PipelineScene: React.FC = () => {
               background: `linear-gradient(135deg, ${ACCENT}, ${ACCENT_DEEP})`,
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>
-              <LaidbackLogo size={18} color="#fff" />
+              <LaidbackLogo size={18} />
             </div>
             <span style={{ fontSize: 15, fontWeight: 400, color: TEXT, fontFamily: bodyFont }}>
               BD Representative / Sales Manager
@@ -1121,7 +1121,7 @@ const OutroScene: React.FC = () => {
           display: "flex", alignItems: "center", justifyContent: "center",
           boxShadow: `0 12px 40px rgba(201, 149, 107, 0.3)`,
         }}>
-          <LaidbackLogo size={42} color="#fff" />
+          <LaidbackLogo size={42} />
         </div>
 
         <h1 style={{
