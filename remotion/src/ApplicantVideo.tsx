@@ -499,10 +499,9 @@ const S4_TaskSubmit: React.FC = () => {
   const confirmStart = 130;
   const confirmSpring = spring({ frame: frame - confirmStart, fps, config: { damping: 18 } });
 
-  // Cursor moves to Submit button — actual position ~(148, 387)
-  const cursorShow = frame >= 105 && frame < 145;
-  const cx = interpolate(frame, [105, 118], [400, 148], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cy = interpolate(frame, [105, 118], [250, 382], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  // Cursor moves to Submit button — pre-zoom position ~(148, 387)
+  const btnX4 = 148, btnY4 = 387;
+  const cursorShow = frame >= 100 && frame < 135;
 
   // Zoom into submit area on click, then pull back to show confirmation
   const s4zoom = interpolate(frame, [0, 30, 115, 135, 175, 230], [1.04, 1, 1, 1.3, 1.3, 1.1], {
@@ -512,8 +511,16 @@ const S4_TaskSubmit: React.FC = () => {
     extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
   });
 
+  // Compute screen-space cursor (accounting for zoom+pan, origin 25%=480, 45%=486)
+  const ox4 = 480, oy4 = 486;
+  const screenBtnX4 = (btnX4 - ox4) * s4zoom + ox4;
+  const screenBtnY4 = (btnY4 - oy4) * s4zoom + oy4 + s4panY * s4zoom;
+  const cx = interpolate(frame, [100, 115], [500, screenBtnX4], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cy = interpolate(frame, [100, 115], [250, screenBtnY4], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+
   return (
-    <AbsoluteFill style={{ background: BG, transform: `scale(${s4zoom}) translateY(${s4panY}px)`, transformOrigin: "25% 45%" }}>
+    <AbsoluteFill style={{ background: BG }}>
+      <div style={{ width: "100%", height: "100%", transform: `scale(${s4zoom}) translateY(${s4panY}px)`, transformOrigin: "25% 45%" }}>
       <Logo />
       <div style={{ position: "absolute", top: 68, left: 0, right: 0, bottom: 0, display: "flex" }}>
         {/* Left sidebar tabs */}
