@@ -157,21 +157,18 @@ const S1_CareerPage: React.FC = () => {
   const roleStart = 158;
   const roleSpring = spring({ frame: frame - roleStart, fps, config: { damping: 22, stiffness: 180 } });
 
-  // Apply button measured position from rendered still
+  // Apply button measured from unzoomed still: center at (636, 301)
   const click = { x: 636, y: 301 };
   const applyBtnFrame = 200;
   const cursorShow = frame >= 180 && frame < 215;
 
-  // Zoom anchored to click target — keeps button centered during zoom
-  const W = 1920, HH = 1080;
+  // Simple zoom anchored at click point — no translate needed
   const z = interpolate(frame, [0, 10, 195, 212, 260, 290], [1.02, 1, 1, 1.2, 1.2, 1.3], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.22, 1, 0.36, 1),
   });
-  const tx = -(click.x - W / 2) * (z - 1);
-  const ty = -(click.y - HH / 2) * (z - 1);
 
-  // Cursor stays on click target — inside the transform, so use raw coords
-  const cx = interpolate(frame, [180, 198], [850, click.x], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  // Cursor inside same transform — raw coords match element positions
+  const cx = interpolate(frame, [180, 198], [900, click.x], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
   const cy = interpolate(frame, [180, 198], [150, click.y], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
 
   const applyClick = frame >= applyBtnFrame;
@@ -179,7 +176,7 @@ const S1_CareerPage: React.FC = () => {
   const confirmSpring = spring({ frame: frame - confirmMsg.start, fps, config: { damping: 28 } });
 
   return (
-    <AbsoluteFill style={{ background: BG, transform: `translate(${tx}px, ${ty}px) scale(${z})`, transformOrigin: `${click.x}px ${click.y}px` }}>
+    <AbsoluteFill style={{ background: BG, transform: `scale(${z})`, transformOrigin: `${click.x}px ${click.y}px` }}>
       <Logo />
       <div style={{ position: "absolute", top: 96, left: 0, right: 0, display: "flex", justifyContent: "center", opacity: pageIn }}>
         <div style={{ width: 740, display: "flex", flexDirection: "column" }}>
