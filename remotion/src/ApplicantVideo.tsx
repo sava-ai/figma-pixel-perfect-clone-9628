@@ -141,9 +141,12 @@ const IntroScene: React.FC = () => {
   const subtitleSpring = spring({ frame: frame - 30, fps, config: { damping: 200 } });
   const lineW = interpolate(frame, [25, 60], [0, 140], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
   const orbY = Math.sin(frame * 0.05) * 8;
+  // End-of-scene zoom-in
+  const sceneLen = 90;
+  const endZoom = interpolate(frame, [sceneLen - 30, sceneLen], [1, 1.2], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.in(Easing.quad) });
 
   return (
-    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #f0ece5 100%)`, justifyContent: "center", alignItems: "center" }}>
+    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #f0ece5 100%)`, justifyContent: "center", alignItems: "center", transform: `scale(${endZoom})`, transformOrigin: "center center" }}>
       <div style={{ position: "absolute", top: 180 + orbY, right: 350, width: 240, height: 240, borderRadius: "50%", background: `radial-gradient(circle, ${ACC}12 0%, transparent 70%)` }} />
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24 }}>
         <div style={{ position: "relative", transform: `scale(${iconScale}) rotate(${iconRotate}deg)` }}>
@@ -192,19 +195,17 @@ const CareerPageScene: React.FC = () => {
   const roleStart = 192;
   const roleSpring = spring({ frame: frame - roleStart, fps, config: { damping: 22, stiffness: 180 } });
 
-  const applyBtnFrame = 230;
+  const applyBtnFrame = 210;
   const applyClicked = frame >= applyBtnFrame;
 
-  // Confirmation message after click settles
-  const confirmStart = 250;
-  const confirmText = "Great choice! Let's get started with a quick screening.";
-  const confirmTyped = useType(confirmText, frame, confirmStart + 8, 1.4);
+  // Confirmation message after click — must finish before transition
+  const confirmStart = 222;
+  const confirmText = "Great! Let's start with a quick screening.";
+  const confirmTyped = useType(confirmText, frame, confirmStart + 6, 1.8);
 
-  // Cinematic zoom: pulse in on role card, tighter on apply click
-  const z1 = interpolate(frame, [roleStart, roleStart + 18], [1, 1.06], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
-  const z2 = interpolate(frame, [applyBtnFrame, applyBtnFrame + 12, applyBtnFrame + 30], [1, 1.04, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const zoomConfirm = interpolate(frame, [confirmStart, confirmStart + 20, confirmStart + 50], [1, 0.97, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) });
-  const zoom = z1 * z2 * zoomConfirm;
+  // End-of-scene zoom-in (dive into next scene)
+  const sceneLen = 310;
+  const zoom = interpolate(frame, [sceneLen - 40, sceneLen], [1, 1.15], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.in(Easing.quad) });
 
   return (
     <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #eee9e1 100%)`, justifyContent: "center", alignItems: "center" }}>
@@ -359,15 +360,16 @@ const ScreeningScene: React.FC = () => {
     { label: "Industry Experience", v: "Exceeds", col: GRN },
   ];
 
-  // Cinematic zoom on assessment reveal
-  const zAssess = interpolate(frame, [assessStart, assessStart + 20, assessStart + 50], [1, 1.07, 1.03], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
+  // End-of-scene zoom-in
+  const sceneLen = 330;
+  const zoomOut = interpolate(frame, [sceneLen - 40, sceneLen], [1, 1.15], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.in(Easing.quad) });
 
   return (
     <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #eee9e1 100%)`, justifyContent: "center", alignItems: "center" }}>
       <div style={{
         width: 640, background: CHAT_BG, borderRadius: 24,
         boxShadow: `0 30px 80px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04)`,
-        transform: `translateY(${interpolate(panelSlide, [0, 1], [40, 0])}px) scale(${zAssess})`,
+        transform: `translateY(${interpolate(panelSlide, [0, 1], [40, 0])}px) scale(${zoomOut})`,
         transformOrigin: "center 80%",
         opacity: panelSlide,
         display: "flex", flexDirection: "column", overflow: "hidden",
@@ -467,9 +469,10 @@ const PipelineScene: React.FC = () => {
 
   const cardSpring = spring({ frame, fps, config: { damping: 20, stiffness: 80 } });
   const prepStart = 90;
-  // Zoom pulse on prep notes reveal
-  const zPrep = interpolate(frame, [prepStart, prepStart + 18, prepStart + 45], [1, 1.05, 1.02], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
-  const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) }) * zPrep;
+  // End-of-scene zoom-in
+  const sceneLen = 260;
+  const zoomOut = interpolate(frame, [sceneLen - 40, sceneLen], [1, 1.15], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.in(Easing.quad) });
+  const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) }) * zoomOut;
 
   const steps = [
     { label: "Applied", done: true },
@@ -591,9 +594,8 @@ const TaskSubmitScene: React.FC = () => {
   const submitBtnFrame = 120;
   const confirmStart = 130;
   const confirmSpring = spring({ frame: frame - confirmStart, fps, config: { damping: 18 } });
-  // Zoom pulse on submit + success
-  const zSubmit = interpolate(frame, [submitBtnFrame, submitBtnFrame + 12, submitBtnFrame + 35], [1, 1.06, 1.02], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
-  const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) }) * zSubmit;
+  // No end zoom needed on last scene
+  const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) });
 
   const files = [
     { name: "payment-flow.fig", size: "2.4 MB", icon: <IcoFigma s={18} />, uploadFrame: 25 },
