@@ -307,7 +307,7 @@ const CareerPageScene: React.FC = () => {
         </div>
       </div>
 
-      <AnimCursor x={cx} y={cy} visible={cursorShow} clicking={frame >= applyBtnFrame && frame < applyBtnFrame + 12} />
+      
     </AbsoluteFill>
   );
 };
