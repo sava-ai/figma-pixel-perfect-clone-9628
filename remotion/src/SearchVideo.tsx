@@ -297,12 +297,12 @@ const SourceScanScene: React.FC = () => {
               }}>
                 <div style={{
                   width: 72, height: 72, borderRadius: 20,
-                  background: src.color, display: "flex", alignItems: "center", justifyContent: "center",
+                  overflow: "hidden",
                   boxShadow: `0 8px 24px ${src.color}30`,
-                  fontSize: src.letter === "🤗" ? 32 : 22, fontWeight: 700, color: "#fff",
-                  fontFamily: bodyFont,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  background: src.name === "GitHub" ? "#f6f8fa" : "transparent",
                 }}>
-                  {src.letter}
+                  <Img src={staticFile(src.icon)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
                 <span style={{ fontSize: 12, fontFamily: bodyFont, color: TEXT_SEC }}>{src.name}</span>
               </div>
