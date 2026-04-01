@@ -13,7 +13,9 @@ import { TransitionSeries, linearTiming, springTiming } from "@remotion/transiti
 import { fade } from "@remotion/transitions/fade";
 import { wipe } from "@remotion/transitions/wipe";
 import { loadFont } from "@remotion/fonts";
+import { loadFont as loadGoogleFont } from "@remotion/google-fonts/Inter";
 
+loadGoogleFont("normal", { weights: ["400", "500", "600"], subsets: ["latin"] });
 loadFont({ family: "CooperLight", url: staticFile("fonts/CooperLtBTLight.ttf"), weight: "400" });
 
 const H = "CooperLight, serif";
