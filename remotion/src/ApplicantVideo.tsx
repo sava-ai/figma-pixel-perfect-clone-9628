@@ -492,14 +492,21 @@ const S4_TaskSubmit: React.FC = () => {
   const confirmStart = 130;
   const confirmSpring = spring({ frame: frame - confirmStart, fps, config: { damping: 18 } });
 
-  // Cursor moves to Submit button
+  // Cursor moves to Submit button — actual position ~(148, 387)
   const cursorShow = frame >= 105 && frame < 145;
-  // Submit button is roughly at x=340 (center of left panel), y=570 (below file list)
-  const cx = interpolate(frame, [105, 118], [500, 370], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cy = interpolate(frame, [105, 118], [350, 576], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cx = interpolate(frame, [105, 118], [400, 148], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cy = interpolate(frame, [105, 118], [250, 382], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+
+  // Zoom into submit area on click, then pull back to show confirmation
+  const s4zoom = interpolate(frame, [0, 30, 115, 135, 175, 230], [1.04, 1, 1, 1.3, 1.3, 1.1], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  });
+  const s4panY = interpolate(frame, [115, 135, 175, 230], [0, -80, -80, -30], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  });
 
   return (
-    <AbsoluteFill style={{ background: BG, transform: `scale(${zoom})`, transformOrigin: "35% 55%" }}>
+    <AbsoluteFill style={{ background: BG, transform: `scale(${s4zoom}) translateY(${s4panY}px)`, transformOrigin: "25% 45%" }}>
       <Logo />
       <div style={{ position: "absolute", top: 68, left: 0, right: 0, bottom: 0, display: "flex" }}>
         {/* Left sidebar tabs */}
