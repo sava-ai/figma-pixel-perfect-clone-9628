@@ -582,6 +582,34 @@ const CandidateDetailScene: React.FC = () => {
               </div>
             </div>
 
+            {/* Criteria Benchmark */}
+            <div style={{ marginBottom: 28 }}>
+              <div style={{ fontSize: 20, fontFamily: headingFont, color: TEXT, marginBottom: 16 }}>Criteria benchmark</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                {[
+                  { label: "Fintech experience", score: 95, color: GREEN },
+                  { label: "Design systems", score: 88, color: GREEN },
+                  { label: "Leadership", score: 82, color: ACCENT },
+                  { label: "Scale experience", score: 78, color: ACCENT },
+                  { label: "Cultural fit", score: 91, color: GREEN },
+                ].map((criteria, i) => {
+                  const cSpring = spring({ frame: frame - 100 - i * 8, fps, config: { damping: 200 } });
+                  const barWidth = interpolate(cSpring, [0, 1], [0, criteria.score]);
+                  return (
+                    <div key={i} style={{ opacity: cSpring }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+                        <span style={{ fontSize: 13, fontFamily: bodyFont, color: TEXT }}>{criteria.label}</span>
+                        <span style={{ fontSize: 13, fontFamily: bodyFont, color: criteria.color, fontWeight: 500 }}>{Math.round(barWidth)}%</span>
+                      </div>
+                      <div style={{ width: "100%", height: 6, borderRadius: 3, background: BORDER }}>
+                        <div style={{ width: `${barWidth}%`, height: "100%", borderRadius: 3, background: criteria.color, transition: "none" }} />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* Cross-referenced sources */}
             <div>
               <div style={{ fontSize: 20, fontFamily: headingFont, color: TEXT, marginBottom: 16 }}>Cross-referenced sources</div>
