@@ -124,22 +124,6 @@ const BlinkCursor: React.FC<{ c?: string }> = ({ c = ACC }) => {
   return <span style={{ display: "inline-block", width: 2.5, height: "1.1em", background: c, marginLeft: 2, opacity: op, verticalAlign: "text-bottom" }} />;
 };
 
-const AnimCursor: React.FC<{ x: number; y: number; visible: boolean; clicking?: boolean }> = ({ x, y, visible, clicking = false }) => {
-  const frame = useCurrentFrame();
-  if (!visible) return null;
-  const cs = clicking ? 0.85 : 1;
-  const rOp = clicking ? interpolate(frame % 20, [0, 20], [0.6, 0], { extrapolateRight: "clamp" }) : 0;
-  const rSc = clicking ? interpolate(frame % 20, [0, 20], [1, 2.5], { extrapolateRight: "clamp" }) : 1;
-  return (
-    <div style={{ position: "absolute", left: x, top: y, zIndex: 9999, pointerEvents: "none" }}>
-      {clicking && <div style={{ position: "absolute", width: 30, height: 30, borderRadius: "50%", border: `2px solid ${ACC}`, opacity: rOp, transform: `translate(-50%, -50%) scale(${rSc})`, left: 4, top: 4 }} />}
-      <svg width={24} height={24} viewBox="0 0 24 24" style={{ transform: `scale(${cs})`, filter: "drop-shadow(1px 2px 3px rgba(0,0,0,0.3))" }}>
-        <path d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.85a.5.5 0 0 0-.85.36Z" fill="#fff" stroke="#1a1817" strokeWidth={1.5} />
-      </svg>
-    </div>
-  );
-};
-
 const Avatar: React.FC<{ src: string; size?: number }> = ({ src, size = 36 }) => (
   <Img src={src} style={{ width: size, height: size, borderRadius: "50%", objectFit: "cover", flexShrink: 0, border: `2px solid ${BRD}` }} />
 );
@@ -208,11 +192,7 @@ const CareerPageScene: React.FC = () => {
   const roleStart = 192;
   const roleSpring = spring({ frame: frame - roleStart, fps, config: { damping: 22, stiffness: 180 } });
 
-  // Cursor moves to Apply button after role card settles
   const applyBtnFrame = 230;
-  const cursorShow = frame >= 215 && frame < 248;
-  const cx = interpolate(frame, [215, 228], [700, 490], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cy = interpolate(frame, [215, 228], [300, 565], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
   const applyClicked = frame >= applyBtnFrame;
 
   // Confirmation message after click settles
@@ -327,7 +307,7 @@ const CareerPageScene: React.FC = () => {
         </div>
       </div>
 
-      <AnimCursor x={cx} y={cy} visible={cursorShow} clicking={frame >= applyBtnFrame && frame < applyBtnFrame + 12} />
+      
     </AbsoluteFill>
   );
 };
@@ -607,11 +587,6 @@ const TaskSubmitScene: React.FC = () => {
   const confirmStart = 130;
   const confirmSpring = spring({ frame: frame - confirmStart, fps, config: { damping: 18 } });
 
-  // Cursor for submit
-  const cursorShow = frame >= 100 && frame < 135;
-  const cx = interpolate(frame, [100, 115], [600, 395], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cy = interpolate(frame, [100, 115], [300, 508], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-
   return (
     <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #eee9e1 100%)`, justifyContent: "center", alignItems: "center" }}>
       <div style={{ transform: `scale(${zoomProgress})`, transformOrigin: "center center" }}>
@@ -694,7 +669,7 @@ const TaskSubmitScene: React.FC = () => {
         </div>
       </div>
 
-      <AnimCursor x={cx} y={cy} visible={cursorShow} clicking={frame >= submitBtnFrame && frame < submitBtnFrame + 12} />
+      
     </AbsoluteFill>
   );
 };
