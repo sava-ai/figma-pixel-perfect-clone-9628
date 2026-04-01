@@ -256,13 +256,11 @@ const S2_Screening: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Assessment card center ~(590, 460) — zoom anchored there
+  // Assessment card center — zoom anchored there
   const assessFocus = { x: 590, y: 460 };
   const z2 = interpolate(frame, [0, 30, 180, 215, 250], [1.06, 1, 1, 1.25, 1.3], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.22, 1, 0.36, 1),
   });
-  const tx2 = -(assessFocus.x - 960) * (z2 - 1);
-  const ty2 = -(assessFocus.y - 540) * (z2 - 1);
 
   const msgs: { role: "ai" | "user"; text: string; start: number }[] = [
     { role: "ai", text: "What's your experience with design tokens and component libraries?", start: 15 },
