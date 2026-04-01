@@ -774,9 +774,9 @@ const OutroScene: React.FC = () => {
 
 // ═══════════════════════════════════════════════════════
 // MAIN VIDEO
-// Intro(90) + ChatQuery(200) + SourceScan(200) + Results(180) + CandidateDetail(280) + PipelineSave(120) + Outro(90)
+// Intro(90) + ChatQuery(200) + SourceScan(200) + Results(180) + CandidateDetail(340) + PipelineSave(120) + Outro(90)
 // Transitions: 6 × 20f = 120f overlap
-// Total: 1160 - 120 = 1040f ≈ 34.7s
+// Total: 1220 - 120 = 1100f ≈ 36.7s
 // ═══════════════════════════════════════════════════════
 export const SearchVideo: React.FC = () => {
   return (
@@ -790,7 +790,7 @@ export const SearchVideo: React.FC = () => {
         <TransitionSeries.Transition presentation={fade()} timing={springTiming({ config: { damping: 200 }, durationInFrames: 20 })} />
         <TransitionSeries.Sequence durationInFrames={180}><ResultsScene /></TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={slide({ direction: "from-right" })} timing={linearTiming({ durationInFrames: 20 })} />
-        <TransitionSeries.Sequence durationInFrames={280}><CandidateDetailScene /></TransitionSeries.Sequence>
+        <TransitionSeries.Sequence durationInFrames={340}><CandidateDetailScene /></TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={linearTiming({ durationInFrames: 20 })} />
         <TransitionSeries.Sequence durationInFrames={120}><PipelineSaveScene /></TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={linearTiming({ durationInFrames: 20 })} />
