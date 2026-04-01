@@ -340,17 +340,8 @@ const PipelineScene: React.FC = () => {
   const cameraScale = interpolate(zoomProgress, [0, 0.5, 1], [0.82, 0.92, 1.05]);
   const cameraY = interpolate(zoomProgress, [0, 0.5, 1], [30, 10, -20]);
 
-  const cursorTargets = [
-    { x: 1390, y: 495, clickFrame: 65 },
-    { x: 1390, y: 595, clickFrame: 85 },
-    { x: 1390, y: 695, clickFrame: 105 },
-    { x: 870, y: 790, clickFrame: 155 },
-  ];
-
-  let cursorX = 960;
-  let cursorY = 300;
-  let cursorVisible = frame > 40;
-  let cursorClicking = false;
+  const checkClickFrames = [65, 85, 105];
+  const btnClickFrame = 155;
 
   const headerSpring = spring({ frame, fps, config: { damping: 200 } });
   const statsDelay = 8;
