@@ -9,374 +9,325 @@ import {
   staticFile,
   Img,
 } from "remotion";
-import { TransitionSeries, linearTiming, springTiming } from "@remotion/transitions";
+import { TransitionSeries, linearTiming } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
-import { slide } from "@remotion/transitions/slide";
-import { wipe } from "@remotion/transitions/wipe";
 import { loadFont } from "@remotion/fonts";
 
 loadFont({ family: "CooperLight", url: staticFile("fonts/CooperLtBTLight.ttf"), weight: "400" });
 loadFont({ family: "LabilGrotesk", url: staticFile("fonts/LabilGrotesk-Regular.ttf"), weight: "400" });
 
-const headingFont = "CooperLight, serif";
-const bodyFont = "LabilGrotesk, sans-serif";
+const H = "CooperLight, serif";
+const B = "LabilGrotesk, sans-serif";
 
 const BG = "#f6f4f0";
 const CARD = "#ffffff";
-const TEXT = "#333333";
-const TEXT_SEC = "#7a7570";
-const ACCENT = "#c9956b";
-const ACCENT_DEEP = "#a87a55";
-const GREEN = "#2d9d5c";
-const GREEN_BG = "rgba(45, 157, 92, 0.08)";
-const BORDER = "#ece8e2";
-const BLUE = "#4a7cff";
-const BLUE_BG = "rgba(74, 124, 255, 0.08)";
-const PURPLE = "#7c5cbf";
-const PURPLE_BG = "rgba(124, 92, 191, 0.08)";
-const ORANGE = "#e8853d";
-const ORANGE_BG = "rgba(232, 133, 61, 0.08)";
+const T = "#333333";
+const T2 = "#7a7570";
+const ACC = "#c9956b";
+const ACC_D = "#a87a55";
+const GRN = "#2d9d5c";
+const GRN_BG = "rgba(45, 157, 92, 0.08)";
+const BRD = "#ece8e2";
+const BLU = "#4a7cff";
+const BLU_BG = "rgba(74, 124, 255, 0.08)";
+const PUR = "#7c5cbf";
+const PUR_BG = "rgba(124, 92, 191, 0.08)";
+const ORA = "#e8853d";
+const ORA_BG = "rgba(232, 133, 61, 0.08)";
 
-// Real profile photos
-const APPLICANT_PHOTO = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face";
+const PHOTO = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face";
 
-// ── Icons ──
-const IconSparkles: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = ACCENT }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+// ── SVG Icons ──
+const IcoSparkle: React.FC<{ s?: number; c?: string }> = ({ s = 18, c = ACC }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
     <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
-    <path d="M20 3v4" /><path d="M22 5h-4" /><path d="M4 17v2" /><path d="M5 18H3" />
   </svg>
 );
-const IconCheck: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = GREEN }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+const IcoCheck: React.FC<{ s?: number; c?: string }> = ({ s = 16, c = GRN }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
     <path d="M20 6 9 17l-5-5" />
   </svg>
 );
-const IconFileText: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = TEXT_SEC }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+const IcoFile: React.FC<{ s?: number; c?: string }> = ({ s = 18, c = T2 }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
     <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-    <path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" />
+    <path d="M14 2v4a2 2 0 0 0 2 2h4" />
   </svg>
 );
-const IconPlay: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = TEXT_SEC }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+const IcoPlay: React.FC<{ s?: number; c?: string }> = ({ s = 18, c = T2 }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
     <polygon points="6 3 20 12 6 21 6 3" />
   </svg>
 );
-const IconUpload: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = TEXT_SEC }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+const IcoUpload: React.FC<{ s?: number; c?: string }> = ({ s = 18, c = T2 }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" />
   </svg>
 );
-const IconTarget: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = TEXT_SEC }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+const IcoTarget: React.FC<{ s?: number; c?: string }> = ({ s = 18, c = T2 }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" />
   </svg>
 );
-const IconCalendar: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = TEXT_SEC }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+const IcoCal: React.FC<{ s?: number; c?: string }> = ({ s = 18, c = T2 }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
     <path d="M8 2v4" /><path d="M16 2v4" /><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M3 10h18" />
   </svg>
 );
-const IconClipboard: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = TEXT_SEC }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+const IcoClip: React.FC<{ s?: number; c?: string }> = ({ s = 18, c = T2 }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
     <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   </svg>
 );
+// Figma file icon
+const IcoFigma: React.FC<{ s?: number }> = ({ s = 20 }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+    <path d="M8 24c2.2 0 4-1.8 4-4v-4H8c-2.2 0-4 1.8-4 4s1.8 4 4 4z" fill="#0ACF83"/>
+    <path d="M4 12c0-2.2 1.8-4 4-4h4v8H8c-2.2 0-4-1.8-4-4z" fill="#A259FF"/>
+    <path d="M4 4c0-2.2 1.8-4 4-4h4v8H8C5.8 8 4 6.2 4 4z" fill="#F24E1E"/>
+    <path d="M12 0h4c2.2 0 4 1.8 4 4s-1.8 4-4 4h-4V0z" fill="#FF7262"/>
+    <path d="M20 12c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4 4 1.8 4 4z" fill="#1ABCFE"/>
+  </svg>
+);
+// PDF icon
+const IcoPDF: React.FC<{ s?: number }> = ({ s = 20 }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+    <rect x="2" y="1" width="20" height="22" rx="3" fill="#E5322D"/>
+    <text x="12" y="15" textAnchor="middle" fill="#fff" fontSize="8" fontWeight="700" fontFamily="sans-serif">PDF</text>
+  </svg>
+);
+// Video file icon
+const IcoVideo: React.FC<{ s?: number }> = ({ s = 20 }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+    <rect x="2" y="1" width="20" height="22" rx="3" fill="#6C5CE7"/>
+    <polygon points="10 8 10 16 16 12" fill="#fff"/>
+  </svg>
+);
 
-// ── Typewriter hook ──
-const useTypewriter = (text: string, frame: number, startFrame: number, speed = 1.5) => {
-  const charsToShow = Math.floor(Math.max(0, (frame - startFrame) * speed));
-  return text.slice(0, Math.min(charsToShow, text.length));
+// ── Helpers ──
+const useType = (text: string, frame: number, start: number, speed = 1.8) => {
+  const n = Math.floor(Math.max(0, (frame - start) * speed));
+  return text.slice(0, Math.min(n, text.length));
 };
 
-// ── Animated Cursor ──
-const AnimatedCursor: React.FC<{ x: number; y: number; frame: number; clickFrame?: number }> = ({ x, y, frame, clickFrame }) => {
-  const clickScale = clickFrame !== undefined
-    ? interpolate(frame, [clickFrame, clickFrame + 4, clickFrame + 12], [1, 0.85, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
+const Cursor: React.FC<{ x: number; y: number; frame: number; click?: number }> = ({ x, y, frame, click }) => {
+  const cs = click !== undefined
+    ? interpolate(frame, [click, click + 4, click + 12], [1, 0.85, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
     : 1;
-  const clickRipple = clickFrame !== undefined
-    ? interpolate(frame, [clickFrame, clickFrame + 20], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
+  const ripple = click !== undefined
+    ? interpolate(frame, [click, click + 18], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
     : 0;
   return (
-    <div style={{ position: "absolute", left: x, top: y, zIndex: 9999, pointerEvents: "none", transform: `scale(${clickScale})` }}>
-      {clickRipple > 0 && clickRipple < 1 && (
-        <div style={{ position: "absolute", left: -15, top: -15, width: 30, height: 30, borderRadius: "50%", border: `2px solid ${ACCENT}`, opacity: 1 - clickRipple, transform: `scale(${1 + clickRipple * 2})` }} />
+    <div style={{ position: "absolute", left: x, top: y, zIndex: 9999, pointerEvents: "none", transform: `scale(${cs})` }}>
+      {ripple > 0 && ripple < 1 && (
+        <div style={{ position: "absolute", left: -12, top: -12, width: 24, height: 24, borderRadius: "50%", border: `2px solid ${ACC}`, opacity: 1 - ripple, transform: `scale(${1 + ripple * 1.5})` }} />
       )}
-      <svg width="24" height="28" viewBox="0 0 24 28" fill="none">
-        <path d="M5.5 2L5.5 20.5L9.5 16.5L14 24L17.5 22L13 14.5L18.5 14.5L5.5 2Z" fill={ACCENT_DEEP} stroke="#fff" strokeWidth="1.5" strokeLinejoin="round" />
+      <svg width="22" height="26" viewBox="0 0 24 28" fill="none">
+        <path d="M5.5 2L5.5 20.5L9.5 16.5L14 24L17.5 22L13 14.5L18.5 14.5L5.5 2Z" fill={ACC_D} stroke="#fff" strokeWidth="1.5" strokeLinejoin="round" />
       </svg>
     </div>
   );
 };
 
-// ── Photo Avatar ──
-const PhotoAvatar: React.FC<{ src: string; size?: number }> = ({ src, size = 36 }) => (
+const Avatar: React.FC<{ src: string; size?: number }> = ({ src, size = 36 }) => (
   <Img src={src} style={{ width: size, height: size, borderRadius: "50%", objectFit: "cover", flexShrink: 0 }} />
 );
 
-// ── Logotype Header ──
-const LogoHeader: React.FC<{ rightContent?: React.ReactNode }> = ({ rightContent }) => (
-  <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 72, background: CARD, borderBottom: `1px solid ${BORDER}`, display: "flex", alignItems: "center", padding: "0 60px", gap: 12, zIndex: 10 }}>
-    <Img src={staticFile("images/logotype.svg")} style={{ height: 32 }} />
-    {rightContent && <><div style={{ flex: 1 }} />{rightContent}</>}
+const Logo: React.FC = () => (
+  <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 68, background: CARD, borderBottom: `1px solid ${BRD}`, display: "flex", alignItems: "center", padding: "0 56px", zIndex: 10 }}>
+    <Img src={staticFile("images/logotype.svg")} style={{ height: 30 }} />
   </div>
 );
 
-// ── Camera Zoom Wrapper ──
-const CameraZoom: React.FC<{
-  children: React.ReactNode;
-  frame: number;
-  fps: number;
-  zoomStart: number;
-  zoomEnd: number;
-  fromScale?: number;
-  toScale?: number;
-  originX?: string;
-  originY?: string;
-}> = ({ children, frame, fps, zoomStart, zoomEnd, fromScale = 1, toScale = 1.15, originX = "50%", originY = "40%" }) => {
-  const zoomProgress = interpolate(frame, [zoomStart, zoomEnd], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.inOut(Easing.ease),
-  });
-  const scale = interpolate(zoomProgress, [0, 1], [fromScale, toScale]);
-  return (
-    <div style={{ width: "100%", height: "100%", transform: `scale(${scale})`, transformOrigin: `${originX} ${originY}` }}>
-      {children}
-    </div>
-  );
-};
-
-// ════════════════════════════════════════════════════════════════
-// SCENE 1: Career Page Landing — Conversational Self-Selection
-// ════════════════════════════════════════════════════════════════
-const CareerPageScene: React.FC = () => {
+// ═══════════════════════════════════════════════════════
+// SCENE 1 — Career Page: Conversational Self-Selection
+// ═══════════════════════════════════════════════════════
+const S1_CareerPage: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   const pageIn = spring({ frame, fps, config: { damping: 200 } });
 
-  const msgs = [
-    { role: "ai" as const, text: "Hi! I'm Laidback's career assistant. Tell me about yourself and what kind of role excites you.", start: 20 },
-    { role: "user" as const, text: "I'm a product designer with 6 years of experience, focused on design systems and fintech.", start: 70 },
-    { role: "ai" as const, text: "Great match! We have 2 open roles that align with your profile:", start: 120 },
+  const msgs: { role: "ai" | "user"; text: string; start: number }[] = [
+    { role: "ai", text: "Hey! Tell me about yourself and the kind of role you're looking for.", start: 20 },
+    { role: "user", text: "Product designer, 6 years — focused on design systems and fintech.", start: 75 },
+    { role: "ai", text: "We have a role that fits perfectly:", start: 125 },
   ];
 
-  const rolesStart = 160;
-  const roles = [
-    { title: "Senior Product Designer", team: "Design Systems", location: "Remote · EU", match: "Strong match" },
-    { title: "Lead Designer, Fintech", team: "Payments", location: "London · Hybrid", match: "Great match" },
-  ];
+  const roleStart = 158;
+  const roleSpring = spring({ frame: frame - roleStart, fps, config: { damping: 22, stiffness: 180 } });
 
-  const selectFrame = 200;
-  const selectMsg = { role: "user" as const, text: "The Senior Product Designer role looks perfect — I'd love to apply!", start: 215 };
-  const confirmMsg = { role: "ai" as const, text: "Excellent choice! Let me walk you through a quick screening to get started.", start: 255 };
+  // Cursor moves to the "Apply" button area
+  const applyBtnFrame = 200;
+  const cursorShow = frame >= 185 && frame < 225;
+  const cx = interpolate(frame, [185, 200], [700, 658], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cy = interpolate(frame, [185, 200], [380, 560], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
 
-  const cursorX = interpolate(frame, [185, 200], [960, 560], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cursorY = interpolate(frame, [185, 200], [400, 530], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const applyClick = frame >= applyBtnFrame;
+  const confirmMsg = { text: "Great choice! Let's get you started with a quick screening.", start: 220 };
+  const confirmSpring = spring({ frame: frame - confirmMsg.start, fps, config: { damping: 28 } });
 
-  // Zoom into chat area at the end of scene
-  const zoomStart = 240;
-  const zoomScale = interpolate(frame, [zoomStart, zoomStart + 60], [1, 1.12], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  // Gentle zoom toward chat at end
+  const zoom = interpolate(frame, [240, 290], [1, 1.08], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
 
   return (
-    <AbsoluteFill style={{ background: BG, transform: `scale(${zoomScale})`, transformOrigin: "50% 60%" }}>
-      <LogoHeader rightContent={
-        <span style={{ fontFamily: bodyFont, fontSize: 14, color: TEXT_SEC }}>Open positions</span>
-      } />
-
-      <div style={{ position: "absolute", top: 100, left: 0, right: 0, bottom: 0, display: "flex", justifyContent: "center" }}>
-        <div style={{ width: 820, display: "flex", flexDirection: "column", gap: 0 }}>
-          {msgs.map((msg, i) => {
-            const msgSpring = spring({ frame: frame - msg.start, fps, config: { damping: 28, stiffness: 180 } });
-            if (frame < msg.start) return null;
-            const typed = useTypewriter(msg.text, frame, msg.start + 8, 2);
+    <AbsoluteFill style={{ background: BG, transform: `scale(${zoom})`, transformOrigin: "50% 55%" }}>
+      <Logo />
+      <div style={{ position: "absolute", top: 96, left: 0, right: 0, display: "flex", justifyContent: "center", opacity: pageIn }}>
+        <div style={{ width: 740, display: "flex", flexDirection: "column" }}>
+          {msgs.map((m, i) => {
+            const s = spring({ frame: frame - m.start, fps, config: { damping: 28, stiffness: 180 } });
+            if (frame < m.start) return null;
+            const txt = useType(m.text, frame, m.start + 6);
             return (
-              <div key={i} style={{ display: "flex", gap: 12, marginBottom: 20, opacity: msgSpring, transform: `translateY(${(1 - msgSpring) * 12}px)`, flexDirection: msg.role === "user" ? "row-reverse" : "row" }}>
-                {msg.role === "ai" ? (
-                  <div style={{ width: 38, height: 38, borderRadius: "50%", background: ACCENT, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <IconSparkles size={18} color="#fff" />
+              <div key={i} style={{ display: "flex", gap: 12, marginBottom: 18, opacity: s, transform: `translateY(${(1 - s) * 10}px)`, flexDirection: m.role === "user" ? "row-reverse" : "row" }}>
+                {m.role === "ai" ? (
+                  <div style={{ width: 36, height: 36, borderRadius: "50%", background: ACC, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <IcoSparkle s={16} c="#fff" />
                   </div>
-                ) : (
-                  <PhotoAvatar src={APPLICANT_PHOTO} size={38} />
-                )}
+                ) : <Avatar src={PHOTO} size={36} />}
                 <div style={{
-                  maxWidth: 560, padding: "14px 20px",
-                  borderRadius: msg.role === "ai" ? "4px 18px 18px 18px" : "18px 4px 18px 18px",
-                  background: msg.role === "ai" ? CARD : ACCENT,
-                  color: msg.role === "ai" ? TEXT : "#fff",
-                  fontFamily: bodyFont, fontSize: 16, lineHeight: 1.6,
-                  border: msg.role === "ai" ? `1px solid ${BORDER}` : "none",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                  maxWidth: 520, padding: "13px 18px",
+                  borderRadius: m.role === "ai" ? "4px 16px 16px 16px" : "16px 4px 16px 16px",
+                  background: m.role === "ai" ? CARD : ACC, color: m.role === "ai" ? T : "#fff",
+                  fontFamily: B, fontSize: 15.5, lineHeight: 1.6,
+                  border: m.role === "ai" ? `1px solid ${BRD}` : "none",
                 }}>
-                  {typed}
+                  {txt}
                 </div>
               </div>
             );
           })}
 
-          {frame >= rolesStart && (
-            <div style={{ display: "flex", gap: 16, marginTop: 8, marginLeft: 50 }}>
-              {roles.map((role, i) => {
-                const cardSpring = spring({ frame: frame - rolesStart - i * 12, fps, config: { damping: 22, stiffness: 180 } });
-                const isSelected = frame >= selectFrame && i === 0;
-                return (
-                  <div key={i} style={{
-                    flex: 1, padding: "20px 24px", borderRadius: 16, background: CARD,
-                    border: `2px solid ${isSelected ? ACCENT : BORDER}`,
-                    opacity: cardSpring, transform: `translateY(${(1 - cardSpring) * 18}px) scale(${isSelected ? 1.02 : 1})`,
-                    boxShadow: isSelected ? `0 4px 24px ${ACCENT}20` : "0 2px 8px rgba(0,0,0,0.04)",
-                  }}>
-                    <div style={{ fontFamily: headingFont, fontSize: 17, color: TEXT, marginBottom: 8 }}>{role.title}</div>
-                    <div style={{ fontFamily: bodyFont, fontSize: 13, color: TEXT_SEC, marginBottom: 4 }}>{role.team} · {role.location}</div>
-                    <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 20, background: GREEN_BG, marginTop: 8 }}>
-                      <IconCheck size={12} />
-                      <span style={{ fontFamily: bodyFont, fontSize: 12, color: GREEN }}>{role.match}</span>
-                    </div>
-                  </div>
-                );
-              })}
+          {/* Role card */}
+          {frame >= roleStart && (
+            <div style={{
+              marginLeft: 48, marginTop: 4, padding: "20px 24px", borderRadius: 16,
+              background: CARD, border: `2px solid ${applyClick ? ACC : BRD}`,
+              opacity: roleSpring, transform: `translateY(${(1 - roleSpring) * 14}px)`,
+              boxShadow: applyClick ? `0 4px 20px ${ACC}18` : "0 2px 8px rgba(0,0,0,0.04)",
+              maxWidth: 420,
+            }}>
+              <div style={{ fontFamily: H, fontSize: 17, color: T, marginBottom: 6 }}>Senior Product Designer</div>
+              <div style={{ fontFamily: B, fontSize: 13, color: T2, marginBottom: 10 }}>Design Systems · Remote EU</div>
+              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", borderRadius: 20, background: GRN_BG }}>
+                  <IcoCheck s={12} />
+                  <span style={{ fontFamily: B, fontSize: 12, color: GRN }}>Strong match</span>
+                </div>
+                <div style={{
+                  padding: "6px 16px", borderRadius: 10, background: ACC, color: "#fff",
+                  fontFamily: B, fontSize: 13, fontWeight: 500,
+                  transform: applyClick ? "scale(0.96)" : "scale(1)",
+                }}>
+                  Apply
+                </div>
+              </div>
             </div>
           )}
 
-          {frame >= selectMsg.start && (() => {
-            const msgSpring = spring({ frame: frame - selectMsg.start, fps, config: { damping: 28 } });
-            const typed = useTypewriter(selectMsg.text, frame, selectMsg.start + 8, 2);
-            return (
-              <div style={{ display: "flex", gap: 12, marginTop: 20, opacity: msgSpring, transform: `translateY(${(1 - msgSpring) * 12}px)`, flexDirection: "row-reverse" }}>
-                <PhotoAvatar src={APPLICANT_PHOTO} size={38} />
-                <div style={{ maxWidth: 560, padding: "14px 20px", borderRadius: "18px 4px 18px 18px", background: ACCENT, color: "#fff", fontFamily: bodyFont, fontSize: 16, lineHeight: 1.6 }}>
-                  {typed}
-                </div>
+          {/* AI confirm after click */}
+          {frame >= confirmMsg.start && (
+            <div style={{ display: "flex", gap: 12, marginTop: 18, opacity: confirmSpring, transform: `translateY(${(1 - confirmSpring) * 10}px)` }}>
+              <div style={{ width: 36, height: 36, borderRadius: "50%", background: ACC, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <IcoSparkle s={16} c="#fff" />
               </div>
-            );
-          })()}
-
-          {frame >= confirmMsg.start && (() => {
-            const msgSpring = spring({ frame: frame - confirmMsg.start, fps, config: { damping: 28 } });
-            const typed = useTypewriter(confirmMsg.text, frame, confirmMsg.start + 8, 2);
-            return (
-              <div style={{ display: "flex", gap: 12, marginTop: 20, opacity: msgSpring, transform: `translateY(${(1 - msgSpring) * 12}px)` }}>
-                <div style={{ width: 38, height: 38, borderRadius: "50%", background: ACCENT, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <IconSparkles size={18} color="#fff" />
-                </div>
-                <div style={{ maxWidth: 560, padding: "14px 20px", borderRadius: "4px 18px 18px 18px", background: CARD, color: TEXT, fontFamily: bodyFont, fontSize: 16, lineHeight: 1.6, border: `1px solid ${BORDER}` }}>
-                  {typed}
-                </div>
+              <div style={{ maxWidth: 520, padding: "13px 18px", borderRadius: "4px 16px 16px 16px", background: CARD, color: T, fontFamily: B, fontSize: 15.5, lineHeight: 1.6, border: `1px solid ${BRD}` }}>
+                {useType(confirmMsg.text, frame, confirmMsg.start + 6)}
               </div>
-            );
-          })()}
+            </div>
+          )}
         </div>
       </div>
-
-      {frame >= 185 && frame < 220 && <AnimatedCursor x={cursorX} y={cursorY} frame={frame} clickFrame={200} />}
+      {cursorShow && <Cursor x={cx} y={cy} frame={frame} click={applyBtnFrame} />}
     </AbsoluteFill>
   );
 };
 
-// ════════════════════════════════════════════════════════════════
-// SCENE 2: AI Pre-Screening
-// ════════════════════════════════════════════════════════════════
-const PreScreeningScene: React.FC = () => {
+// ═══════════════════════════════════════════════════════
+// SCENE 2 — AI Pre-Screening
+// ═══════════════════════════════════════════════════════
+const S2_Screening: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Start zoomed in, slowly zoom out to reveal assessment
-  const zoomScale = interpolate(frame, [0, 40, 170, 260], [1.1, 1, 1, 1.08], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
-  });
-  const panY = interpolate(frame, [0, 40, 170, 260], [-20, 0, 0, -15], {
+  const zoom = interpolate(frame, [0, 30, 200, 250], [1.06, 1, 1, 1.06], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
   });
 
-  const msgs = [
-    { role: "ai" as const, text: "Let's start with a quick screening. What's your experience with design tokens and component libraries?", start: 15 },
-    { role: "user" as const, text: "I've built a design system from scratch at Stripe, serving 200+ components used by 40 engineers.", start: 65 },
-    { role: "ai" as const, text: "Impressive! How do you approach collaboration with engineering teams on design handoff?", start: 110 },
-    { role: "user" as const, text: "I use Figma dev mode and maintain a shared Storybook. I run weekly syncs with eng leads.", start: 150 },
+  const msgs: { role: "ai" | "user"; text: string; start: number }[] = [
+    { role: "ai", text: "What's your experience with design tokens and component libraries?", start: 15 },
+    { role: "user", text: "Built a design system from scratch at Stripe — 200+ components, used by 40 engineers.", start: 60 },
+    { role: "ai", text: "How do you handle collaboration with engineering on design handoff?", start: 105 },
+    { role: "user", text: "Figma dev mode + shared Storybook. Weekly syncs with eng leads.", start: 145 },
   ];
 
-  const assessmentStart = 195;
-  const assessmentSpring = spring({ frame: frame - assessmentStart, fps, config: { damping: 22 } });
+  const assessStart = 185;
+  const assessSpring = spring({ frame: frame - assessStart, fps, config: { damping: 22 } });
 
   const criteria = [
-    { label: "Design Systems", verdict: "Exceeds" },
-    { label: "Cross-functional Collaboration", verdict: "Strong" },
-    { label: "Technical Fluency", verdict: "Strong" },
-    { label: "Industry Experience", verdict: "Exceeds" },
+    { label: "Design Systems", v: "Exceeds", col: GRN },
+    { label: "Collaboration", v: "Strong", col: BLU },
+    { label: "Technical Fluency", v: "Strong", col: BLU },
+    { label: "Industry Experience", v: "Exceeds", col: GRN },
   ];
 
   return (
-    <AbsoluteFill style={{ background: BG, transform: `scale(${zoomScale}) translateY(${panY}px)`, transformOrigin: "50% 45%" }}>
-      <LogoHeader rightContent={
-        <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 20, background: BLUE_BG }}>
-          <IconTarget size={14} color={BLUE} />
-          <span style={{ fontFamily: bodyFont, fontSize: 13, color: BLUE }}>Pre-Screening</span>
-        </div>
-      } />
-
-      <div style={{ position: "absolute", top: 100, left: 0, right: 0, bottom: 0, display: "flex", justifyContent: "center" }}>
-        <div style={{ width: 820, display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 24 }}>
-            <IconSparkles size={16} color={ACCENT} />
-            <span style={{ fontFamily: bodyFont, fontSize: 14, color: TEXT_SEC }}>AI is assessing your fit for Senior Product Designer</span>
+    <AbsoluteFill style={{ background: BG, transform: `scale(${zoom})`, transformOrigin: "50% 50%" }}>
+      <Logo />
+      <div style={{ position: "absolute", top: 96, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
+        <div style={{ width: 740 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
+            <IcoTarget s={14} c={BLU} />
+            <span style={{ fontFamily: B, fontSize: 13, color: BLU }}>Pre-Screening in progress</span>
           </div>
 
-          {msgs.map((msg, i) => {
-            const msgSpring = spring({ frame: frame - msg.start, fps, config: { damping: 28, stiffness: 180 } });
-            if (frame < msg.start) return null;
-            const typed = useTypewriter(msg.text, frame, msg.start + 8, 2.2);
+          {msgs.map((m, i) => {
+            const s = spring({ frame: frame - m.start, fps, config: { damping: 28 } });
+            if (frame < m.start) return null;
             return (
-              <div key={i} style={{ display: "flex", gap: 12, marginBottom: 18, opacity: msgSpring, transform: `translateY(${(1 - msgSpring) * 12}px)`, flexDirection: msg.role === "user" ? "row-reverse" : "row" }}>
-                {msg.role === "ai" ? (
-                  <div style={{ width: 38, height: 38, borderRadius: "50%", background: ACCENT, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <IconSparkles size={18} color="#fff" />
+              <div key={i} style={{ display: "flex", gap: 12, marginBottom: 16, opacity: s, transform: `translateY(${(1 - s) * 10}px)`, flexDirection: m.role === "user" ? "row-reverse" : "row" }}>
+                {m.role === "ai" ? (
+                  <div style={{ width: 36, height: 36, borderRadius: "50%", background: ACC, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <IcoSparkle s={16} c="#fff" />
                   </div>
-                ) : (
-                  <PhotoAvatar src={APPLICANT_PHOTO} size={38} />
-                )}
+                ) : <Avatar src={PHOTO} size={36} />}
                 <div style={{
-                  maxWidth: 540, padding: "14px 20px",
-                  borderRadius: msg.role === "ai" ? "4px 18px 18px 18px" : "18px 4px 18px 18px",
-                  background: msg.role === "ai" ? CARD : ACCENT,
-                  color: msg.role === "ai" ? TEXT : "#fff",
-                  fontFamily: bodyFont, fontSize: 16, lineHeight: 1.6,
-                  border: msg.role === "ai" ? `1px solid ${BORDER}` : "none",
+                  maxWidth: 500, padding: "13px 18px",
+                  borderRadius: m.role === "ai" ? "4px 16px 16px 16px" : "16px 4px 16px 16px",
+                  background: m.role === "ai" ? CARD : ACC, color: m.role === "ai" ? T : "#fff",
+                  fontFamily: B, fontSize: 15.5, lineHeight: 1.6,
+                  border: m.role === "ai" ? `1px solid ${BRD}` : "none",
                 }}>
-                  {typed}
+                  {useType(m.text, frame, m.start + 6)}
                 </div>
               </div>
             );
           })}
 
-          {frame >= assessmentStart && (
+          {frame >= assessStart && (
             <div style={{
-              marginTop: 20, marginLeft: 50, padding: "24px 28px", borderRadius: 18,
-              background: CARD, border: `1px solid ${BORDER}`,
-              opacity: assessmentSpring, transform: `translateY(${(1 - assessmentSpring) * 18}px)`,
-              boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
+              marginTop: 16, marginLeft: 48, padding: "22px 26px", borderRadius: 16,
+              background: CARD, border: `1px solid ${BRD}`,
+              opacity: assessSpring, transform: `translateY(${(1 - assessSpring) * 14}px)`,
+              maxWidth: 500,
             }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
-                <IconSparkles size={18} color={ACCENT} />
-                <span style={{ fontFamily: headingFont, fontSize: 18, color: TEXT }}>Screening Assessment</span>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+                <IcoSparkle s={16} c={ACC} />
+                <span style={{ fontFamily: H, fontSize: 17, color: T }}>Screening Assessment</span>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                 {criteria.map((c, i) => {
-                  const cSpring = spring({ frame: frame - assessmentStart - 10 - i * 8, fps, config: { damping: 22 } });
+                  const cs = spring({ frame: frame - assessStart - 8 - i * 6, fps, config: { damping: 22 } });
                   return (
                     <div key={i} style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
-                      padding: "10px 16px", borderRadius: 12,
-                      background: c.verdict === "Exceeds" ? GREEN_BG : BLUE_BG,
-                      border: `1px solid ${c.verdict === "Exceeds" ? `${GREEN}15` : `${BLUE}15`}`,
-                      opacity: cSpring, transform: `translateY(${(1 - cSpring) * 8}px)`,
+                      padding: "9px 14px", borderRadius: 10,
+                      background: c.col === GRN ? GRN_BG : BLU_BG,
+                      opacity: cs,
                     }}>
-                      <span style={{ fontFamily: bodyFont, fontSize: 14, color: TEXT }}>{c.label}</span>
-                      <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                        <IconCheck size={13} color={c.verdict === "Exceeds" ? GREEN : BLUE} />
-                        <span style={{ fontFamily: bodyFont, fontSize: 13, color: c.verdict === "Exceeds" ? GREEN : BLUE, fontWeight: 500 }}>{c.verdict}</span>
-                      </div>
+                      <span style={{ fontFamily: B, fontSize: 13, color: T }}>{c.label}</span>
+                      <span style={{ fontFamily: B, fontSize: 12, color: c.col, fontWeight: 500 }}>{c.v}</span>
                     </div>
                   );
                 })}
@@ -389,441 +340,304 @@ const PreScreeningScene: React.FC = () => {
   );
 };
 
-// ════════════════════════════════════════════════════════════════
-// SCENE 3: Pipeline Progress Dashboard
-// ════════════════════════════════════════════════════════════════
-const PipelineDashboardScene: React.FC = () => {
+// ═══════════════════════════════════════════════════════
+// SCENE 3 — Pipeline + Prep Notes (combined, cleaner)
+// ═══════════════════════════════════════════════════════
+const S3_Pipeline: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   const pageIn = spring({ frame, fps, config: { damping: 200 } });
-
-  // Slow drift zoom towards the cards
-  const zoomScale = interpolate(frame, [0, 250], [1, 1.06], { extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const zoom = interpolate(frame, [0, 260], [1, 1.04], { extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
 
   const steps = [
-    { label: "Applied", icon: <IconCheck size={16} color="#fff" />, status: "done" as const, date: "Mar 12" },
-    { label: "Pre-Screening", icon: <IconCheck size={16} color="#fff" />, status: "done" as const, date: "Mar 12" },
-    { label: "Design Task", icon: <IconClipboard size={16} color={ORANGE} />, status: "current" as const, date: "Due Mar 18" },
-    { label: "Interview", icon: <IconCalendar size={16} color={TEXT_SEC} />, status: "upcoming" as const, date: "Mar 22" },
-    { label: "Final Review", icon: <IconTarget size={16} color={TEXT_SEC} />, status: "upcoming" as const, date: "Mar 25" },
+    { label: "Applied", done: true },
+    { label: "Screening", done: true },
+    { label: "Design Task", current: true },
+    { label: "Interview", done: false },
+    { label: "Final Review", done: false },
   ];
 
-  const taskNotifStart = 60;
-  const taskSpring = spring({ frame: frame - taskNotifStart, fps, config: { damping: 18, stiffness: 160 } });
-
-  const prepStart = 120;
+  const prepStart = 80;
   const prepSpring = spring({ frame: frame - prepStart, fps, config: { damping: 22 } });
 
-  return (
-    <AbsoluteFill style={{ background: BG, transform: `scale(${zoomScale})`, transformOrigin: "50% 65%" }}>
-      <LogoHeader rightContent={
-        <>
-          <span style={{ fontFamily: bodyFont, fontSize: 14, color: TEXT_SEC }}>My Applications</span>
-          <PhotoAvatar src={APPLICANT_PHOTO} size={32} />
-        </>
-      } />
+  const notes = [
+    "Review Laidback's design system principles",
+    "Prepare case study: Stripe component library",
+    "Study accessibility patterns for fintech",
+  ];
 
-      <div style={{ position: "absolute", top: 100, left: 80, right: 80, bottom: 60 }}>
-        <div style={{ marginBottom: 40, opacity: pageIn }}>
-          <div style={{ fontFamily: headingFont, fontSize: 32, color: TEXT, marginBottom: 6 }}>Senior Product Designer</div>
-          <div style={{ fontFamily: bodyFont, fontSize: 16, color: TEXT_SEC }}>Design Systems · Remote EU · Applied 3 days ago</div>
+  return (
+    <AbsoluteFill style={{ background: BG, transform: `scale(${zoom})`, transformOrigin: "50% 55%" }}>
+      <Logo />
+      <div style={{ position: "absolute", top: 96, left: 80, right: 80 }}>
+        <div style={{ marginBottom: 36, opacity: pageIn }}>
+          <div style={{ fontFamily: H, fontSize: 30, color: T, marginBottom: 4 }}>Senior Product Designer</div>
+          <div style={{ fontFamily: B, fontSize: 15, color: T2 }}>Design Systems · Remote EU</div>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 0, marginBottom: 50, padding: "0 20px" }}>
-          {steps.map((step, i) => {
-            const stepSpring = spring({ frame: frame - 15 - i * 8, fps, config: { damping: 22 } });
-            const isDone = step.status === "done";
-            const isCurrent = step.status === "current";
+        {/* Pipeline stepper */}
+        <div style={{ display: "flex", alignItems: "center", marginBottom: 44, padding: "0 16px" }}>
+          {steps.map((st, i) => {
+            const ss = spring({ frame: frame - 12 - i * 6, fps, config: { damping: 22 } });
+            const isDone = st.done;
+            const isCur = (st as any).current;
             return (
-              <div key={i} style={{ display: "flex", alignItems: "center", flex: 1, opacity: stepSpring }}>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div key={i} style={{ display: "flex", alignItems: "center", flex: 1, opacity: ss }}>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 7 }}>
                   <div style={{
-                    width: 40, height: 40, borderRadius: "50%",
-                    background: isDone ? GREEN : isCurrent ? ORANGE : `${BORDER}`,
+                    width: 36, height: 36, borderRadius: "50%",
+                    background: isDone ? GRN : isCur ? ORA : BRD,
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    border: isCurrent ? `3px solid ${ORANGE}40` : "none",
-                    boxShadow: isCurrent ? `0 0 0 6px ${ORANGE}15` : "none",
+                    boxShadow: isCur ? `0 0 0 5px ${ORA}15` : "none",
                   }}>
-                    {step.icon}
+                    {isDone ? <IcoCheck s={15} c="#fff" /> :
+                     isCur ? <IcoClip s={14} c="#fff" /> :
+                     <div style={{ width: 8, height: 8, borderRadius: "50%", background: T2, opacity: 0.3 }} />}
                   </div>
-                  <span style={{ fontFamily: bodyFont, fontSize: 13, color: isCurrent ? ORANGE : isDone ? GREEN : TEXT_SEC, fontWeight: isCurrent ? 600 : 400 }}>{step.label}</span>
-                  <span style={{ fontFamily: bodyFont, fontSize: 11, color: TEXT_SEC }}>{step.date}</span>
+                  <span style={{ fontFamily: B, fontSize: 12, color: isCur ? ORA : isDone ? GRN : T2, fontWeight: isCur ? 600 : 400 }}>{st.label}</span>
                 </div>
                 {i < steps.length - 1 && (
-                  <div style={{ flex: 1, height: 2, background: isDone ? GREEN : BORDER, marginTop: -26, marginLeft: 8, marginRight: 8 }} />
+                  <div style={{ flex: 1, height: 2, background: isDone ? GRN : BRD, marginTop: -20, marginLeft: 6, marginRight: 6 }} />
                 )}
               </div>
             );
           })}
         </div>
 
-        <div style={{ display: "flex", gap: 24 }}>
-          <div style={{
-            flex: 1, padding: "24px 28px", borderRadius: 18,
-            background: CARD, border: `1px solid ${BORDER}`,
-            opacity: taskSpring, transform: `translateY(${(1 - taskSpring) * 18}px)`,
-          }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-              <div style={{ width: 32, height: 32, borderRadius: 10, background: ORANGE_BG, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <IconClipboard size={16} color={ORANGE} />
-              </div>
-              <div>
-                <div style={{ fontFamily: headingFont, fontSize: 17, color: TEXT }}>Design Task</div>
-                <div style={{ fontFamily: bodyFont, fontSize: 12, color: TEXT_SEC }}>Due in 6 days</div>
-              </div>
+        {/* Prep notes card */}
+        <div style={{
+          padding: "24px 28px", borderRadius: 16, background: CARD, border: `1px solid ${BRD}`,
+          maxWidth: 520, opacity: prepSpring, transform: `translateY(${(1 - prepSpring) * 14}px)`,
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+            <div style={{ width: 30, height: 30, borderRadius: 8, background: PUR_BG, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <IcoFile s={14} c={PUR} />
             </div>
-            <div style={{ fontFamily: bodyFont, fontSize: 14, color: TEXT, lineHeight: 1.7, marginBottom: 16 }}>
-              Create a design system component for a payment confirmation flow. Include states, variants, and documentation.
-            </div>
-            <div style={{ display: "flex", gap: 10 }}>
-              <div style={{ padding: "8px 18px", borderRadius: 10, background: ORANGE, color: "#fff", fontFamily: bodyFont, fontSize: 13, fontWeight: 500 }}>Submit Task</div>
-              <div style={{ padding: "8px 18px", borderRadius: 10, background: "transparent", border: `1px solid ${BORDER}`, color: TEXT, fontFamily: bodyFont, fontSize: 13, display: "flex", alignItems: "center", gap: 6 }}>
-                <IconUpload size={14} color={TEXT_SEC} />
-                Upload files
-              </div>
+            <div>
+              <div style={{ fontFamily: H, fontSize: 16, color: T }}>Interview Prep Notes</div>
+              <div style={{ fontFamily: B, fontSize: 12, color: T2 }}>AI-generated for your next step</div>
             </div>
           </div>
-
-          <div style={{
-            flex: 1, padding: "24px 28px", borderRadius: 18,
-            background: CARD, border: `1px solid ${BORDER}`,
-            opacity: prepSpring, transform: `translateY(${(1 - prepSpring) * 18}px)`,
-          }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-              <div style={{ width: 32, height: 32, borderRadius: 10, background: PURPLE_BG, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <IconFileText size={16} color={PURPLE} />
-              </div>
-              <div>
-                <div style={{ fontFamily: headingFont, fontSize: 17, color: TEXT }}>Interview Prep Notes</div>
-                <div style={{ fontFamily: bodyFont, fontSize: 12, color: TEXT_SEC }}>AI-generated for your next step</div>
-              </div>
-            </div>
-            {[
-              "Review Laidback's design system principles",
-              "Prepare case study: Stripe component library",
-              "Study accessibility patterns for fintech",
-              "Practice presenting design decisions",
-            ].map((note, i) => {
-              const noteSpring = spring({ frame: frame - prepStart - 15 - i * 8, fps, config: { damping: 22 } });
-              return (
-                <div key={i} style={{
-                  display: "flex", alignItems: "center", gap: 10, padding: "10px 14px",
-                  borderRadius: 10, background: i % 2 === 0 ? PURPLE_BG : "transparent",
-                  marginBottom: 6, opacity: noteSpring, transform: `translateX(${(1 - noteSpring) * 12}px)`,
-                }}>
-                  <IconCheck size={13} color={PURPLE} />
-                  <span style={{ fontFamily: bodyFont, fontSize: 14, color: TEXT }}>{note}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </AbsoluteFill>
-  );
-};
-
-// ════════════════════════════════════════════════════════════════
-// SCENE 4: Practice & Preparation
-// ════════════════════════════════════════════════════════════════
-const PracticeScene: React.FC = () => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-
-  // Zoom from feedback panel towards readiness score
-  const zoomScale = interpolate(frame, [0, 30, 180, 230], [1.08, 1, 1, 1.1], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
-  });
-
-  const msgs = [
-    { role: "ai" as const, text: "Let's practice! Walk me through how you'd approach building a component library from scratch.", start: 15 },
-    { role: "user" as const, text: "I'd start with an audit of existing patterns, then define core primitives — color tokens, spacing scale, typography...", start: 60 },
-    { role: "ai" as const, text: "Good structure! The interviewer will likely probe deeper on governance. How do you handle contribution workflows?", start: 110 },
-  ];
-
-  const feedbackStart = 150;
-  const feedbackSpring = spring({ frame: frame - feedbackStart, fps, config: { damping: 22 } });
-
-  const feedback = [
-    { area: "Structure", rating: "Strong", color: GREEN },
-    { area: "Depth", rating: "Good — add more examples", color: BLUE },
-    { area: "Storytelling", rating: "Practice more concisely", color: ORANGE },
-  ];
-
-  return (
-    <AbsoluteFill style={{ background: BG, transform: `scale(${zoomScale})`, transformOrigin: "75% 55%" }}>
-      <LogoHeader rightContent={
-        <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 20, background: PURPLE_BG }}>
-          <IconPlay size={13} color={PURPLE} />
-          <span style={{ fontFamily: bodyFont, fontSize: 13, color: PURPLE }}>Practice Mode</span>
-        </div>
-      } />
-
-      <div style={{ position: "absolute", top: 100, left: 0, right: 0, bottom: 0, display: "flex", gap: 30, padding: "0 80px" }}>
-        <div style={{ flex: 1.2, display: "flex", flexDirection: "column" }}>
-          <div style={{ fontFamily: headingFont, fontSize: 24, color: TEXT, marginBottom: 6 }}>Practice Interview</div>
-          <div style={{ fontFamily: bodyFont, fontSize: 14, color: TEXT_SEC, marginBottom: 24 }}>AI simulates real interview questions for your role</div>
-
-          {msgs.map((msg, i) => {
-            const msgSpring = spring({ frame: frame - msg.start, fps, config: { damping: 28 } });
-            if (frame < msg.start) return null;
-            const typed = useTypewriter(msg.text, frame, msg.start + 8, 2);
+          {notes.map((n, i) => {
+            const ns = spring({ frame: frame - prepStart - 12 - i * 8, fps, config: { damping: 22 } });
             return (
-              <div key={i} style={{ display: "flex", gap: 12, marginBottom: 18, opacity: msgSpring, transform: `translateY(${(1 - msgSpring) * 12}px)`, flexDirection: msg.role === "user" ? "row-reverse" : "row" }}>
-                {msg.role === "ai" ? (
-                  <div style={{ width: 38, height: 38, borderRadius: "50%", background: PURPLE, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <IconPlay size={15} color="#fff" />
-                  </div>
-                ) : (
-                  <PhotoAvatar src={APPLICANT_PHOTO} size={38} />
-                )}
-                <div style={{
-                  maxWidth: 480, padding: "14px 20px",
-                  borderRadius: msg.role === "ai" ? "4px 18px 18px 18px" : "18px 4px 18px 18px",
-                  background: msg.role === "ai" ? CARD : ACCENT,
-                  color: msg.role === "ai" ? TEXT : "#fff",
-                  fontFamily: bodyFont, fontSize: 16, lineHeight: 1.6,
-                  border: msg.role === "ai" ? `1px solid ${BORDER}` : "none",
-                }}>
-                  {typed}
-                </div>
+              <div key={i} style={{
+                display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
+                borderRadius: 8, background: i % 2 === 0 ? PUR_BG : "transparent",
+                marginBottom: 4, opacity: ns,
+              }}>
+                <IcoCheck s={12} c={PUR} />
+                <span style={{ fontFamily: B, fontSize: 13.5, color: T }}>{n}</span>
               </div>
             );
           })}
-        </div>
-
-        <div style={{ flex: 0.8, opacity: feedbackSpring, transform: `translateX(${(1 - feedbackSpring) * 25}px)` }}>
-          <div style={{
-            padding: "24px 28px", borderRadius: 18,
-            background: CARD, border: `1px solid ${BORDER}`,
-            boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
-          }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
-              <IconSparkles size={16} color={ACCENT} />
-              <span style={{ fontFamily: headingFont, fontSize: 18, color: TEXT }}>AI Feedback</span>
-            </div>
-            {feedback.map((f, i) => {
-              const fSpring = spring({ frame: frame - feedbackStart - 10 - i * 10, fps, config: { damping: 22 } });
-              return (
-                <div key={i} style={{
-                  padding: "14px 16px", borderRadius: 12, marginBottom: 10,
-                  background: `${f.color}08`, border: `1px solid ${f.color}15`,
-                  opacity: fSpring, transform: `translateY(${(1 - fSpring) * 8}px)`,
-                }}>
-                  <div style={{ fontFamily: bodyFont, fontSize: 13, color: TEXT_SEC, marginBottom: 4 }}>{f.area}</div>
-                  <div style={{ fontFamily: bodyFont, fontSize: 15, color: f.color, fontWeight: 500 }}>{f.rating}</div>
-                </div>
-              );
-            })}
-
-            {frame >= feedbackStart + 50 && (() => {
-              const scoreSpring = spring({ frame: frame - feedbackStart - 50, fps, config: { damping: 18 } });
-              return (
-                <div style={{
-                  marginTop: 16, padding: "16px", borderRadius: 12, background: GREEN_BG,
-                  border: `1px solid ${GREEN}15`, textAlign: "center" as const,
-                  opacity: scoreSpring, transform: `scale(${0.92 + scoreSpring * 0.08})`,
-                }}>
-                  <div style={{ fontFamily: headingFont, fontSize: 28, color: GREEN }}>7.5/10</div>
-                  <div style={{ fontFamily: bodyFont, fontSize: 13, color: TEXT_SEC }}>Readiness Score</div>
-                </div>
-              );
-            })()}
-          </div>
         </div>
       </div>
     </AbsoluteFill>
   );
 };
 
-// ════════════════════════════════════════════════════════════════
-// SCENE 5: Task Submission & All-in-One Hub
-// ════════════════════════════════════════════════════════════════
-const TaskHubScene: React.FC = () => {
+// ═══════════════════════════════════════════════════════
+// SCENE 4 — Task Submission (fixed icons + cursor)
+// ═══════════════════════════════════════════════════════
+const S4_TaskSubmit: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   const pageIn = spring({ frame, fps, config: { damping: 200 } });
-
-  // Zoom out slightly to show full overview, then zoom into success
-  const zoomScale = interpolate(frame, [0, 30, 90, 130, 250], [1.06, 1, 1, 1.04, 1.08], {
+  const zoom = interpolate(frame, [0, 30, 160, 220], [1.04, 1, 1, 1.06], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
   });
 
-  const files = [
-    { name: "payment-flow.fig", size: "2.4 MB", icon: "🎨", uploadFrame: 25 },
-    { name: "component-docs.pdf", size: "890 KB", icon: "📄", uploadFrame: 40 },
-    { name: "prototype-video.mp4", size: "12 MB", icon: "🎬", uploadFrame: 55 },
+  // Left sidebar tabs with proper icons
+  const tabs = [
+    { icon: <IcoClip s={16} c={ORA} />, label: "Task", active: true },
+    { icon: <IcoFile s={16} c={T2} />, label: "Brief" },
+    { icon: <IcoPlay s={16} c={T2} />, label: "Practice" },
+    { icon: <IcoCal s={16} c={T2} />, label: "Schedule" },
   ];
 
-  const confirmStart = 100;
+  const files = [
+    { name: "payment-flow.fig", size: "2.4 MB", icon: <IcoFigma s={18} />, uploadFrame: 30 },
+    { name: "component-docs.pdf", size: "890 KB", icon: <IcoPDF s={18} />, uploadFrame: 45 },
+    { name: "prototype-demo.mp4", size: "12 MB", icon: <IcoVideo s={18} />, uploadFrame: 60 },
+  ];
+
+  const submitBtnFrame = 120;
+  const confirmStart = 130;
   const confirmSpring = spring({ frame: frame - confirmStart, fps, config: { damping: 18 } });
 
-  const timelineStart = 140;
-
-  const timeline = [
-    { label: "Task submitted", time: "Just now", color: GREEN, icon: <IconCheck size={14} color="#fff" /> },
-    { label: "Interview scheduled", time: "Mar 22, 2:00 PM", color: BLUE, icon: <IconCalendar size={14} color="#fff" /> },
-    { label: "Prep notes updated", time: "Mar 21", color: PURPLE, icon: <IconFileText size={14} color="#fff" /> },
-    { label: "Pre-screening passed", time: "Mar 12", color: GREEN, icon: <IconCheck size={14} color="#fff" /> },
-  ];
+  // Cursor moves to Submit button
+  const cursorShow = frame >= 105 && frame < 145;
+  // Submit button is roughly at x=340 (center of left panel), y=570 (below file list)
+  const cx = interpolate(frame, [105, 118], [500, 370], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cy = interpolate(frame, [105, 118], [350, 576], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
 
   return (
-    <AbsoluteFill style={{ background: BG, transform: `scale(${zoomScale})`, transformOrigin: "40% 50%" }}>
-      <LogoHeader rightContent={
-        <>
-          <span style={{ fontFamily: bodyFont, fontSize: 14, color: TEXT_SEC }}>My Applications</span>
-          <PhotoAvatar src={APPLICANT_PHOTO} size={32} />
-        </>
-      } />
-
-      <div style={{ position: "absolute", top: 100, left: 80, right: 80, bottom: 60, display: "flex", gap: 30 }}>
-        <div style={{ flex: 1.2 }}>
-          <div style={{ fontFamily: headingFont, fontSize: 24, color: TEXT, marginBottom: 6, opacity: pageIn }}>Design Task Submission</div>
-          <div style={{ fontFamily: bodyFont, fontSize: 14, color: TEXT_SEC, marginBottom: 24, opacity: pageIn }}>Upload your files — everything stays in one place</div>
-
-          <div style={{
-            padding: "32px", borderRadius: 18, background: CARD,
-            border: `2px dashed ${BORDER}`, marginBottom: 20, opacity: pageIn,
-            textAlign: "center" as const,
-          }}>
-            <IconUpload size={28} color={TEXT_SEC} />
-            <div style={{ fontFamily: bodyFont, fontSize: 14, color: TEXT_SEC, marginTop: 10 }}>Drop files here or click to browse</div>
-          </div>
-
-          {files.map((file, i) => {
-            const fSpring = spring({ frame: frame - file.uploadFrame, fps, config: { damping: 22 } });
-            if (frame < file.uploadFrame) return null;
-            const progress = interpolate(frame, [file.uploadFrame, file.uploadFrame + 30], [0, 100], { extrapolateRight: "clamp" });
+    <AbsoluteFill style={{ background: BG, transform: `scale(${zoom})`, transformOrigin: "35% 55%" }}>
+      <Logo />
+      <div style={{ position: "absolute", top: 68, left: 0, right: 0, bottom: 0, display: "flex" }}>
+        {/* Left sidebar tabs */}
+        <div style={{
+          width: 72, background: CARD, borderRight: `1px solid ${BRD}`,
+          display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 20, gap: 6,
+        }}>
+          {tabs.map((tab, i) => {
+            const ts = spring({ frame: frame - 5 - i * 4, fps, config: { damping: 22 } });
             return (
               <div key={i} style={{
-                display: "flex", alignItems: "center", gap: 14, padding: "14px 18px",
-                borderRadius: 12, background: CARD, border: `1px solid ${BORDER}`,
-                marginBottom: 8, opacity: fSpring, transform: `translateX(${(1 - fSpring) * -15}px)`,
+                width: 56, padding: "10px 0", borderRadius: 10, display: "flex", flexDirection: "column", alignItems: "center", gap: 4,
+                background: tab.active ? ORA_BG : "transparent",
+                border: tab.active ? `1px solid ${ORA}20` : "1px solid transparent",
+                opacity: ts,
               }}>
-                <span style={{ fontSize: 20 }}>{file.icon}</span>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontFamily: bodyFont, fontSize: 14, color: TEXT }}>{file.name}</div>
-                  <div style={{ fontFamily: bodyFont, fontSize: 12, color: TEXT_SEC }}>{file.size}</div>
-                </div>
-                {progress >= 100 ? (
-                  <IconCheck size={16} color={GREEN} />
-                ) : (
-                  <div style={{ width: 60, height: 4, borderRadius: 2, background: BORDER }}>
-                    <div style={{ width: `${progress}%`, height: "100%", borderRadius: 2, background: ACCENT }} />
-                  </div>
-                )}
+                {tab.icon}
+                <span style={{ fontFamily: B, fontSize: 10, color: tab.active ? ORA : T2 }}>{tab.label}</span>
               </div>
             );
           })}
-
-          {frame >= confirmStart && (
-            <div style={{
-              marginTop: 16, padding: "16px 24px", borderRadius: 14,
-              background: GREEN_BG, border: `1px solid ${GREEN}20`,
-              display: "flex", alignItems: "center", gap: 12,
-              opacity: confirmSpring, transform: `scale(${0.95 + confirmSpring * 0.05})`,
-            }}>
-              <div style={{ width: 32, height: 32, borderRadius: "50%", background: GREEN, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <IconCheck size={16} color="#fff" />
-              </div>
-              <div>
-                <div style={{ fontFamily: bodyFont, fontSize: 15, color: GREEN, fontWeight: 500 }}>Task submitted successfully!</div>
-                <div style={{ fontFamily: bodyFont, fontSize: 13, color: TEXT_SEC }}>The hiring team has been notified</div>
-              </div>
-            </div>
-          )}
         </div>
 
-        <div style={{ flex: 0.8 }}>
-          <div style={{
-            padding: "24px 28px", borderRadius: 18,
-            background: CARD, border: `1px solid ${BORDER}`,
-            boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
-          }}>
-            <div style={{ fontFamily: headingFont, fontSize: 18, color: TEXT, marginBottom: 20 }}>Your Journey</div>
-            {timeline.map((item, i) => {
-              const tSpring = spring({ frame: frame - timelineStart - i * 12, fps, config: { damping: 22 } });
+        {/* Main content */}
+        <div style={{ flex: 1, padding: "28px 60px", display: "flex", gap: 28 }}>
+          <div style={{ flex: 1.2, opacity: pageIn }}>
+            <div style={{ fontFamily: H, fontSize: 24, color: T, marginBottom: 4 }}>Design Task</div>
+            <div style={{ fontFamily: B, fontSize: 14, color: T2, marginBottom: 22 }}>Upload your files — everything in one place</div>
+
+            {/* Drop zone */}
+            <div style={{
+              padding: "28px", borderRadius: 14, background: CARD,
+              border: `2px dashed ${BRD}`, marginBottom: 16,
+              textAlign: "center" as const, display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+            }}>
+              <IcoUpload s={24} c={T2} />
+              <span style={{ fontFamily: B, fontSize: 13, color: T2 }}>Drop files or click to browse</span>
+            </div>
+
+            {/* File list with proper icons */}
+            {files.map((f, i) => {
+              const fs = spring({ frame: frame - f.uploadFrame, fps, config: { damping: 22 } });
+              if (frame < f.uploadFrame) return null;
+              const progress = interpolate(frame, [f.uploadFrame, f.uploadFrame + 25], [0, 100], { extrapolateRight: "clamp" });
               return (
                 <div key={i} style={{
-                  display: "flex", gap: 14, marginBottom: 18, opacity: tSpring, transform: `translateX(${(1 - tSpring) * 12}px)`,
+                  display: "flex", alignItems: "center", gap: 12, padding: "12px 16px",
+                  borderRadius: 10, background: CARD, border: `1px solid ${BRD}`,
+                  marginBottom: 6, opacity: fs, transform: `translateX(${(1 - fs) * -10}px)`,
                 }}>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <div style={{ width: 28, height: 28, borderRadius: "50%", background: item.color, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      {item.icon}
+                  {f.icon}
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontFamily: B, fontSize: 13.5, color: T }}>{f.name}</div>
+                    <div style={{ fontFamily: B, fontSize: 11, color: T2 }}>{f.size}</div>
+                  </div>
+                  {progress >= 100 ? (
+                    <IcoCheck s={15} c={GRN} />
+                  ) : (
+                    <div style={{ width: 50, height: 3, borderRadius: 2, background: BRD }}>
+                      <div style={{ width: `${progress}%`, height: "100%", borderRadius: 2, background: ACC }} />
                     </div>
-                    {i < timeline.length - 1 && <div style={{ width: 2, flex: 1, background: BORDER, marginTop: 4 }} />}
-                  </div>
-                  <div style={{ paddingTop: 2 }}>
-                    <div style={{ fontFamily: bodyFont, fontSize: 14, color: TEXT, fontWeight: 500 }}>{item.label}</div>
-                    <div style={{ fontFamily: bodyFont, fontSize: 12, color: TEXT_SEC }}>{item.time}</div>
-                  </div>
+                  )}
                 </div>
               );
             })}
+
+            {/* Submit button */}
+            <div style={{
+              marginTop: 14, padding: "10px 22px", borderRadius: 10,
+              background: frame >= submitBtnFrame ? GRN : ORA,
+              color: "#fff", fontFamily: B, fontSize: 14, fontWeight: 500,
+              display: "inline-flex", alignItems: "center", gap: 8,
+              transform: frame >= submitBtnFrame && frame < submitBtnFrame + 8 ? "scale(0.96)" : "scale(1)",
+            }}>
+              {frame >= confirmStart ? <><IcoCheck s={14} c="#fff" /> Submitted</> : "Submit Task"}
+            </div>
+
+            {/* Success confirmation */}
+            {frame >= confirmStart && (
+              <div style={{
+                marginTop: 14, padding: "14px 20px", borderRadius: 12,
+                background: GRN_BG, border: `1px solid ${GRN}20`,
+                display: "flex", alignItems: "center", gap: 10,
+                opacity: confirmSpring, transform: `scale(${0.96 + confirmSpring * 0.04})`,
+              }}>
+                <div style={{ width: 28, height: 28, borderRadius: "50%", background: GRN, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <IcoCheck s={14} c="#fff" />
+                </div>
+                <div>
+                  <div style={{ fontFamily: B, fontSize: 14, color: GRN, fontWeight: 500 }}>Task submitted!</div>
+                  <div style={{ fontFamily: B, fontSize: 12, color: T2 }}>Hiring team notified</div>
+                </div>
+              </div>
+            )}
           </div>
 
-          {frame >= timelineStart + 60 && (() => {
-            const nextSpring = spring({ frame: frame - timelineStart - 60, fps, config: { damping: 18 } });
-            return (
-              <div style={{
-                marginTop: 16, padding: "20px 24px", borderRadius: 16,
-                background: BLUE_BG, border: `1px solid ${BLUE}15`,
-                opacity: nextSpring, transform: `translateY(${(1 - nextSpring) * 12}px)`,
-              }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                  <IconCalendar size={16} color={BLUE} />
-                  <span style={{ fontFamily: bodyFont, fontSize: 14, color: BLUE, fontWeight: 500 }}>Next: Interview</span>
-                </div>
-                <div style={{ fontFamily: bodyFont, fontSize: 13, color: TEXT_SEC }}>March 22 at 2:00 PM with Sarah K. (Design Lead)</div>
-                <div style={{ fontFamily: bodyFont, fontSize: 12, color: BLUE, marginTop: 6 }}>Prep notes ready →</div>
-              </div>
-            );
-          })()}
+          {/* Right — Journey timeline */}
+          <div style={{ flex: 0.7 }}>
+            <div style={{
+              padding: "22px 24px", borderRadius: 16, background: CARD, border: `1px solid ${BRD}`,
+            }}>
+              <div style={{ fontFamily: H, fontSize: 17, color: T, marginBottom: 18 }}>Your Journey</div>
+              {[
+                { label: "Task submitted", time: "Just now", color: GRN },
+                { label: "Interview scheduled", time: "Mar 22", color: BLU },
+                { label: "Screening passed", time: "Mar 12", color: GRN },
+              ].map((item, i) => {
+                const ts = spring({ frame: frame - 20 - i * 10, fps, config: { damping: 22 } });
+                return (
+                  <div key={i} style={{ display: "flex", gap: 12, marginBottom: 16, opacity: ts }}>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                      <div style={{ width: 24, height: 24, borderRadius: "50%", background: item.color, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <IcoCheck s={12} c="#fff" />
+                      </div>
+                      {i < 2 && <div style={{ width: 2, flex: 1, background: BRD, marginTop: 3 }} />}
+                    </div>
+                    <div>
+                      <div style={{ fontFamily: B, fontSize: 13, color: T, fontWeight: 500 }}>{item.label}</div>
+                      <div style={{ fontFamily: B, fontSize: 11, color: T2 }}>{item.time}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
+      {cursorShow && <Cursor x={cx} y={cy} frame={frame} click={submitBtnFrame} />}
     </AbsoluteFill>
   );
 };
 
-// ════════════════════════════════════════════════════════════════
-// MAIN COMPOSITION
-// ════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// MAIN COMPOSITION — 4 scenes, cleaner pacing
+// ═══════════════════════════════════════════════════════
 export const ApplicantVideo: React.FC = () => {
   return (
     <AbsoluteFill style={{ background: BG }}>
       <TransitionSeries>
         <TransitionSeries.Sequence durationInFrames={300}>
-          <CareerPageScene />
+          <S1_CareerPage />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={fade()}
-          timing={linearTiming({ durationInFrames: 25 })}
+          timing={linearTiming({ durationInFrames: 30 })}
+        />
+        <TransitionSeries.Sequence durationInFrames={260}>
+          <S2_Screening />
+        </TransitionSeries.Sequence>
+        <TransitionSeries.Transition
+          presentation={fade()}
+          timing={linearTiming({ durationInFrames: 30 })}
         />
         <TransitionSeries.Sequence durationInFrames={270}>
-          <PreScreeningScene />
+          <S3_Pipeline />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={fade()}
-          timing={linearTiming({ durationInFrames: 25 })}
-        />
-        <TransitionSeries.Sequence durationInFrames={260}>
-          <PipelineDashboardScene />
-        </TransitionSeries.Sequence>
-        <TransitionSeries.Transition
-          presentation={fade()}
-          timing={linearTiming({ durationInFrames: 25 })}
+          timing={linearTiming({ durationInFrames: 30 })}
         />
         <TransitionSeries.Sequence durationInFrames={240}>
-          <PracticeScene />
-        </TransitionSeries.Sequence>
-        <TransitionSeries.Transition
-          presentation={fade()}
-          timing={linearTiming({ durationInFrames: 25 })}
-        />
-        <TransitionSeries.Sequence durationInFrames={260}>
-          <TaskHubScene />
+          <S4_TaskSubmit />
         </TransitionSeries.Sequence>
       </TransitionSeries>
     </AbsoluteFill>
