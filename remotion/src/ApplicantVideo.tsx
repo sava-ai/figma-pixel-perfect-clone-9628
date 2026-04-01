@@ -255,6 +255,7 @@ const S1_CareerPage: React.FC = () => {
           )}
         </div>
       </div>
+      </div>
       {cursorShow && <Cursor x={cx} y={cy} frame={frame} click={applyBtnFrame} />}
     </AbsoluteFill>
   );
