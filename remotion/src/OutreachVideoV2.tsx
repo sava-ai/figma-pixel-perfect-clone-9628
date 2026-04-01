@@ -352,37 +352,6 @@ const PipelineScene: React.FC = () => {
   let cursorVisible = frame > 40;
   let cursorClicking = false;
 
-  for (let i = cursorTargets.length - 1; i >= 0; i--) {
-    const target = cursorTargets[i];
-    const prevTarget = i > 0 ? cursorTargets[i - 1] : { x: 960, y: 300, clickFrame: 40 };
-    const moveStart = prevTarget.clickFrame + 8;
-    const moveEnd = target.clickFrame - 5;
-
-    if (frame >= moveStart) {
-      const moveProgress = interpolate(frame, [moveStart, moveEnd], [0, 1], {
-        extrapolateLeft: "clamp",
-        extrapolateRight: "clamp",
-        easing: Easing.inOut(Easing.cubic),
-      });
-      cursorX = interpolate(moveProgress, [0, 1], [prevTarget.x, target.x]);
-      cursorY = interpolate(moveProgress, [0, 1], [prevTarget.y, target.y]);
-    }
-
-    if (frame >= target.clickFrame && frame < target.clickFrame + 8) {
-      cursorClicking = true;
-    }
-  }
-
-  if (frame <= 65) {
-    const enterProgress = interpolate(frame, [40, 60], [0, 1], {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-      easing: Easing.out(Easing.cubic),
-    });
-    cursorX = interpolate(enterProgress, [0, 1], [1600, cursorTargets[0].x]);
-    cursorY = interpolate(enterProgress, [0, 1], [200, cursorTargets[0].y]);
-  }
-
   const headerSpring = spring({ frame, fps, config: { damping: 200 } });
   const statsDelay = 8;
 
