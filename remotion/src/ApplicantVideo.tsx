@@ -669,7 +669,7 @@ const TaskSubmitScene: React.FC = () => {
         </div>
       </div>
 
-      <AnimCursor x={cx} y={cy} visible={cursorShow} clicking={frame >= submitBtnFrame && frame < submitBtnFrame + 12} />
+      
     </AbsoluteFill>
   );
 };
