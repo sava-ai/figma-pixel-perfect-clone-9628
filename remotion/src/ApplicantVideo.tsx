@@ -470,7 +470,8 @@ const S4_TaskSubmit: React.FC = () => {
   const { fps } = useVideoConfig();
 
   const pageIn = spring({ frame, fps, config: { damping: 200 } });
-  const zoom = interpolate(frame, [0, 30, 160, 220], [1.04, 1, 1, 1.06], {
+
+
     extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
   });
 
