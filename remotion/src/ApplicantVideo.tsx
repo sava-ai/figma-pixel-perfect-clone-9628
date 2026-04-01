@@ -157,29 +157,37 @@ const S1_CareerPage: React.FC = () => {
   const roleStart = 158;
   const roleSpring = spring({ frame: frame - roleStart, fps, config: { damping: 22, stiffness: 180 } });
 
-  // Cursor moves to the "Apply" button — actual position ~(625, 300)
+  // Cursor moves to the "Apply" button — pre-zoom position ~(600, 287)
   const applyBtnFrame = 200;
-  const cursorShow = frame >= 180 && frame < 220;
-  const cx = interpolate(frame, [180, 198], [850, 625], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cy = interpolate(frame, [180, 198], [200, 295], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cursorShow = frame >= 180 && frame < 215;
+  // Pre-zoom button position
+  const btnX = 600, btnY = 287;
+  
+  // Zoom kicks in at frame 195
+  const zoom = interpolate(frame, [0, 10, 195, 215, 260, 290], [1.02, 1, 1, 1.25, 1.25, 1.35], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  });
+  const panX = interpolate(frame, [195, 215, 260, 290], [0, -80, -80, -80], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  });
+  const panY = interpolate(frame, [195, 215, 260, 290], [0, -60, -60, -120], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  });
+  
+  // Compute screen-space cursor position (accounting for zoom+pan)
+  const originX = 960, originY = 432; // 50% of 1920, 40% of 1080
+  const screenBtnX = (btnX - originX) * zoom + originX + panX * zoom;
+  const screenBtnY = (btnY - originY) * zoom + originY + panY * zoom;
+  const cx = interpolate(frame, [180, 198], [850, screenBtnX], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cy = interpolate(frame, [180, 198], [200, screenBtnY], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
 
   const applyClick = frame >= applyBtnFrame;
   const confirmMsg = { text: "Great choice! Let's get you started with a quick screening.", start: 220 };
   const confirmSpring = spring({ frame: frame - confirmMsg.start, fps, config: { damping: 28 } });
 
-  // Zoom into the role card on click, then deeper into chat
-  const zoom = interpolate(frame, [0, 10, 195, 210, 250, 290], [1.02, 1, 1, 1.25, 1.25, 1.35], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
-  });
-  const panX = interpolate(frame, [195, 210, 250, 290], [0, -80, -80, -80], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
-  });
-  const panY = interpolate(frame, [195, 210, 250, 290], [0, -60, -60, -120], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
-  });
-
   return (
-    <AbsoluteFill style={{ background: BG, transform: `scale(${zoom}) translate(${panX}px, ${panY}px)`, transformOrigin: "50% 40%" }}>
+    <AbsoluteFill style={{ background: BG }}>
+      <div style={{ width: "100%", height: "100%", transform: `scale(${zoom}) translate(${panX}px, ${panY}px)`, transformOrigin: "50% 40%" }}>
       <Logo />
       <div style={{ position: "absolute", top: 96, left: 0, right: 0, display: "flex", justifyContent: "center", opacity: pageIn }}>
         <div style={{ width: 740, display: "flex", flexDirection: "column" }}>
