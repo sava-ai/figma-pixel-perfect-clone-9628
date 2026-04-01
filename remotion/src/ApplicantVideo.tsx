@@ -340,24 +340,28 @@ const ScreeningScene: React.FC = () => {
   const panelSlide = spring({ frame, fps, config: { damping: 20, stiffness: 80 } });
 
   const aiQ1 = "What's your experience with design tokens and component libraries?";
-  const userA1 = "Built a design system from scratch at Stripe — 200+ components, used by 40 engineers.";
+  const userA1 = "Built a design system at Stripe — 200+ components, 40 engineers.";
   const aiQ2 = "How do you handle collaboration with engineering?";
-  const userA2 = "Figma dev mode + shared Storybook. Weekly syncs with eng leads.";
+  const userA2 = "Figma dev mode + shared Storybook. Weekly syncs.";
 
+  // aiQ1: 66 chars, speed 1.4, starts 15 → finishes ~62, +15 pause
   const aiQ1Typed = useType(aiQ1, frame, 15, 1.4);
   const aiQ1Done = aiQ1Typed.length >= aiQ1.length;
-  const userA1Start = 65;
-  const userA1Typed = useType(userA1, frame, userA1Start, 0.9);
+  const userA1Start = 78;
+  // userA1: 63 chars, speed 1.1 → finishes ~78+57=135, +18 pause
+  const userA1Typed = useType(userA1, frame, userA1Start, 1.1);
   const userA1Done = userA1Typed.length >= userA1.length;
-  const aiQ2Start = 130;
+  const aiQ2Start = 155;
+  // aiQ2: 49 chars, speed 1.4 → finishes ~155+35=190, +15 pause
   const aiQ2Typed = useType(aiQ2, frame, aiQ2Start, 1.4);
   const aiQ2Done = aiQ2Typed.length >= aiQ2.length;
-  const userA2Start = 170;
-  const userA2Typed = useType(userA2, frame, userA2Start, 0.9);
+  const userA2Start = 208;
+  // userA2: 48 chars, speed 1.1 → finishes ~208+44=252
+  const userA2Typed = useType(userA2, frame, userA2Start, 1.1);
   const userA2Done = userA2Typed.length >= userA2.length;
 
-  // Assessment card
-  const assessStart = 215;
+  // Assessment card after last answer settles
+  const assessStart = 260;
   const assessSpring = spring({ frame: frame - assessStart, fps, config: { damping: 22 } });
   const criteria = [
     { label: "Design Systems", v: "Exceeds", col: GRN },
