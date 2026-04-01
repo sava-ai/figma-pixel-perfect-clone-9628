@@ -11,7 +11,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition
       id="outreach"
       component={OutreachVideoV2}
-      durationInFrames={990}
+      durationInFrames={960}
       fps={30}
       width={1920}
       height={1080}
