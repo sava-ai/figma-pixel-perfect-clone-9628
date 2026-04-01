@@ -490,28 +490,24 @@ const S4_TaskSubmit: React.FC = () => {
   const confirmStart = 130;
   const confirmSpring = spring({ frame: frame - confirmStart, fps, config: { damping: 18 } });
 
-  // Cursor moves to Submit button — pre-zoom position ~(148, 387)
-  const btnX4 = 148, btnY4 = 387;
+  // Submit button measured position from rendered still
+  const click4 = { x: 148, y: 387 };
   const cursorShow = frame >= 100 && frame < 135;
 
-  // Zoom into submit area on click, then pull back to show confirmation
-  const s4zoom = interpolate(frame, [0, 30, 115, 135, 175, 230], [1.04, 1, 1, 1.3, 1.3, 1.1], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  // Zoom anchored to submit button
+  const W = 1920, HH = 1080;
+  const s4z = interpolate(frame, [0, 30, 115, 135, 175, 230], [1.04, 1, 1, 1.3, 1.3, 1.1], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.22, 1, 0.36, 1),
   });
-  const s4panY = interpolate(frame, [115, 135, 175, 230], [0, -80, -80, -30], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
-  });
+  const s4tx = -(click4.x - W / 2) * (s4z - 1);
+  const s4ty = -(click4.y - HH / 2) * (s4z - 1);
 
-  // Compute screen-space cursor (accounting for zoom+pan, origin 25%=480, 45%=486)
-  const ox4 = 480, oy4 = 486;
-  const screenBtnX4 = (btnX4 - ox4) * s4zoom + ox4;
-  const screenBtnY4 = (btnY4 - oy4) * s4zoom + oy4 + s4panY * s4zoom;
-  const cx = interpolate(frame, [100, 115], [500, screenBtnX4], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cy = interpolate(frame, [100, 115], [250, screenBtnY4], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  // Cursor inside transform — use raw coords
+  const cx = interpolate(frame, [100, 115], [500, click4.x], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cy = interpolate(frame, [100, 115], [200, click4.y], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
 
   return (
-    <AbsoluteFill style={{ background: BG }}>
-      <div style={{ width: "100%", height: "100%", transform: `scale(${s4zoom}) translateY(${s4panY}px)`, transformOrigin: "25% 45%" }}>
+    <AbsoluteFill style={{ background: BG, transform: `translate(${s4tx}px, ${s4ty}px) scale(${s4z})`, transformOrigin: `${click4.x}px ${click4.y}px` }}>
       <Logo />
       <div style={{ position: "absolute", top: 68, left: 0, right: 0, bottom: 0, display: "flex" }}>
         {/* Left sidebar tabs */}
