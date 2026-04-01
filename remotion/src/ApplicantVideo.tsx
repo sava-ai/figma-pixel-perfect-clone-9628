@@ -157,18 +157,26 @@ const S1_CareerPage: React.FC = () => {
   const roleStart = 158;
   const roleSpring = spring({ frame: frame - roleStart, fps, config: { damping: 22, stiffness: 180 } });
 
-  // Cursor moves to the "Apply" button area
+  // Cursor moves to the "Apply" button — actual position ~(625, 300)
   const applyBtnFrame = 200;
-  const cursorShow = frame >= 185 && frame < 225;
-  const cx = interpolate(frame, [185, 200], [700, 658], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cy = interpolate(frame, [185, 200], [380, 560], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cursorShow = frame >= 180 && frame < 220;
+  const cx = interpolate(frame, [180, 198], [850, 625], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cy = interpolate(frame, [180, 198], [200, 295], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
 
   const applyClick = frame >= applyBtnFrame;
   const confirmMsg = { text: "Great choice! Let's get you started with a quick screening.", start: 220 };
   const confirmSpring = spring({ frame: frame - confirmMsg.start, fps, config: { damping: 28 } });
 
-  // Gentle zoom toward chat at end
-  const zoom = interpolate(frame, [240, 290], [1, 1.08], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  // Zoom into the role card on click, then deeper into chat
+  const zoom = interpolate(frame, [0, 10, 195, 210, 250, 290], [1.02, 1, 1, 1.25, 1.25, 1.35], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  });
+  const panX = interpolate(frame, [195, 210, 250, 290], [0, -80, -80, -80], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  });
+  const panY = interpolate(frame, [195, 210, 250, 290], [0, -60, -60, -120], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  });
 
   return (
     <AbsoluteFill style={{ background: BG, transform: `scale(${zoom})`, transformOrigin: "50% 55%" }}>
