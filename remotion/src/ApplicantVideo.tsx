@@ -472,9 +472,6 @@ const S4_TaskSubmit: React.FC = () => {
   const pageIn = spring({ frame, fps, config: { damping: 200 } });
 
 
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
-  });
-
   // Left sidebar tabs with proper icons
   const tabs = [
     { icon: <IcoClip s={16} c={ORA} />, label: "Task", active: true },
