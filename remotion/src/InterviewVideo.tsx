@@ -21,13 +21,18 @@ loadFont({
   weight: "400",
 });
 loadFont({
-  family: "LabilGrotesk",
-  url: staticFile("fonts/LabilGrotesk-Regular.ttf"),
+  family: "Inter",
+  url: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2",
   weight: "400",
+});
+loadFont({
+  family: "Inter",
+  url: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYAZ9hiA.woff2",
+  weight: "600",
 });
 
 const headingFont = "CooperLight, serif";
-const bodyFont = "LabilGrotesk, sans-serif";
+const bodyFont = "Inter, sans-serif";
 
 // ── Colors ──
 const BG = "#f6f4f0";
