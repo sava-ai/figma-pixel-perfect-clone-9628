@@ -614,17 +614,8 @@ const ComposeScene: React.FC = () => {
 
   const genericTyped = useTypewriter(GENERIC_MESSAGE, 10, 1.8);
 
-  const makeRelevantBtnY = 210;
-  const makeRelevantBtnX = 780;
-
-  const cursorVisible = frame > 75 && frame < 180;
-  const cursorMoveProgress = interpolate(frame, [75, 100], [0, 1], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp",
-    easing: Easing.inOut(Easing.cubic),
-  });
-  const cursorX = interpolate(cursorMoveProgress, [0, 1], [500, makeRelevantBtnX]);
-  const cursorY = interpolate(cursorMoveProgress, [0, 1], [600, makeRelevantBtnY]);
-  const cursorClicking = frame >= 105 && frame < 113;
+  // Button click happens automatically at frame 105 (no cursor)
+  const btnClickFrame = 105;
 
   const zoomProgress = interpolate(frame, [90, 115], [0, 1], {
     extrapolateLeft: "clamp", extrapolateRight: "clamp",
