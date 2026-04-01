@@ -259,13 +259,13 @@ const S2_Screening: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Zoom into assessment card when it appears
-  const zoom = interpolate(frame, [0, 30, 180, 220, 250], [1.06, 1, 1, 1.3, 1.35], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  // Assessment card center ~(590, 460) — zoom anchored there
+  const assessFocus = { x: 590, y: 460 };
+  const z2 = interpolate(frame, [0, 30, 180, 215, 250], [1.06, 1, 1, 1.25, 1.3], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.22, 1, 0.36, 1),
   });
-  const panY2 = interpolate(frame, [180, 220], [0, -100], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
-  });
+  const tx2 = -(assessFocus.x - 960) * (z2 - 1);
+  const ty2 = -(assessFocus.y - 540) * (z2 - 1);
 
   const msgs: { role: "ai" | "user"; text: string; start: number }[] = [
     { role: "ai", text: "What's your experience with design tokens and component libraries?", start: 15 },
@@ -285,7 +285,7 @@ const S2_Screening: React.FC = () => {
   ];
 
   return (
-    <AbsoluteFill style={{ background: BG, transform: `scale(${zoom}) translateY(${panY2}px)`, transformOrigin: "45% 50%" }}>
+    <AbsoluteFill style={{ background: BG, transform: `translate(${tx2}px, ${ty2}px) scale(${z2})`, transformOrigin: `${assessFocus.x}px ${assessFocus.y}px` }}>
       <Logo />
       <div style={{ position: "absolute", top: 96, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
         <div style={{ width: 740 }}>
