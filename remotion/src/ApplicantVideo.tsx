@@ -479,7 +479,6 @@ const PipelineScene: React.FC = () => {
     { label: "Final Review", done: false },
   ];
 
-  const prepStart = 90;
   const prepSpring = spring({ frame: frame - prepStart, fps, config: { damping: 22 } });
 
   const notes = [
