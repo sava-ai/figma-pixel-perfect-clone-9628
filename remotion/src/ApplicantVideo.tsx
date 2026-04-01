@@ -359,12 +359,16 @@ const ScreeningScene: React.FC = () => {
     { label: "Industry Experience", v: "Exceeds", col: GRN },
   ];
 
+  // Cinematic zoom on assessment reveal
+  const zAssess = interpolate(frame, [assessStart, assessStart + 20, assessStart + 50], [1, 1.07, 1.03], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
+
   return (
     <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #eee9e1 100%)`, justifyContent: "center", alignItems: "center" }}>
       <div style={{
         width: 640, background: CHAT_BG, borderRadius: 24,
         boxShadow: `0 30px 80px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04)`,
-        transform: `translateY(${interpolate(panelSlide, [0, 1], [40, 0])}px)`,
+        transform: `translateY(${interpolate(panelSlide, [0, 1], [40, 0])}px) scale(${zAssess})`,
+        transformOrigin: "center 80%",
         opacity: panelSlide,
         display: "flex", flexDirection: "column", overflow: "hidden",
       }}>
