@@ -466,6 +466,7 @@ const PipelineScene: React.FC = () => {
   const { fps } = useVideoConfig();
 
   const cardSpring = spring({ frame, fps, config: { damping: 20, stiffness: 80 } });
+  const prepStart = 90;
   // Zoom pulse on prep notes reveal
   const zPrep = interpolate(frame, [prepStart, prepStart + 18, prepStart + 45], [1, 1.05, 1.02], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
   const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) }) * zPrep;
