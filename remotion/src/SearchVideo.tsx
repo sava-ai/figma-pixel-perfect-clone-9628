@@ -632,7 +632,7 @@ const CandidateDetailScene: React.FC = () => {
                         width: 36, height: 36, borderRadius: 10,
                         overflow: "hidden",
                         display: "flex", alignItems: "center", justifyContent: "center",
-                        background: src.platform === "GitHub" ? "#f6f8fa" : src.platform === "Applicant" ? src.color : "transparent",
+                        background: src.platform === "GitHub" ? "#24292e" : src.platform === "Applicant" ? src.color : "transparent",
                       }}>
                         {src.platform === "Applicant" 
                           ? <IconStar size={18} color="#fff" /> 
