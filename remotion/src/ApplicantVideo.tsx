@@ -200,12 +200,19 @@ const CareerPageScene: React.FC = () => {
   const confirmText = "Great choice! Let's get started with a quick screening.";
   const confirmTyped = useType(confirmText, frame, confirmStart + 8, 1.4);
 
+  // Cinematic zoom: pulse in on role card, tighter on apply click
+  const z1 = interpolate(frame, [roleStart, roleStart + 18], [1, 1.06], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
+  const z2 = interpolate(frame, [applyBtnFrame, applyBtnFrame + 12, applyBtnFrame + 30], [1, 1.04, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const zoomConfirm = interpolate(frame, [confirmStart, confirmStart + 20, confirmStart + 50], [1, 0.97, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) });
+  const zoom = z1 * z2 * zoomConfirm;
+
   return (
     <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #eee9e1 100%)`, justifyContent: "center", alignItems: "center" }}>
       <div style={{
         width: 640, background: CHAT_BG, borderRadius: 24,
         boxShadow: `0 30px 80px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04)`,
-        transform: `translateY(${interpolate(panelSlide, [0, 1], [40, 0])}px)`,
+        transform: `translateY(${interpolate(panelSlide, [0, 1], [40, 0])}px) scale(${zoom})`,
+        transformOrigin: "center 70%",
         opacity: panelSlide,
         display: "flex", flexDirection: "column", overflow: "hidden",
       }}>
@@ -352,12 +359,16 @@ const ScreeningScene: React.FC = () => {
     { label: "Industry Experience", v: "Exceeds", col: GRN },
   ];
 
+  // Cinematic zoom on assessment reveal
+  const zAssess = interpolate(frame, [assessStart, assessStart + 20, assessStart + 50], [1, 1.07, 1.03], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
+
   return (
     <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #eee9e1 100%)`, justifyContent: "center", alignItems: "center" }}>
       <div style={{
         width: 640, background: CHAT_BG, borderRadius: 24,
         boxShadow: `0 30px 80px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04)`,
-        transform: `translateY(${interpolate(panelSlide, [0, 1], [40, 0])}px)`,
+        transform: `translateY(${interpolate(panelSlide, [0, 1], [40, 0])}px) scale(${zAssess})`,
+        transformOrigin: "center 80%",
         opacity: panelSlide,
         display: "flex", flexDirection: "column", overflow: "hidden",
       }}>
@@ -455,7 +466,10 @@ const PipelineScene: React.FC = () => {
   const { fps } = useVideoConfig();
 
   const cardSpring = spring({ frame, fps, config: { damping: 20, stiffness: 80 } });
-  const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) });
+  const prepStart = 90;
+  // Zoom pulse on prep notes reveal
+  const zPrep = interpolate(frame, [prepStart, prepStart + 18, prepStart + 45], [1, 1.05, 1.02], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
+  const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) }) * zPrep;
 
   const steps = [
     { label: "Applied", done: true },
@@ -465,7 +479,6 @@ const PipelineScene: React.FC = () => {
     { label: "Final Review", done: false },
   ];
 
-  const prepStart = 90;
   const prepSpring = spring({ frame: frame - prepStart, fps, config: { damping: 22 } });
 
   const notes = [
@@ -575,17 +588,18 @@ const TaskSubmitScene: React.FC = () => {
   const { fps } = useVideoConfig();
 
   const cardSpring = spring({ frame, fps, config: { damping: 20, stiffness: 80 } });
-  const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) });
+  const submitBtnFrame = 120;
+  const confirmStart = 130;
+  const confirmSpring = spring({ frame: frame - confirmStart, fps, config: { damping: 18 } });
+  // Zoom pulse on submit + success
+  const zSubmit = interpolate(frame, [submitBtnFrame, submitBtnFrame + 12, submitBtnFrame + 35], [1, 1.06, 1.02], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
+  const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) }) * zSubmit;
 
   const files = [
     { name: "payment-flow.fig", size: "2.4 MB", icon: <IcoFigma s={18} />, uploadFrame: 25 },
     { name: "component-docs.pdf", size: "890 KB", icon: <IcoPDF s={18} />, uploadFrame: 40 },
     { name: "prototype-demo.mp4", size: "12 MB", icon: <IcoVideo s={18} />, uploadFrame: 55 },
   ];
-
-  const submitBtnFrame = 120;
-  const confirmStart = 130;
-  const confirmSpring = spring({ frame: frame - confirmStart, fps, config: { damping: 18 } });
 
   return (
     <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #eee9e1 100%)`, justifyContent: "center", alignItems: "center" }}>
