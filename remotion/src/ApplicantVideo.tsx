@@ -711,14 +711,14 @@ export const ApplicantVideo: React.FC = () => {
           presentation={fade()}
           timing={linearTiming({ durationInFrames: 25 })}
         />
-        <TransitionSeries.Sequence durationInFrames={280}>
+        <TransitionSeries.Sequence durationInFrames={310}>
           <CareerPageScene />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={wipe({ direction: "from-left" })}
           timing={springTiming({ config: { damping: 200 }, durationInFrames: 30 })}
         />
-        <TransitionSeries.Sequence durationInFrames={280}>
+        <TransitionSeries.Sequence durationInFrames={330}>
           <ScreeningScene />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
