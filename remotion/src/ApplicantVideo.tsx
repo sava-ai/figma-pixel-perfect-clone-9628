@@ -15,10 +15,9 @@ import { wipe } from "@remotion/transitions/wipe";
 import { loadFont } from "@remotion/fonts";
 
 loadFont({ family: "CooperLight", url: staticFile("fonts/CooperLtBTLight.ttf"), weight: "400" });
-loadFont({ family: "LabilGrotesk", url: staticFile("fonts/LabilGrotesk-Regular.ttf"), weight: "400" });
 
 const H = "CooperLight, serif";
-const B = "LabilGrotesk, sans-serif";
+const B = "Inter, sans-serif";
 
 const BG = "#f6f4f0";
 const CARD = "#ffffff";
