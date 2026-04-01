@@ -192,11 +192,7 @@ const CareerPageScene: React.FC = () => {
   const roleStart = 192;
   const roleSpring = spring({ frame: frame - roleStart, fps, config: { damping: 22, stiffness: 180 } });
 
-  // Cursor moves to Apply button after role card settles
   const applyBtnFrame = 230;
-  const cursorShow = frame >= 215 && frame < 248;
-  const cx = interpolate(frame, [215, 228], [700, 490], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cy = interpolate(frame, [215, 228], [300, 565], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
   const applyClicked = frame >= applyBtnFrame;
 
   // Confirmation message after click settles
