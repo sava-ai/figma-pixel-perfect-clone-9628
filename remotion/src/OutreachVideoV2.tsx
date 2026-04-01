@@ -173,69 +173,6 @@ const ProfilePhoto: React.FC<{ src: string; size: number }> = ({ src, size }) =>
   </div>
 );
 
-// ── Animated Cursor Component ──
-const AnimatedCursor: React.FC<{
-  x: number;
-  y: number;
-  visible: boolean;
-  clicking?: boolean;
-  scale?: number;
-}> = ({ x, y, visible, clicking = false, scale = 1 }) => {
-  const frame = useCurrentFrame();
-
-  if (!visible) return null;
-
-  const clickScale = clicking ? 0.85 : 1;
-  const rippleOpacity = clicking
-    ? interpolate(frame % 20, [0, 20], [0.6, 0], { extrapolateRight: "clamp" })
-    : 0;
-  const rippleScale = clicking
-    ? interpolate(frame % 20, [0, 20], [1, 2.5], { extrapolateRight: "clamp" })
-    : 1;
-
-  return (
-    <div
-      style={{
-        position: "absolute",
-        left: x,
-        top: y,
-        zIndex: 9999,
-        transform: `scale(${scale})`,
-        pointerEvents: "none",
-      }}
-    >
-      {clicking && (
-        <div
-          style={{
-            position: "absolute",
-            width: 30,
-            height: 30,
-            borderRadius: "50%",
-            border: `2px solid ${ACCENT}`,
-            opacity: rippleOpacity,
-            transform: `translate(-50%, -50%) scale(${rippleScale})`,
-            left: 4,
-            top: 4,
-          }}
-        />
-      )}
-      <svg
-        width={24}
-        height={24}
-        viewBox="0 0 24 24"
-        style={{ transform: `scale(${clickScale})`, filter: "drop-shadow(1px 2px 3px rgba(0,0,0,0.3))" }}
-      >
-        <path
-          d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.85a.5.5 0 0 0-.85.36Z"
-          fill="#fff"
-          stroke="#1a1817"
-          strokeWidth={1.5}
-        />
-      </svg>
-    </div>
-  );
-};
-
 // ── Helpers ──
 const useTypewriter = (
   text: string,
