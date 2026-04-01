@@ -179,7 +179,7 @@ const S1_CareerPage: React.FC = () => {
   });
 
   return (
-    <AbsoluteFill style={{ background: BG, transform: `scale(${zoom})`, transformOrigin: "50% 55%" }}>
+    <AbsoluteFill style={{ background: BG, transform: `scale(${zoom}) translate(${panX}px, ${panY}px)`, transformOrigin: "50% 40%" }}>
       <Logo />
       <div style={{ position: "absolute", top: 96, left: 0, right: 0, display: "flex", justifyContent: "center", opacity: pageIn }}>
         <div style={{ width: 740, display: "flex", flexDirection: "column" }}>
