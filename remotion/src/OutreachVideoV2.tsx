@@ -1166,13 +1166,13 @@ export const OutreachVideoV2: React.FC = () => {
   return (
     <AbsoluteFill style={{ background: BG }}>
       <TransitionSeries>
-        <TransitionSeries.Sequence durationInFrames={80}>
+        <TransitionSeries.Sequence durationInFrames={90}>
           <IntroScene />
         </TransitionSeries.Sequence>
 
         <TransitionSeries.Transition
-          presentation={fade()}
-          timing={linearTiming({ durationInFrames: 20 })}
+          presentation={slide({ direction: "from-right" })}
+          timing={springTiming({ config: { damping: 200 }, durationInFrames: 30 })}
         />
 
         <TransitionSeries.Sequence durationInFrames={220}>
@@ -1180,8 +1180,8 @@ export const OutreachVideoV2: React.FC = () => {
         </TransitionSeries.Sequence>
 
         <TransitionSeries.Transition
-          presentation={wipe({ direction: "from-left" })}
-          timing={linearTiming({ durationInFrames: 20 })}
+          presentation={slide({ direction: "from-right" })}
+          timing={springTiming({ config: { damping: 200 }, durationInFrames: 30 })}
         />
 
         <TransitionSeries.Sequence durationInFrames={350}>
@@ -1189,8 +1189,8 @@ export const OutreachVideoV2: React.FC = () => {
         </TransitionSeries.Sequence>
 
         <TransitionSeries.Transition
-          presentation={fade()}
-          timing={springTiming({ config: { damping: 200 }, durationInFrames: 20 })}
+          presentation={wipe({ direction: "from-left" })}
+          timing={springTiming({ config: { damping: 200 }, durationInFrames: 25 })}
         />
 
         <TransitionSeries.Sequence durationInFrames={160}>
@@ -1199,7 +1199,7 @@ export const OutreachVideoV2: React.FC = () => {
 
         <TransitionSeries.Transition
           presentation={slide({ direction: "from-bottom" })}
-          timing={linearTiming({ durationInFrames: 20 })}
+          timing={springTiming({ config: { damping: 200 }, durationInFrames: 25 })}
         />
 
         <TransitionSeries.Sequence durationInFrames={180}>
@@ -1208,7 +1208,7 @@ export const OutreachVideoV2: React.FC = () => {
 
         <TransitionSeries.Transition
           presentation={fade()}
-          timing={linearTiming({ durationInFrames: 20 })}
+          timing={springTiming({ config: { damping: 200 }, durationInFrames: 30 })}
         />
 
         <TransitionSeries.Sequence durationInFrames={100}>
