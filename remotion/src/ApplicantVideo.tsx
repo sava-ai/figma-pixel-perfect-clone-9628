@@ -157,8 +157,7 @@ const S1_CareerPage: React.FC = () => {
   const roleStart = 158;
   const roleSpring = spring({ frame: frame - roleStart, fps, config: { damping: 22, stiffness: 180 } });
 
-  // Apply button measured from unzoomed still: center at (636, 301)
-  const click = { x: 636, y: 301 };
+  const click = { x: 624, y: 300 };
   const applyBtnFrame = 200;
   const cursorShow = frame >= 180 && frame < 215;
 
