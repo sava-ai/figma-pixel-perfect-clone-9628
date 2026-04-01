@@ -834,12 +834,6 @@ const ComposeScene: React.FC = () => {
         </div>
       </div>
 
-      <AnimatedCursor
-        x={cursorX}
-        y={cursorY}
-        visible={cursorVisible}
-        clicking={cursorClicking}
-      />
     </AbsoluteFill>
   );
 };
