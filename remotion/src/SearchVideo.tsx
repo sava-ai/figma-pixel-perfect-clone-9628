@@ -300,7 +300,7 @@ const SourceScanScene: React.FC = () => {
                   overflow: "hidden",
                   boxShadow: `0 8px 24px ${src.color}30`,
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  background: src.name === "GitHub" ? "#f6f8fa" : "transparent",
+                  background: src.name === "GitHub" ? "#24292e" : "transparent",
                 }}>
                   <Img src={staticFile(src.icon)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
@@ -585,25 +585,29 @@ const CandidateDetailScene: React.FC = () => {
             {/* Criteria Benchmark */}
             <div style={{ marginBottom: 28 }}>
               <div style={{ fontSize: 20, fontFamily: headingFont, color: TEXT, marginBottom: 16 }}>Criteria benchmark</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 {[
-                  { label: "Fintech experience", score: 95, color: GREEN },
-                  { label: "Design systems", score: 88, color: GREEN },
-                  { label: "Leadership", score: 82, color: ACCENT },
-                  { label: "Scale experience", score: 78, color: ACCENT },
-                  { label: "Cultural fit", score: 91, color: GREEN },
+                  { label: "Fintech experience", match: true },
+                  { label: "Design systems", match: true },
+                  { label: "Leadership experience", match: true },
+                  { label: "Scale (200+ engineers)", match: true },
+                  { label: "Remote-friendly", match: false },
                 ].map((criteria, i) => {
                   const cSpring = spring({ frame: frame - 100 - i * 8, fps, config: { damping: 200 } });
-                  const barWidth = interpolate(cSpring, [0, 1], [0, criteria.score]);
                   return (
-                    <div key={i} style={{ opacity: cSpring }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                        <span style={{ fontSize: 13, fontFamily: bodyFont, color: TEXT }}>{criteria.label}</span>
-                        <span style={{ fontSize: 13, fontFamily: bodyFont, color: criteria.color, fontWeight: 500 }}>{Math.round(barWidth)}%</span>
-                      </div>
-                      <div style={{ width: "100%", height: 6, borderRadius: 3, background: BORDER }}>
-                        <div style={{ width: `${barWidth}%`, height: "100%", borderRadius: 3, background: criteria.color, transition: "none" }} />
-                      </div>
+                    <div key={i} style={{
+                      display: "flex", alignItems: "center", justifyContent: "space-between",
+                      padding: "10px 16px", borderRadius: 12,
+                      background: criteria.match ? GREEN_BG : "rgba(200,190,180,0.08)",
+                      border: `1px solid ${criteria.match ? `${GREEN}20` : BORDER}`,
+                      opacity: cSpring,
+                      transform: `translateX(${interpolate(cSpring, [0, 1], [20, 0])}px)`,
+                    }}>
+                      <span style={{ fontSize: 13, fontFamily: bodyFont, color: TEXT }}>{criteria.label}</span>
+                      {criteria.match
+                        ? <div style={{ display: "flex", alignItems: "center", gap: 6 }}><IconCheck size={15} color={GREEN} /><span style={{ fontSize: 12, fontFamily: bodyFont, color: GREEN, fontWeight: 500 }}>Match</span></div>
+                        : <span style={{ fontSize: 12, fontFamily: bodyFont, color: TEXT_SEC }}>No match</span>
+                      }
                     </div>
                   );
                 })}
@@ -628,7 +632,7 @@ const CandidateDetailScene: React.FC = () => {
                         width: 36, height: 36, borderRadius: 10,
                         overflow: "hidden",
                         display: "flex", alignItems: "center", justifyContent: "center",
-                        background: src.platform === "GitHub" ? "#f6f8fa" : src.platform === "Applicant" ? src.color : "transparent",
+                        background: src.platform === "GitHub" ? "#24292e" : src.platform === "Applicant" ? src.color : "transparent",
                       }}>
                         {src.platform === "Applicant" 
                           ? <IconStar size={18} color="#fff" /> 
