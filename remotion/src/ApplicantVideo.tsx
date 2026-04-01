@@ -373,6 +373,18 @@ const S3_Pipeline: React.FC = () => {
   const prepStart = 80;
   const prepSpring = spring({ frame: frame - prepStart, fps, config: { damping: 22 } });
 
+  // Zoom into "Design Task" step then back out to reveal prep notes
+  const focusZoom = interpolate(frame, [40, 70, 130, 170], [1, 1.3, 1.3, 1], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  });
+  const focusPanX = interpolate(frame, [40, 70, 130, 170], [0, -200, -200, 0], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  });
+  const focusPanY = interpolate(frame, [40, 70, 130, 170], [0, -30, -30, 0], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  });
+  const combinedZoom = zoom * focusZoom;
+
   const notes = [
     "Review Laidback's design system principles",
     "Prepare case study: Stripe component library",
@@ -380,7 +392,7 @@ const S3_Pipeline: React.FC = () => {
   ];
 
   return (
-    <AbsoluteFill style={{ background: BG, transform: `scale(${zoom})`, transformOrigin: "50% 55%" }}>
+    <AbsoluteFill style={{ background: BG, transform: `scale(${combinedZoom}) translate(${focusPanX}px, ${focusPanY}px)`, transformOrigin: "50% 30%" }}>
       <Logo />
       <div style={{ position: "absolute", top: 96, left: 80, right: 80 }}>
         <div style={{ marginBottom: 36, opacity: pageIn }}>
