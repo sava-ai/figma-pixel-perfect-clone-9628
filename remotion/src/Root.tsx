@@ -5,6 +5,7 @@ import { InterviewVideo } from "./InterviewVideo";
 import { SearchVideo } from "./SearchVideo";
 import { JobBriefVideo } from "./JobBriefVideo";
 import { ApplicantVideo } from "./ApplicantVideo";
+import { FeedbackLoopVideo } from "./FeedbackLoopVideo";
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -52,6 +53,14 @@ export const RemotionRoot: React.FC = () => (
       id="applicant"
       component={ApplicantVideo}
       durationInFrames={1120}
+      fps={30}
+      width={1920}
+      height={1080}
+    />
+    <Composition
+      id="feedback-loop"
+      component={FeedbackLoopVideo}
+      durationInFrames={1200}
       fps={30}
       width={1920}
       height={1080}
