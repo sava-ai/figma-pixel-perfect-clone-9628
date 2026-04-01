@@ -588,7 +588,9 @@ const TaskSubmitScene: React.FC = () => {
   const { fps } = useVideoConfig();
 
   const cardSpring = spring({ frame, fps, config: { damping: 20, stiffness: 80 } });
-  const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) });
+  // Zoom pulse on submit + success
+  const zSubmit = interpolate(frame, [submitBtnFrame, submitBtnFrame + 12, submitBtnFrame + 35], [1, 1.06, 1.02], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
+  const zoomProgress = interpolate(frame, [0, 40], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) }) * zSubmit;
 
   const files = [
     { name: "payment-flow.fig", size: "2.4 MB", icon: <IcoFigma s={18} />, uploadFrame: 25 },
