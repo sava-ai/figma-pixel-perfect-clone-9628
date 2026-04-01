@@ -302,7 +302,7 @@ const SourceScanScene: React.FC = () => {
                   display: "flex", alignItems: "center", justifyContent: "center",
                   background: src.name === "GitHub" ? "#24292e" : "transparent",
                 }}>
-                  <Img src={staticFile(src.icon)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <Img src={staticFile(src.icon)} style={{ width: src.name === "GitHub" ? "60%" : "100%", height: src.name === "GitHub" ? "60%" : "100%", objectFit: "cover", filter: src.name === "GitHub" ? "invert(1)" : "none" }} />
                 </div>
                 <span style={{ fontSize: 12, fontFamily: bodyFont, color: TEXT_SEC }}>{src.name}</span>
               </div>
@@ -636,7 +636,7 @@ const CandidateDetailScene: React.FC = () => {
                       }}>
                         {src.platform === "Applicant" 
                           ? <IconStar size={18} color="#fff" /> 
-                          : <Img src={staticFile(src.platform === "LinkedIn" ? "images/linkedin.svg" : src.platform === "GitHub" ? "images/github.svg" : "images/behance.svg")} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                          : <Img src={staticFile(src.platform === "LinkedIn" ? "images/linkedin.svg" : src.platform === "GitHub" ? "images/github.svg" : "images/behance.svg")} style={{ width: src.platform === "GitHub" ? "60%" : "100%", height: src.platform === "GitHub" ? "60%" : "100%", objectFit: "cover", filter: src.platform === "GitHub" ? "invert(1)" : "none" }} />
                         }
                       </div>
                       <div style={{ flex: 1 }}>
