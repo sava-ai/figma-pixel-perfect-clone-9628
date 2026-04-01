@@ -16,20 +16,21 @@ import { wipe } from "@remotion/transitions/wipe";
 import { loadFont } from "@remotion/fonts";
 
 // ── Load Custom Fonts ──
+import { loadFont as loadGoogleFont } from "@remotion/google-fonts/Inter";
+
 loadFont({
   family: "CooperLight",
   url: staticFile("fonts/CooperLtBTLight.ttf"),
   weight: "400",
 });
 
-loadFont({
-  family: "LabilGrotesk",
-  url: staticFile("fonts/LabilGrotesk-Regular.ttf"),
-  weight: "400",
+const { fontFamily: interFamily } = loadGoogleFont("normal", {
+  weights: ["400", "500", "600"],
+  subsets: ["latin"],
 });
 
 const headingFont = "CooperLight, serif";
-const bodyFont = "LabilGrotesk, sans-serif";
+const bodyFont = `${interFamily}, sans-serif`;
 
 // ── Colors ──
 const BG = "#f6f4f0";
