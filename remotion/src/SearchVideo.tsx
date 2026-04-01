@@ -300,7 +300,7 @@ const SourceScanScene: React.FC = () => {
                   overflow: "hidden",
                   boxShadow: `0 8px 24px ${src.color}30`,
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  background: src.name === "GitHub" ? "#f6f8fa" : "transparent",
+                  background: src.name === "GitHub" ? "#24292e" : "transparent",
                 }}>
                   <Img src={staticFile(src.icon)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
