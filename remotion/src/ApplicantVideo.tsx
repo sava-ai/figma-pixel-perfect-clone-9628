@@ -157,37 +157,25 @@ const S1_CareerPage: React.FC = () => {
   const roleStart = 158;
   const roleSpring = spring({ frame: frame - roleStart, fps, config: { damping: 22, stiffness: 180 } });
 
-  // Cursor moves to the "Apply" button — pre-zoom position ~(600, 287)
+  const click = { x: 624, y: 300 };
   const applyBtnFrame = 200;
   const cursorShow = frame >= 180 && frame < 215;
-  // Pre-zoom button position
-  const btnX = 600, btnY = 287;
-  
-  // Zoom kicks in at frame 195
-  const zoom = interpolate(frame, [0, 10, 195, 215, 260, 290], [1.02, 1, 1, 1.25, 1.25, 1.35], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+
+  // Simple zoom anchored at click point — no translate needed
+  const z = interpolate(frame, [0, 10, 195, 212, 260, 290], [1.02, 1, 1, 1.2, 1.2, 1.3], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.22, 1, 0.36, 1),
   });
-  const panX = interpolate(frame, [195, 215, 260, 290], [0, -80, -80, -80], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
-  });
-  const panY = interpolate(frame, [195, 215, 260, 290], [0, -60, -60, -120], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
-  });
-  
-  // Compute screen-space cursor position (accounting for zoom+pan)
-  const originX = 960, originY = 432; // 50% of 1920, 40% of 1080
-  const screenBtnX = (btnX - originX) * zoom + originX + panX * zoom;
-  const screenBtnY = (btnY - originY) * zoom + originY + panY * zoom;
-  const cx = interpolate(frame, [180, 198], [850, screenBtnX], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cy = interpolate(frame, [180, 198], [200, screenBtnY], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+
+  // Cursor inside same transform — raw coords match element positions
+  const cx = interpolate(frame, [180, 198], [900, click.x], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cy = interpolate(frame, [180, 198], [150, click.y], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
 
   const applyClick = frame >= applyBtnFrame;
   const confirmMsg = { text: "Great choice! Let's get you started with a quick screening.", start: 220 };
   const confirmSpring = spring({ frame: frame - confirmMsg.start, fps, config: { damping: 28 } });
 
   return (
-    <AbsoluteFill style={{ background: BG }}>
-      <div style={{ width: "100%", height: "100%", transform: `scale(${zoom}) translate(${panX}px, ${panY}px)`, transformOrigin: "50% 40%" }}>
+    <AbsoluteFill style={{ background: BG, transform: `scale(${z})`, transformOrigin: `${click.x}px ${click.y}px` }}>
       <Logo />
       <div style={{ position: "absolute", top: 96, left: 0, right: 0, display: "flex", justifyContent: "center", opacity: pageIn }}>
         <div style={{ width: 740, display: "flex", flexDirection: "column" }}>
@@ -255,8 +243,8 @@ const S1_CareerPage: React.FC = () => {
           )}
         </div>
       </div>
-      </div>
       {cursorShow && <Cursor x={cx} y={cy} frame={frame} click={applyBtnFrame} />}
+      
     </AbsoluteFill>
   );
 };
@@ -268,12 +256,10 @@ const S2_Screening: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Zoom into assessment card when it appears
-  const zoom = interpolate(frame, [0, 30, 180, 220, 250], [1.06, 1, 1, 1.3, 1.35], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
-  });
-  const panY2 = interpolate(frame, [180, 220], [0, -100], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  // Assessment card center — zoom anchored there
+  const assessFocus = { x: 590, y: 460 };
+  const z2 = interpolate(frame, [0, 30, 180, 215, 250], [1.06, 1, 1, 1.25, 1.3], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.22, 1, 0.36, 1),
   });
 
   const msgs: { role: "ai" | "user"; text: string; start: number }[] = [
@@ -294,7 +280,7 @@ const S2_Screening: React.FC = () => {
   ];
 
   return (
-    <AbsoluteFill style={{ background: BG, transform: `scale(${zoom}) translateY(${panY2}px)`, transformOrigin: "45% 50%" }}>
+    <AbsoluteFill style={{ background: BG, transform: `scale(${z2})`, transformOrigin: `${assessFocus.x}px ${assessFocus.y}px` }}>
       <Logo />
       <div style={{ position: "absolute", top: 96, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
         <div style={{ width: 740 }}>
@@ -499,28 +485,20 @@ const S4_TaskSubmit: React.FC = () => {
   const confirmStart = 130;
   const confirmSpring = spring({ frame: frame - confirmStart, fps, config: { damping: 18 } });
 
-  // Cursor moves to Submit button — pre-zoom position ~(148, 387)
-  const btnX4 = 148, btnY4 = 387;
+  // Submit button measured position from rendered still
+  const click4 = { x: 148, y: 387 };
   const cursorShow = frame >= 100 && frame < 135;
 
-  // Zoom into submit area on click, then pull back to show confirmation
-  const s4zoom = interpolate(frame, [0, 30, 115, 135, 175, 230], [1.04, 1, 1, 1.3, 1.3, 1.1], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
-  });
-  const s4panY = interpolate(frame, [115, 135, 175, 230], [0, -80, -80, -30], {
-    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease),
+  // Simple zoom anchored at submit button
+  const s4z = interpolate(frame, [0, 30, 115, 135, 175, 230], [1.04, 1, 1, 1.3, 1.3, 1.1], {
+    extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.22, 1, 0.36, 1),
   });
 
-  // Compute screen-space cursor (accounting for zoom+pan, origin 25%=480, 45%=486)
-  const ox4 = 480, oy4 = 486;
-  const screenBtnX4 = (btnX4 - ox4) * s4zoom + ox4;
-  const screenBtnY4 = (btnY4 - oy4) * s4zoom + oy4 + s4panY * s4zoom;
-  const cx = interpolate(frame, [100, 115], [500, screenBtnX4], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
-  const cy = interpolate(frame, [100, 115], [250, screenBtnY4], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cx = interpolate(frame, [100, 115], [500, click4.x], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
+  const cy = interpolate(frame, [100, 115], [200, click4.y], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.ease) });
 
   return (
-    <AbsoluteFill style={{ background: BG }}>
-      <div style={{ width: "100%", height: "100%", transform: `scale(${s4zoom}) translateY(${s4panY}px)`, transformOrigin: "25% 45%" }}>
+    <AbsoluteFill style={{ background: BG, transform: `scale(${s4z})`, transformOrigin: `${click4.x}px ${click4.y}px` }}>
       <Logo />
       <div style={{ position: "absolute", top: 68, left: 0, right: 0, bottom: 0, display: "flex" }}>
         {/* Left sidebar tabs */}
@@ -647,7 +625,6 @@ const S4_TaskSubmit: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
       </div>
       {cursorShow && <Cursor x={cx} y={cy} frame={frame} click={submitBtnFrame} />}
     </AbsoluteFill>
