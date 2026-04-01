@@ -200,12 +200,19 @@ const CareerPageScene: React.FC = () => {
   const confirmText = "Great choice! Let's get started with a quick screening.";
   const confirmTyped = useType(confirmText, frame, confirmStart + 8, 1.4);
 
+  // Cinematic zoom: pulse in on role card, tighter on apply click
+  const z1 = interpolate(frame, [roleStart, roleStart + 18], [1, 1.06], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
+  const z2 = interpolate(frame, [applyBtnFrame, applyBtnFrame + 12, applyBtnFrame + 30], [1, 1.04, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const zoomConfirm = interpolate(frame, [confirmStart, confirmStart + 20, confirmStart + 50], [1, 0.97, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.quad) });
+  const zoom = z1 * z2 * zoomConfirm;
+
   return (
     <AbsoluteFill style={{ background: `linear-gradient(170deg, ${BG} 0%, #eee9e1 100%)`, justifyContent: "center", alignItems: "center" }}>
       <div style={{
         width: 640, background: CHAT_BG, borderRadius: 24,
         boxShadow: `0 30px 80px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04)`,
-        transform: `translateY(${interpolate(panelSlide, [0, 1], [40, 0])}px)`,
+        transform: `translateY(${interpolate(panelSlide, [0, 1], [40, 0])}px) scale(${zoom})`,
+        transformOrigin: "center 70%",
         opacity: panelSlide,
         display: "flex", flexDirection: "column", overflow: "hidden",
       }}>
