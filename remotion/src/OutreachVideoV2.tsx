@@ -59,7 +59,7 @@ const BLUE_BG = "rgba(74, 124, 255, 0.08)";
 
 // ── Laidback Logo Icon (uses uploaded SVG) ──
 const LaidbackLogo: React.FC<{ size?: number }> = ({ size = 20 }) => (
-  <Img src={staticFile("images/logolaidback.svg")} style={{ width: size, height: size * 0.74, objectFit: "contain" }} />
+  <img src={staticFile("images/logolaidback.svg")} style={{ width: size, height: size * 0.74, objectFit: "contain" }} />
 );
 
 // ── SVG Icon Components ──
